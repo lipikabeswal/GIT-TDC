@@ -58,7 +58,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mq"]}},$lzc$class__mq.attributes)
 }}})($lzc$class__mq)
-};canvas=new $lzc$class__mq(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onkeydown","$mi","$mh","onmousedown","$mk","$mj","onbringBackFocus","$ml",null,"onfootnotedata","$mm",null,"onisMultiAudio","$mn",null,"oninit","$mo",null,"onfootnotetext","$mp",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-06-26T13:36:11Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mq(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onkeydown","$mi","$mh","onmousedown","$mk","$mj","onbringBackFocus","$ml",null,"onfootnotedata","$mm",null,"onisMultiAudio","$mn",null,"oninit","$mo",null,"onfootnotetext","$mp",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-08-20T23:44:26Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -20580,12 +20580,8 @@ return $0%90==0&&$0%180!=0
 },"getRadiansFromDegrees",function($0){
 return $0*(Math.PI/180)
 },"round",function($0,$1){
-var $2=$0;if($1<this.maxDigits&&this.operands.length>1){
-var $3=Math.pow(10,$1);$2=Math.round($0*$3)/$3
-};if(this.currentOperator=="multiply"&&this.isEqualClicked&&$2!=""){
-$2=this.roundValue($2)
-}else if(this.tempOperator=="multiply"&&this.currentOperator=="add"&&$2!=""){
-$2=this.roundValue($2);this.setAttribute("tempOperator","")
+var $2=$0;if($1<this.maxDigits&&this.operands.length!=1){
+var $3=Math.pow(10,$1);$2=Math.round($0*$3)/$3;$2=this.roundValue($2)
 };return $2
 },"roundValue",function($0){
 var $1=$0;var $2=String($0);if($2.indexOf(".")>-1){
@@ -29935,8 +29931,9 @@ case 0:
 $0=null;
 
 };if(canvas.loadItem){
-lz.Focus.clearFocus();this.exitPopups();gController.finishTestShortcut()
-}},"$lzsc$initialize",function($0,$1,$2,$3){
+lz.Focus.clearFocus();this.exitPopups();if(gItemInterface.visible==true||gTutorial.visible==true){
+gController.finishTestShortcut()
+}}},"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -31540,7 +31537,7 @@ $0=false;break
 };if($0){
 this.trackingcomponents=false;this.itemloaded=true;this.checkItemStatus()
 }}},"exitPopups",function(){
-gFootNotePopup.hide();gRationalePopup.hide();gPleaseWaitPopup.hide()
+gEnlargePopup.shrink();gFootNotePopup.hide();gRationalePopup.hide();gPleaseWaitPopup.hide()
 },"movedYouAreHere",function(){
 this.youarehereset=true;this.checkItemStatus()
 },"youarehereset",void 0,"itemloaded",void 0,"runtimeready",void 0,"requestPending",void 0,"updateRequestPending",function($0,$1){
@@ -31815,11 +31812,12 @@ var $1=Math.floor($0/60);var $2=$0%60;if($1<10)$1="0"+$1;if($2<10)$2="0"+$2;retu
 this.stopTimer();this.setAttribute("inQuestion",false)
 },"stopTimer",function(){
 if(this.timing){
-var $0;$0=getTimer();lz.Timer.removeTimer(this.dupdateTimeLeft);this.timing=false;this.elapsedms+=$0-this.qtimestamp;var $1=this.dpstudentdata.xpathQuery("current_item/item_model");var $2=$1.getAttr("dur");if(typeof $2=="string"){
+var $0;$0=getTimer();lz.Timer.removeTimer(this.dupdateTimeLeft);this.timing=false;this.elapsedms+=$0-this.qtimestamp;var $1=this.dpstudentdata.xpathQuery("current_item/item_model");if($1!=null&&$1!=undefined){
+var $2=$1.getAttr("dur");if(typeof $2=="string"){
 $1.setAttr("dur",String(parseInt($2)+Math.floor(($0-this.qtimestamp)/1000)))
 }else{
 $1.setAttr("dur",String(Math.floor(($0-this.qtimestamp)/1000)))
-}}},"clearInvalidCrResponses",function(){
+}}}},"clearInvalidCrResponses",function(){
 for(var $0=0;$0<this.crFields.length;$0++){
 var $1=this.crFields[$0];if(!$1["answered"]){
 $1["answer"]="";$1["ref"].setAnswer("")
@@ -35187,7 +35185,8 @@ $2=0
 }else{
 $2=gController.subtestLength-gController.totalVisited()
 };this.stats.notanswered.setAttribute("text","You have "+$2+" "+($2==1?"question":"questions")+" left.")
-}}},"canGoBack",function(){
+};this.stats.marked.setAttribute("text","")
+}},"canGoBack",function(){
 this.buttons.goback.setAttribute("enabled",true);this.buttons.goback.setAttribute("visible",true)
 },"cannotGoBack",function(){
 this.buttons.goback.setAttribute("enabled",false);this.buttons.goback.setAttribute("visible",false)
