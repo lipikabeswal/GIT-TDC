@@ -33,6 +33,12 @@
 		<frame src="login_on.swf"/>
 		<frame src="login_click.swf"/>
 	</resource>	
+	
+	<resource name="logout_button_rsc">
+		<frame src="logout_off.swf"/>
+		<frame src="logout_on.swf"/>
+		<frame src="logout_click.swf"/>
+	</resource>	
 
 	<resource name="cancel_button_rsc">
 		<frame src="cancel_off.swf"/>
