@@ -81,6 +81,10 @@
  			if ( contents.ts.isinited ) contents.ts.setAttribute('visible', false );
             //prancingMan.remove();
             //standingMan.remove();
+            //the following attributes need to be reset to default value before using them into any screen
+            gScreens.setAttribute('y',200);
+            gScreens.middle.bgFrame.setAttribute('height',200);
+            gScreens.copyWriteText.setAttribute('y',200);
         </method>
 
         <method name="showDownload" args="totalSubtests">
