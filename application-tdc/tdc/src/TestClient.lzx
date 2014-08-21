@@ -148,11 +148,9 @@
 	<method name="setPromptDimension">
 		if(gPauseTimerScreen.visible) {
 			titleView.mainView.timeoutDialog.pauseTimerMsg.setVisible(true);
-			titleView.mainView.timeoutDialog.pauseTimeoutMsg.setVisible(true);
 			titleView.mainView.timeoutDialog.setY(200);
 		} else {
 			titleView.mainView.timeoutDialog.pauseTimerMsg.setVisible(false);
-			titleView.mainView.timeoutDialog.pauseTimeoutMsg.setVisible(false);
 			titleView.mainView.timeoutDialog.setY(20);
 			titleView.mainView.timeoutDialog.setHeight(130);
 			titleView.mainView.timeoutDialog.setWidth(360);
@@ -199,7 +197,7 @@
 				visible="false" />
 			<Screens id="gScreens" x="100" y="200" width="600"
 				height="200" visible="false">
-                <text y="200" font="Arial" fontsize="12" 
+                <text name="copyWriteText" y="200" font="Arial" fontsize="12" 
 			        fgcolor="${canvas.copyriteColor}" height="16" 
 				    text="${canvas.Copyrite}" width="40%"/>
 			   <text id="versionproductinfo"  y="200" x="${immediateparent.width - this.width}" font="Arial" fontsize="12" 
@@ -236,13 +234,6 @@
 			 multiline="true">
 			 Your test has been Paused for more than the 20-minute time limit and has now ended. Click OK to close the session.
            </text>
-		<!--<text name="pauseTimeoutMsg"
-			 font="CTB"	
-             fontsize="15" 
-             fgcolor="white"
-			 visible="false">
-             Click OK to close the session.
-           </text>--> 
 	    <view align="center" valign="middle" layout="axis:x; spacing:20">
 	      <OkButton enabled="${ gScreens.allowclick }">
                <method name="continue" event="onclick">
