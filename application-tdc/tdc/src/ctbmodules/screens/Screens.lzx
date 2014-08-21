@@ -77,6 +77,12 @@
             
             if ( contents.ss.isinited ) contents.ss.setVisible( false );
             if ( contents.ts.isinited ) contents.ts.setVisible( false );
+                
+                //the following attributes need to be reset to default value before using them into any screen
+                gScreens.setAttribute('y',200);
+            	gScreens.setHeight(200);
+				gScreens.copyWriteText.setAttribute('y',200);
+            	versionproductinfo.setAttribute('y',200);
  
 
             prancingMan.remove();
@@ -168,7 +174,15 @@
             if ( !contents.ps.isinited ) contents.ps.completeInstantiation();
             standingMan.apply();
             //contents.ps.pw.passwordField.setText( '' );
-            contents.ps.prompt.setText( 'Log in to resume your paused test.' );
+            if((gController.isLaslink == true || gController.isLaslink == 'true')){
+            	contents.ps.prompt.setText( 'Log in to resume your paused test or log out to resume later.');
+            	gScreens.setAttribute('y',170);
+            	gScreens.copyWriteText.setAttribute('y',230);
+            	gScreens.setHeight(230);
+            	versionproductinfo.setAttribute('y',230);
+            }else{
+            	contents.ps.prompt.setText( 'Log in to resume your paused test.' );
+            }	
             contents.ps.studentName.setAttribute('text', 'Hello ' + sn);
             //contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
             contents.ps.setVisible( true );
