@@ -971,9 +971,13 @@ function checkEmptyString(str) {
 					}
 					break;
 				case 'f' :
-					hideMagnify();
-					gHotKeys.finish();
-					event.preventDefault(); // disable Ctrl+F
+					if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+						if(gController.onLastItem()) {
+							hideMagnify();
+						}
+						gHotKeys.finish();
+						event.preventDefault(); // disable Ctrl+F
+					}
 					break;
 				default:
 					break;
