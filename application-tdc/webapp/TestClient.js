@@ -49,7 +49,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mm"]}},$lzc$class__mm.attributes)
 }}})($lzc$class__mm)
-};canvas=new $lzc$class__mm(null,{$delegates:["onfocus","$mc",null,"onkeydown","$me","$md","onmousedown","$mg","$mf","onbringBackFocus","$mh",null,"onfootnotedata","$mi",null,"onisMultiAudio","$mj",null,"oninit","$mk",null,"onfootnotetext","$ml",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-06-25T13:43:08Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mm(null,{$delegates:["onfocus","$mc",null,"onkeydown","$me","$md","onmousedown","$mg","$mf","onbringBackFocus","$mh",null,"onfootnotedata","$mi",null,"onisMultiAudio","$mj",null,"oninit","$mk",null,"onfootnotetext","$ml",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-08-21T12:24:18Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -20380,7 +20380,7 @@ return $0%90==0&&$0%180!=0
 },"getRadiansFromDegrees",function($0){
 return $0*(Math.PI/180)
 },"round",function($0,$1){
-var $2=$0;if($1<this.maxDigits&&this.operands.length>1){
+var $2=$0;if($1<this.maxDigits&&this.operands.length!=1){
 var $3=Math.pow(10,$1);$2=Math.round($0*$3)/$3
 };if(this.currentOperator=="multiply"&&this.isEqualClicked&&$2!=""){
 $2=this.roundValue($2)
@@ -20441,7 +20441,11 @@ $1=$0
 $1="-"+$1
 };return $1
 },"roundMantissa",function($0,$1){
-var $2=this.maxDigits-1-$1;var $3=this.round($0,$2);var $4=this.removeDecimal($3);return $4
+var $2=this.maxDigits-1-$1;var $3=this.roundDecimal($0,$2);var $4=this.removeDecimal($3);return $4
+},"roundDecimal",function($0,$1){
+var $2=$0;if($1<this.maxDigits){
+var $3=Math.pow(10,$1);$2=Math.round($0*$3)/$3
+};return $2
 },"removeDecimal",function($0){
 var $1=$0.toString();var $2=$1.indexOf(".");var $3=$1.substring(0,$2)+$1.substring($2+1,$1.length);return $3
 },"getZeros",function($0){
@@ -27497,7 +27501,7 @@ $1=true;
 $0.id="restrictResponseOverlay";restrictResponseOverlay=$0
 }else if(restrictResponseOverlay===$0){
 restrictResponseOverlay=null;$0.id=null
-}},clickable:true,height:new LzAlwaysExpr("$m24p","$m24q",null),id:"restrictResponseOverlay",opacity:0.0010,visible:false,width:new LzAlwaysExpr("$m24r","$m24s",null)},"class":$lzc$class__m291},{attrs:{$classrootdepth:3,height:new LzAlwaysExpr("$m24w","$m24x",null),manipulativeToolbar:void 0,name:"header",testDetails:void 0,width:new LzAlwaysExpr("$m24u","$m24v",null)},"class":$lzc$class__m292},{attrs:{$classrootdepth:3,bgcolor:16777164,height:6,valign:"bottom",width:new LzAlwaysExpr("$m261","$m262",null)},"class":$lzc$class__m29i}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}},clickable:true,height:new LzAlwaysExpr("$m24p","$m24q",null),id:"restrictResponseOverlay",opacity:0.001,visible:false,width:new LzAlwaysExpr("$m24r","$m24s",null)},"class":$lzc$class__m291},{attrs:{$classrootdepth:3,height:new LzAlwaysExpr("$m24w","$m24x",null),manipulativeToolbar:void 0,name:"header",testDetails:void 0,width:new LzAlwaysExpr("$m24u","$m24v",null)},"class":$lzc$class__m292},{attrs:{$classrootdepth:3,bgcolor:16777164,height:6,valign:"bottom",width:new LzAlwaysExpr("$m261","$m262",null)},"class":$lzc$class__m29i}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m28z"]}},$lzc$class__m28z.attributes)
@@ -31477,11 +31481,12 @@ var $3=this.secondsToString(Math.floor($2/1000));this.dpdisplay.setNodeAttribute
 var $1=Math.floor($0/60);var $2=$0%60;if($1<10)$1="0"+$1;if($2<10)$2="0"+$2;return $1+":"+$2
 },"stopQuestion",function(){
 if(this.timing){
-var $0;$0=getTimer();lz.Timer.removeTimer(this.dupdateTimeLeft);this.timing=false;this.elapsedms+=$0-this.qtimestamp;var $1=this.dpstudentdata.xpathQuery("current_item/item_model");var $2=$1.getAttr("dur");if(typeof $2=="string"){
+var $0;$0=getTimer();lz.Timer.removeTimer(this.dupdateTimeLeft);this.timing=false;this.elapsedms+=$0-this.qtimestamp;var $1=this.dpstudentdata.xpathQuery("current_item/item_model");if($1!=null&&$1!=undefined){
+var $2=$1.getAttr("dur");if(typeof $2=="string"){
 $1.setAttr("dur",String(parseInt($2)+Math.floor(($0-this.qtimestamp)/1000)))
 }else{
 $1.setAttr("dur",String(Math.floor(($0-this.qtimestamp)/1000)))
-}};this.setAttribute("inQuestion",false)
+}}};this.setAttribute("inQuestion",false)
 },"clearInvalidCrResponses",function(){
 for(var $0=0;$0<this.crFields.length;$0++){
 var $1=this.crFields[$0];if(!$1["answered"]){
@@ -34796,7 +34801,8 @@ $3=0
 }else{
 $3=gController.subtestLength-gController.totalVisited()
 };this.stats.notanswered.setAttribute("text","You have "+$3+" "+($3==1?"question":"questions")+" left.")
-}};gController.setAttribute("isNavigateBack",false)
+};this.stats.marked.setAttribute("text","")
+};gController.setAttribute("isNavigateBack",false)
 },"canGoBack",function(){
 this.buttons.goback.setAttribute("enabled",true);this.buttons.goback.setAttribute("visible",true)
 },"cannotGoBack",function(){
@@ -36093,7 +36099,7 @@ return this.contents.os.isinited&&this.contents.os.visible
 },"removeAllStates",function(){
 this.setAttribute("allowclick",true);if(this.contents.ls.isinited)this.contents.ls.setAttribute("visible",false);if(this.contents.les.isinited)this.contents.les.setAttribute("visible",false);if(this.contents.ds.isinited)this.contents.ds.setAttribute("visible",false);if(this.contents.es.isinited)this.contents.es.setAttribute("visible",false);if(this.contents.fs.isinited)this.contents.fs.setAttribute("visible",false);if(this.contents.fbs.isinited)this.contents.fbs.setAttribute("visible",false);if(this.contents.ps.isinited)this.contents.ps.setAttribute("visible",false);if(this.contents.os.isinited)this.contents.os.setAttribute("visible",false);if(this.contents.ws.isinited)this.contents.ws.setAttribute("visible",false);if(this.contents.gs.isinited)this.contents.gs.setAttribute("visible",false);if(this.contents.oos.isinited)this.contents.oos.setAttribute("visible",false);if(gSecurityScreen.secContents.iss.isinited){
 gSecurityScreen.secContents.iss.setAttribute("visible",false)
-};if(this.contents.ts.isinited)this.contents.ts.setAttribute("visible",false)
+};if(this.contents.ts.isinited)this.contents.ts.setAttribute("visible",false);gScreens.setAttribute("y",200);gScreens.middle.bgFrame.setAttribute("height",200);gScreens.copyWriteText.setAttribute("y",200)
 },"showDownload",function($0){
 this.removeAllStates();if(!this.contents.ds.isinited)this.contents.ds.completeInstantiation();this.contents.ds.setTotalSubtests($0);this.contents.ds.setAttribute("visible",true);this.show()
 },"incrementSubtestDownload",function($0,$1){
