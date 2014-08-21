@@ -81,7 +81,7 @@
 		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="vanilla" />
-			<param name="installer.version" value="15.0.0" />
+			<param name="installer.version" value="15.1.0" />
 			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
 			<!--
 			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
@@ -95,7 +95,7 @@
 		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="vanilla-thin" />
-			<param name="installer.version" value="15.0.0" />
+			<param name="installer.version" value="15.1.0" />
 			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
 			<!--
 			<param name="installer.secondary.url" value="https://oasdr.ctb.com" />
@@ -197,7 +197,7 @@
 		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="ga" />
-			<param name="installer.version" value="15.0.0" />
+			<param name="installer.version" value="15.1.0" />
 			<param name="installer.primary.url" value="https://ga-oas.ctb.com" />
 			<!--
 			<param name="installer.secondary.url" value="https://ga-oasdr.ctb.com" />
@@ -211,7 +211,7 @@
 		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildThinClientInstaller">
 			<param name="installer.type" value="ga-thin" />
-			<param name="installer.version" value="15.0.0" />
+			<param name="installer.version" value="15.1.0" />
 			<param name="installer.primary.url" value="https://ga-oas.ctb.com" />
 			<!--
 			<param name="installer.secondary.url" value="https://ga-oasdr.ctb.com" />
