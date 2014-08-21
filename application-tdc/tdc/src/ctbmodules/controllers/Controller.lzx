@@ -522,6 +522,8 @@
 		<attribute name="isMousedownOnManip"/>
 		<attribute name="zoomClicked" type="boolean" value="false"/>
 		<attribute name="stopTestCalled" type="boolean" value="false"/>
+		<attribute name="isLaslink" type="boolean" value="false"/>
+		<attribute name="logoutFromPause" type="boolean" value="false" />
 		<!--
 			============================================================
 			Datapointers
@@ -851,6 +853,8 @@
 				this.setAttribute('isVanilla',true);	
 			}else if(productName == "WESTEST2"){
 				this.setAttribute('isWV', true);
+			}else if(productName == "LASLINKS" || productName == "laslinks") {
+				this.setAttribute('isLaslink',true);			
 			}
 			versionNo = LzDataNode.stringToLzData(gController.productTypeVal).getAttr("version");
 			versionproductinfo.setAttribute("text",productName+" "+versionNo);
@@ -1194,8 +1198,10 @@
 
 		<method name="terminate">
 			this.setAttribute('timeoutforpause', false);
-			gCommunicator.terminate();
-			gCommunicator.showHideOkCalculator("Y");
+			if(!gController.logoutFromPause) {
+				gCommunicator.terminate();
+				gCommunicator.showHideOkCalculator("Y");
+			}
 			goToGoodbyeScreen();
 		</method>
 
@@ -1229,7 +1235,9 @@
 			removeTrackTimer();
 			removePauseTimer();
 			gRevisitFalsePopup.hide();
-			gPauseTimerScreen.setVisible(false);
+			if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
+				gPauseTimerScreen.setVisible(false);
+			}
 			gScreens.showGoodbye();
 			LzTimer.addTimer( dcloseBrowser, 5000 );
 		</method>
@@ -3222,7 +3230,7 @@
                 freezeUI();
                 stopQuestion();
 				gMusicPlayer.hide();
-        		removeTrackTimer();
+        		//removeTrackTimer();
 		   //For defect 65881         
             if(this.recorder != null)
 			{
@@ -3254,11 +3262,13 @@
             LzCursor.unlock();  
         	checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD(); 
-			removeTrackTimer();
-			resetPauseTimer(timerInterval);
-			startPauseTimer();
-            gScreens.showPause(getStudentName());
-			gPauseTimerScreen.setVisible(true);
+            if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
+            	removeTrackTimer();
+            	resetPauseTimer(timerInterval);
+				startPauseTimer();
+				gPauseTimerScreen.setVisible(true);
+			}
+			gScreens.showPause(getStudentName());
 			gRevisitFalsePopup.hide();
 			gHotKeys.disableKeys();
 			gTooltip.hideTooltip();
@@ -3301,7 +3311,6 @@
 			this.recorder.recordButton.setAttribute("clickable", true);
 		}
 			this.setAttribute('timeoutforpause', false);
-			gPauseTimerScreen.setVisible(false);
 			showItemInterface();
 			gScreens.resetTextFieldColor();
             startQuestion();
@@ -3312,11 +3321,13 @@
             restoreScratchpadFocusIfNeeded();
             checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
-			removePauseTimer();
 			gCommunicator.showHideOkCalculator("N");
-			gPauseTimerScreen.setVisible(false);
 			timeoutDialog.close();
-			dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+			if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
+				removePauseTimer();
+				gPauseTimerScreen.setVisible(false);
+            	dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+            }
 		]]></method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
@@ -4223,61 +4234,69 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="startPauseTimer">
-            updateTimeLeftForPause();
-            LzTimer.resetTimer( dupdateTimeLeftForPause, 1000 );
-            this.qtimestampforpause = getTimer();
-            this.timingforpause = true;
-            exitPopups();
+            if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
+				updateTimeLeftForPause();
+	            LzTimer.resetTimer( dupdateTimeLeftForPause, 1000 );
+	            this.qtimestampforpause = getTimer();
+	            this.timingforpause = true;
+	            exitPopups();
+	         }
         </method>
 
 		<method name="updateTimeLeftForPause"><![CDATA[
-            var timestamp = getTimer();
-            if ( timingforpause ) {
-                var remainingmsforpause =
-                    durationmsforpause - (timestamp - qtimestampforpause);
-                if ( remainingmsforpause <= 0 ) {
-                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
-					canvas.setPromptDimension();
-					if(gPleaseWaitPopup.visible){
-						this.setAttribute('timeoutforpause',true);
-					}else{
+            if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
+				var timestamp = getTimer();
+	            if ( timingforpause ) {
+	                var remainingmsforpause =
+	                    durationmsforpause - (timestamp - qtimestampforpause);
+	                if ( remainingmsforpause <= 0 ) {
+	                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+						canvas.setPromptDimension();
+						if(gPleaseWaitPopup.visible){
+							this.setAttribute('timeoutforpause',true);
+						}else{
+							timeoutDialog.open();
+						}	
+	                } else {
+	                    var timeleftforpause = secondsToString(
+	                        Math.floor( remainingmsforpause / 1000 )
+	                    );
+	                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
+	
+	                    LzTimer.resetTimer( dupdateTimeLeftForPause, 1000 );
+	                }
+	            } else {
+	                var remainingmsforpause = durationmsforpause - elapsedmsforpause;
+	                if ( remainingmsforpause <= 0 ) {
+	                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+						canvas.setPromptDimension();
 						timeoutDialog.open();
-					}	
-                } else {
-                    var timeleftforpause = secondsToString(
-                        Math.floor( remainingmsforpause / 1000 )
-                    );
-                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
-
-                    LzTimer.resetTimer( dupdateTimeLeftForPause, 1000 );
-                }
-            } else {
-                var remainingmsforpause = durationmsforpause - elapsedmsforpause;
-                if ( remainingmsforpause <= 0 ) {
-                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
-					canvas.setPromptDimension();
-					timeoutDialog.open();
-                } else {
-                    var timeleftforpause = secondsToString(
-                        Math.floor( remainingmsforpause / 1000 )
-                    );
-                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
-                }
-            }
+	                } else {
+	                    var timeleftforpause = secondsToString(
+	                        Math.floor( remainingmsforpause / 1000 )
+	                    );
+	                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
+	                }
+	            }
+	        }
         ]]></method> 
 
 		<attribute name="dupdateTimeLeftForPause"
 			value="$once{ new LzDelegate( this, 'updateTimeLeftForPause' ) }" />
 
 		<method name="resetPauseTimer" args="durseconds">
-            this.durationmsforpause = durseconds;
-            this.elapsedmsforpause  = 0;
-            this.qtimestampforpause = 0;
-            this.timingforpause     = false;
+            if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
+				this.durationmsforpause = durseconds;
+	            this.elapsedmsforpause  = 0;
+	            this.qtimestampforpause = 0;
+	            this.timingforpause     = false;
+	        }
         </method>
 
 		<method name="removePauseTimer">
-			LzTimer.removeTimer(dupdateTimeLeftForPause);
+			if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
+				LzTimer.removeTimer(dupdateTimeLeftForPause);
+			}
 		</method>
 	
 		<!--added for tdc timeout OK end-->
