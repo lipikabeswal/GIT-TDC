@@ -4,6 +4,7 @@
     <include href="LoginButton.lzx"/>
     <include href="ComeBackLaterButton.lzx"/>
     <include href="LoginFields.lzx"/>
+    <include href="LogoutButton.lzx"/>
 
     <class name="PauseScreen">
         
@@ -17,7 +18,7 @@
 
         <text name="studentName" fontsize="24" resize="true" fgcolor="white"/>
         
-        <text name="prompt" fontsize="24" fgcolor="white" resize="true">
+        <text name="prompt" fontsize="24" fgcolor="white" resize="true" multiline="true" width="${parent.width}">
             Log in to resume your paused test.
         </text>
 
@@ -80,6 +81,19 @@
                     }
                 </method>
             </LoginButton>
+            <LogoutButton y="3" enabled="${ gScreens.allowclick }" visible="${gController.isLaslink}">
+               <handler name="onclick">
+                    gController.setAttribute('logoutFromPause',true);
+			    	gController.exitPopups();
+					gController.terminate();  
+                </handler>
+                 <handler name="onmouseover">
+                   lz.Cursor.showHandCursor(true);
+		        </handler>
+		        <handler name="onmouseout">
+		            lz.Cursor.showHandCursor(false);
+		        </handler>
+            </LogoutButton>
         </view>
     </class>
 
