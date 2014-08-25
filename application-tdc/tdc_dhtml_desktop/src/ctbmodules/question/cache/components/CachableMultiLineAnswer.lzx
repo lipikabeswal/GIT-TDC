@@ -68,6 +68,8 @@
 
 //Debug.write(this, "set characterLimit", cl);
             this.setAttribute("characterLimit", cl);
+            //setting the CR area maximum character limit. By default it is 10000.
+			this.outer.rich.answer.inp.setAttribute('maxlength',Number(this.characterLimit));
 
             // To distinguish between numerous input fields, we'll maintain an array of hashes
             // containing their widget ID and answered state (filled or empty). Additionally each
