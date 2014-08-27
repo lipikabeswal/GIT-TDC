@@ -758,7 +758,8 @@ function accommodationPKG() {
                         prevY = "NA";
                         initialScrollHeight = 6;//padding adjustments
                         initialScrollWidth = 0;
-                        $(textEle).children("p").each(function () {
+						//Defect 80253 fix
+                        $(textEle).children().each(function () {
 							initialScrollHeight += $(this).outerHeight();
                             initialScrollWidth = $(this).outerWidth() > initialScrollWidth ? $(this).outerWidth() : initialScrollWidth;
 							
