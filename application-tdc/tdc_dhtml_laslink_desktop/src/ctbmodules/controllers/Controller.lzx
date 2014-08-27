@@ -283,6 +283,8 @@
 			value="isProductCheck" />
 		<attribute name="IS_MIC_ATTACHED" type="string"
 			value="ismicattached" />
+		<attribute name="PAUSE_LOGOUT_STATE" type="string"
+			value="pauseLogout" />
 
 		<!-- 
 			Lifecycle events
@@ -1054,6 +1056,10 @@
 						break;
 					case IS_MIC_ATTACHED:
 						_handleIsMicAttached(response);
+						break;
+					case PAUSE_LOGOUT_STATE:
+						_handlePauseLogoutResponse(response);
+						break;
 					default:
 						break;
 				}
@@ -1193,6 +1199,9 @@
 					terminate();
 				}
 			}
+		</method>
+		<method name="_handlePauseLogoutResponse" args="response">
+			terminate();
 		</method>
 		<method name="getSubtestIndex" args="node"><![CDATA[
 			dp.setPointer(node);
@@ -6355,6 +6364,18 @@
 				}
 			}]]>
 		</method>
+		/***********************************************
+		 * Method added to do a save call  
+		 * before exiting the client when
+		 * Logout button is clicked in Pause Screen.
+		 ***********************************************/
+		 
+ 		<method name="pausedLogout">
+			//console.log("pausedLogout");
+			setState(PAUSE_LOGOUT_STATE);
+			save(null);
+		</method>
+		
 
 	</node>
 
