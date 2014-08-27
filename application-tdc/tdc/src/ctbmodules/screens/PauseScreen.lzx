@@ -83,9 +83,10 @@
             </LoginButton>
             <LogoutButton y="3" enabled="${ gScreens.allowclick }" visible="${gController.isLaslink}">
                <handler name="onclick">
+               		gScreens.clicked();
                     gController.setAttribute('logoutFromPause',true);
 			    	gController.exitPopups();
-					gController.terminate();  
+					gController.pausedLogout();
                 </handler>
                  <handler name="onmouseover">
                    lz.Cursor.showHandCursor(true);

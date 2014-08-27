@@ -280,6 +280,8 @@
 			value="getTestScoreData" />
 		<attribute name="SAVE_METHOD" type="string"
 			value="savemethod" />
+		<attribute name="PAUSE_LOGOUT_STATE" type="string"
+			value="pauseLogout" />
 		
 		<!-- 
 			Lifecycle events
@@ -836,6 +838,9 @@
 					case SAVE_METHOD:
 						_handleSaveMethod(response);
 						break;
+					case PAUSE_LOGOUT_STATE:
+						_handlePauseLogoutResponse(response);
+						break;
 					default:
 						break;
 				}
@@ -1141,6 +1146,9 @@
 				}
 			}
 		]]></method>
+		<method name="_handlePauseLogoutResponse" args="response">
+			terminate();
+		</method>
 		<method name="getSubtestIndex" args="node"><![CDATA[
 			dp.setPointer(node);
 			var subtestId = dp.xpathQuery('save_testing_session_data/tsd/next_sco/@id');
@@ -5657,6 +5665,17 @@ Debug.write("out of time 1 ans" + isAnswered);
 	<method name="relogin">
 	<!-- To reload login.html --> 
 		LzBrowser.loadJS('document.location.reload(true)');
+	</method>
+	
+	/***********************************************
+	 * Method added to do a save call  
+	 * before exiting the client when
+	 * Logout button is clicked in Pause Screen.
+	 ***********************************************/
+	<method name="pausedLogout">
+		//Debug.write("pausedLogout");
+		setState(PAUSE_LOGOUT_STATE);
+		save();
 	</method>
 	
 	</node>
