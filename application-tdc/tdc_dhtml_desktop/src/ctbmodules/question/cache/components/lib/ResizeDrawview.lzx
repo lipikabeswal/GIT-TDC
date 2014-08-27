@@ -39,12 +39,14 @@
         <!-- handle highlight when scrolling -->
         <handler name="onwidth">
             if (isready) this._draw ();
-            this._scrollHighlight ('x');
+            if(this.width != 0)
+            	this._scrollHighlight ('x');
         </handler>
 
         <handler name="onheight">
             if (isready) this._draw ();
-            this._scrollHighlight ('y');
+            if(this.height != 0)
+				this._scrollHighlight ('y');
         </handler>
 
         <handler name="oncontext">
