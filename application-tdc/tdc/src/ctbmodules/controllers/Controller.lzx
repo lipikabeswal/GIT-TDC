@@ -5674,6 +5674,7 @@ Debug.write("out of time 1 ans" + isAnswered);
 	 ***********************************************/
 	<method name="pausedLogout">
 		//Debug.write("pausedLogout");
+		LzCursor.setCursorGlobal( 'waitcursor' );
 		setState(PAUSE_LOGOUT_STATE);
 		save();
 	</method>
