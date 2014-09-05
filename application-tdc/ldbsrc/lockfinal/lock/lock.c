@@ -41,6 +41,10 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
    		if(wParam == WM_RBUTTONDOWN) {
 			return 1;
 		}
+		else if (wParam == WM_RBUTTONUP) {
+			return 1;
+		}
+		
 		return CallNextHookEx(hMouseHook, nCode, wParam, lParam);
 	}
 }
