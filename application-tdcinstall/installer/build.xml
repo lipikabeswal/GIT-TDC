@@ -251,9 +251,9 @@
 	
 	<!-- **************************** TerraNova Form G ******************************* -->	
 	<target name="buildTNG" description="Builds the TNG installer" depends="init">
-		<copy file="${project.icons.dir}/DEFAULT-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
-		<copy file="${project.icons.dir}/DEFAULT-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
-		<copy file="${project.icons.dir}/DEFAULT-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
+		<copy file="${project.icons.dir}/TNG-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TNG-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TNG-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="tng" />
 			<param name="installer.version" value="16.0.0" />
