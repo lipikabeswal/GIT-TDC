@@ -133,7 +133,7 @@ DWORD GetPIDFromNameToolhelp(char *szProcessName)
             p = pe32.szExeFile;
 
         // Process found ?
-        if (stricmp(p, szProcessName) == 0)
+        if (_stricmp(p, szProcessName) == 0)
         {
             dwPID = pe32.th32ProcessID;
             break;
@@ -237,7 +237,7 @@ DWORD GetPIDFromNamePSAPI(char *szProcessName)
                           sizeof(szModuleName));
 
         // Process found ?
-        if (stricmp(szModuleName, szProcessName) == 0)
+        if (_stricmp(szModuleName, szProcessName) == 0)
         {
             dwPID = PIDArray[i];
 			CloseHandle(hProcess);
@@ -394,7 +394,7 @@ DWORD GetPIDFromNameZwQuerySystemInformation(char *szProcessName)
 			pszProcessName = L"Idle";
 
         // Process found ?
-        if (wcsicmp(pszProcessName, wcProcessName) == 0)
+        if (_wcsicmp(pszProcessName, wcProcessName) == 0)
         {
 			dwPID = pInfo->ProcessId;
 			free(pBuffer);
@@ -689,7 +689,7 @@ static int AfterSASWindowProc(void) {return 1;}
 static DWORD WINAPI InjectFunc (INJDATA *pData) 
 {
 	// Subclass window procedure
-	pData->fnOldSASWndProc = (WNDPROC) pData->fnSetWindowLong (pData->hwnd, GWL_WNDPROC, (long)pData->fnSASWndProc);	
+	pData->fnOldSASWndProc = (WNDPROC) pData->fnSetWindowLong (pData->hwnd, GWLP_WNDPROC, (long)pData->fnSASWndProc);	
 
 	return (pData->fnOldSASWndProc != NULL);
 }
@@ -708,7 +708,7 @@ static int AfterInjectFunc(void) {return 2;}
 
 static DWORD WINAPI EjectFunc (INJDATA *pData) 
 {
-	return (pData->fnSetWindowLong(pData->hwnd, GWL_WNDPROC, (long)pData->fnOldSASWndProc) != 0);
+	return (pData->fnSetWindowLong(pData->hwnd, GWLP_WNDPROC, (long)pData->fnOldSASWndProc) != 0);
 }
 
 
