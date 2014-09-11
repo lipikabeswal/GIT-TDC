@@ -679,7 +679,20 @@ private static class LockdownWinMain extends Thread {
 					
 			} else {
 				// Windows native lib
-				System.load(this.tdcHome + "/lock.dll");
+				/**
+				 * Get JVM bitness and load proper lock.dll.
+				 */
+				try {
+					String jvmVersion = System.getProperty("os.arch");
+					if(jvmVersion.indexOf("64") >= 0){
+						System.load(this.tdcHome + "/lock_64.dll");
+					}else{
+						System.load(this.tdcHome + "/lock.dll");
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
 				LockdownWin lockdown = new LockdownWin(this.tdcHome);
 				LockdownWinB lockdownB = new LockdownWinB(this.tdcHome);
 				//Moved From Main.java
