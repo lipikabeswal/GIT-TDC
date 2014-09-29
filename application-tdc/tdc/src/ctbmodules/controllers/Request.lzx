@@ -57,6 +57,8 @@
 		<attribute name="CHECK_PROD_TYPE_METHOD"   type="string" value="isProductCheck" />
 		<attribute name="IS_MAX_MEMORY" type="string" value="isMaxMemory" />
 		<attribute name="MEMORY_EXCEEDED" type="string" value="memoryExceeded" />
+		<attribute name="FILENAME" type="string" value="filename" />
+		<attribute name="GET_REF_CARD_OVERLAY_METHOD" type="string" value="getRefCardOverlayData" />
 
 		<handler name="oninit">
 			var base = lz.Browser.getInitArg( 'servletUrl' );

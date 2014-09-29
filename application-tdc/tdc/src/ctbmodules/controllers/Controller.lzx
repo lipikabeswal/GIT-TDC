@@ -224,6 +224,18 @@
 	<dataset name="dsrestartLogin" />
 		<datapointer name="dprestartLogin"
 			xpath="dsrestartLogin:/loginData" />
+		
+	<!-- dataset for overlay on refcard for readable text -->
+	<dataset name="dsoverlay" type="http" queuerequests="true"
+		querytype="post" timeout="120000"
+		onerror="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),this)"
+		ontimeout="gCommunicator.checkShowError(gXmlHelper.getContentErrorXml(),this)"
+		ondata="gController.overlayDataRcvd()">
+	</dataset>
+	
+	<!-- <dataset name="dsoverlay" src="xmls/overlay.xml" /> -->
+	<datapointer name="dpoverlay" xpath="dsoverlay" />
+	<dataset name="dsFinalOverlay"/>
 
 	<!--
 		==================================================
@@ -676,7 +688,8 @@
         	//gScreens.showLogin();
 			var base = lz.Browser.getInitArg( 'servletUrl' );
 			dsitem.setAttribute('src', base + '/ContentServlet.do'); 
-			dsMusic.setAttribute('src', base + '/ContentServlet.do');   
+			dsMusic.setAttribute('src', base + '/ContentServlet.do');  
+			dsoverlay.setAttribute('src', base + '/ContentServlet.do');   
 			//Debug.write("On Init Controller");
         </handler>
 		
@@ -6097,6 +6110,24 @@ Debug.write("############ loadItem ############");
 		<method name="relogin">
 		<!-- To reload login.html --> 
 			lz.Browser.loadJS('document.location.reload(true)');
+		</method>
+				
+		<method name="loadRefCardOverlay" args="cardName">
+			cardName = cardName.substring(0,cardName.indexOf("."));
+			dsoverlay.setQueryParam(gRequest.FILENAME,cardName);
+			dsoverlay.setQueryParam(gRequest.METHOD_PARAM,gRequest.GET_REF_CARD_OVERLAY_METHOD);
+			dsoverlay.doRequest();
+		</method>
+		
+		<method name="overlayDataRcvd">
+			//Debug.write("overlayDataRcvd ",data);
+			//printBigString(dsoverlay.serialize());
+			dpoverlay.setXPath("dsoverlay:/main");
+			var params = dsoverlay.getParams();
+			var filename = params.getValue(gRequest.FILENAME);
+
+			dsFinalOverlay.removeChild(dsFinalOverlay.getFirstChild());
+			dsFinalOverlay.appendChild(dpoverlay.xpathQuery("ref_card[@name='"+filename+"']"));
 		</method>
 	
 	</node>

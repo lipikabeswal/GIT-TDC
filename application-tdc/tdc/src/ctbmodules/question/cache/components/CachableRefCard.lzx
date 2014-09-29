@@ -1,7 +1,8 @@
 <library>
 
 	<include href="CachableComponent.lzx"/>
-
+	<include href="lib/RefCardReadableOverlay.lzx"/>
+	
     <class name="CachableRefCard" comptype="$once {gCompTypes.WIDGET_REFERENCE_CARD}" extends="CachableComponent">
 		<attribute name="innerHeight" value="400" type="number"/>
 		<attribute name="defaultInnerHeight" value="400" type="number"/>
@@ -114,6 +115,9 @@
 				var theTitleSrc = null;
 	
 				if(data != null && data.hasAttr('src')) {
+					if(canvas.readable){
+						gController.loadRefCardOverlay(data.getAttr('src'));
+					}
 					theSrc = getImageUrl(data.getAttr('src'));
 					var title = String(data.getAttr('src'));
 					title = title.substr(0,title.length - 4)+'_title.swf';
@@ -409,7 +413,14 @@
 			            	classroot.updateScrollTo(this.y);
 					}
 				]]></handler>
-
+				
+								
+				<view 
+				  width="${parent.parent.contents.width}" 
+			      height="${parent.parent.contents.width}" 
+			      clip="true">
+					<RefCardReadableOverlay datapath="dsFinalOverlay:/ref_card/overlay" visible="${canvas.readable}"/>
+				</view>
 			</view>
 		    <vscrollbar name="scroller" visible="${this.scrollable}">
 
