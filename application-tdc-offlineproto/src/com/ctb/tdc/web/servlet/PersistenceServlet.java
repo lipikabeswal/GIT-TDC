@@ -229,8 +229,11 @@ public class PersistenceServlet extends HttpServlet {
            		filePath = new File(".").getAbsolutePath() + "/../data/GACRCTGrade8ReadLoginResponse.xml";
            	}
         	 else if(requestURI.indexOf("servletGACRCTMathGrade8") >= 0) {
-          		filePath = new File(".").getAbsolutePath() + "/../data/GACRCTGrade8MathLoginResponse.xml";
-          	}   	
+           		filePath = new File(".").getAbsolutePath() + "/../data/GACRCTGrade8MathLoginResponse.xml";
+           	} 
+        	 else if(requestURI.indexOf("servletGA2ElaTestPractice") >= 0) {
+           		filePath = new File(".").getAbsolutePath() + "/../data/GA2ElaTestPracticeLoginResponse.xml";
+           	}   	
         	System.out.println("***** Looking for login response XML: " + filePath);
             result = new String(ServletUtils.readFromFile(new File(filePath)));
         	ServletUtils.processContentKeys(result);
