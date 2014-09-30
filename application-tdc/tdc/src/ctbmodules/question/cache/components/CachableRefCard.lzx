@@ -415,10 +415,7 @@
 				]]></handler>
 				
 								
-				<view 
-				  width="${parent.parent.contents.width}" 
-			      height="${parent.parent.contents.width}" 
-			      clip="true">
+				<view width="${parent.parent.contents.width}">
 					<RefCardReadableOverlay datapath="dsFinalOverlay:/ref_card/overlay" visible="${canvas.readable}"/>
 				</view>
 			</view>
