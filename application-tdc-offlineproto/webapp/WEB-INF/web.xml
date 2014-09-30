@@ -236,6 +236,11 @@
     <url-pattern>/servletGACRCTMathGrade8/SpeechServlet.do</url-pattern>
   </servlet-mapping>
   
+   <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletGA2ElaTestPractice/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
   <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
     <url-pattern>/servlet/ContentServlet.do</url-pattern>
@@ -414,6 +419,11 @@
   <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
     <url-pattern>/servletGACRCTMathGrade8/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletGA2ElaTestPractice/ContentServlet.do</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -601,6 +611,10 @@
   <servlet-mapping>
     <servlet-name>PersistenceServlet</servlet-name>
     <url-pattern>/servletGACRCTMathGrade8/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletGA2ElaTestPractice/PersistenceServlet.do</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -790,6 +804,13 @@
     <servlet-name>UtilityServlet</servlet-name>
     <url-pattern>/servletGACRCTMathGrade8/UtilityServlet.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletGA2ElaTestPractice/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+ 
   
 
 </web-app>

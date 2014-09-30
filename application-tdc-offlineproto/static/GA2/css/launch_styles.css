@@ -1,0 +1,214 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+@font-face {
+  font-family: 'VectipedeBold';
+  src: url(../images/launch/fonts/vectipederg-bold-webfont.eot);
+  src: url(../images/launch/fonts/vectipederg-bold-webfont.eot?#iefix) format("embedded-opentype"), url(../images/launch/fonts/vectipederg-bold-webfont.woff) format("woff"), url(../images/launch/fonts/vectipederg-bold-webfont.otf) format("opentype"); }
+@font-face {
+  font-family: 'VectipedeBkRegular';
+  src: url(../images/launch/fonts/vectipedebk-regular-webfont.eot);
+  src: url(../images/launch/fonts/vectipedebk-regular-webfont.eot?#iefix) format("embedded-opentype"), url(../images/launch/fonts/vectipedebk-regular-webfont.woff) format("woff"), url(../images/launch/fonts/vectipedebk-regular-webfont.otf) format("opentype"); }
+@font-face {
+  font-family: 'VectipedeLtItalic';
+  src: url(../images/launch/fonts/vectipedelt-italic-webfont.eot);
+  src: url(../images/launch/fonts/vectipedelt-italic-webfont.eot?#iefix) format("embedded-opentype"), url(../images/launch/fonts/vectipedelt-italic-webfont.woff) format("woff"), url(../images/launch/fonts/vectipedelt-italic-webfont.otf) format("opentype"); }
+@font-face {
+  font-family: 'ArumSansRegular';
+  src: url(../images/launch/fonts/arumsansregular-webfont.eot);
+  src: url(../images/launch/fonts/arumsansregular-webfont.eot?#iefix) format("embedded-opentype"), url(../images/launch/fonts/arumsansregular-webfont.woff) format("woff"), url(../images/launch/fonts/arumsansregular-webfont.otf) format("opentype"); }
+@font-face {
+  font-family: 'ArumSansLightItalic';
+  src: url(../images/launch/fonts/arumsanslightitalic-webfont.eot);
+  src: url(../images/launch/fonts/arumsanslightitalic-webfont.eot?#iefix) format("embedded-opentype"), url(../images/launch/fonts/arumsanslightitalic-webfont.woff) format("woff"), url(../images/launch/fonts/arumsanslightitalic-webfont.otf) format("opentype"); }
+@font-face {
+  font-family: 'ArumSansBold';
+  src: url(../images/launch/fonts/arumsansbold-webfont.eot);
+  src: url(../images/launch/fonts/arumsansbold-webfont.eot?#iefix) format("embedded-opentype"), url(../images/launch/fonts/arumsansbold-webfont.woff) format("woff"), url(../images/launch/fonts/arumsansbold-webfont.otf) format("opentype"); }
+html, body {
+  min-height: 100%; }
+
+.landing-page {
+  height: 100%;
+  background: -moz-linear-gradient(50% 0% -90deg, #6392b5 0%, white 90.46%);
+  background: -webkit-linear-gradient(-90deg, #6392b5 0%, white 90.46%);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0, #6392b5), color-stop(0.9046, white));
+  background: -o-linear-gradient(-90deg, #6392b5 0%, white 90.46%);
+  background: -ms-linear-gradient(-90deg, #6392b5 0%, white 90.46%);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#6392B5', endColorstr='#FFFFFF' ,GradientType=0)";
+  background: linear-gradient(180deg, #6392b5 0%, white 90.46%); }
+  .landing-page .wrap {
+    /* Change these values to change responsive size range */
+    max-width: 960px;
+    min-width: 700px;
+    width: 100%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    /* CLEARFIX */ }
+    .landing-page .wrap:after {
+      display: table;
+      content: " ";
+      clear: both; }
+  .landing-page .content {
+    background-color: white;
+    padding-top: 28px;
+    /* This is optional, makes it look a bit nicer without much content */
+    min-height: 750px; }
+    .landing-page .content a {
+      text-decoration: none; }
+      .landing-page .grade-list span:hover {
+        text-decoration: underline; }
+  .landing-page .header {
+    position: relative;
+    margin-top: 66px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background: white; }
+    .landing-page .header h1 {
+      font-family: 'VectipedeBold';
+      margin-left: 11.666666666666666666%;
+      color: #344549;
+      font-size: 2.125em; }
+  .landing-page .header-image {
+    background: url(../images/launch/doe_header.png) center center;
+    height: 144px; }
+  .landing-page .seal {
+    position: absolute;
+    bottom: 5px;
+    left: 1.041666666666666666%;
+    width: 400px;
+    height: 97px;
+    background: url(../images/launch/seal.png) no-repeat center;
+    background-size: contain; }
+  .landing-page .test-listing {
+    float: left;
+    box-sizing: border-box;
+    max-width: 730px;
+    width: 76.04166%;
+    padding-left: 11.666666666666666666%;
+    padding-right: 4.9315%; }
+  .landing-page .tool-tips {
+    float: left;
+    box-sizing: border-box;
+    width: 21.35417%;
+    padding-left: 2.083333333333333333%;
+    padding-right: 2.083333333333333333%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-right: 2.60417;
+    background: #E9E5D7; }
+  .landing-page .tool-tips-title {
+    margin-bottom: 15px;
+    font-family: 'VectipedeBold';
+    font-size: 1.9em;
+    color: #33484C;
+    /* Does not work in IE9, best way to fix is with a JS polyfill */
+    text-shadow: 2px 2px 0px #7CC1AA;
+    text-align: center; }
+  .landing-page .tool-tips-copy {
+    font-family: 'ArumSansRegular';
+    font-size: .8125em;
+    text-align: center; }
+  .landing-page .tool-tip {
+    height: 50px;
+    border: 3px solid #9C9990;
+    border-radius: 5px; }
+  .landing-page .body-copy {
+    margin-bottom: 15px;
+    font-family: 'ArumSansRegular';
+    font-size: 1.125em; }
+  .landing-page .grade {
+    margin-bottom: 25px; }
+  .landing-page .grade-title {
+    font-family: 'VectipedeBold';
+    font-size: 1.75em;
+    margin-bottom: 7px;
+    color: #79AB36; }
+  .landing-page .grade-list {
+    font-family: 'ArumSansRegular';
+    color: #344549;
+    margin-left: 7.01%; }
+    .landing-page .grade-list span {
+      cursor:pointer;
+      cursor:hand;
+      color: #344549;
+      font-size: 1.625em;
+      line-height: 1.25em; }
+  .landing-page .icon-test:before {
+    position: relative;
+    display: inline-block;
+    content: " ";
+    background: url(../images/launch/icon-test.png) center center no-repeat;
+    width: 1.5em;
+    line-height: 1;
+    min-height: 22px;
+    margin-right: 5px;
+    margin-bottom: -2px; }
+  .landing-page .footer {
+    margin-top: 80px;
+    font-family: 'ArumSansRegular';
+    font-size: .75em; }
+  .landing-page .logo {
+    position: absolute;
+    bottom: 0;
+    left: 1.041666666666666666%;
+    width: 9.0625%;
+    max-width: 90px;
+    height: 90px;
+    background: url(../images/launch/mcgraw.png) center no-repeat;
+    background-size: contain; }
+  .landing-page .legal-copy {
+    margin-left: 11.666666666666666666%; }
+
+/*# sourceMappingURL=styles.css.map */
+
+.footer_button_container {width:100%; text-align:center; margin:15px auto; font-family: 'ArumSansRegular'; font-size:12pt;}
+.terms_of_use_button {text-decoration:underline; cursor:pointer; cursor:hand; display:inline;}
+.privacy_policy_button {text-decoration:underline; cursor:pointer; cursor:hand; display:inline;}
+.landing-page .legal-links
+{
+  margin-left: 11.6667%;
+  font-size: 1.25em;
+  margin-top: 0.5em;
+}

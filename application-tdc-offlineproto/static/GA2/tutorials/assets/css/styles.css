@@ -1,0 +1,509 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+@font-face {
+  font-family: 'VectipedeBold';
+  src: url(../fonts/Vectipede/vectipederg-bold/vectipederg-bold-webfont.eot);
+  src: url(../fonts/Vectipede/vectipederg-bold/vectipederg-bold-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/Vectipede/vectipederg-bold/vectipederg-bold-webfont.woff) format("woff"), url(../fonts/Vectipede/vectipederg-bold/vectipederg-bold-webfont.otf) format("opentype"), url(../fonts/Vectipede/vectipederg-bold/vectipederg-bold-webfont.svg#svgFontName) format("svg");
+}
+@font-face {
+  font-family: 'VectipedeBkRegular';
+  src: url(../fonts/Vectipede/vectipedebk-regular/vectipedebk-regular-webfont.eot);
+  src: url(../fonts/Vectipede/vectipedebk-regular/vectipedebk-regular-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/Vectipede/vectipedebk-regular/vectipedebk-regular-webfont.woff) format("woff"), url(../fonts/Vectipede/vectipedebk-regular/vectipedebk-regular-webfont.otf) format("opentype"), url(../fonts/Vectipede/vectipedebk-regular/vectipedebk-regular-webfont.svg#svgFontName) format("svg");
+}
+@font-face {
+  font-family: 'VectipedeLtItalic';
+  src: url(../fonts/Vectipede/vectipedelt-italic/vectipedelt-italic-webfont.eot);
+  src: url(../fonts/Vectipede/vectipedelt-italic/vectipedelt-italic-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/Vectipede/vectipedelt-italic/vectipedelt-italic-webfont.woff) format("woff"), url(../fonts/Vectipede/vectipedelt-italic/vectipedelt-italic-webfont.otf) format("opentype"), url(../fonts/Vectipede/vectipedelt-italic/vectipedelt-italic-webfont.svg#svgFontName) format("svg");
+}
+@font-face {
+  font-family: 'ArumSansRegular';
+  src: url(../fonts/ArumSans/arumsansregular/arumsansregular-webfont.eot);
+  src: url(../fonts/ArumSans/arumsansregular/arumsansregular-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/ArumSans/arumsansregular/arumsansregular-webfont.woff) format("woff"), url(../fonts/ArumSans/arumsansregular/arumsansregular-webfont.otf) format("opentype"), url(../fonts/ArumSans/arumsansregular/arumsansregular-webfont.svg#svgFontName) format("svg");
+}
+@font-face {
+  font-family: 'ArumSansLightItalic';
+  src: url(../fonts/ArumSans/arumsanslightitalic/arumsanslightitalic-webfont.eot);
+  src: url(../fonts/ArumSans/arumsanslightitalic/arumsanslightitalic-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/ArumSans/arumsanslightitalic/arumsanslightitalic-webfont.woff) format("woff"), url(../fonts/ArumSans/arumsanslightitalic/arumsanslightitalic-webfont.otf) format("opentype"), url(../fonts/ArumSans/arumsanslightitalic/arumsanslightitalic-webfont.svg#svgFontName) format("svg");
+}
+@font-face {
+  font-family: 'ArumSansBold';
+  src: url(../fonts/ArumSans/arumsansbold/arumsansbold-webfont.eot);
+  src: url(../fonts/ArumSans/arumsansbold/arumsansbold-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/ArumSans/arumsansbold/arumsansbold-webfont.woff) format("woff"), url(../fonts/ArumSans/arumsansbold/arumsansbold-webfont.otf) format("opentype"), url(../fonts/ArumSans/arumsansbold/arumsansbold-webfont.svg#svgFontName) format("svg");
+}
+html, body {
+  min-height: 100%;
+}
+
+.landing-page {
+  height: 100%;
+  background: -moz-linear-gradient(50% 0% -90deg, #6392b5 0%, white 90.46%);
+  background: -webkit-linear-gradient(-90deg, #6392b5 0%, white 90.46%);
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0, #6392b5), color-stop(0.9046, white));
+  background: -o-linear-gradient(-90deg, #6392b5 0%, white 90.46%);
+  background: -ms-linear-gradient(-90deg, #6392b5 0%, white 90.46%);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#6392B5', endColorstr='#FFFFFF' ,GradientType=0)";
+  background: linear-gradient(180deg, #6392b5 0%, white 90.46%);
+}
+.landing-page .wrap {
+  /* Change these values to change responsive size range */
+  max-width: 960px;
+  min-width: 700px;
+  width: 100%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  /* CLEARFIX */
+}
+.landing-page .wrap:after {
+  display: table;
+  content: " ";
+  clear: both;
+}
+.landing-page .content {
+  background-color: white;
+  padding-top: 28px;
+  /* This is optional, makes it look a bit nicer without much content */
+  min-height: 550px;
+}
+.landing-page .content a {
+  text-decoration: none;
+}
+.landing-page .content a:hover {
+  text-decoration: underline;
+}
+.landing-page .header {
+  position: relative;
+  margin-top: 66px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background: white;
+}
+.landing-page .header h1 {
+  font-family: 'VectipedeBold';
+  margin-left: 11.666666666666666666%;
+  color: #344549;
+  font-size: 2.125em;
+}
+.landing-page .header-background {
+    width: 100%;
+    height: 200px;
+    background-color: white;
+}
+.landing-page .header-image {
+  background: url(../images/doe_header.png) center center;
+  background-repeat: no-repeat;
+  height: 200px;
+}
+.landing-page .seal {
+  position: absolute;
+  bottom: 5px;
+  left: 1.041666666666666666%;
+  width: 9.0625%;
+  max-width: 400px;
+  height: 97px;
+  background: url(../images/seal.png) no-repeat center;
+  background-size: contain;
+}
+.landing-page .test-listing {
+  float: left;
+  box-sizing: border-box;
+  max-width: 730px;
+  width: 76.04166%;
+  padding-left: 11.666666666666666666%;
+  padding-right: 4.9315%;
+}
+.landing-page .tool-tips {
+  float: left;
+  box-sizing: border-box;
+  width: 21.35417%;
+  min-width: 190px;
+  padding-left: 2.083333333333333333%;
+  padding-right: 2.083333333333333333%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-right: 2.60417;
+  background: #E9E5D7;
+}
+.landing-page .tool-tips-title {
+  margin-bottom: 15px;
+  font-family: 'VectipedeBold';
+  font-size: 1.9em;
+  color: #33484C;
+  /* Does not work in IE9, best way to fix is with a JS polyfill */
+  text-shadow: 2px 2px 0px #7CC1AA;
+  text-align: center;
+}
+.landing-page .tool-tips-copy {
+  font-family: 'ArumSansRegular';
+  font-size: .8125em;
+  text-align: center;
+  margin-bottom: 4px;
+}
+.landing-page .tool-tip {
+  height: 50px;
+  border: 3px solid #9C9990;
+  border-radius: 5px;
+}
+.landing-page .tool-tip-button {
+  display: block;
+  max-width: 154px;
+  min-height: 54px;
+  margin-top: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.landing-page .tool-tip-button:hover {
+  background-position: center bottom;
+}
+.landing-page .body-copy {
+  margin-bottom: 15px;
+  font-family: 'ArumSansRegular';
+  font-size: 1.125em;
+}
+.landing-page .grade {
+  margin-bottom: 25px;
+}
+.landing-page .grade-title {
+  font-family: 'VectipedeBold';
+  font-size: 1.75em;
+  margin-bottom: 7px;
+  color: #79AB36;
+}
+.landing-page .grade-list {
+  font-family: 'ArumSansRegular';
+  color: #344549;
+  margin-left: 7.01%;
+}
+.landing-page .grade-list a {
+  color: #344549;
+  font-size: 1.625em;
+  line-height: 1.25em;
+}
+.landing-page .icon-test:before {
+  position: relative;
+  display: inline-block;
+  content: " ";
+  background: url(../images/icon-test.png) center center no-repeat;
+  width: 1.5em;
+  line-height: 1;
+  min-height: 22px;
+  margin-right: 5px;
+  margin-bottom: -2px;
+}
+.landing-page .footer {
+  margin-top: 60px;
+  font-family: 'ArumSansRegular';
+  font-size: .75em;
+  margin-bottom: 40px;
+}
+.landing-page .logo {
+  position: absolute;
+  bottom: 0;
+  left: 1.041666666666666666%;
+  width: 9.0625%;
+  max-width: 90px;
+  height: 90px;
+  background: url(../images/mcgraw.png) center no-repeat;
+  background-size: contain;
+}
+.landing-page .legal-copy {
+  margin-left: 11.666666666666666666%;
+}
+.landing-page .legal-links {
+  margin-left: 11.666666666666666666%;
+  font-size: 1.25em;
+  margin-top: 0.5em;
+}
+.landing-page .legal-links a {
+  text-decoration: underline;
+}
+
+.stop-scroll {
+  overflow: hidden;
+}
+
+.tutorials-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+}
+
+.tutorials-close-button {
+  position: absolute;
+  display: block;
+  right: 4px;
+  top: 4px;
+  width: 19px;
+  height: 19px;
+  text-indent: -3000px;
+  cursor: pointer;
+  background: url(../images/icon-close.png);
+}
+
+.tutorials-dialog {
+  z-index: 1000;
+  position: fixed;
+  width: 80%;
+  max-width: 675px;
+  top: 0;
+  background: white;
+  box-sizing: border-box;
+  padding-left: 90px;
+  padding-right: 90px;
+  padding-top: 58px;
+  padding-bottom: 58px;
+}
+.tutorials-dialog .left-arrow, .tutorials-dialog .right-arrow {
+  width: 19px;
+  height: 30px;
+  position: absolute;
+  display: block;
+  top: 220px;
+  z-index: 1000;
+  cursor: pointer;
+}
+.tutorials-dialog .left-arrow {
+  left: 46px;
+  background: url(../images/slider-left.png);
+}
+.tutorials-dialog .right-arrow {
+  right: 46px;
+  background: url(../images/slider-right.png);
+}
+
+.tutorial-step {
+  cursor: pointer;
+}
+
+.tutorial-pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+.tutorial-pagination .swiper-pagination-switch {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border: 1px solid #6593b4;
+  border-radius: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.tutorial-pagination .swiper-pagination-switch:last-child {
+  margin-right: 0;
+}
+.tutorial-pagination .swiper-pagination-switch.swiper-visible-switch, .tutorial-pagination .swiper-pagination-switch:hover {
+  background-color: #6593b4;
+}
+
+.tutorial-heading {
+  font-family: 'ArumSansRegular';
+  font-size: 1.125em;
+  text-transform: uppercase;
+  color: #404041;
+}
+
+.tutorial-title {
+  font-family: 'ArumSansBold';
+  font-size: 1.75em;
+  text-transform: uppercase;
+  color: #404041;
+  margin-bottom: 20px;
+}
+
+.tutorial-step-title {
+  font-family: 'ArumSansBold';
+  font-size: 1.75em;
+  color: #231F20;
+  margin-bottom: 8px;
+}
+
+.tutorial-step img {
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tutorial-step-description {
+  min-height: 2em;
+  font-family: 'ArumSansRegular';
+}
+
+/*
+ * Swiper 2.7.0
+ * Mobile touch slider and framework with hardware accelerated transitions
+ *
+ * http://www.idangero.us/sliders/swiper/
+ *
+ * Copyright 2010-2014, Vladimir Kharlampidi
+ * The iDangero.us
+ * http://www.idangero.us/
+ *
+ * Licensed under GPL & MIT
+ *
+ * Released on: August 30, 2014
+*/
+/* ===============================================================
+Basic Swiper Styles 
+================================================================*/
+.swiper-container {
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  /* Fix of Webkit flickering */
+  z-index: 1;
+}
+
+.swiper-wrapper {
+  position: relative;
+  width: 100%;
+  -webkit-transition-property: -webkit-transform, left, top;
+  -webkit-transition-duration: 0s;
+  -webkit-transform: translate3d(0px, 0, 0);
+  -webkit-transition-timing-function: ease;
+  -moz-transition-property: -moz-transform, left, top;
+  -moz-transition-duration: 0s;
+  -moz-transform: translate3d(0px, 0, 0);
+  -moz-transition-timing-function: ease;
+  -o-transition-property: -o-transform, left, top;
+  -o-transition-duration: 0s;
+  -o-transform: translate3d(0px, 0, 0);
+  -o-transition-timing-function: ease;
+  -o-transform: translate(0px, 0px);
+  -ms-transition-property: -ms-transform, left, top;
+  -ms-transition-duration: 0s;
+  -ms-transform: translate3d(0px, 0, 0);
+  -ms-transition-timing-function: ease;
+  transition-property: transform, left, top;
+  transition-duration: 0s;
+  transform: translate3d(0px, 0, 0);
+  transition-timing-function: ease;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.swiper-free-mode > .swiper-wrapper {
+  -webkit-transition-timing-function: ease-out;
+  -moz-transition-timing-function: ease-out;
+  -ms-transition-timing-function: ease-out;
+  -o-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+  margin: 0 auto;
+}
+
+.swiper-slide {
+  float: left;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* IE10 Windows Phone 8 Fixes */
+.swiper-wp8-horizontal {
+  -ms-touch-action: pan-y;
+}
+
+.swiper-wp8-vertical {
+  -ms-touch-action: pan-x;
+}
+
+/* ===============================================================
+Your custom styles, here you need to specify container's and slide's
+sizes, pagination, etc.
+================================================================*/
+.swiper-container {
+  /* Specify Swiper's Size: */
+  /*width:200px;
+  height: 100px;*/
+}
+
+.swiper-slide {
+  /* Specify Slides's Size: */
+  /*width: 100%;
+  height: 100%;*/
+}
+
+.swiper-slide-active {
+  /* Specific active slide styling: */
+}
+
+.swiper-slide-visible {
+  /* Specific visible slide styling: */
+}
+
+/* ===============================================================
+Pagination Styles
+================================================================*/
+.swiper-pagination-switch {
+  /* Stylize pagination button: */
+}
+
+.swiper-active-switch {
+  /* Specific active button style: */
+}
+
+.swiper-visible-switch {
+  /* Specific visible button style: */
+}
+
+/*# sourceMappingURL=styles.css.map */
