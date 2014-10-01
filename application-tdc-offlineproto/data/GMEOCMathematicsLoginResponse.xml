@@ -3,8 +3,8 @@
 		restart_number="0" isOK="F">
 		<status status_code="200" />
 		<testing_session_data>
-			<cmi.core student_id="13061753" student_last_name="11"
-				student_first_name="Abcd" student__middle_name="" />
+			<cmi.core student_id="13061753" student_last_name="Student"
+				student_first_name="Demo" student__middle_name="" />
 			<lms.student.accommodations calculator="true"
 				magnifier="false" screen_reader="false" untimed="true"
 				rest_break="true" highlighter="true" masking_ruler="true"
