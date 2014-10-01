@@ -1,0 +1,37 @@
+<tmssvc_response method="login_response">
+	<login_response lsid="8606687:BAFFLE955" restart_flag="fals 
+e"
+		restart_number="0" isOK="F">
+		<status status_code="200" />
+		<testing_session_data>
+			<cmi.core student_id="12013221" student_last_name="A"
+				student_first_name="Corelink1" student__middle_name="" />
+			<lms.student.accommodations calculator="true"
+				magnifier="false" screen_reader="false" untimed="false" 
+				rest_break="true" highlighter="true" masking_ruler="true"
+				magnifying_glass="true" auditory_calming="false" music_file_id="0"
+				extended_time="false" masking_tool="true">
+				<stereotype_style stereotype="directions"
+					font_magnification="1.0" />
+				<stereotype_style stereotype="stimulus"
+					font_magnification="1.0" />
+				<stereotype_style stereotype="stem"
+					font_magnification="1.0" />
+				<stereotype_style stereotype="answerArea" 
+					font_magnification="1.0" />
+				</lms.student.accommodations>
+		</testing_session_data>
+		<manifest block_content_download="false"
+			title="Georgia Social Studies Test Practice">
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="300573" 
+				sco_duration_minutes="0" sco_unit_question_number_offset="0" 
+				sco_unit_type="SUBTEST" title="Georgia Social Studies Test Practice" asmt_hash="0254844ADCD7A3A04E751D89C6EF2DF5"
+				asmt_encryption_key="1786" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8"
+				adsid="10671202" fwd_only="false" adaptive="false" isSample="false"
+				contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0" />
+			<terminator id="SEE_YOU_LATER" />
+		</manifest>
+		<branding tdclogo="/resources/lo 
+go.swf" />
+	</login_response>
+</tmssvc_response>

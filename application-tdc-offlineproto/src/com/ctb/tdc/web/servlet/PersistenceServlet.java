@@ -231,9 +231,28 @@ public class PersistenceServlet extends HttpServlet {
         	 else if(requestURI.indexOf("servletGACRCTMathGrade8") >= 0) {
            		filePath = new File(".").getAbsolutePath() + "/../data/GACRCTGrade8MathLoginResponse.xml";
            	} 
-        	 else if(requestURI.indexOf("servletGA2ElaTestPractice") >= 0) {
-           		filePath = new File(".").getAbsolutePath() + "/../data/GA2ElaTestPracticeLoginResponse.xml";
-           	}   	
+        	 else if(requestURI.indexOf("servletGMEOCElaTestPractice") >= 0) {
+           		filePath = new File(".").getAbsolutePath() + "/../data/GMEOCElaLoginResponse.xml";
+           	}
+        	 else if(requestURI.indexOf("servletGMEOCMathematicsTestPractice") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/GMEOCMathematicsLoginResponse.xml";
+        	} 
+        	 else if(requestURI.indexOf("servletGMEOCScienceTestPractice") >= 0) {
+         		filePath = new File(".").getAbsolutePath() + "/../data/GMEOCScienceLoginResponse.xml";
+         	} 
+        	 else if(requestURI.indexOf("servletGMEOCSocialStudiesTestPractice") >= 0) {
+          		filePath = new File(".").getAbsolutePath() + "/../data/GMEOCSocialStudiesLoginResponse.xml";
+          	}
+        	 else if(requestURI.indexOf("servletGMEOCAccommodatedHighContrastTestPractice") >= 0) {
+           		filePath = new File(".").getAbsolutePath() + "/../data/GMEOCAccommodatedHighContrastLoginResponse.xml";
+           	}
+        	 else if(requestURI.indexOf("servletGMEOCAccommodatedLargeFontTestPractice") >= 0) {
+        		filePath = new File(".").getAbsolutePath() + "/../data/GMEOCAccommodatedLargeFontLoginResponse.xml";
+        	}
+        	 else if(requestURI.indexOf("servletGMEOCAccommodatedScreenReaderTestPractice") >= 0) {
+         		filePath = new File(".").getAbsolutePath() + "/../data/GMEOCAccommodatedScreenReaderLoginResponse.xml";
+         	}
+        	
         	System.out.println("***** Looking for login response XML: " + filePath);
             result = new String(ServletUtils.readFromFile(new File(filePath)));
         	ServletUtils.processContentKeys(result);

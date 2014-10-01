@@ -1,0 +1,36 @@
+<tmssvc_response method="login_response">
+	<login_response lsid="8606692:BURGLAR587" restart_flag="false"
+		restart_number="0" isOK="F">
+		<status status_code="200" />
+		<testing_session_data>
+			<cmi.core student_id="12013191" student_last_name="B"
+				student_first_name="Corelink3" student__middle_name="" />
+			<lms.student.accommodations calculator="true"
+				magnifier="false" screen_reader="false" untimed="true" rest_break="true" 
+				highlighter="true" masking_ruler="true"
+				magnifying_glass="true" auditory_calming="false" music_file_id="0"
+				extended_time="true" masking_tool="false">
+				<stereotype_style stereotype="directions" 
+					bgcolor="0x000000" font_color="0xFFFFB0" font_magnification="1.0" />
+				<stereotype_style stereotype="stimulus"
+					bgcolor="0x000000" font_color="0xFFFFB0" font_magnification="1.0" />
+				<stereotype_style stereotype="stem" 
+					bgcolor="0x000000" font_color="0xFFFFB0" font_magnification="1.0" />
+				<stereotype_style stereotype="answerArea"
+					bgcolor="0x000000" font_color="0xFFFFB0" font_magnification="1.0" />
+			</lms.student.accommodations>
+				
+		</testing_session_data>
+		<manifest block_content_download="false"
+			title="Georgia Accommodated High Contrast Test Practice">
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="300555" 
+				sco_duration_minutes="0" sco_unit_question_number_offset="0" 
+				sco_unit_type="SUBTEST" title="Georgia Accommodated High Contrast Test Practice" asmt_hash="E1F6A980EA0ABEB3E318538EA113A002" 
+				asmt_encryption_key="1016" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8"
+				adsid="10670602" fwd_only="false" adaptive="false" isSample="false" 
+				contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0" />
+			<terminator id="SEE_YOU_LATER" />
+		</manifest>
+		<branding tdclogo="/resources/logo.swf" />
+		</login_response>
+</tmssvc_response>

@@ -8,8 +8,8 @@
 			<lms.student.accommodations calculator="true"
 				magnifier="false" screen_reader="false" untimed="true" rest_break="true"
 				highlighter="true" masking_ruler="true" magnifying_glass="true"
-				auditory_calming="true" music_file_id="2" extended_time="true"
-				masking_tool="true">
+				auditory_calming="false" music_file_id="0" extended_time="true"
+				masking_tool="false">
 				<stereotype_style stereotype="directions"
 					font_magnification="1.0" />
 				<stereotype_style stereotype="stimulus"

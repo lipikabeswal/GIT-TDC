@@ -238,8 +238,38 @@
   
    <servlet-mapping>
     <servlet-name>SpeechServlet</servlet-name>
-    <url-pattern>/servletGA2ElaTestPractice/SpeechServlet.do</url-pattern>
+    <url-pattern>/servletGMEOCElaTestPractice/SpeechServlet.do</url-pattern>
   </servlet-mapping>
+    
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletGMEOCMathematicsTestPractice/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletGMEOCScienceTestPractice/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletGMEOCSocialStudiesTestPractice/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletGMEOCAccommodatedHighContrastTestPractice/SpeechServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletGMEOCAccommodatedLargeFontTestPractice/SpeechServlet.do</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet-mapping>
+    <servlet-name>SpeechServlet</servlet-name>
+    <url-pattern>/servletGMEOCAccommodatedScreenReaderTestPractice/SpeechServlet.do</url-pattern>
+  </servlet-mapping>  
   
   <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
@@ -423,8 +453,38 @@
   
   <servlet-mapping>
     <servlet-name>ContentServlet</servlet-name>
-    <url-pattern>/servletGA2ElaTestPractice/ContentServlet.do</url-pattern>
+    <url-pattern>/servletGMEOCElaTestPractice/ContentServlet.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletGMEOCMathematicsTestPractice/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+   <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletGMEOCScienceTestPractice/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletGMEOCSocialStudiesTestPractice/ContentServlet.do</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletGMEOCAccommodatedHighContrastTestPractice/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletGMEOCAccommodatedLargeFontTestPractice/ContentServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>ContentServlet</servlet-name>
+    <url-pattern>/servletGMEOCAccommodatedScreenReaderTestPractice/ContentServlet.do</url-pattern>
+  </servlet-mapping>  
   
   <servlet>
     <description>PersistenceServlet</description>
@@ -612,11 +672,42 @@
     <servlet-name>PersistenceServlet</servlet-name>
     <url-pattern>/servletGACRCTMathGrade8/PersistenceServlet.do</url-pattern>
   </servlet-mapping>
+  
   <servlet-mapping>
     <servlet-name>PersistenceServlet</servlet-name>
-    <url-pattern>/servletGA2ElaTestPractice/PersistenceServlet.do</url-pattern>
+    <url-pattern>/servletGMEOCElaTestPractice/PersistenceServlet.do</url-pattern>
   </servlet-mapping>
-
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletGMEOCMathematicsTestPractice/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletGMEOCScienceTestPractice/PersistenceServlet.do</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletGMEOCSocialStudiesTestPractice/PersistenceServlet.do</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletGMEOCAccommodatedHighContrastTestPractice/PersistenceServlet.do</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletGMEOCAccommodatedLargeFontTestPractice/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet-mapping>
+    <servlet-name>PersistenceServlet</servlet-name>
+    <url-pattern>/servletGMEOCAccommodatedScreenReaderTestPractice/PersistenceServlet.do</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <description>UtilityServlet</description>
     <display-name>UtilityServlet</display-name>
@@ -807,10 +898,36 @@
   
   <servlet-mapping>
     <servlet-name>UtilityServlet</servlet-name>
-    <url-pattern>/servletGA2ElaTestPractice/UtilityServlet.do</url-pattern>
+    <url-pattern>/servletGMEOCElaTestPractice/UtilityServlet.do</url-pattern>
   </servlet-mapping>
   
- 
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletGMEOCMathematicsTestPractice/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
   
-
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletGMEOCScienceTestPractice/UtilityServlet.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletGMEOCSocialStudiesTestPractice/UtilityServlet.do</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletGMEOCAccommodatedHighContrastTestPractice/UtilityServlet.do</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletGMEOCAccommodatedLargeFontTestPractice/UtilityServlet.do</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet-mapping>
+    <servlet-name>UtilityServlet</servlet-name>
+    <url-pattern>/servletGMEOCAccommodatedScreenReaderTestPractice/UtilityServlet.do</url-pattern>
+  </servlet-mapping>  
 </web-app>
