@@ -162,7 +162,7 @@ html, body {
     margin-bottom: 25px; }
   .landing-page .grade-title {
     font-family: 'VectipedeBold';
-    font-size: 1.75em;
+    font-size: 25px!important;
     margin-bottom: 7px;
     color: #79AB36; }
   .landing-page .grade-list {
@@ -173,7 +173,7 @@ html, body {
       cursor:pointer;
       cursor:hand;
       color: #344549;
-      font-size: 1.625em;
+      font-size: 20px;
       line-height: 1.25em; }
   .landing-page .icon-test:before {
     position: relative;
