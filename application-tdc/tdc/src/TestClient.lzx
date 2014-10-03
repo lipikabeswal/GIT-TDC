@@ -77,6 +77,7 @@
 		type="string" />
 	<attribute name="useDefaultEliminator" type="boolean" value="true" />
 	<attribute name="isPreviewer" type="boolean" value="false"/>
+	<attribute name="userName" type="string"/>	
 	
 	<handler name="onkeydown" reference="LzKeys" args="k"><![CDATA[
 		if(gController.getAttribute('isHandlerInactive') == false) {
@@ -131,9 +132,10 @@
        if(isPrev == "true" || isPrev == true || isPrev == 'true'){
        		canvas.setAttribute('isPreviewer',true);
        }
-       if(canvas.isPreviewer){
+       //Commented as an empty text is set as default value for versionproductinfo
+      /* if(canvas.isPreviewer){
        	versionproductinfo.setAttribute('visible',false);
-       }
+       }*/
        <!-- canvas.setDefaultContextMenu(null); -->
        var cmenu = new LzContextMenu();
        cmenu.hideBuiltInItems();
@@ -201,7 +203,7 @@
 			        fgcolor="${canvas.copyriteColor}" height="16" 
 				    text="${canvas.Copyrite}" width="40%"/>
 			   <text id="versionproductinfo"  y="200" x="${immediateparent.width - this.width}" font="Arial" fontsize="12" 
-			        fgcolor="${canvas.copyriteColor}" height="18" width="23%"/>
+			        fgcolor="${canvas.copyriteColor}" height="18" width="23%" text=" "/>
 			</Screens>
             <Tutorial id="gTutorial" width="800" height="600"
                         visible="false"/>
