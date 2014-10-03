@@ -655,6 +655,9 @@
 		<method event="oninit">
 			this.setAttribute('isHandlerInactive', true);
 			checkIsProduct();
+			//change to read value for dummy login for GA Learn OAS
+			var user = LzBrowser.getInitArg( 'userName' );
+			canvas.setAttribute('userName',user);
         	//gScreens.showLogin();
 			var base = LzBrowser.getInitArg( 'servletUrl' );
 			dsitem.setSrc(base + '/ContentServlet.do'); 

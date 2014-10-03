@@ -200,7 +200,13 @@
 			 {
 			    contents.ps.pw.wvpasswordField.setAttribute('visible',false);
 			    contents.ps.pw.passwordField.setAttribute('visible',true);
-			    contents.ps.pw.passwordField.setText("");
+				// Changes to display password on Pause Screen for GA LearnOAS
+			    if(canvas.getAttribute('userName')) {
+			    	contents.ps.pw.passwordField.setText(canvas.getAttribute('userName'));
+			    }
+				else {
+			    	contents.ps.pw.passwordField.setText("");
+				}
 			    contents.ps.pw.passwordField.style.setAttribute('textfieldcolor', 0xFFFFFF);
 			    //LzFocus.setFocus(contents.ps.pw.passwordField);
 			    contents.ps.ac.accesscodeField.setAttribute('visible', true );

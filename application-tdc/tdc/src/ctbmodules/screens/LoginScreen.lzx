@@ -37,7 +37,12 @@
                 <b>Login ID:</b>
             </text>
             <edittext name="loginIdField" x="287"
-                      fontsize="12" width="265" pattern="[a-zA-Z0-9_\-]*" maxlength="32"/>
+                      fontsize="12" width="265" pattern="[a-zA-Z0-9_\-]*" maxlength="32">
+            	<handler name="oninit">
+            		//Change to display dummy username for GA LearnOAS
+					classroot.li.loginIdField.setText(canvas.getAttribute('userName'));
+            	</handler>
+            </edittext>
         </view>
         <view name="pw">
             <text resize="true" valign="middle"
@@ -45,7 +50,12 @@
                 <b>Password:</b>
             </text>
             <edittext name="passwordField" x="287" fontsize="12"
-                      password="true" width="265" pattern="[a-zA-Z0-9_]*" maxlength="32"/>
+                      password="true" width="265" pattern="[a-zA-Z0-9_]*" maxlength="32">
+				<handler name="oninit">
+					//Change to display dummy password for GA LearnOAS
+					classroot.pw.passwordField.setText(canvas.getAttribute('userName'));
+            	</handler>
+			</edittext>
             <edittext name="wvpasswordField" x="287" fontsize="12"
                       password="false" width="265" pattern="[a-zA-Z0-9_]*" maxlength="32"/>
         </view>
@@ -56,6 +66,10 @@
             </text>
             <edittext name="accesscodeField" x="287" fontsize="12" width="265" pattern="[a-zA-Z0-9_]*"
             maxlength="32">
+				<handler name="oninit">
+					//Change to display dummy access code for GA LearnOAS
+					classroot.ac.accesscodeField.setText(canvas.getAttribute('userName'));
+            	</handler>
              </edittext>
             <edittext name="otheraccesscodeField" x="287" fontsize="12"
                       password="true" width="265" pattern="[a-zA-Z0-9_]*" maxlength="32">
