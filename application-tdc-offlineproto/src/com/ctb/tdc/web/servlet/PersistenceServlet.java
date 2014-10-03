@@ -27,6 +27,7 @@ import com.ctb.tdc.web.utils.ServletUtils;
 public class PersistenceServlet extends HttpServlet {
        
     private static final long serialVersionUID = 1L;
+    private static String calcType = "TI84";
     static Logger logger = Logger.getLogger(PersistenceServlet.class);
      
 	/**
@@ -121,6 +122,17 @@ public class PersistenceServlet extends HttpServlet {
             result = uploadAuditFile(xml);
         else if (method != null && method.equals(ServletUtils.WRITE_TO_AUDIT_FILE_METHOD))
             result = writeToAuditFile(xml);
+        else if (method != null
+				&& method.equals(ServletUtils.OK_CALCULATOR)) {
+			calcType = request.getParameter("calcType");
+					showHideOkCalculator("Y");
+		} else if (method != null
+					&& method.equals(ServletUtils.SHOW_HIDE_OK_CALCULATOR)) {
+				showHideOkCalculator("Y");
+			}
+		else if (method != null
+				&& method.equals(ServletUtils.CLOSE_OK_CALCULATOR))
+			result = closeOkCalculator();
         else
             result = ServletUtils.ERROR;    
         
@@ -147,6 +159,16 @@ public class PersistenceServlet extends HttpServlet {
         //}
         return errorMessage;
     }
+    
+ // Change to handle OK Calculator	
+    public static String closeOkCalculator() {
+		return ServletUtils.OK;
+			
+	}
+
+	public static String showHideOkCalculator(String hidden) {
+		return ServletUtils.OK;
+	}
     
     private String login(HttpServletRequest request, String xml) {
     	//System.out.println("In login method");
