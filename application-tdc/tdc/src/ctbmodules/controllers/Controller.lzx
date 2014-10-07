@@ -3321,6 +3321,12 @@
 		if(this.recorder != null && this.recorder.recordButton.getAttribute('enabled') == true ) {
 			this.recorder.recordButton.setAttribute("clickable", true);
 		}
+			// Added to fix defect #80607
+			if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
+				removePauseTimer();
+				gPauseTimerScreen.setVisible(false);
+            	dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+            }
 			this.setAttribute('timeoutforpause', false);
 			showItemInterface();
 			gScreens.resetTextFieldColor();
@@ -3334,11 +3340,7 @@
 			checkShowMaskingChoiceDD();
 			gCommunicator.showHideOkCalculator("N");
 			timeoutDialog.close();
-			if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
-				removePauseTimer();
-				gPauseTimerScreen.setVisible(false);
-            	dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
-            }
+			
 		]]></method>
 
 		<method name="restoreScratchpadFocusIfNeeded"><![CDATA[
