@@ -1,14 +1,14 @@
 <tmssvc_response method="login_response">
-	<login_response lsid="8606707:KOALA29794" restart_flag="false"
-		restart_number="0" isOK="F">
+	<login_response lsid="8606925:FRONT90529" restart_flag="false"
+		restart_number="0">
 		<status status_code="200" />
 		<testing_session_data>
-			<cmi.core student_id="12013221" student_last_name="Student"
-				student_first_name="Demo" student__middle_name="" />
+			<cmi.core student_id="12723810" student_last_name="Student"
+				student_first_name="Georgia" student__middle_name="" />
 			<lms.student.accommodations calculator="true"
 				magnifier="false" screen_reader="false" untimed="false"
-				rest_break="true" highlighter="true" masking_ruler="true"
-				magnifying_glass="true" auditory_calming="false" music_file_id="0"
+				rest_break="true" highlighter="true" masking_ruler="false"
+				magnifying_glass="false" auditory_calming="false" music_file_id="0"
 				extended_time="false" masking_tool="false">
 				<stereotype_style stereotype="directions"
 					font_magnification="1.5" />
@@ -16,7 +16,7 @@
 					font_magnification="1.5" />
 				<stereotype_style stereotype="stem"
 					font_magnification="1.5" />
-				<stereotype_style stereotype="answerArea" 
+				<stereotype_style stereotype="answerArea"
 					font_magnification="1.5" />
 			</lms.student.accommodations>
 		</testing_session_data>
@@ -24,8 +24,8 @@
 			title="Georgia Accommodated Large Font Test Practice">
 			<sco force_logout="false" cmi.core.entry="ab-initio" id="300558" 
 				sco_duration_minutes="0" sco_unit_question_number_offset="0" 
-				sco_unit_type="SUBTEST" title="Georgia Accommodated Large Font Test Practice" asmt_hash="D4F0CF11F8E2657364A71FC131250FFD"
-				asmt_encryption_key="6" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8" 
+				sco_unit_type="SUBTEST" title="Georgia Accommodated Large Font Test Practice" asmt_hash="DB4B0DA338BD3A1482DB0BE8BB8F0ABA"
+				asmt_encryption_key="354" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8"
 				adsid="10670702" fwd_only="false" adaptive="false" isSample="false"
 				contentURI="https://oastest.ctb.com/content/"
 				cmi.core.total_time="0:0:0" />

@@ -1,15 +1,15 @@
 <tmssvc_response method="login_response">
-	<login_response lsid="8605644:BLURB6" restart_flag="false"
-		restart_number="1">
+	<login_response lsid="8606937:INSTALL918" restart_flag="false"
+		restart_number="0">
 		<status status_code="200" />
 		<testing_session_data>
-			<cmi.core student_id="12726254" student_last_name="Student"
-				student_first_name="Demo" student__middle_name="" />
+			<cmi.core student_id="12013221" student_last_name="Student"
+				student_first_name="Georgia" student__middle_name="" />
 			<lms.student.accommodations calculator="true"
-				magnifier="false" screen_reader="false" untimed="true" rest_break="true"
-				highlighter="true" masking_ruler="true" magnifying_glass="true"
-				auditory_calming="false" music_file_id="0" extended_time="true"
-				masking_tool="false">
+				magnifier="false" screen_reader="false" untimed="false"
+				rest_break="true" highlighter="true" masking_ruler="true"
+				magnifying_glass="true" auditory_calming="false" music_file_id="0"
+				extended_time="false" masking_tool="false">
 				<stereotype_style stereotype="directions"
 					font_magnification="1.0" />
 				<stereotype_style stereotype="stimulus"
@@ -20,13 +20,15 @@
 					font_magnification="1.0" />
 			</lms.student.accommodations>
 		</testing_session_data>
-		<manifest block_content_download="false" title="Georgia ELA Test Practice">
-			<sco force_logout="false" cmi.core.entry="ab-initio" id="300564"
-				sco_duration_minutes="0" sco_unit_question_number_offset="0"
-				sco_unit_type="SUBTEST" title="Georgia ELA Test Practice" asmt_hash="E9D92F16BE7EB02F023F8EF551918444"
-				asmt_encryption_key="60" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8"
+		<manifest block_content_download="false"
+			title="Georgia English Language Arts Test Practice">
+			<sco force_logout="false" cmi.core.entry="ab-initio" id="300564" 
+				sco_duration_minutes="0" sco_unit_question_number_offset="0" 
+				sco_unit_type="SUBTEST" title="Georgia English Language Arts Test Practice" asmt_hash="621A8803DFBC2DAC2102B22E45B6703F"
+				asmt_encryption_key="1334" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8"
 				adsid="10670902" fwd_only="false" adaptive="false" isSample="false"
-				contentURI="https://oastest.ctb.com/content/" cmi.core.total_time="0:0:0" />
+				contentURI="https://oastest.ctb.com/content/"
+				cmi.core.total_time="0:0:0" />
 			<terminator id="SEE_YOU_LATER" />
 		</manifest>
 		<branding tdclogo="/resources/logo.swf" />

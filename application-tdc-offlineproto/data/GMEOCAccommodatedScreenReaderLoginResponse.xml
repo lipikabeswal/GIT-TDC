@@ -1,15 +1,15 @@
 <tmssvc_response method="login_response">
-	<login_response lsid="8606715:FAD2210977" restart_flag="false"
-		restart_number="0" tts_speed_value="M" isOK="F">
+	<login_response lsid="8606951:EIGHT80254" restart_flag="false"
+		restart_number="0" tts_speed_value="M">
 		<status status_code="200" />
 		<testing_session_data>
-			<cmi.core student_id="12018102" student_last_name="Student"
-				student_first_name="Demo" student__middle_name="" />
+			<cmi.core student_id="12102644" student_last_name="Student"
+				student_first_name="Georgia" student__middle_name="" />
 			<lms.student.accommodations calculator="true"
 				magnifier="false" screen_reader="true" untimed="true"
 				rest_break="true" highlighter="true" masking_ruler="true"
-				magnifying_glass="false" auditory_calming="false" music_file_id="0"
-				extended_time="true" masking_tool="false">
+				magnifying_glass="true" auditory_calming="false" music_file_id="0"
+				extended_time="false" masking_tool="false">
 				<stereotype_style stereotype="directions"
 					font_magnification="1.0" />
 				<stereotype_style stereotype="stimulus"
@@ -24,10 +24,10 @@
 			title="Georgia Accommodated Screen Reader Test Practice">
 			<sco force_logout="false" cmi.core.entry="ab-initio" id="300561" 
 				sco_duration_minutes="0" sco_unit_question_number_offset="0" 
-				sco_unit_type="SUBTEST" title="Georgia Accommodated Screen Reader Test Practice" asmt_hash="07C757AC44A695C81E0DD8FEFBBEED06"
-				asmt_encryption_key="669" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8"
+				sco_unit_type="SUBTEST"	title="Georgia Accommodated Screen Reader Test Practice" asmt_hash="F2A0823B5F0E9370691EDA6FDBDE5ECE"
+				asmt_encryption_key="394" item_encryption_key="n7673nBJ2n27bB4oAfme7Ugl5VV42g8"
 				adsid="10670802" fwd_only="false" adaptive="false" isSample="false"
-				contentURI="https://oastest.ctb.com/content/" 
+				contentURI="https://oastest.ctb.com/content/"
 				cmi.core.total_time="0:0:0" />
 			<terminator id="SEE_YOU_LATER" />
 		</manifest>
