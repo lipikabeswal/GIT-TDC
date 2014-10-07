@@ -1,5 +1,5 @@
 <test_folder name="Georgia Winter Summative" num_levels="3" edition="First Edition." copyright="">
-	<folder name="Demonstration Test">
+	<folder name="Demonstration Tests">
 		<folder name="Demonstration Tests">
             <test test_name="English Language Arts Test Practice" id="1_EnglishLanguageArtsTestPractice"/>
             <test test_name="Mathematics Test Practice" id="2_MathematicsTestPractice"/>
@@ -7,8 +7,8 @@
             <test test_name="Social Studies Test Practice" id="4_SocialStudiesTestPractice"/>
 		</folder>
 	</folder>
-	<folder name="Accommodation Demonstration Test">
-		<folder name="Accommodation Demonstration Test">
+	<folder name="Accommodation Demonstration Tests">
+		<folder name="Accommodation Demonstration Tests">
             <test test_name="Accommodated High Contrast Test Practice" id="AccommodatedHighContrastTestPractice"/> <!--    4-8 Font and background colors will be provided by GA DOE by Friday 9/26. -->
             <test test_name="Accommodated Large Font Test Practice" id="AccommodatedLargeFontTestPractice"/> <!--  4-8  -->
             <test test_name="Accommodated Screen Reader Test Practice" id="AccommodatedScreenReaderTestPractice"/> <!--   4   No reference sheets -->
