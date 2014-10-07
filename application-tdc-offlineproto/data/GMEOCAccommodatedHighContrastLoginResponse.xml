@@ -7,8 +7,8 @@
 				student_first_name="Georgia" student__middle_name="" />
 			<lms.student.accommodations calculator="true"
 				magnifier="false" screen_reader="false" untimed="false"
-				rest_break="true" highlighter="true" masking_ruler="false"
-				magnifying_glass="false" auditory_calming="false" music_file_id="0"
+				rest_break="true" highlighter="true" masking_ruler="true"
+				magnifying_glass="true" auditory_calming="false" music_file_id="0"
 				extended_time="false" masking_tool="false">
 				<stereotype_style stereotype="directions"
 					bgcolor="0x000000" font_color="0xFFFFB0" font_magnification="1.0" />
