@@ -16,6 +16,7 @@
 		<attribute name="refCardRsrc" type="string"/>
 		<attribute name="titleRsrc" type="string"/>
 		<attribute name="scrolls" type="boolean" value="false" />
+		<attribute name="show_overlay" type="boolean" value="false" />
 		
 		<!-- 
 			when mouse is down on the scrollbar, it will be true
@@ -28,11 +29,11 @@
 
 		<handler name="onvisible" args="v"><![CDATA[
 		//To control the visibility according to the toolstate
-			if(this.toolstate.data != 'sel' && v) {
-				this.setAttribute('visible',false);
-			}
-			else
-			{
+			if(this.toolstate.data != 'sel' && !v){
+				gReadableText.stopReading(false);
+			}else if(this.toolstate.data != 'sel' && v) {
+				this.setAttribute("visible",false);
+			}else{
 				this.bringToFront();
 			}	
 		]]></handler>
@@ -112,10 +113,20 @@
 				this.refCardContents.contents.setAttribute("width", null);
 				
 				var theSrc = null;
-				var theTitleSrc = null;
-	
+				var theTitleSrc = null; 
+				var srcName = null;
 				if(data != null && data.hasAttr('src')) {
-					if(canvas.readable){
+					srcName	= data.getAttr('src');
+				}
+				if(srcName != null && srcName.indexOf('$Readable')!=-1){
+					this.setAttribute('show_overlay',true);
+					var ext = srcName.substr(srcName.indexOf('.'),srcName.length);
+					srcName = srcName.substr(0,srcName.indexOf('$Readable'));
+					srcName = srcName+ext
+					data.setAttr('src',srcName);
+				}
+				if(data != null && data.hasAttr('src')) {
+					if(canvas.readable && this.show_overlay){
 						gController.loadRefCardOverlay(data.getAttr('src'));
 					}
 					theSrc = getImageUrl(data.getAttr('src'));
@@ -416,7 +427,7 @@
 				
 								
 				<view width="${parent.parent.contents.width}">
-					<RefCardReadableOverlay datapath="dsFinalOverlay:/ref_card/overlay" visible="${canvas.readable}"/>
+					<RefCardReadableOverlay datapath="dsFinalOverlay:/ref_card/overlay" visible="${canvas.readable &amp;&amp; classroot.show_overlay}"/>
 				</view>
 			</view>
 		    <vscrollbar name="scroller" visible="${this.scrollable}">
