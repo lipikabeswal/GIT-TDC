@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <library>
 
-<class name="RefCardReadableOverlay" opacity="0.2">
+<class name="RefCardReadableOverlay" opacity="0.1">
 	<attribute name="bgcolor" value="$path{'@bgcolor'}"/>
 	<attribute name="x" value="$path{'@x'}"/>
 	<attribute name="y" value="$path{'@y'}"/>
@@ -11,11 +11,13 @@
 	
 
 	<handler name="onmouseover">
-		this.setAttribute('opacity',0.5);
+		this.setAttribute('opacity',0.3);
+		this.reader_icon.setAttribute("visible",true);
 	</handler>
 	
 	<handler name="onmouseout">
-		this.setAttribute('opacity',0.2);
+		this.setAttribute('opacity',0.1);
+		this.reader_icon.setAttribute("visible",false);
 	</handler>
 	
 	<handler name="onclick">
@@ -23,6 +25,11 @@
 			gReadableText.read(gReadableText.stripHtmlTags(alt_text),false);
 		}
 	</handler>
+	<view name="reader_icon"
+			resource="read_btn"
+			visible="false"
+			align="right">
 	
+	</view>	
 </class>
 </library>
