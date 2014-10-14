@@ -103,7 +103,7 @@
         </method>
         
         <method name="read">
- 	    	gReadableText.read(sp.getSelectedText(), true);
+ 	    	gReadableText.read(sp.getSelectedText(), true,false);
         	restoreFocusAndCursor();
         </method>
         

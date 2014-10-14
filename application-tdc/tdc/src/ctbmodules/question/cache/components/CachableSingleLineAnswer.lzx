@@ -107,6 +107,7 @@
 			if(txt.length == 0){
 				txt = gReadableText.getReadableTextForCharacter(' ');
 			}
+			gReadableText.setAttribute("refCardReadAloud",false,false);
 			gReadableText.read(txt);
 		</method>
 		<method name="setSelectionVars">

@@ -220,6 +220,10 @@
 	<dataset name="dsstudentdata" src="xmls/studentData.xml" />
 
 	<dataset name="dstemp" />
+	
+	<dataset name="dsoverlay" src="xmls/overlay.xml" />
+	<datapointer name="dpoverlay" xpath="dsoverlay" />
+	<dataset name="dsFinalOverlay"/>
 
 	<!--
 		==================================================
@@ -1210,8 +1214,8 @@
 		<method name="terminate">
 			this.setAttribute('timeoutforpause', false);
 			if(!gController.logoutFromPause) {
-				gCommunicator.terminate();
-				gCommunicator.showHideOkCalculator("Y");
+			gCommunicator.terminate();
+			gCommunicator.showHideOkCalculator("Y");
 			}
 			goToGoodbyeScreen();
 		</method>
@@ -1247,7 +1251,7 @@
 			removePauseTimer();
 			gRevisitFalsePopup.hide();
 			if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
-				gPauseTimerScreen.setVisible(false);
+			gPauseTimerScreen.setVisible(false);
 			}
 			gScreens.showGoodbye();
 			LzTimer.addTimer( dcloseBrowser, 5000 );
@@ -3024,10 +3028,10 @@
 //Debug.write("values sent to readKeySelection are ::::"+selid+"and"+value);
 			if((selid == 'A' || selid == 'B' || selid == 'C' || selid == 'D' || selid == 'E' ||
 						selid == 'F' || selid == 'G' || selid == 'H' || selid == 'I' || selid == 'J') && value == 's'){
-   					gReadableText.read(selid + ". Selected");			
+   					gReadableText.read(selid + ". Selected",false,false);			
    				}
    				else{
-		            gReadableText.read(gReadableText.getSelectionRemoved());
+		            gReadableText.read(gReadableText.getSelectionRemoved(),false,false);
    				}
    			}
    				]]>		
@@ -3170,10 +3174,10 @@
 
 				if(value != orig){
 					if(typeof value != 'undefined' && value != null && value.length > 0){
-						gReadableText.read(gReadableText.getReadableTextForCharacter(value) + " selected.");
+						gReadableText.read(gReadableText.getReadableTextForCharacter(value) + " selected.",false,false);
 					}
 					else{
-						gReadableText.read(gReadableText.getSelectionRemoved());
+						gReadableText.read(gReadableText.getSelectionRemoved(),false,false);
 					}
 				}
 			   freezeUI();
@@ -3274,12 +3278,12 @@
         	checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD(); 
             if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
-            	removeTrackTimer();
-            	resetPauseTimer(timerInterval);
-				startPauseTimer();
+			removeTrackTimer();
+			resetPauseTimer(timerInterval);
+			startPauseTimer();
 				gPauseTimerScreen.setVisible(true);
 			}
-			gScreens.showPause(getStudentName());
+            gScreens.showPause(getStudentName());
 			gRevisitFalsePopup.hide();
 			gHotKeys.disableKeys();
 			gTooltip.hideTooltip();
@@ -3318,14 +3322,14 @@
         </method>
 
 		<method name="_handlePausedResumeResponse" args="xml"><![CDATA[
-		if(this.recorder != null && this.recorder.recordButton.getAttribute('enabled') == true ) {
-			this.recorder.recordButton.setAttribute("clickable", true);
-		}
+			if(this.recorder != null && this.recorder.recordButton.getAttribute('enabled') == true ) {
+				this.recorder.recordButton.setAttribute("clickable", true);
+			}
 			// Added to fix defect #80607
 			if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
 				removePauseTimer();
 				gPauseTimerScreen.setVisible(false);
-            	dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+				dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
             }
 			this.setAttribute('timeoutforpause', false);
 			showItemInterface();
@@ -3704,6 +3708,14 @@ Debug.write("############ loadItem ############");
 			hideMaskingChoiceDD();
 			gTooltip.hideTooltip();
 		]]></method>
+		
+		<method name="loadRefCardOverlay" args="cardName">
+			Debug.write("loadRefCardOverlay cardName ",cardName);
+			cardName = cardName.substring(0,cardName.indexOf("."));
+			dpoverlay.setXPath("dsoverlay:/main");
+			dsFinalOverlay.removeChild(dsFinalOverlay.getFirstChild());
+			dsFinalOverlay.appendChild(dpoverlay.xpathQuery("ref_card[@name='"+cardName+"']"));
+		</method>
 
 		<method name="loadMusicData"><![CDATA[
 			dsMusic.setQueryParam(gRequest.METHOD_PARAM, gRequest.GET_MUSIC_DATA);
@@ -4248,49 +4260,49 @@ Debug.write("############ loadItem ############");
 
 		<method name="startPauseTimer">
             if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
-				updateTimeLeftForPause();
-	            LzTimer.resetTimer( dupdateTimeLeftForPause, 1000 );
-	            this.qtimestampforpause = getTimer();
-	            this.timingforpause = true;
-	            exitPopups();
+            updateTimeLeftForPause();
+            LzTimer.resetTimer( dupdateTimeLeftForPause, 1000 );
+            this.qtimestampforpause = getTimer();
+            this.timingforpause = true;
+            exitPopups();
 	         }
         </method>
 
 		<method name="updateTimeLeftForPause"><![CDATA[
             if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
-				var timestamp = getTimer();
-	            if ( timingforpause ) {
-	                var remainingmsforpause =
-	                    durationmsforpause - (timestamp - qtimestampforpause);
-	                if ( remainingmsforpause <= 0 ) {
-	                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
-						canvas.setPromptDimension();
-						if(gPleaseWaitPopup.visible){
-							this.setAttribute('timeoutforpause',true);
-						}else{
-							timeoutDialog.open();
-						}	
-	                } else {
-	                    var timeleftforpause = secondsToString(
-	                        Math.floor( remainingmsforpause / 1000 )
-	                    );
-	                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
-	
-	                    LzTimer.resetTimer( dupdateTimeLeftForPause, 1000 );
-	                }
-	            } else {
-	                var remainingmsforpause = durationmsforpause - elapsedmsforpause;
-	                if ( remainingmsforpause <= 0 ) {
-	                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
-						canvas.setPromptDimension();
+            var timestamp = getTimer();
+            if ( timingforpause ) {
+                var remainingmsforpause =
+                    durationmsforpause - (timestamp - qtimestampforpause);
+                if ( remainingmsforpause <= 0 ) {
+                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+					canvas.setPromptDimension();
+					if(gPleaseWaitPopup.visible){
+						this.setAttribute('timeoutforpause',true);
+					}else{
 						timeoutDialog.open();
-	                } else {
-	                    var timeleftforpause = secondsToString(
-	                        Math.floor( remainingmsforpause / 1000 )
-	                    );
-	                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
-	                }
-	            }
+					}	
+                } else {
+                    var timeleftforpause = secondsToString(
+                        Math.floor( remainingmsforpause / 1000 )
+                    );
+                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
+
+                    LzTimer.resetTimer( dupdateTimeLeftForPause, 1000 );
+                }
+            } else {
+                var remainingmsforpause = durationmsforpause - elapsedmsforpause;
+                if ( remainingmsforpause <= 0 ) {
+                    dpdisplay.setNodeAttribute( 'timeleftforpause', '00:00' );
+					canvas.setPromptDimension();
+					timeoutDialog.open();
+                } else {
+                    var timeleftforpause = secondsToString(
+                        Math.floor( remainingmsforpause / 1000 )
+                    );
+                    dpdisplay.setNodeAttribute( 'timeleftforpause', timeleftforpause );
+                }
+            }
 	        }
         ]]></method> 
 
@@ -4299,16 +4311,16 @@ Debug.write("############ loadItem ############");
 
 		<method name="resetPauseTimer" args="durseconds">
             if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
-				this.durationmsforpause = durseconds;
-	            this.elapsedmsforpause  = 0;
-	            this.qtimestampforpause = 0;
-	            this.timingforpause     = false;
+            this.durationmsforpause = durseconds;
+            this.elapsedmsforpause  = 0;
+            this.qtimestampforpause = 0;
+            this.timingforpause     = false;
 	        }
         </method>
 
 		<method name="removePauseTimer">
 			if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
-				LzTimer.removeTimer(dupdateTimeLeftForPause);
+			LzTimer.removeTimer(dupdateTimeLeftForPause);
 			}
 		</method>
 	

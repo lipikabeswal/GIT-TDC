@@ -31,6 +31,7 @@
 	    <attribute name="speechRequestSent" type="boolean" value="false" />
 
 		<attribute name="dRequestor" value="$once{new LzDelegate(this, 'requestor')}" />  
+		<attribute name="refCardReadAloud" type="boolean" value="false" />
 
         <method name="init">
             super.init();
@@ -53,13 +54,14 @@
 			return READ_SELECTION_REMOVED;
 		</method>
 		
-        <method name="read" args="txt, fromSp"><![CDATA[
+        <method name="read" args="txt, fromSp, fromRefCard"><![CDATA[
         	if(fromSp == true){
         		gReadableText.setAttribute("readingScratchpad", true);
         	}
         	else{
         		gReadableText.setAttribute("readingScratchpad", false);
         	}
+        	gReadableText.setAttribute("refCardReadAloud", fromRefCard);
         	txt = trim(txt);
         	//Debug.write("current Text"+txt);
         	this.currentText = txt;//TTS CR

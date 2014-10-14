@@ -23,7 +23,7 @@
 	</method>
 	<method name="readMe">
 		if(canvas.readable){
-       		gReadableText.read(gReadableText.stripHtmlTags(this.contents.rationale.text));
+       		gReadableText.read(gReadableText.stripHtmlTags(this.contents.rationale.text),false,false);
        	}
 	</method>
 	<method name="setup" args="fm, fc, bc"><![CDATA[

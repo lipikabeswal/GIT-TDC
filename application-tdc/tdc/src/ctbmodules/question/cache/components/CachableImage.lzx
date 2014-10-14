@@ -61,7 +61,7 @@
 		
         <method name="read">
             if ( this['readable'] ) {
-                gReadableText.read( altText );
+                gReadableText.read( altText ,false,false);
             }
         </method>
 		

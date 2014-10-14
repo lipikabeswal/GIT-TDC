@@ -60,7 +60,7 @@
 
         <method name="read" args="s">
         	var txt = gController.substituteInputText(this.readableText);
-			gReadableText.read(gReadableText.getReadableTextForCharacter(txt));
+			gReadableText.read(gReadableText.getReadableTextForCharacter(txt),false,false);
         </method>
 
 

@@ -389,7 +389,7 @@
                       fgcolor="${classroot.fontcolor}"
 					  bgcolor="${classroot.bgcolor}"
                       clickable="${canvas.readable}"
-                      onclick="gReadableText.read(gReadableText.stripHtmlTags(text))"
+                      onclick="gReadableText.read(gReadableText.stripHtmlTags(text),false,false)"
                       fontstyle="bold">
                     <attribute name="titlewidth" value="0"/>
                 </text>

@@ -156,7 +156,7 @@
 	
 	<method name="readMe"><![CDATA[
 		if(this.readable){
-			gReadableText.read(gReadableText.stripHtmlTags(this.body.wrap.header.text + ", " + this.body.wrap.detail.text));
+			gReadableText.read(gReadableText.stripHtmlTags(this.body.wrap.header.text + ", " + this.body.wrap.detail.text),false,false);
 			this.setAttribute("readingFootNote", true);
        	}
 	]]></method>

@@ -79,7 +79,7 @@
 			}
 			        	
             if (this.eliminatorstatus.data == 'sel') {
-            	gReadableText.read(getReadableTextForEliminator(readableText, this.selstate !='e'));
+            	gReadableText.read(getReadableTextForEliminator(readableText, this.selstate !='e'),false,false);
                 gController.setItemSelState (this.type, 
                                                  this.selstate == 'e' ? 'n' : 'e');
             } else if (this.eraserstatus.data == 'sel' && this.selstate == 'e') {
@@ -87,7 +87,7 @@
             	gController.setItemSelState (this.type, 'n');
                 gController.clearCurrentCursor();
             } else {
-             	gReadableText.read(getReadableTextForSelection(readableText, this.selstate != 's'));
+             	gReadableText.read(getReadableTextForSelection(readableText, this.selstate != 's'),false,false);
 //Debug.write(this.type, (this.selstate == 'e' ? 'n' : 'e'));
                 gController.setItemSelState (this.type, 
                                                  this.selstate != 's' ? 's' : 'n');

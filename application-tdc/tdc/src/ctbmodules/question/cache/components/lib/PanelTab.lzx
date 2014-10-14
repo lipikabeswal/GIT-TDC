@@ -90,7 +90,7 @@
         </method>
  
         <method name="selectIt">
-        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text));
+        	gReadableText.read(gReadableText.stripHtmlTags(this.thetitle.text),false,false);
             setSelected(true, true);
         </method>
         
@@ -139,7 +139,7 @@
 	        	if(classroot.altText != null && gController.isVanilla){
 	        		textToBeRead = gReadableText.stripHtmlTags(classroot.altText)
 	        	}
-				gReadableText.read(textToBeRead);
+				gReadableText.read(textToBeRead,false,false);
 	            parent.selectIt();
 	            ]]>
 	        </method>

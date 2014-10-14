@@ -60,9 +60,9 @@
 
         <method name="read" args="s">
             if ( this.hasAltText ) {
-                gReadableText.read( this.altText );
+                gReadableText.read( this.altText,false,false );
             } else {
-                gReadableText.read( s );
+                gReadableText.read( s,false,false );
             }
         </method>
 

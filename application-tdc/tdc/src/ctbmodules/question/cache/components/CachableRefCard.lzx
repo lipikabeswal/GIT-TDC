@@ -1,6 +1,7 @@
 <library>
 
 	<include href="CachableComponent.lzx"/>
+	<include href="lib/RefCardReadableOverlay.lzx"/>
 
     <class name="CachableRefCard" comptype="$once {gCompTypes.WIDGET_REFERENCE_CARD}" extends="CachableComponent">
 		<attribute name="innerHeight" value="400" type="number"/>
@@ -15,6 +16,8 @@
 		<attribute name="refCardRsrc" type="string"/>
 		<attribute name="titleRsrc" type="string"/>
 		<attribute name="scrolls" type="boolean" value="false" />
+		<attribute name="sourceName" type="string"/>
+		<attribute name="show_overlay" type="boolean" value="false" />
 		
 		<!-- 
 			when mouse is down on the scrollbar, it will be true
@@ -27,11 +30,12 @@
 
 		<handler name="onvisible" args="v"><![CDATA[
 		//To control the visibility according to the toolstate
-			if(this.toolstate.data != 'sel' && v) {
+			if(this.toolstate.data != 'sel' && !v && gReadableText.refCardReadAloud){
+				gReadableText.setAttribute("refCardReadAloud",false);
+				gReadableText.stopReading(false); //stop reading the ref card content when ref card is closed
+			}else if(this.toolstate.data != 'sel' && v) {
 				this.setVisible(false);
-			}
-			else
-			{
+			}else{
 				this.bringToFront();
 			}	
 		]]></handler>
@@ -111,16 +115,32 @@
 			
 			var theSrc = null;
 			var theTitleSrc = null;
+			var srcName = null;
+			if(data != null && data.hasAttr('src')) {
+				srcName	= data.getAttr('src');
+			}
+			if(srcName != null && srcName.indexOf('$Readable')!=-1){
+				this.setAttribute('show_overlay',true);
+				var ext = srcName.substr(srcName.indexOf('.'),srcName.length);
+				srcName = srcName.substr(0,srcName.indexOf('$Readable'));
+				srcName = srcName+ext
+				data.setAttr('src',srcName);
+			}
 
 			if(data != null && data.hasAttr('src')) {
 				theSrc = getImageUrl(data.getAttr('src'));
+				if(canvas.readable && this.show_overlay){
+					gController.loadRefCardOverlay(data.getAttr('src'));
+				}
 				var title = String(data.getAttr('src'));
 				title = title.substr(0,title.length - 4)+'_title.swf';
 				theTitleSrc = getImageUrl(title);
 			}
 			
 			if(data != null && theSrc != null){
+				var ref_src = data.getAttr('src');
                 this.setAttribute ('refCardRsrc', theSrc);
+				this.setAttribute ('sourceName', ref_src.substring(0,ref_src.indexOf(".")));
 				this.setAttribute ('titleRsrc', theTitleSrc);
             }
 
@@ -401,7 +421,14 @@
 					}
 				]]></method>
 
+				<view 
+				  width="${parent.parent.contents.width}" 
+			      height="${parent.parent.contents.height}">
+					<RefCardReadableOverlay datapath="dsFinalOverlay:/ref_card/overlay" visible="${canvas.readable &amp;&amp; classroot.show_overlay}"/>
+				</view>
 			</view>
+
+			
 		    <vscrollbar name="scroller" visible="${this.scrollable}">
 
 			<!--
@@ -434,6 +461,7 @@
 			<!-- till here -->
 			</vscrollbar>	
 		</view>
+		
     </class>
 
 </library>

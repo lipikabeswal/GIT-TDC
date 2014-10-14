@@ -13,7 +13,7 @@
 			if(txt.length == 0){
 				txt = gReadableText.getReadableTextForCharacter(' ');
 			}
-			gReadableText.read(txt);
+			gReadableText.read(txt,false,false);
 		</method>
 		<method name="setSelectionVars">
 			answer.setSelectionVars();

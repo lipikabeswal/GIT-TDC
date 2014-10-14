@@ -141,7 +141,7 @@
 
 		<method name="read">
 			var txt = this.getReadableTextForGr();
-			gReadableText.read(txt);
+			gReadableText.read(txt,false,false);
 		</method>
 		
 		<method name="getReadableTextForGr"><![CDATA[

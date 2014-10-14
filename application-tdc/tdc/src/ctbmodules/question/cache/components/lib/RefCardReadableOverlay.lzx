@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<library>
+	
+	<class name="RefCardReadableOverlay" opacity="0.2">
+		<attribute name="bgcolor" value="$path{'@bgcolor'}"/>
+		<attribute name="x" value="$path{'@x'}"/>
+		<attribute name="y" value="$path{'@y'}"/>
+		<attribute name="width" type="size" value="$path{'@width'}"/>
+		<attribute name="height" type="size" value="$path{'@height'}"/>
+		<attribute name="alt_text" type="string" value="$path{'@alt_text'}"/>
+		
+	
+		<handler name="onmouseover">
+			this.setAttribute('opacity',0.4);
+			this.reader_icon.setAttribute("visible",true);
+		</handler>
+		
+		<handler name="onmouseout">
+			this.setAttribute('opacity',0.2); 
+			this.reader_icon.setAttribute("visible",false);
+		</handler>
+		
+		<handler name="onclick">
+			if(canvas.readable){
+				gReadableText.setAttribute("refCardReadAloud",true);
+				gReadableText.read(gReadableText.stripHtmlTags(alt_text),false,true);
+			}
+		</handler>
+		
+		<view name="reader_icon"
+				resource="read_btn"
+				visible="false"
+				align="right"/>
+		
+	</class>
+</library>
