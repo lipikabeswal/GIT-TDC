@@ -330,7 +330,7 @@
 				<handler name="onselect"><![CDATA[
 					if(gReadableText.isplaying && gReadableText.isReadable && 
 						gReadableText.clickable && gReadableText.currentText.length > 0) {
-					gReadableText.read(gReadableText.currentText,false,false);
+						gReadableText.read(gReadableText.currentText,false,gReadableText.refCardReadAloud);
 					}
 				]]></handler>
 			</radiogroup>		
