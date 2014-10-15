@@ -112,6 +112,8 @@
 			this.setAttribute("width", null);
 			this.refCardContents.contents.setAttribute("height", null);
 			this.refCardContents.contents.setAttribute("width", null);
+			this.refCardContents.contents.refOverlayContainer.setAttribute("height", 0);
+			this.refCardContents.contents.refOverlayContainer.setAttribute("width", 0);
 			
 			var theSrc = null;
 			var theTitleSrc = null;
@@ -421,7 +423,7 @@
 					}
 				]]></method>
 
-				<view 
+				<view name="refOverlayContainer"
 				  width="${parent.parent.contents.width}" 
 			      height="${parent.parent.contents.height}">
 					<RefCardReadableOverlay datapath="dsFinalOverlay:/ref_card/overlay" visible="${canvas.readable &amp;&amp; classroot.show_overlay}"/>
