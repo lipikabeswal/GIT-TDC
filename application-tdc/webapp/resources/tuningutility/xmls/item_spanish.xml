@@ -4,7 +4,7 @@
    <panel left_padding="12" stereotype="directions" id="stem1" width="500" 
 		       layout="vertical" spacing="12" x="0" y="79" height="37">
 			<text_widget halign="left" x="0" width="364" id="widget1000">
-				<![CDATA[<B>Calibración de micrófonos de lascomputadoras para administrarlaspruebas</B>]]>
+				<![CDATA[<B>Calibración de micrófonos de las computadoras para administrar las pruebas</B>]]>
 			</text_widget>
 		</panel>
       <scrolling_text_panel height="375" id="TD.6.0_010" stereotype="stimulus" width="360" x="12" y="125">
