@@ -19,8 +19,12 @@
 		<labelText>Sound Recorder</labelText> 
 		<recordStatusInProgess>RECORDING...</recordStatusInProgess> 
 		<recordStatusCompleted>AUDIO CAPTURED</recordStatusCompleted> 
+		<playStatusInProgess>Playing...</playStatusInProgess>
+		<playStatusStopped>Audio Stopped</playStatusStopped> 
+		<playStatusComplete>Playback Complete</playStatusComplete>
 		<tooltip_record>Record</tooltip_record>
 		<tooltip_stop>Stop</tooltip_stop>
+		<tooltip_play>Play</tooltip_play>
 		<tooltip_startOver>Start Over</tooltip_startOver>
 		<startOverResource>button_startover_english</startOverResource>
 		<attachMic>It appears your microphone is not plugged in, please adjust your microphone input volume up and make sure your microphone is connected.</attachMic>
@@ -49,8 +53,12 @@
 		<labelText>Grabadora</labelText>
 		<recordStatusInProgess>GRABANDO...</recordStatusInProgess>
 		<recordStatusCompleted>AUDIO GRABADO</recordStatusCompleted>
+		<playStatusInProgess>Sonando...</playStatusInProgess>
+		<playStatusStopped>La grabación paró</playStatusStopped> 
+		<playStatusComplete>Reproducción Complete</playStatusComplete>
 		<tooltip_record>Grabar</tooltip_record>
 		<tooltip_stop>Parar</tooltip_stop>
+		<tooltip_play>Sonar</tooltip_play>
 		<tooltip_startOver>Grabar de Nuevo</tooltip_startOver>
 		<startOverResource>button_startover_spanish</startOverResource>
 		<attachMic>Tu micrófono parece estar desconectado. Ajusta el volumen del micrófono y asegúrate que el micrófono está conectado.</attachMic>
