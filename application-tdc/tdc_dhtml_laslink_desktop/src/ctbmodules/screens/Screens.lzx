@@ -386,6 +386,8 @@
          	if(gRecordingPopup._timer!=null){
          		gRecordingPopup.hideAllRecorderPopups();
          	}
+         	// added for Mic calibration screen.
+         	gMicCalibrationScreen.hide();
          	gItemInterface.setAttribute('visible', false);
          	gTutorial.setAttribute('visible', false);
          	gSecurityScreen.setAttribute('visible', false);

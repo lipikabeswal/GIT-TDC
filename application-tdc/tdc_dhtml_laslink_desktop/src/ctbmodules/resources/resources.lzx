@@ -540,6 +540,18 @@
        	<frame src="components/recorder/button_stop_disable.jpg"/>
 	</resource>
 
+	<resource name="button_play">
+       	<frame src="components/recorder/button_play.gif"/>
+       	<frame src="components/recorder/button_play_clicked.GIF"/>
+       	<frame src="components/recorder/button_play_disable.GIF"/>
+	</resource>
+	
+	<resource name="button_playstop">
+       	<frame src="components/recorder/button_playstop.jpg"/>
+       	<frame src="components/recorder/button_playstop_clicked.jpg"/>
+       	<frame src="components/recorder/button_playstop_disable.jpg"/>
+	</resource>
+	
 	<resource name="button_reset">
        	<frame src="components/recorder/button_reset.gif"/>
        	<frame src="components/recorder/button_reset_hover.gif"/>
@@ -556,9 +568,10 @@
        	<!--frame src="components/recorder/button_startover.gif"/>
        	<frame src="components/recorder/button_startover_hover.jpg"/>
        	<frame src="components/recorder/button_startover_disabled.png"/-->
-	<frame src="components/recorder/start_over.png"/>
-       	<frame src="components/recorder/start_over_hover.png"/>
+		<frame src="components/recorder/start_over.png"/>
+		<frame src="components/recorder/start_over_hover.png"/>
        	<frame src="components/recorder/start_over_disable.png"/>
+		
 	</resource>
 	<resource name="button_startover_spanish">
       	<frame src="components/recorder/start_over_spanish.png"/>

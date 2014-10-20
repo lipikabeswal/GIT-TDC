@@ -218,6 +218,10 @@
 	<dataset name="dsstudentdata" src="xmls/studentData.xml" />
 
 	<dataset name="dstemp" />
+	<!-- Changes for Mic Calibration -->
+	<dataset name="dsCalibrationItem" type="http" request="true" src="resources/tuningutility/xmls/item_english.xml" />
+	<dataset name="dsCalibrationItemSpanish" type="http" request="true" src="resources/tuningutility/xmls/item_spanish.xml" />
+	
 	<!-- Changes for Language Switch for Espanol Test -->
 	<dataset name="languageDs" type="http" request="true" src="resources/LanguageInterChange.xml" />
 
@@ -243,6 +247,7 @@
 		<attribute name="heartbeatResult" type="string" value="null" />
 		<!-- Changes for Language Switch for Espanol Test -->
 		<attribute name="language" type="string" value="English"/>
+		<datapointer name="dpTestItem"/>
 		<datapointer name="dplang"/>
 		<!-- 
 			Requests to the communicator result in setting the communicatorResponse with
@@ -541,7 +546,7 @@
 		<attribute name="isAnswerSet" type="boolean" value="false"/>
 		<attribute name="findAnswer" type="boolean" value="true"/>
 		<!-- isMicPresent used for checking if mic is connected -->
-		<attribute name="isMicPresent" type="boolean" value="true"/>
+		<attribute name="isMicPresent" type="boolean" value="false"/>
 		<attribute name="dMicCheck"
 			value="$once{ new lz.Delegate( this, 'isMicConnected' ) }" type="expression"/>
 		<attribute name="isPauseTest" value="false" type="boolean" /> 
@@ -556,6 +561,7 @@
 		<attribute name="iskeyEnabled" type="boolean" value="true"/>
 		<attribute name="goBackPressed" type="boolean" value="false"/>
 		<attribute name="recorderState" type="string" value=""/>
+		<attribute name="microphoneLevel" type="number" value="0" />
 
 		<!--
 			============================================================
@@ -655,6 +661,11 @@
 		<attribute name="timeoutforpause" type="boolean" value="false" />
 		<attribute name="logoutFromPause" type="boolean" value="false" />
 		<attribute name="isAnswerAreaDisabled" type="boolean" value="false" />
+		
+		<!-- Attributes for Mic Calibration -->
+		<attribute name="subtestTitle" type="string" value="" />
+		<attribute name="welcomeStatus" type="string" value="start"/>
+		<attribute name="calibrationScreenWasVisible" type="boolean" value="false"/>
 		
 		<handler name="onmouseup" reference="lz.GlobalMouse">
 			var isFrameFocused = document.activeElement.tagName === 'IFRAME';	
@@ -1283,7 +1294,7 @@
 
 		<method name="_handleFinishSaveResponse" args="response">
 			setState(SUBTEST_FINISH_STATE);
-			resetMicCheck();
+			//resetMicCheck();
 			resetHeartbeat();
 			gCommunicator.lifecycle(FINISH_LEV);
 		</method>
@@ -1741,6 +1752,7 @@
 				}else{
 					dplang.setXPath('languageDs:/lang/language[@name="English"]');
 			}
+			var subtestTitle =  dpsubtest.xpathQuery('sco/@title');
 			var restartId = this.restartscid;
             lz.Timer.removeTimer( dupdateTimeLeft );
             resetCatAttributes();
@@ -2702,6 +2714,13 @@
 
 		<!-- swapping current item -->
 		<method name="changeCurrItemData"><![CDATA[
+			// Changes for Mic Calibration
+			gMicCalibrationScreen.hide();
+			var currentItem = gController.dpstudentdata.xpathQuery ('current_item');
+			var currentItemModel = gController.dpstudentdata.xpathQuery ('current_item/item_model');
+			currentItem.removeChild(currentItemModel);
+			gController.setAttribute('calibrationScreenWasVisible',false);
+	
 			gRecordingPopup.hideAllRecorderPopups();
             var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
@@ -3556,7 +3575,7 @@
 			showItemInterface();
 			gScreens.resetTextFieldColor();
             startQuestion();
-            resetMicCheck();
+            //resetMicCheck();
 			recalltrackMouseMove();
 			showManipulatives();
 			if(gScratchpad.visible) {
@@ -3874,7 +3893,7 @@
             lz.Cursor.setCursorGlobal( 'waitcursor' );
 			this.hideRevisitPopup();
             showItemInterface();
-            resetMicCheck();
+            //resetMicCheck();
 			showManipulatives();
 			recalltrackMouseMove();
             gQuestion.setGrFocus();
@@ -4112,7 +4131,7 @@
 			hideMagnifierGlass();
 			gController.setAttribute("magnifierState",false);
 			hideMaskingChoiceDD();
-			resetMicCheck(); // First call for Mic Check
+			//resetMicCheck(); // First call for Mic Check
 			this.setAttribute('canNotAnswer',true); // set canNotAnswer to true on item load for Defect#75207
 			gTooltip.hideTooltip ();
 		]]></method>
@@ -4734,11 +4753,13 @@
         ]]></method>
 
 		<method name="getAccomStyleForType" args="type">
+		if(this.accomstyles != undefined){
 			if (this.accomstyles [type]){
 				return this.accomstyles [type];
 			}else{
 				return '';
 			}
+		}
         </method>
 
 		<method name="currentDur">
@@ -4944,23 +4965,21 @@
     
                 var itemnode =
                     dpstudentdata.xpathQuery('current_item/item_model');
-				if(itemnode != null && itemnode != undefined){ 
-			                var dsec = itemnode.getAttr( 'dur' );
-			                if ( typeof( dsec ) == 'string' ) {
-			                    itemnode.setAttr(
-			                        'dur',
-			                        String( parseInt( dsec ) + 
-			                                Math.floor((timestamp - qtimestamp)/1000) )
-			                    );
-			                } else {
-			                    itemnode.setAttr(
-			                        'dur',
-			                        String( Math.floor( (timestamp - qtimestamp ) / 1000) )
-			                    );
-			                }
-			            }
-				   } 
-	            this.setAttribute("inQuestion", false);
+                var dsec = itemnode.getAttr( 'dur' );
+                if ( typeof( dsec ) == 'string' ) {
+                    itemnode.setAttr(
+                        'dur',
+                        String( parseInt( dsec ) + 
+                                Math.floor((timestamp - qtimestamp)/1000) )
+                    );
+                } else {
+                    itemnode.setAttr(
+                        'dur',
+                        String( Math.floor( (timestamp - qtimestamp ) / 1000) )
+                    );
+                }
+            }
+            this.setAttribute("inQuestion", false);
         ]]></method>
 
 		<method name="clearInvalidCrResponses"><![CDATA[
@@ -5119,10 +5138,12 @@
 				unlockUI();			
 				return;
 			}
-                var curritem = Number(dncurritem.getAttr('eid'));
+			dncurritem.setAttr( 'answer_text', escape( answer ) );
+            var curritem = Number(dncurritem.getAttr('eid'));
             var dnruntimeitem = dpstudentdata.xpathQuery ("runtime/item_model [@eid = '"+curritem+"']");
-            dncurritem.setAttr( 'answer_text', escape( answer ) );
-            dnruntimeitem.setAttr( 'answer_text', escape( answer ) );
+            if(dnruntimeitem != null){
+          	 	dnruntimeitem.setAttr( 'answer_text', escape( answer ) );
+            }
             unlockUI();
         ]]></method>
 
@@ -5381,7 +5402,7 @@
 			gPleaseWaitPopup.hide();
 			recalltrackMouseMove();
 			if(gItemInterface.visible == true || gItemInterface.visible == 'true'){
-				resetMicCheck();
+				//resetMicCheck();
 			}
 			if(!isRevisitPopupOpen){
 				for(var i=0; i< gController.lasAssetArray.length; i++) {
@@ -6351,14 +6372,16 @@
 		</method>
 		
 		<method name="setOverlayOnLasAssets"><![CDATA[
-			for(var i=0; i< gController.lasAssetArray.length; i++) {
-				gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',true);
-				gController.lasAssetArray[i].asset.assetOverley.bringToFront();
+			if(gController.lasAssetArray.length > 0){
+				for(var i=0; i< gController.lasAssetArray.length; i++) {
+					gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',true);
+					gController.lasAssetArray[i].asset.assetOverley.bringToFront();
+			}
 			}]]>
 		</method>
 		
 		<method name="removeOverlayOnLasAssets"><![CDATA[
-			if(!isRevisitPopupOpen){
+			if((!isRevisitPopupOpen) && (gController.lasAssetArray.length > 0)){
 				for(var i=0; i< gController.lasAssetArray.length; i++) {
 					gController.lasAssetArray[i].asset.assetOverley.setAttribute('visible',false);
 				}

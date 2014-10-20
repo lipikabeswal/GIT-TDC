@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+	
+	<class name="MicCalibrationScreen" fontsize="13" font="CTB">
+	
+	<handler name="oninit">
+		console.log("Init of MicCalibrationScreen....");
+		//getNodes();
+	</handler>
+	<handler name="ondata">
+		console.log("Inside ondata of MIC CAL...");
+	</handler>
+	<method name="getNodes">
+		var dncurritem = gController.dpstudentdata.xpathQuery ('current_item');
+		console.log("dncurritem*****",dncurritem.serialize());
+		if(gController.language.indexOf("Spanish") >= 0){
+			console.log("Inside if");
+			gController.dpTestItem.setXPath('dsCalibrationItemSpanish:/element_package');
+		}else{
+			console.log("Inside else");
+			gController.dpTestItem.setXPath('dsCalibrationItem:/element_package');
+		}
+		var staticItem =  gController.dpTestItem.xpathQuery ('item_model');
+		var staticItemClone = staticItem.cloneNode (true);
+		console.log("staticItemClone*****",staticItemClone.serialize());
+        dncurritem.appendChild(staticItemClone);
+		
+	</method>
+	<method name="setCalibrationDatapath">
+		if(gController.language.indexOf("Spanish") >= 0){
+				gmicTesQuestion.setAttribute('datapath','dsCalibrationItemSpanish:/element_package/item_canvas');
+		}else{
+           		gmicTesQuestion.setAttribute('datapath','dsCalibrationItem:/element_package/item_canvas');
+        }
+	</method>
+	<method name="show">
+		this.setAttribute('visible',true );
+	</method>
+	<method name="hide">
+		this.setAttribute('visible',false );
+	</method>
+     <view id="micTest" width="100%" height="90%">
+		<handler name="ondata">
+			console.log("Inside ondata********micTest*****");
+		</handler>
+     	  <simplelayout axis="y" spacing="10"/> 
+    	<Question id="gmicTesQuestion" bgcolor="${gController.questionBgColor}">
+			<handler name="ondata">
+				console.log("Inside ondata********Question*****");
+			</handler>
+			
+		</Question>
+		
+ 		<Tooltip id="gTooltip_new" options="ignorelayout"/>
+    	 <view id="gOkButton" height="100%" width="100%" >    
+		     
+	`		<!--	<OkButton name="okButton" x="${parent.width-parent.width/5}" enabled="true"> -->
+					<OkButton name="okButton" x="550" enabled="true">
+					<handler name="onclick" >
+						console.log("welcomeStatus******",gController.welcomeStatus);
+						gScreens.hide();
+						this.setAttribute("clickable",false);
+						gController.setAttribute('isplaying',true);
+						if(gController.welcomeStatus.indexOf('continue') >= 0){ // Case of restart scenario
+								 gScreens.clicked();
+	                       		 gController.isStopScreen = false;
+	                       	 if(gController.istRestartLength== gController.subtestLength){
+	                        	if(gController.adaptive=='true'){
+	                        		gController.RestartTest= "true";
+	                        		gController.unlockUI();
+									gController.finishTest();
+									gController.istRestartLength=0;
+								}else{
+	                        		gController.openTest();
+	                        		gController.RestartTest= "false";
+	                        	}
+				 			 }else{
+                        		gController.openTest();
+                        		gController.RestartTest= "false";
+                        	 }
+					   }else{ 											// Case of start scenario
+							gScreens.clicked();
+                       		gController.openTest();
+						}
+						//gController.stopMicCheck();
+						//gScreens.show();
+					
+					</handler>
+					<handler name="onmouseover">
+	                   lz.Cursor.showHandCursor(true);
+			        </handler>
+			        <handler name="onmouseout">
+			            lz.Cursor.showHandCursor(false);
+			        </handler>
+	            </OkButton>
+	             <CancelButton x="675" enabled="${ gScreens.allowclick }">
+               <handler name="onclick">
+					classroot.setAttribute('visible',false);
+                   this.setAttribute("allowclick",false);
+                   gController.goToGoodbyeScreen();
+                </handler>
+            </CancelButton>
+			</view>
+			
+        </view>
+		
+		
+    </class>
+</library>

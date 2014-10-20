@@ -16,13 +16,17 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Port;
 import javax.sound.sampled.TargetDataLine;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.apache.log4j.Logger;
 import org.xiph.speex.spi.SpeexEncoding;
 import org.xiph.speex.spi.SpeexFileFormatType;
 
 import com.ctb.tdc.web.utils.Base64;
+import com.ctb.tdc.web.utils.Player;
 import com.ctb.tdc.web.utils.ServletUtils;
 
 /**
@@ -39,18 +43,28 @@ public class SoundRecorder extends HttpServlet {
 	static String fileName;
 	AudioFormat audioFormat;
 	TargetDataLine targetDataLine;
+	DataLine.Info dataLineInfo;
 	static Thread myThread = null;
 	String osName = System.getProperty("os.name").toLowerCase();
 	static Logger logger = Logger.getLogger(SoundRecorder.class);
 	String result = ServletUtils.ERROR;
 
+	Player player = new Player();
+	boolean returnValue;
+	public static boolean isPaused = false;
+	public static boolean afterReplayStopPauseFlag = false;
+	private HttpServletRequest request = null;
+	private HttpServletResponse response = null;
+	
 	public SoundRecorder() {
 
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		//System.out.println("method in doGet : "+request.getParameter("method"));
+		this.request = request;
+		this.response = response;
 		String method = request.getParameter("method");
 		fileName = request.getParameter("filename");
 
@@ -58,7 +72,7 @@ public class SoundRecorder extends HttpServlet {
 
 		if ("record".equalsIgnoreCase(method)) {
 			logger.info("record start");
-			while(ServletUtils.micDetectionInProgress)
+			/*while(ServletUtils.micDetectionInProgress)
 			{
 				try {
 					Thread.sleep(70);
@@ -66,13 +80,17 @@ public class SoundRecorder extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
+			}*/
 			captureAudio(response);
 		} else if ("stop".equalsIgnoreCase(method)) {
 			stopCapture(request, response);
 		} else if ("reset".equalsIgnoreCase(method)) {
 			resetAudio(response);
-		}
+		}else if ("play".equalsIgnoreCase(method)) {
+			playAudio();
+		} else if ("stopPlay".equalsIgnoreCase(method)) {
+			stopAudio();
+		} 
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -98,7 +116,7 @@ public class SoundRecorder extends HttpServlet {
 			} else {
 				this.audioFormat = getMacAudioFormat();
 			}
-			DataLine.Info dataLineInfo = new DataLine.Info(
+			dataLineInfo = new DataLine.Info(
 					TargetDataLine.class, audioFormat);
 			targetDataLine = (TargetDataLine) AudioSystem.getLine(dataLineInfo);
 
@@ -107,7 +125,7 @@ public class SoundRecorder extends HttpServlet {
 			out.flush();
 			myThread = new CaptureThread();
 			myThread.start();
-			//System.out.println("*********Capture Start**");
+			logger.info("*********Capture Start**");
 
 		} catch (Exception e) {
 			//e.printStackTrace();
@@ -127,7 +145,7 @@ public class SoundRecorder extends HttpServlet {
 	 */
 	private String stopCapture(HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("stopCapture called....");
+		logger.info("stopCapture called....");
 		try {
 
 			targetDataLine.stop();
@@ -203,7 +221,7 @@ public class SoundRecorder extends HttpServlet {
 			Thread.sleep(1000);
 			targetDataLine.drain();
 			targetDataLine.close();
-
+			
 			File SpeexFile = new File(getServletContext().getRealPath("/")
 					+ "//streams//" + fileName + ".spx");
 			if(SpeexFile.exists()){
@@ -266,6 +284,8 @@ public class SoundRecorder extends HttpServlet {
 			File audioFile = null;
 			float sampleRate;
 			AudioInputStream ais = null;
+			dataLineInfo = new DataLine.Info(
+					TargetDataLine.class, audioFormat);
 
 			if (osName.indexOf("win") >= 0) {
 				sampleRate = 44100.0F;
@@ -289,7 +309,19 @@ public class SoundRecorder extends HttpServlet {
 
 				AudioSystem.write(ais, fileType, audioFile);
 
-			} catch (Exception e) {
+			}catch (LineUnavailableException ex) {
+	        	logger.info("Inside LineUnavailableException Exception");
+	        	if (osName.indexOf("win") >= 0) {
+	        		if(AudioSystem.isLineSupported(Port.Info.MICROPHONE)){
+	        			targetDataLine.start();
+	        		}
+	        	}else{
+	        		if(AudioSystem.isLineSupported(dataLineInfo)){
+	        			targetDataLine.start();
+	            	}
+	        	}
+	        } 
+			catch (Exception e) {
 				ServletUtils.recordingFailed = true;
 				e.printStackTrace();
 			} finally {
@@ -305,26 +337,81 @@ public class SoundRecorder extends HttpServlet {
 		}
 	}
 
-	/**
-	 * Testing Purpose
-	 * 
-	 * 
-	 */
-	/*	private void playAudio() {
-	 try {
-	 File file = new File("sano1.flv");
-	 AudioInputStream stream  = AudioSystem.getAudioInputStream(file);
-	 AudioFormat format = stream.getFormat();
-	 System.out.println("format :" + format);
-	 DataLine.Info info = new DataLine.Info(Clip.class, stream.getFormat());
-	 Clip clip = (Clip) AudioSystem.getLine(info);
-	 clip.open(stream);      		
-	 clip.start();
-	 } catch (Exception e) {
-	 System.err.println("Line unavailable: " + e);
-	 System.exit(-4);
-	 } 
-	 }
-	 */
+	private void playAudio() {
 
+		System.out.println("playAudio....");
+		returnValue = player.statusPlayDisableFlag();
+
+		System.out.println("returnValue...."+returnValue);
+
+		//if (returnValue) {
+
+			if (!isPaused) {
+				System.out.println("isPaused...."+isPaused);
+
+				//playFlag = false;
+				System.out.println("within play method******"+fileName);
+				//m_Replay.setEnabled(false);
+				//playCalledflag = true;
+				//replayCalledflag = true;
+				File file = new File(getServletContext().getRealPath("/")
+						+ "//streams//" + fileName + ".spx");
+System.out.println("SPX FILE*********"+file);
+				AudioInputStream stream = null;
+				try {
+					stream = AudioSystem.getAudioInputStream(file);
+					System.out.println(" Audio Format" + stream.getFormat());
+				} catch (UnsupportedAudioFileException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				Thread.currentThread().setPriority(8);
+
+				player.streamPass(stream);
+				player.setupSound();
+
+				PrintWriter out;
+				try {
+					out = response.getWriter();
+					out.write("<result>PLAY_START</result>");
+					out.flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				player.start("PLAY");
+				player.line.start();
+
+			}
+
+		//}
+
+		if (isPaused) {
+			isPaused = false;
+			player.start("PLAY");
+			player.line.start();
+		}
+
+	}
+	
+	public void stopAudio() {
+		isPaused = false;
+		player.stopPlaying("STOPPED");
+
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.write("<result>PLAY_STOPPED</result>");
+			out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }

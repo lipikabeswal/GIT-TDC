@@ -67,6 +67,7 @@
                   resize="true" x="5">
                 <method name="applyData" args="d"><![CDATA[
                     if ( d ) {
+                    	gController.setAttribute('subtestTitle',d);
                         setAttribute( 'text', '<b>Test Title:</b> ' + d + ' ');
                     } 
                 ]]></method>
@@ -134,8 +135,21 @@
                              enabled="${ gScreens.allowclick }">
                    <handler name="onclick" method="dostart"/>
                     <method name="dostart">
+                    // added for Mic calibration screen.
+                    	gController.setAttribute('welcomeStatus','start');
+                    	gMicCalibrationScreen.getNodes();
+						
+                  if(gController.subtestTitle.indexOf('HABLANDO') >= 0 || gController.subtestTitle.indexOf('SPEAKING') >= 0){
+						//if(gController.subtestTitle.indexOf('ABC') >= 0){
+                    		gScreens.hide();
+                    		gController.setAttribute('calibrationScreenWasVisible',true);
+                    		gMicCalibrationScreen.setCalibrationDatapath();
+                    		gMicCalibrationScreen.show();
+							
+                   }else{
                         gScreens.clicked();
                         gController.openTest();
+                        }
                     </method>
                     <handler name="onmouseover">
                         lz.Cursor.showHandCursor(true);
@@ -152,6 +166,18 @@
                              enabled="${ gScreens.allowclick }">
                    <handler name="onclick" method="docontinue"/>
                     <method name="docontinue"><![CDATA[
+					// added for Mic calibration screen.
+					gController.setAttribute('welcomeStatus','continue');
+					gMicCalibrationScreen.getNodes();
+                      if(gController.subtestTitle.indexOf('HABLANDO') >= 0 || gController.subtestTitle.indexOf('SPEAKING') >= 0){
+                      		gScreens.hide();
+							gController.lasAssetArray = [];
+                      		gController.setAttribute('calibrationScreenWasVisible',true);
+							gController.setAttribute('isplaying',false);
+							gMicCalibrationScreen.setCalibrationDatapath();
+							gMicCalibrationScreen.show();
+							
+                      }else{
                         gScreens.clicked();
                         gController.isStopScreen = false;
                         Debug.write("gController.istRestartLength"+gController.istRestartLength);
@@ -172,7 +198,8 @@
                         	gController.openTest();
                         	gController.RestartTest= "false";
                         	}
-                        
+                        }
+                        	
                     ]]></method>
                     <handler name="onmouseover">
                         lz.Cursor.showHandCursor(true);
@@ -200,6 +227,7 @@
             </StopButton>
 
         </view>
+        
     </class>
 
 </library>

@@ -169,6 +169,7 @@
 			    gController.exitPopups();
 				gController.terminate();  
 				gPleaseWaitPopup.resetControls();
+				 gMicCalibrationScreen.hide();
 	        </handler>
 		</basebutton>
    

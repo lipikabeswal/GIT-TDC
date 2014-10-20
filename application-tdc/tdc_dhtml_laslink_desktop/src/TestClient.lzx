@@ -3,7 +3,7 @@
 	<debug x="0" y="0" width="80%" height="400" />
 
 	<include href="ctbmodules" />
-	
+	<include href="ctbmodules/screens/MicCalibrationScreen.lzx" />
 	<!-- <Sarsystem id="flash"/>-->
 	
 	<script src="lzmodules/lfc/focuspatch.js">
@@ -226,6 +226,7 @@
 
 			<ItemInterface id="gItemInterface" name="gItemInterface"  width="800" height="600"
 				visible="false" />
+			 <MicCalibrationScreen id="gMicCalibrationScreen" width="800" height="600" visible="false" />
 			<Screens id="gScreens" x="100" y="200" width="600"
 				height="200" visible="false">
 				<handler name="oninit">
