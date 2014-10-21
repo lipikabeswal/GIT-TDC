@@ -8,16 +8,16 @@
 			</text_widget>
 		</panel>
       <scrolling_text_panel height="375" id="TD.6.0_010" stereotype="stimulus" width="360" x="12" y="125">
-         <text_widget halign="left" width="350" id="widget1003"><![CDATA[<br/><B>Por favor siga los pasos a continuación antes de comenzara  usar la herramienta para afinar el micrófono de la computadora:</B><br/>]]></text_widget>
-			<text_widget halign="left" width="350" id="widget1004"><![CDATA[  -  Revise que el micrófonoestéconnectado]]></text_widget>
-			<text_widget halign="left" width="350" id="widget1005"><![CDATA[  -  Asegúreseque el micrófono no esté en “mudo/mute”]]></text_widget>
-			<text_widget halign="left" width="350" id="widget1006"><![CDATA[  -  Fije el nivel de grabacióndelmicrófono a por lo menos 70%; no fije el nivel de grabación del micrófono a un nivelbajo]]></text_widget>
-			<text_widget halign="left" width="350" id="widget1007"><![CDATA[  -  Asegúreseque el micrófono no esté “inactivo/disabled” en el tablero de control]]></text_widget>
-			<text_widget halign="left" width="350" id="widget1008"><![CDATA[  -  Asegúreseque el volumendelaltavozesté a un nivel audible]]></text_widget>
+         <text_widget halign="left" width="350" id="widget1003"><![CDATA[<br/><B>Por favor siga los pasos a continuación antes de comenzar a  usar la herramienta para afinar el micrófono de la computadora:</B><br/>]]></text_widget>
+			<text_widget halign="left" width="350" id="widget1004"><![CDATA[  -  Revise que el micrófono esté connectado]]></text_widget>
+			<text_widget halign="left" width="350" id="widget1005"><![CDATA[  -  Asegúrese que el micrófono no esté en "mudo/mute"]]></text_widget>
+			<text_widget halign="left" width="350" id="widget1006"><![CDATA[  -  Fije el nivel de grabación del micrófono a por lo menos 70 %; no fije el nivel de grabación del micrófono a un nivel bajo]]></text_widget>
+			<text_widget halign="left" width="350" id="widget1007"><![CDATA[  -  Asegúrese que el micrófono no esté "inactivo/disabled" en el tablero de control]]></text_widget>
+			<text_widget halign="left" width="350" id="widget1008"><![CDATA[  -  Asegúrese que el volumen del altavoz esté a un nivel audible]]></text_widget>
       </scrolling_text_panel>
       <panel left_padding="12" stereotype="stem" id="stem3" layout="vertical" spacing="12" width="385" x="410" y="124" height="210">
 			<text_widget halign="left" width="360" id="widget1012"  height="190" >
-				<![CDATA[Para probar la capacidad de la grabación y la reproducción, oprimael botón “Grabar” y hableenvoz normal.Cuandohayaterminado, oprima el botón “Parar”.Para grabar de nuevo, oprima el botón “Grabar de Nuevo”.Ahoraoprima el botón “Reproducir”para evaluar el volume de sugrabación. Si el audio quegrabóno es audible, por favor sigatodos los pasos de la listanuevamente ypruebe de nuevo. Si no puedeescuchar la grabación, verifiquequelasversionesrequeridasde Java, Flash, y Adobe AIR esténinstaladas. Su departamento the IT puedeayudarle con ésto.]]>
+				<![CDATA[Para probar la capacidad de la grabación y la reproducción, oprima el botón "Grabar" y hable en voz normal. Cuando haya terminado, oprima el botón "Parar". Para grabar de nuevo, oprima el botón "Grabar de Nuevo". Ahora oprima el botón "Reproducir" para evaluar el volume de su grabación. Si el audio que grabó no es audible, por favor siga todos los pasos de la lista nuevamente  y pruebe de nuevo. Si no puede escuchar la grabación, verifique que las versiones requeridas de Java, Flash, y Adobe AIR estén instaladas. Su departamento the IT puede ayudarle con ésto.]]>
 			</text_widget>
 		</panel>
       <answer_area_panel id="A1" stereotype="answerArea" width="390" 
