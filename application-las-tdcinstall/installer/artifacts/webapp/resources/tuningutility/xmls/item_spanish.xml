@@ -11,7 +11,7 @@
          <text_widget halign="left" width="350" id="widget1003"><![CDATA[<br/><B>Por favor siga los pasos a continuación antes de comenzar a  usar la herramienta para afinar el micrófono de la computadora:</B><br/>]]></text_widget>
 			<text_widget halign="left" width="350" id="widget1004"><![CDATA[  -  Revise que el micrófono esté connectado]]></text_widget>
 			<text_widget halign="left" width="350" id="widget1005"><![CDATA[  -  Asegúrese que el micrófono no esté en "mudo/mute"]]></text_widget>
-			<text_widget halign="left" width="350" id="widget1006"><![CDATA[  -  Fije el nivel de grabación del micrófono a por lo menos 70 %; no fije el nivel de grabación del micrófono a un nivel bajo]]></text_widget>
+			<text_widget halign="left" width="350" id="widget1006"><![CDATA[  -  Fije el nivel de grabación del micrófono a por lo menos 70%; no fije el nivel de grabación del micrófono a un nivel bajo]]></text_widget>
 			<text_widget halign="left" width="350" id="widget1007"><![CDATA[  -  Asegúrese que el micrófono no esté "inactivo/disabled" en el tablero de control]]></text_widget>
 			<text_widget halign="left" width="350" id="widget1008"><![CDATA[  -  Asegúrese que el volumen del altavoz esté a un nivel audible]]></text_widget>
       </scrolling_text_panel>
