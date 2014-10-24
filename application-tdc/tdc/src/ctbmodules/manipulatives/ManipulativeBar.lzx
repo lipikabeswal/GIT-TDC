@@ -202,7 +202,7 @@
 	                            tooltip="TI Scientific Calculator"/>
 			<ManipulativeButton resource="toolbar_calculator_btn"
 	                            toolid="ti_scientific_graphic_calculator"
-	                            tooltip="TI Scientific Graphic Calculator"/>	                            
+	                            tooltip="TI Graphing Calculator"/>	                            
 		</view>
 		
 		<view name="screenreader" valign="middle" height="100%">
