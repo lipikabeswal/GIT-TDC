@@ -290,6 +290,8 @@
 			value="ismicattached" />
 		<attribute name="PAUSE_LOGOUT_STATE" type="string"
 			value="pauseLogout" />
+		<attribute name="CALIBRATION_EXIT_STATE" type="string"
+			value="pauseLogout" />
 
 		<!-- 
 			Lifecycle events
@@ -1071,6 +1073,9 @@
 						break;
 					case PAUSE_LOGOUT_STATE:
 						_handlePauseLogoutResponse(response);
+						break;
+					case CALIBRATION_EXIT_STATE:
+						_handleCalibrationExitResponse(response);
 						break;
 					default:
 						break;
@@ -6399,8 +6404,29 @@
 			setState(PAUSE_LOGOUT_STATE);
 			save(null);
 		</method>
-		
-
+		/***************************************************
+		 * Method added to do a save call  
+		 * before exiting the client when
+		 * Cancel button is clicked in Miccalibration Screen.
+		 * Fix for defect #80820
+		 ***************************************************/
+		<method name="exitCalibrationScreen">
+			if(gController.recorder != null){
+					gController.recorder.stopblinker('stop');
+					gController.recorder.recordButton.setAttribute("enabled", false);
+					gController.recorder.resetButton.setAttribute("enabled",false);
+					gController.recorder.stopButton.setAttribute("enabled",false);
+					gController.recorder.playButton.setAttribute("enabled",false);
+			}
+			lz.Cursor.showHandCursor(false);
+			setState(CALIBRATION_EXIT_STATE);
+			save(null);
+		</method>
+		<method name="_handleCalibrationExitResponse" args="response">
+			gMicCalibrationScreen.setAttribute('visible',false);
+		    lz.Cursor.showHandCursor(false);
+		    terminate();
+		</method>
 	</node>
 
 </library>
