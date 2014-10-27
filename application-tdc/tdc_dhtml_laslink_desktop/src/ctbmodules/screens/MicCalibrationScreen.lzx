@@ -60,6 +60,8 @@
 						console.log("welcomeStatus******",gController.welcomeStatus);
 						gScreens.hide();
 						this.setAttribute("clickable",false);
+						// Fix for defect #80817
+						gController.recorder.stopblinker('stop');
 						gController.setAttribute('isplaying',true);
 						if(gController.welcomeStatus.indexOf('continue') >= 0){ // Case of restart scenario
 								 gScreens.clicked();
@@ -94,18 +96,18 @@
 			        </handler>
 	            </OkButton>
 	             <CancelButton x="675" enabled="${ gScreens.allowclick }">
-               <handler name="onclick">
-					classroot.setAttribute('visible',false);
-                   this.setAttribute("allowclick",false);
-                   lz.Cursor.showHandCursor(false);
-                   gController.goToGoodbyeScreen();
-                </handler>
-                <handler name="onmouseover">
-	                   lz.Cursor.showHandCursor(true);
-			        </handler>
-			        <handler name="onmouseout">
-			            lz.Cursor.showHandCursor(false);
-			        </handler>
+		               <handler name="onclick">
+							gScreens.clicked();
+		               		this.setAttribute("clickable",false);
+		               		gOkButton.okButton.setAttribute("clickable",false);
+							gController.exitCalibrationScreen();
+		                </handler>
+		                <handler name="onmouseover">
+			                   lz.Cursor.showHandCursor(true);
+					     </handler>
+				        <handler name="onmouseout">
+				            lz.Cursor.showHandCursor(false);
+				        </handler>
             </CancelButton>
 			</view>
 			
