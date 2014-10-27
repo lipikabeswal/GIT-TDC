@@ -669,7 +669,10 @@
 					if(this.recordingCounter == 3 && !gMicCalibrationScreen.visible){
 						this.resetCalled = true;
 					}
-				gController.updateAudioField(this.widget_id, false);
+				// Fix for defect #80811
+				if(!gMicCalibrationScreen.visible){
+					gController.updateAudioField(this.widget_id, false);
+				}
 				gController.setAttribute("resetButtonEnable",false);
 					
 				}
@@ -754,7 +757,10 @@
 			
 			lz.Timer.removeTimer(startRecordDel);
 			this.setAttribute('startRecord',true);
-			gController.updateAudioField(this.widget_id, true);
+			// Fix for defect #80811
+			if(!gMicCalibrationScreen.visible){			
+				gController.updateAudioField(this.widget_id, true);
+			}
 			startCountDownTimer();
 			blinker();
 			this.stopButton.setAttribute("enabled", true);	
