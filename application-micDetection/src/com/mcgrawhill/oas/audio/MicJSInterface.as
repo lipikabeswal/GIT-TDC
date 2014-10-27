@@ -7,6 +7,7 @@ package com.mcgrawhill.oas.audio
 	import flash.events.StatusEvent;
 	import flash.external.ExternalInterface;
 	import flash.media.Microphone;
+	import flash.media.SoundTransform;
 	
 	public class MicJSInterface
 	{
@@ -106,13 +107,19 @@ package com.mcgrawhill.oas.audio
 			} 
 		}
 		
-		public function configureMicrophone(rate:int=22, gain:int=60, silenceLevel:Number=5, silenceTimeout:int=3000):void {
+		public function configureMicrophone(rate:int=11, gain:int=100, silenceLevel:Number=0, silenceTimeout:int=3000):void {
+			//rate:int=22, gain:int=60, silenceLevel:Number=5, silenceTimeout:int=3000
 			var log:String = "rate=" + rate + ", gain=" + gain + ", silenceLevel=" + silenceLevel;
 			log += ", silenceTimeout=" + silenceTimeout;
 			ExternalInterface.call("console.log", "configureMicrophone: " + log);
 			this.micTracker.mic.rate = rate;
 			this.micTracker.mic.gain = gain;
 			this.micTracker.mic.setSilenceLevel(silenceLevel, silenceTimeout);
+			this.micTracker.mic.setLoopBack(true);
+			this.micTracker.mic.setUseEchoSuppression(true);
+			var transformMic:SoundTransform = new SoundTransform(0,0);
+			transformMic.volume = 0;
+			this.micTracker.mic.soundTransform = transformMic;
 		}
 		
 		public function setUseEchoSuppression(useEchoSuppression:Boolean):void {

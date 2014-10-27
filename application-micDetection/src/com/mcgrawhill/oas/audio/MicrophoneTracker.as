@@ -11,6 +11,7 @@ package com.mcgrawhill.oas.audio
 	import flash.system.Security;
 	import flash.system.SecurityPanel;
 	import flash.utils.Timer;
+	import flash.media.SoundTransform;
 	
 	public class MicrophoneTracker extends EventDispatcher
 	{
@@ -37,6 +38,9 @@ package com.mcgrawhill.oas.audio
 			if (this.mic != null) {
 				this.mic.setLoopBack(true);
 				this.mic.setUseEchoSuppression(true);
+				var transformMic:SoundTransform = new SoundTransform(0,0);
+				transformMic.volume = 0;
+				this.mic.soundTransform = transformMic;
 				mic.addEventListener(StatusEvent.STATUS, this.onMicStatus);
 				this.listMicrophones();
 			} else {
@@ -155,6 +159,9 @@ package com.mcgrawhill.oas.audio
 					this.mic.addEventListener(StatusEvent.STATUS, this.onMicStatus);
 					this.mic.setLoopBack(true);
 					this.mic.setUseEchoSuppression(true);
+					var transformMic:SoundTransform = new SoundTransform(0,0);
+					transformMic.volume = 0;
+					this.mic.soundTransform = transformMic;
 				}
 			}
 			
