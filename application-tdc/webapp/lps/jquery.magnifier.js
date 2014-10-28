@@ -1,6 +1,6 @@
 $(document).ready(function() {
 				var scale = 2;
-				
+				var elm=null;	
 				var $magnifyingGlass = $('<div id="mglass" class="magnifying_glass"></div>');
 				var $magnifiedContent = $('<div class="magnified_content"></div>');
 				var $magnifyingLens = $('<div class="magnifying_lens"></div>');
@@ -20,22 +20,22 @@ $(document).ready(function() {
 					var appDiv = document.getElementById("appcontainer");
 					$magnifiedContent.html(appDiv.innerHTML);
 					$magnifyingGlass.append($magnifiedContent);
-					// $magnifyingGlass.append($magnifyingLens); //comment this line to allow interaction
+					$magnifyingGlass.append($magnifyingLens); //comment this line to allow interaction
 					$(document.body).append($magnifyingGlass);
-					$magnifyingGlass.css({left: 575, top: 250});
-					$magnifiedContent.css({left: -575*scale, top: -250*scale});
-			    	/*var ids = [];
-				    $("#appcontainer").find("div").each(function(){
-				    	if(this.id == "loginScreenId"){
-				        	ids.push(this);
-				        }
-				    });
-				    alert("before "+ids.length);
-				    var x = ids[ids.length-1];
-					x.parentNode.removeChild(x);
-					
-				    alert(ids.length);*/
+					$magnifyingGlass.css({left: 10, top: 250});
+					$magnifiedContent.css({left: -10*scale, top: -250*scale});
+                  $('.magnifying_glass').touch({
+                                               animate: true,
+                                               sticky: false,
+                                               dragx: false,
+                                               dragy: true,
+                                               rotate: false,
+                                               resort: false,
+                                               scale: false
+                                               });
 				}
+                  
+                  
 				
 				function updateViewSize() {
 					$magnifiedContent.css({width: $(document).width(), height: $(document).height()});
@@ -44,24 +44,44 @@ $(document).ready(function() {
 				updateViewSize();
 				
 				$(window).resize(updateViewSize);
-				
-				$magnifyingGlass.bind("mousedown",function(e) {
+        
+				$magnifyingGlass.bind("touchstart " , function(e) {
 					e.preventDefault();
-					$(this).data("drag", {mouse: {top: e.pageY, left: e.pageX}, offset: {top: $(this).offset().top, left: $(this).offset().left}});
+					
+                        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+                                      
+                        elm = $(this).offset();
+                        var x = touch.pageX - elm.left;
+                        var y = touch.pageY - elm.top;
+                        $magnifyingGlass.data("drag", {mouse: {top: y, left: x} });
+                                      
+                        
+                                      
 				});
 				
-				$magnifyingGlass.bind("mousemove",function(e) {
-				e.preventDefault();
+				$(document.body).bind("touchmove "  ,function(e) {
+				e.preventDefault(); 	
 					if ($magnifyingGlass.data("drag")) {
-						var drag =$magnifyingGlass.data("drag");
 						
-						var left = drag.offset.left + (e.pageX-drag.mouse.left);
-						var top = drag.offset.top + (e.pageY-drag.mouse.top);
-						$magnifyingGlass.css({left: left, top: top});
-						$magnifiedContent.css({left: -left*scale, top: -top*scale});
+                                      var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+                                      elm = $(this).offset();
+                                      var x = touch.pageX - elm.left;
+                                      var y = touch.pageY - elm.top;
+                                      var drag =$magnifyingGlass.data("drag");
+                                      var left = (x-drag.mouse.left);
+                                      
+                                      var top =  (y-drag.mouse.top);
+                                      
+                                      $magnifyingGlass.css({left: left, top: top});
+                                      //$magnifiedContent.css({left: -left*scale, top: -top*scale});
+                                      
+                                     // console.log(x);
+                                     // console.log(y);
 					}
-				}).bind("mouseup",function() {
+                                      });
+                  $(document.body).bind(" touchend " , function() {
 					$magnifyingGlass.removeData("drag");
 				});
 				
 			});
+
