@@ -179,7 +179,7 @@
                              canvas.readable
                            }"/>
         <method name="stopReading" args="fromSp"><![CDATA[
-        	if(fromSp != true || (fromSp == true)){
+        	if(fromSp != true || (fromSp == true && gReadableText.readingScratchpad)){
 				audioPlayer.stop();
         	}
         ]]></method>
