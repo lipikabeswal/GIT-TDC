@@ -362,6 +362,13 @@
             super.doneLoading();
         ]]></method>
 
+		<method name="hide">
+            	this.setAttribute('visible',false);
+		</method>
+		<method name="show">
+            	this.setAttribute('visible',true);
+		</method>
+		
         <!-- ============================
              =====      VIEWS      ======
              ============================ -->
