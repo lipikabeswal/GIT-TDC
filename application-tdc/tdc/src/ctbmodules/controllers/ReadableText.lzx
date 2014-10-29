@@ -225,6 +225,7 @@
 	        		}
 	        		else{
 	        			parent.setAttribute('primed', true);
+						gController.unlockUI();
 	        		}
 	        	}
         	</handler>
