@@ -230,6 +230,7 @@ public class SoundRecorder extends HttpServlet {
 			if (!fileDeleted) {
 				logger.warn( "Audio" + fileName+".spx is not Deleted");
 			}
+			Thread.sleep(1000); // added to fix defect #80807 
 			PrintWriter out = response.getWriter();
 			out.write("<result>AUDIO_DELETED</result>");
 			out.flush();

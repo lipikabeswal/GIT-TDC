@@ -422,7 +422,11 @@
 									}
 								</handler>						                
 								<handler name="onmouseout">
-									gTooltip_new.hideTooltip ();
+									if(gMicCalibrationScreen.visible){
+											gTooltip_new.hideTooltip();
+										}else{
+											gTooltip.hideTooltip();   
+										}
 								</handler>
 							</basebutton>
 							<basebutton resource="button_stop"
@@ -518,7 +522,7 @@
 		//console.log("Inside startblinker");
 			//blockUI(this);
 			if(gController.microphoneLevel > 0){
-				gTooltip_new.hideTooltip ()
+				gTooltip_new.hideTooltip();
 				gRecordingPopup.show();
 			}
 			//gController.resetMicCheck();
@@ -680,12 +684,12 @@
 				this.micState = false;			//reset this attribute also
 				this.blinkerVal = 0;			//reset this for blinking the red ball
 				this.totalTime = this.defaultTotalTime;
-				if(gController.isplaying == false){
+			/*	if(gController.isplaying == false){
 					this.recordButton.setAttribute("enabled", true);
 					}
 				else{
 					this.recordButton.setAttribute("enabled", false);
-					}
+					}*/
 				this.setAttribute('startRecord',false);
 				gController.setAttribute('recordingStopped',false);
 				this.green.setAttribute('visible',false);
@@ -746,6 +750,7 @@
 			//Changes to stop the recording if the student clicks the pause screen when
 			//recording is going on.
 			if(gController.isWaitPopupOpen == true){
+				gTooltip_new.hideTooltip(); // added to hide tooltip when please wait pop-up is visible.
 				stopblinker('stop');
 				this.resetCalled = false; 
 			}
@@ -827,6 +832,15 @@
 				this.remainingTime = this.getRemainingTime() + 4;
 				blinker();
 				this.startPlayTimer();
+			}else if(result == 'AUDIO_DELETED'){
+				if(this.resetCalled == false || gController.isplaying == false) {
+					if(gController.isplaying == false){
+						this.recordButton.setAttribute("enabled", true);
+						}
+					else{
+						this.recordButton.setAttribute("enabled", false);
+						}
+				}
 			}
 			else {
 				Debug.write("Result Default...."+result);	
@@ -1097,6 +1111,13 @@
 			}
 			this.remainingTime -= 1;
 			lz.Timer.resetTimer(this.playDel, 1000);
+			// Added to stop audio playing if please wait pop-up appears.
+			if(gController.isWaitPopupOpen == true){
+				console.log("Stop blinker called from countDownTimer isWaitPopupOpen");
+				gTooltip_new.hideTooltip();
+				stopblinker('stop');
+				this.resetCalled = false; 
+			}
 		]]></method>
 
 		<method name="stopPlayTimer">
