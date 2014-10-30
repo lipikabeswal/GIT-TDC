@@ -55,7 +55,7 @@
 		<recordStatusCompleted>AUDIO GRABADO</recordStatusCompleted>
 		<playStatusInProgess>Sonando...</playStatusInProgess>
 		<playStatusStopped>La grabación paró</playStatusStopped> 
-		<playStatusComplete>Reproducción Complete</playStatusComplete>
+		<playStatusComplete>Reproducción Completa</playStatusComplete>
 		<tooltip_record>Grabar</tooltip_record>
 		<tooltip_stop>Parar</tooltip_stop>
 		<tooltip_play>Sonar</tooltip_play>
