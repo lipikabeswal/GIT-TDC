@@ -49,7 +49,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mm"]}},$lzc$class__mm.attributes)
 }}})($lzc$class__mm)
-};canvas=new $lzc$class__mm(null,{$delegates:["onfocus","$mc",null,"onkeydown","$me","$md","onmousedown","$mg","$mf","onbringBackFocus","$mh",null,"onfootnotedata","$mi",null,"onisMultiAudio","$mj",null,"oninit","$mk",null,"onfootnotetext","$ml",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-10-27T14:31:08Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mm(null,{$delegates:["onfocus","$mc",null,"onkeydown","$me","$md","onmousedown","$mg","$mf","onbringBackFocus","$mh",null,"onfootnotedata","$mi",null,"onisMultiAudio","$mj",null,"oninit","$mk",null,"onfootnotetext","$ml",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-10-30T07:33:45Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -14937,8 +14937,11 @@ gTooltip.showTooltip($1)
 }}else{
 gTooltip.showTooltip("Play")
 }},"$m163",function($0){
+if(gMicCalibrationScreen.visible){
 gTooltip_new.hideTooltip()
-},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+}else{
+gTooltip.hideTooltip()
+}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -15625,11 +15628,7 @@ this.resetCalled=true
 };if(!gMicCalibrationScreen.visible){
 gController.updateAudioField(this.widget_id,false)
 };gController.setAttribute("resetButtonEnable",false)
-};this.stopCalled=true;this.micState=false;this.blinkerVal=0;this.totalTime=this.defaultTotalTime;if(gController.isplaying==false){
-this.recordButton.setAttribute("enabled",true)
-}else{
-this.recordButton.setAttribute("enabled",false)
-};this.setAttribute("startRecord",false);gController.setAttribute("recordingStopped",false);this.green.setAttribute("visible",false);this.red.setAttribute("visible",false);this.timertext.setAttribute("text",this.totalTime);this.timertext.setAttribute("fgcolor",32768);this.recordStatus.setAttribute("text"," ");this.barfilled.setAttribute("width",0);this.increment=0;this.playButton.setAttribute("enabled",false);this.resetButton.setAttribute("enabled",false);this.whitewrapperOverLay.setAttribute("visible",false)
+};this.stopCalled=true;this.micState=false;this.blinkerVal=0;this.totalTime=this.defaultTotalTime;this.setAttribute("startRecord",false);gController.setAttribute("recordingStopped",false);this.green.setAttribute("visible",false);this.red.setAttribute("visible",false);this.timertext.setAttribute("text",this.totalTime);this.timertext.setAttribute("fgcolor",32768);this.recordStatus.setAttribute("text"," ");this.barfilled.setAttribute("width",0);this.increment=0;this.playButton.setAttribute("enabled",false);this.resetButton.setAttribute("enabled",false);this.whitewrapperOverLay.setAttribute("visible",false)
 }},"startPlay",function($0){
 if($0=="play"){
 this.sendRequest($0);this.recordStatus.setAttribute("text"," ");this.playStarted=true;this.recordStarted=false;this.recordButton.setAttribute("enabled",false);this.playButton.setAttribute("enabled",false);this.stopButton.setAttribute("enabled",true);this.resetButton.setAttribute("enabled",false);this.green.setAttribute("visible",false)
@@ -15647,7 +15646,7 @@ this.timertext.setAttribute("fgcolor",16711680)
 }else{
 this.timertext.setAttribute("fgcolor",32768)
 };this.timertext.setAttribute("text",this.totalTime);lz.Timer.resetTimer(this.countDownDel,1000);if(gController.isWaitPopupOpen==true){
-this.stopblinker("stop");this.resetCalled=false
+gTooltip_new.hideTooltip();this.stopblinker("stop");this.resetCalled=false
 }},"setStartRecord",function(){
 lz.Timer.removeTimer(this.startRecordDel);this.setAttribute("startRecord",true);if(!gMicCalibrationScreen.visible){
 gController.updateAudioField(this.widget_id,true)
@@ -15674,7 +15673,13 @@ this.playStarted=false
 };if(this.recordStarted)this.recordStarted=false
 }else if($1=="PLAY_START"){
 this.remainingTime=this.getRemainingTime()+4;this.blinker();this.startPlayTimer()
+}else if($1=="AUDIO_DELETED"){
+if(this.resetCalled==false||gController.isplaying==false){
+if(gController.isplaying==false){
+this.recordButton.setAttribute("enabled",true)
 }else{
+this.recordButton.setAttribute("enabled",false)
+}}}else{
 Debug.write("Result Default...."+$1)
 }},"$m17f",function($0){
 var $1=lz.Browser.getInitArg("servletUrl");this.audioDset.setAttribute("src",$1+"/SoundRecorder.do");if(canvas.capabilities.audio){
@@ -15763,8 +15768,9 @@ var $0=gController.dplang.xpathQuery("component[@name='Recorder']/playStatusComp
 }else{
 this.recordStatus.setAttribute("text","Playback Complete")
 };return
-};this.remainingTime-=1;lz.Timer.resetTimer(this.playDel,1000)
-},"stopPlayTimer",function(){
+};this.remainingTime-=1;lz.Timer.resetTimer(this.playDel,1000);if(gController.isWaitPopupOpen==true){
+console.log("Stop blinker called from countDownTimer isWaitPopupOpen");gTooltip_new.hideTooltip();this.stopblinker("stop");this.resetCalled=false
+}},"stopPlayTimer",function(){
 lz.Timer.removeTimer(this.playDel);this.remainingTime=0
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -30912,7 +30918,9 @@ $3+=$0.substring(0,1);$0=$0.substring(1)
 var $0=Number(this.dpstudentdata.xpathQuery("current_item/item_model/@eid"));if($0){
 var $1=this.dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+$0+"']");var $2=this.dpstudentdata.xpathQuery("current_item/item_model/");$1.parentNode.replaceChild($2,$1)
 }},"changeCurrItemData",function(){
-gMicCalibrationScreen.hide();var $0=gController.dpstudentdata.xpathQuery("current_item");var $1=gController.dpstudentdata.xpathQuery("current_item/item_model");$0.removeChild($1);gController.setAttribute("calibrationScreenWasVisible",false);gRecordingPopup.hideAllRecorderPopups();var $2=Number(this.dpstudentdata.xpathQuery("current_item/item_model/@eid"));if($2!=null){
+if(gController.subtestTitle.indexOf("HABLANDO")>=0||gController.subtestTitle.indexOf("SPEAKING")>=0){
+gMicCalibrationScreen.hide();var $0=gController.dpstudentdata.xpathQuery("current_item");var $1=gController.dpstudentdata.xpathQuery("current_item/item_model");$0.removeChild($1);gController.setAttribute("calibrationScreenWasVisible",false)
+};gRecordingPopup.hideAllRecorderPopups();var $2=Number(this.dpstudentdata.xpathQuery("current_item/item_model/@eid"));if($2!=null){
 gManipulatives.saveZOrders();var $3=this.dpstudentdata.xpathQuery("runtime/item_model [@eid = '"+$2+"']");var $4=this.dpstudentdata.xpathQuery("current_item/item_model/");if(this.adaptive==false){
 this.saveSharedStimulusHighlights()
 };if($4!=null)$4.parentNode.removeChild($4);if($4!=null&&$3!=null)$3.parentNode.replaceChild($4,$3)
@@ -34166,8 +34174,8 @@ if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"dostart",function(){
-gController.setAttribute("welcomeStatus","start");gMicCalibrationScreen.getNodes();if(gController.subtestTitle.indexOf("HABLANDO")>=0||gController.subtestTitle.indexOf("SPEAKING")>=0){
-gScreens.hide();gController.setAttribute("calibrationScreenWasVisible",true);gMicCalibrationScreen.setCalibrationDatapath();gMicCalibrationScreen.show()
+gController.setAttribute("welcomeStatus","start");if(gController.subtestTitle.indexOf("HABLANDO")>=0||gController.subtestTitle.indexOf("SPEAKING")>=0){
+gMicCalibrationScreen.getNodes();gScreens.hide();gController.setAttribute("calibrationScreenWasVisible",true);gMicCalibrationScreen.setCalibrationDatapath();gMicCalibrationScreen.show()
 }else{
 gScreens.clicked();gController.openTest()
 }},"$m2jc",function($0){
@@ -34215,8 +34223,8 @@ if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"docontinue",function(){
-gController.setAttribute("welcomeStatus","continue");gMicCalibrationScreen.getNodes();if(gController.subtestTitle.indexOf("HABLANDO")>=0||gController.subtestTitle.indexOf("SPEAKING")>=0){
-gScreens.hide();gController.lasAssetArray=[];gController.setAttribute("calibrationScreenWasVisible",true);gController.setAttribute("isplaying",false);gMicCalibrationScreen.setCalibrationDatapath();gMicCalibrationScreen.show()
+gController.setAttribute("welcomeStatus","continue");if(gController.subtestTitle.indexOf("HABLANDO")>=0||gController.subtestTitle.indexOf("SPEAKING")>=0){
+gMicCalibrationScreen.getNodes();gScreens.hide();gController.lasAssetArray=[];gController.setAttribute("calibrationScreenWasVisible",true);gController.setAttribute("isplaying",false);gMicCalibrationScreen.setCalibrationDatapath();gMicCalibrationScreen.show()
 }else{
 gScreens.clicked();gController.isStopScreen=false;Debug.write("gController.istRestartLength"+gController.istRestartLength);Debug.write("gController.adaptive"+gController.adaptive);if(gController.istRestartLength==gController.subtestLength){
 if(gController.adaptive=="true"){
