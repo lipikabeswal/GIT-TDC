@@ -137,11 +137,9 @@
                     <method name="dostart">
                     // added for Mic calibration screen.
                     	gController.setAttribute('welcomeStatus','start');
-                    	gMicCalibrationScreen.getNodes();
-						
-                  if(gController.subtestTitle.indexOf('HABLANDO') >= 0 || gController.subtestTitle.indexOf('SPEAKING') >= 0){
-						//if(gController.subtestTitle.indexOf('ABC') >= 0){
-                    		gScreens.hide();
+                    if(gController.subtestTitle.indexOf('HABLANDO') >= 0 || gController.subtestTitle.indexOf('SPEAKING') >= 0){
+                  			gMicCalibrationScreen.getNodes();
+							gScreens.hide();
                     		gController.setAttribute('calibrationScreenWasVisible',true);
                     		gMicCalibrationScreen.setCalibrationDatapath();
                     		gMicCalibrationScreen.show();
@@ -168,8 +166,8 @@
                     <method name="docontinue"><![CDATA[
 					// added for Mic calibration screen.
 					gController.setAttribute('welcomeStatus','continue');
-					gMicCalibrationScreen.getNodes();
-                      if(gController.subtestTitle.indexOf('HABLANDO') >= 0 || gController.subtestTitle.indexOf('SPEAKING') >= 0){
+					if(gController.subtestTitle.indexOf('HABLANDO') >= 0 || gController.subtestTitle.indexOf('SPEAKING') >= 0){
+                      		gMicCalibrationScreen.getNodes();
                       		gScreens.hide();
 							gController.lasAssetArray = [];
                       		gController.setAttribute('calibrationScreenWasVisible',true);

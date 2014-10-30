@@ -2721,12 +2721,13 @@
 		<!-- swapping current item -->
 		<method name="changeCurrItemData"><![CDATA[
 			// Changes for Mic Calibration
+			if(gController.subtestTitle.indexOf('HABLANDO') >= 0 || gController.subtestTitle.indexOf('SPEAKING') >= 0){
 			gMicCalibrationScreen.hide();
 			var currentItem = gController.dpstudentdata.xpathQuery ('current_item');
 			var currentItemModel = gController.dpstudentdata.xpathQuery ('current_item/item_model');
 			currentItem.removeChild(currentItemModel);
 			gController.setAttribute('calibrationScreenWasVisible',false);
-	
+			}
 			gRecordingPopup.hideAllRecorderPopups();
             var curritem = Number(
                 dpstudentdata.xpathQuery( 'current_item/item_model/@eid' )
