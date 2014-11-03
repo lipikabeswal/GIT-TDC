@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2012 Enterprise, Build 4349
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Tue Oct 14 21:20:28 PDT 2014 -->
-<InstallAnywhere_Deployment_Project increments="17967">
+     DATE:   Fri Oct 31 11:57:25 PDT 2014 -->
+<InstallAnywhere_Deployment_Project increments="17989">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="14" minor="0" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,55,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,55,46,48,44,32,79,114,97,99,108,101,32,67,111,114,112,111,114,97,116,105,111,110,44,32,104,116,116,112,58,47,47,106,97,118,97,46,111,114,97,99,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,64,23,9,32,-96,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,2,0,121,34,9,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,103,-103,-80,-112,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,8,14,113,39,9,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="811">
+	<installationObjects uniqueObjects="812">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="belongsToUninstallPhase">
 				<boolean>false</boolean>
@@ -14371,28 +14371,7 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 									<property name="installOnPlatformList">
 										<object class="java.util.Vector">
 											<method name="addElement">
-												<string><![CDATA[Windows 2000]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows XP]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2003]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows Vista]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows NT]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 7]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 8]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[^Windows.*]]></string>
+												<string><![CDATA[AIX]]></string>
 											</method>
 										</object>
 									</property>
@@ -14412,9 +14391,6 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 											</method>
 											<method name="addElement">
 												<string><![CDATA[Linux]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[AIX]]></string>
 											</method>
 											<method name="addElement">
 												<string><![CDATA[FreeBSD]]></string>
@@ -14448,6 +14424,30 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 											</method>
 											<method name="addElement">
 												<string><![CDATA[OS/390]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2000]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows XP]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2003]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows Vista]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 7]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 8]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[^Windows.*]]></string>
 											</method>
 										</object>
 									</property>
@@ -15070,7 +15070,7 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 										<boolean>true</boolean>
 									</property>
 									<property name="ruleExpression">
-										<string><![CDATA[]]></string>
+										<string><![CDATA[CP728]]></string>
 									</property>
 									<property name="showPleaseWaitPanel">
 										<boolean>true</boolean>
@@ -15103,6 +15103,66 @@ regsvr32 /s LDBJSBridge.dll]]></string>
 									<property name="substituteUnknownVariable">
 										<boolean>false</boolean>
 									</property>
+									<rules logicalOperation="AND">
+										<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="7a6fba84b648">
+											<property name="belongsToUninstallPhase">
+												<boolean>false</boolean>
+											</property>
+											<property name="rollbackEnabledCancel">
+												<boolean>true</boolean>
+											</property>
+											<property name="rollbackEnabledError">
+												<boolean>true</boolean>
+											</property>
+											<property name="ruleExpression">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="installOnPlatformList">
+												<object class="java.util.Vector">
+													<method name="addElement">
+														<string><![CDATA[AIX]]></string>
+													</method>
+												</object>
+											</property>
+											<property name="doNotInstallOnPlatformList">
+												<object class="java.util.Vector">
+													<method name="addElement">
+														<string><![CDATA[^Windows.*]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Mac OS X]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Solaris]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[SunOS]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[HP-UX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Linux]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[FreeBSD]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[NetWare]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[OS/400]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Unlisted Platforms]]></string>
+													</method>
+												</object>
+											</property>
+											<property name="ruleId">
+												<string><![CDATA[CP728]]></string>
+											</property>
+										</object>
+									</rules>
 								</object>
 								<object class="com.zerog.ia.installer.actions.PrintToConsole" objectID="180feada8c65">
 									<property name="belongsToUninstallPhase">
@@ -16830,7 +16890,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="258a5f98ae96">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="7b12fdfc890d">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -16900,7 +16960,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 				<object class="java.util.Properties">
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vista.execlevel]]></string>
-						<string><![CDATA[2]]></string>
+						<string><![CDATA[0]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.hpux.novm]]></string>
@@ -16920,7 +16980,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.platform.macosx.authentication]]></string>
-						<string><![CDATA[true]]></string>
+						<string><![CDATA[false]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.macosx.novm]]></string>
@@ -16956,7 +17016,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[October 14, 2014 4:03:39 PM PDT]]></string>
+						<string><![CDATA[October 31, 2014 11:48:04 AM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -17028,7 +17088,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[October 14, 2014 9:20:28 PM PDT]]></string>
+						<string><![CDATA[October 31, 2014 11:57:24 AM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -17605,28 +17665,7 @@ regsvr32 /u /s LDBJSBridge.dll]]></string>
 									<property name="installOnPlatformList">
 										<object class="java.util.Vector">
 											<method name="addElement">
-												<string><![CDATA[Windows XP]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2000]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows Vista]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows NT]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 2003]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 7]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Windows 8]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[^Windows.*]]></string>
+												<string><![CDATA[AIX]]></string>
 											</method>
 										</object>
 									</property>
@@ -17660,9 +17699,6 @@ regsvr32 /u /s LDBJSBridge.dll]]></string>
 												<string><![CDATA[Linux]]></string>
 											</method>
 											<method name="addElement">
-												<string><![CDATA[AIX]]></string>
-											</method>
-											<method name="addElement">
 												<string><![CDATA[Irix]]></string>
 											</method>
 											<method name="addElement">
@@ -17691,6 +17727,30 @@ regsvr32 /u /s LDBJSBridge.dll]]></string>
 											</method>
 											<method name="addElement">
 												<string><![CDATA[OS/400]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows XP]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2000]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows Vista]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2003]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 7]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 8]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[^Windows.*]]></string>
 											</method>
 										</object>
 									</property>
@@ -19078,7 +19138,7 @@ done
 				<boolean>false</boolean>
 			</property>
 			<property name="notUpdateGlobalRegistry">
-				<boolean>false</boolean>
+				<boolean>true</boolean>
 			</property>
 			<property name="externalResourceBundles">
 				<object class="java.util.Vector"/>
@@ -19293,7 +19353,7 @@ done
 			<property name="softwareIdentificationTag">
 				<object class="com.zerog.ia.installer.SoftwareIdentificationTag" objectID="236acec1a23f">
 					<property name="swidRequired">
-						<boolean>true</boolean>
+						<boolean>false</boolean>
 					</property>
 					<property name="entitlementRequiredIndicator">
 						<boolean>false</boolean>
@@ -20411,7 +20471,7 @@ and any path to a file to read from that file]]></string>
 														<boolean>true</boolean>
 													</property>
 													<property name="execLevel">
-														<int>1</int>
+														<int>0</int>
 													</property>
 													<property name="asksUserAboutRestart">
 														<boolean>true</boolean>
@@ -21353,28 +21413,7 @@ and any path to a file to read from that file]]></string>
 													<property name="installOnPlatformList">
 														<object class="java.util.Vector">
 															<method name="addElement">
-																<string><![CDATA[Windows 2000]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows XP]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows Vista]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 7]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 8]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[^Windows.*]]></string>
+																<string><![CDATA[AIX]]></string>
 															</method>
 														</object>
 													</property>
@@ -21406,9 +21445,6 @@ and any path to a file to read from that file]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Linux]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[AIX]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Irix]]></string>
@@ -21530,7 +21566,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[]]></string>
 											</property>
 											<property name="commentStr">
-												<string><![CDATA[--------------------------------- Set the windows registry]]></string>
+												<string><![CDATA[DO NOT SET THE WINDOWS REGISTRIES ]]></string>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="4051313fbe47">
