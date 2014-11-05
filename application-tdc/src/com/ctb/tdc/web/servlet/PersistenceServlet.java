@@ -485,17 +485,19 @@ public class PersistenceServlet extends HttpServlet {
 
 			File flashCookieTarget = null;
 			if (osName.indexOf("win") >= 0) {
-				System.out.println("Inside If");
+				
 				boolean successWindows = new File(userHome + windowsPath)
 						.mkdirs();
 				flashCookieTarget = new File(userHome + windowsPath
 						+ "//settings.sol");
 			} else if (osName.indexOf("mac") >= 0) {
-				boolean successMac = new File(userHome + macPath).mkdirs();
-				flashCookieTarget = new File(userHome + macPath
-						+ "//settings.sol");
-				if (!flashCookieTarget.exists())
-					flashCookieTarget.createNewFile();
+				new File(userHome + macPath).mkdirs();
+				flashCookieTarget = new File(userHome + macPath	+ "//settings.sol");
+				if (flashCookieTarget.exists())
+				{
+					boolean successMac = flashCookieTarget.delete();
+					//logger.info(flashCookieTarget.getAbsolutePath()+(successMac?" deleted ":" not deleted "));
+				}
 			} else {
 				boolean successUnix = new File(userHome + unixPath).mkdirs();
 				flashCookieTarget = new File(userHome + unixPath
@@ -506,23 +508,36 @@ public class PersistenceServlet extends HttpServlet {
 
 			OutputStream outFile = null;
 
-			try {
+			/*try {
 				outFile = new FileOutputStream(flashCookieTarget);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				logger.info(flashCookieTarget.getAbsolutePath()+"not found");
+				
+			}*/
 			try {
+				outFile = new FileOutputStream(flashCookieTarget);
 				byte[] buf = new byte[1024];
 				int len;
-				while ((len = in.read(buf)) > 0) {
-					outFile.write(buf, 0, len);
+				if (!(osName.indexOf("mac") >= 0)) //don't copy file for mac
+				{
+					//logger.info("Copying file ");
+					while ((len = in.read(buf)) > 0)
+					{
+						outFile.write(buf, 0, len);
+					}
+
 				}
+			}catch (FileNotFoundException e) {
+				logger.info(flashCookieTarget.getAbsolutePath()+" not found");
+				
+			} catch (IOException e) {
+				logger.info(e.getMessage());
+			}
+			finally
+			{
+
 				in.close();
 				outFile.close();
-				//	System.out.println("FileCopied");
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 			//System.out.println("*******user Home********" + userHome);
 
