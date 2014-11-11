@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2012 Enterprise, Build 4349
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Mon Nov 10 12:41:39 PST 2014 -->
-<InstallAnywhere_Deployment_Project increments="20435">
+     DATE:   Tue Nov 11 12:39:45 PST 2014 -->
+<InstallAnywhere_Deployment_Project increments="20486">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="14" minor="0" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,55,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,55,46,48,44,32,79,114,97,99,108,101,32,67,111,114,112,111,114,97,116,105,111,110,44,32,104,116,116,112,58,47,47,106,97,118,97,46,111,114,97,99,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,64,-105,123,-64,112,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,12,5,112,43,9,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,-89,-101,96,80,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,4,3,117,32,9,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="891">
+	<installationObjects uniqueObjects="894">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="belongsToUninstallPhase">
 				<boolean>false</boolean>
@@ -10578,6 +10578,84 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 										</object>
 									</visualChildren>
 								</object>
+								<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="b405fcdab91f">
+									<property name="belongsToUninstallPhase">
+										<boolean>false</boolean>
+									</property>
+									<property name="rollbackEnabledCancel">
+										<boolean>true</boolean>
+									</property>
+									<property name="rollbackEnabledError">
+										<boolean>true</boolean>
+									</property>
+									<property name="ruleExpression">
+										<string><![CDATA[]]></string>
+									</property>
+									<property name="name">
+										<string><![CDATA[$MET_CPU_REQ$]]></string>
+									</property>
+									<property name="value">
+										<string><![CDATA[true]]></string>
+									</property>
+									<property name="passByValue">
+										<boolean>false</boolean>
+									</property>
+									<property name="substituteUnknownVariable">
+										<boolean>false</boolean>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="b406a396b929">
+									<property name="belongsToUninstallPhase">
+										<boolean>false</boolean>
+									</property>
+									<property name="rollbackEnabledCancel">
+										<boolean>true</boolean>
+									</property>
+									<property name="rollbackEnabledError">
+										<boolean>true</boolean>
+									</property>
+									<property name="ruleExpression">
+										<string><![CDATA[]]></string>
+									</property>
+									<property name="name">
+										<string><![CDATA[$MET_MEMORY_REQ$]]></string>
+									</property>
+									<property name="value">
+										<string><![CDATA[true]]></string>
+									</property>
+									<property name="passByValue">
+										<boolean>false</boolean>
+									</property>
+									<property name="substituteUnknownVariable">
+										<boolean>false</boolean>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="b406ac01b92e">
+									<property name="belongsToUninstallPhase">
+										<boolean>false</boolean>
+									</property>
+									<property name="rollbackEnabledCancel">
+										<boolean>true</boolean>
+									</property>
+									<property name="rollbackEnabledError">
+										<boolean>true</boolean>
+									</property>
+									<property name="ruleExpression">
+										<string><![CDATA[]]></string>
+									</property>
+									<property name="name">
+										<string><![CDATA[$MET_OS_REQ$]]></string>
+									</property>
+									<property name="value">
+										<string><![CDATA[true]]></string>
+									</property>
+									<property name="passByValue">
+										<boolean>false</boolean>
+									</property>
+									<property name="substituteUnknownVariable">
+										<boolean>false</boolean>
+									</property>
+								</object>
 								<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="e7706a8d9271">
 									<property name="belongsToUninstallPhase">
 										<boolean>false</boolean>
@@ -10589,7 +10667,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 										<boolean>true</boolean>
 									</property>
 									<property name="ruleExpression">
-										<string><![CDATA[CIAV919 &&  &&  && CIAV357]]></string>
+										<string><![CDATA[CIAV919 && CIAV357]]></string>
 									</property>
 									<property name="name">
 										<string><![CDATA[$MET_ALL_REQ$]]></string>
@@ -19526,7 +19604,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="aef204b28602">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="b416a2c8ba72">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -19596,7 +19674,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 				<object class="java.util.Properties">
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vista.execlevel]]></string>
-						<string><![CDATA[0]]></string>
+						<string><![CDATA[2]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.hpux.novm]]></string>
@@ -19616,7 +19694,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.installer.options.platform.macosx.authentication]]></string>
-						<string><![CDATA[false]]></string>
+						<string><![CDATA[true]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.macosx.novm]]></string>
@@ -19648,7 +19726,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[November 10, 2014 12:41:39 PM PST]]></string>
+						<string><![CDATA[November 11, 2014 11:15:13 AM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -19720,7 +19798,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[November 10, 2014 12:41:39 PM PST]]></string>
+						<string><![CDATA[November 11, 2014 12:39:45 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -21006,10 +21084,7 @@ echo y| del *.*
 								<boolean>true</boolean>
 							</property>
 							<property name="script">
-								<string><![CDATA[cd $USER_INSTALL_DIR$\Uninstall_Online\ Assessment
-rm *
-cd $USER_INSTALL_DIR$
-rm *
+								<string><![CDATA[rm -rf $USER_INSTALL_DIR$
 
 
 
@@ -21022,7 +21097,7 @@ rm *
 								<string><![CDATA[Executing Installation Script...]]></string>
 							</property>
 							<property name="comment">
-								<string><![CDATA[Remove extra files - Linux]]></string>
+								<string><![CDATA[Remove extra files - Mac, Linux]]></string>
 							</property>
 							<property name="stdoutVar">
 								<string><![CDATA[$EXECUTE_STDOUT$]]></string>
@@ -21055,6 +21130,9 @@ rm *
 											<method name="addElement">
 												<string><![CDATA[Linux]]></string>
 											</method>
+											<method name="addElement">
+												<string><![CDATA[Mac OS X]]></string>
+											</method>
 										</object>
 									</property>
 									<property name="doNotInstallOnPlatformList">
@@ -21073,9 +21151,6 @@ rm *
 											</method>
 											<method name="addElement">
 												<string><![CDATA[Windows 2003]]></string>
-											</method>
-											<method name="addElement">
-												<string><![CDATA[Mac OS X]]></string>
 											</method>
 											<method name="addElement">
 												<string><![CDATA[OS/2]]></string>
