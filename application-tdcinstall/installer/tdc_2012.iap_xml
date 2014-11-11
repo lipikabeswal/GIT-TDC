@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2012 Enterprise, Build 4349
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Mon Nov 03 11:57:17 PST 2014 -->
-<InstallAnywhere_Deployment_Project increments="20639">
+     DATE:   Mon Nov 10 12:41:39 PST 2014 -->
+<InstallAnywhere_Deployment_Project increments="20435">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="14" minor="0" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,55,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,55,46,48,44,32,79,114,97,99,108,101,32,67,111,114,112,111,114,97,116,105,111,110,44,32,104,116,116,112,58,47,47,106,97,118,97,46,111,114,97,99,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,64,119,59,-96,16,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,12,5,123,39,9,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,-105,123,-64,112,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,12,5,112,43,9,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="901">
+	<installationObjects uniqueObjects="891">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="belongsToUninstallPhase">
 				<boolean>false</boolean>
@@ -70,7 +70,7 @@
 								<string><![CDATA[bootstrap.jar]]></string>
 							</property>
 							<property name="fileSize">
-								<long>131533</long>
+								<long>133359</long>
 							</property>
 							<property name="macBinary">
 								<boolean>false</boolean>
@@ -10589,7 +10589,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 										<boolean>true</boolean>
 									</property>
 									<property name="ruleExpression">
-										<string><![CDATA[CIAV919 && CIAV973 && CIAV56 && CIAV357]]></string>
+										<string><![CDATA[CIAV919 &&  &&  && CIAV357]]></string>
 									</property>
 									<property name="name">
 										<string><![CDATA[$MET_ALL_REQ$]]></string>
@@ -10628,58 +10628,6 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 											</property>
 											<property name="ruleId">
 												<string><![CDATA[CIAV919]]></string>
-											</property>
-										</object>
-										<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="e770ce0a9271">
-											<property name="belongsToUninstallPhase">
-												<boolean>false</boolean>
-											</property>
-											<property name="rollbackEnabledCancel">
-												<boolean>true</boolean>
-											</property>
-											<property name="rollbackEnabledError">
-												<boolean>true</boolean>
-											</property>
-											<property name="ruleExpression">
-												<string><![CDATA[]]></string>
-											</property>
-											<property name="operation">
-												<string><![CDATA[equals]]></string>
-											</property>
-											<property name="operandOne">
-												<string><![CDATA[$MET_CPU_REQ$]]></string>
-											</property>
-											<property name="operandTwo">
-												<string><![CDATA[true]]></string>
-											</property>
-											<property name="ruleId">
-												<string><![CDATA[CIAV973]]></string>
-											</property>
-										</object>
-										<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="e770d5479271">
-											<property name="belongsToUninstallPhase">
-												<boolean>false</boolean>
-											</property>
-											<property name="rollbackEnabledCancel">
-												<boolean>true</boolean>
-											</property>
-											<property name="rollbackEnabledError">
-												<boolean>true</boolean>
-											</property>
-											<property name="ruleExpression">
-												<string><![CDATA[]]></string>
-											</property>
-											<property name="operation">
-												<string><![CDATA[equals]]></string>
-											</property>
-											<property name="operandOne">
-												<string><![CDATA[$MET_OS_REQ$]]></string>
-											</property>
-											<property name="operandTwo">
-												<string><![CDATA[true]]></string>
-											</property>
-											<property name="ruleId">
-												<string><![CDATA[CIAV56]]></string>
 											</property>
 										</object>
 										<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="e77249c49279">
@@ -10919,6 +10867,9 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 											<property name="runsAfterFileDeletesNotBefore">
 												<boolean>false</boolean>
 											</property>
+											<property name="uniqueName">
+												<string><![CDATA[aec91bd7-1f1b-11b2-8425-a5075f81918e]]></string>
+											</property>
 											<property name="archivesSigned">
 												<boolean>false</boolean>
 											</property>
@@ -11053,6 +11004,21 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<method name="addElement">
 																<string><![CDATA[Windows Vista]]></string>
 															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 7]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 8]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[^Windows.*]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
 														</object>
 													</property>
 													<property name="doNotInstallOnPlatformList">
@@ -11064,13 +11030,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 																<string><![CDATA[Windows 98]]></string>
 															</method>
 															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-															<method name="addElement">
 																<string><![CDATA[Windows Me]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Mac OS X]]></string>
@@ -11127,164 +11087,6 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 													</property>
 													<property name="ruleId">
 														<string><![CDATA[CP476]]></string>
-													</property>
-												</object>
-											</rules>
-										</object>
-										<object class="com.zerog.ia.installer.actions.EditMultipleVariables" objectID="78e5a24d8cab">
-											<property name="belongsToUninstallPhase">
-												<boolean>false</boolean>
-											</property>
-											<property name="rollbackEnabledCancel">
-												<boolean>true</boolean>
-											</property>
-											<property name="rollbackEnabledError">
-												<boolean>true</boolean>
-											</property>
-											<property name="ruleExpression">
-												<string><![CDATA[CP450]]></string>
-											</property>
-											<property name="comment">
-												<string><![CDATA[Set variables needed for PC (Win2K3)]]></string>
-											</property>
-											<property name="propertyList">
-												<object class="java.util.Vector">
-													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78e5a24d8cac">
-															<property name="propertyValue">
-																<string><![CDATA[$ATV_RESULT$]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[$ATV_SOURCE$]]></string>
-															</property>
-															<property name="passByValue">
-																<boolean>false</boolean>
-															</property>
-															<property name="substituteUnknownVariable">
-																<boolean>false</boolean>
-															</property>
-														</object>
-													</method>
-													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78eb0f338cb0">
-															<property name="propertyValue">
-																<string><![CDATA[<li>1.0 GHz processor speed]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[$ATV_VALUE$]]></string>
-															</property>
-															<property name="passByValue">
-																<boolean>false</boolean>
-															</property>
-															<property name="substituteUnknownVariable">
-																<boolean>false</boolean>
-															</property>
-														</object>
-													</method>
-												</object>
-											</property>
-											<property name="substituteUnknownVariable">
-												<boolean>false</boolean>
-											</property>
-											<rules logicalOperation="AND">
-												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="78e5a24e8cab">
-													<property name="belongsToUninstallPhase">
-														<boolean>false</boolean>
-													</property>
-													<property name="rollbackEnabledCancel">
-														<boolean>true</boolean>
-													</property>
-													<property name="rollbackEnabledError">
-														<boolean>true</boolean>
-													</property>
-													<property name="ruleExpression">
-														<string><![CDATA[]]></string>
-													</property>
-													<property name="installOnPlatformList">
-														<object class="java.util.Vector">
-															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
-															</method>
-														</object>
-													</property>
-													<property name="doNotInstallOnPlatformList">
-														<object class="java.util.Vector">
-															<method name="addElement">
-																<string><![CDATA[Windows 95]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 98]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows Me]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Mac OS X]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/2]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Solaris]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[SunOS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[HP-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Linux]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[AIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Irix]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[DG-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Compaq's Digital UNIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[FreeBSD]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Rhapsody]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[NetWare]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[z/OS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/390]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Unlisted Platforms]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/400]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2000]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows XP]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows Vista]]></string>
-															</method>
-														</object>
-													</property>
-													<property name="ruleId">
-														<string><![CDATA[CP450]]></string>
 													</property>
 												</object>
 											</rules>
@@ -11727,6 +11529,15 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 													<method name="addElement">
 														<string><![CDATA[Windows 2003]]></string>
 													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows 7]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows 8]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[^Windows.*]]></string>
+													</method>
 												</object>
 											</property>
 											<property name="doNotInstallOnPlatformList">
@@ -11866,6 +11677,15 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Windows Vista]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 7]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 8]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[^Windows.*]]></string>
 															</method>
 														</object>
 													</property>
@@ -12590,6 +12410,21 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															<method name="addElement">
 																<string><![CDATA[Windows Vista]]></string>
 															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows NT]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 2003]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 7]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 8]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[^Windows.*]]></string>
+															</method>
 														</object>
 													</property>
 													<property name="doNotInstallOnPlatformList">
@@ -12601,13 +12436,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 																<string><![CDATA[Windows 98]]></string>
 															</method>
 															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-															<method name="addElement">
 																<string><![CDATA[Windows Me]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Mac OS X]]></string>
@@ -12664,164 +12493,6 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 													</property>
 													<property name="ruleId">
 														<string><![CDATA[CP632]]></string>
-													</property>
-												</object>
-											</rules>
-										</object>
-										<object class="com.zerog.ia.installer.actions.EditMultipleVariables" objectID="78f10e858cb7">
-											<property name="belongsToUninstallPhase">
-												<boolean>false</boolean>
-											</property>
-											<property name="rollbackEnabledCancel">
-												<boolean>true</boolean>
-											</property>
-											<property name="rollbackEnabledError">
-												<boolean>true</boolean>
-											</property>
-											<property name="ruleExpression">
-												<string><![CDATA[CP511]]></string>
-											</property>
-											<property name="comment">
-												<string><![CDATA[Set variables needed by custom code]]></string>
-											</property>
-											<property name="propertyList">
-												<object class="java.util.Vector">
-													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78f10e858cb8">
-															<property name="propertyValue">
-																<string><![CDATA[$ATV_RESULT$]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[$ATV_SOURCE$]]></string>
-															</property>
-															<property name="passByValue">
-																<boolean>false</boolean>
-															</property>
-															<property name="substituteUnknownVariable">
-																<boolean>false</boolean>
-															</property>
-														</object>
-													</method>
-													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="78f1d9de8cbb">
-															<property name="propertyValue">
-																<string><![CDATA[<li>400 MB RAM]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[$ATV_VALUE$]]></string>
-															</property>
-															<property name="passByValue">
-																<boolean>false</boolean>
-															</property>
-															<property name="substituteUnknownVariable">
-																<boolean>false</boolean>
-															</property>
-														</object>
-													</method>
-												</object>
-											</property>
-											<property name="substituteUnknownVariable">
-												<boolean>false</boolean>
-											</property>
-											<rules logicalOperation="AND">
-												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="78f10e868cb7">
-													<property name="belongsToUninstallPhase">
-														<boolean>false</boolean>
-													</property>
-													<property name="rollbackEnabledCancel">
-														<boolean>true</boolean>
-													</property>
-													<property name="rollbackEnabledError">
-														<boolean>true</boolean>
-													</property>
-													<property name="ruleExpression">
-														<string><![CDATA[]]></string>
-													</property>
-													<property name="installOnPlatformList">
-														<object class="java.util.Vector">
-															<method name="addElement">
-																<string><![CDATA[Windows 2003]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows NT]]></string>
-															</method>
-														</object>
-													</property>
-													<property name="doNotInstallOnPlatformList">
-														<object class="java.util.Vector">
-															<method name="addElement">
-																<string><![CDATA[Windows 95]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 98]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows Me]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Mac OS X]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/2]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Solaris]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[SunOS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[HP-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Linux]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[AIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Irix]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[DG-UX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Compaq's Digital UNIX]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[FreeBSD]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Rhapsody]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[NetWare]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[z/OS]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/390]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Unlisted Platforms]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[OS/400]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows XP]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows 2000]]></string>
-															</method>
-															<method name="addElement">
-																<string><![CDATA[Windows Vista]]></string>
-															</method>
-														</object>
-													</property>
-													<property name="ruleId">
-														<string><![CDATA[CP511]]></string>
 													</property>
 												</object>
 											</rules>
@@ -13467,6 +13138,15 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 															</method>
 															<method name="addElement">
 																<string><![CDATA[Windows 2003]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 7]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Windows 8]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[^Windows.*]]></string>
 															</method>
 														</object>
 													</property>
@@ -18700,7 +18380,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="bundledVM">
-												<string><![CDATA[SunJRE160_02Win32.vm]]></string>
+												<string><![CDATA[SunJRE160_15Win32.vm]]></string>
 											</property>
 											<property name="withoutVmSearchOption">
 												<short>10</short>
@@ -19846,7 +19526,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="8abce480b7a6">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="aef204b28602">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -19968,7 +19648,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[November 3, 2014 11:57:17 AM PST]]></string>
+						<string><![CDATA[November 10, 2014 12:41:39 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -20040,7 +19720,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[November 3, 2014 11:57:17 AM PST]]></string>
+						<string><![CDATA[November 10, 2014 12:41:39 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -20484,7 +20164,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 				<boolean>true</boolean>
 			</property>
 			<property name="launcher64BitLaunchSetting">
-				<int>0</int>
+				<int>1</int>
 			</property>
 			<property name="help">
 				<object class="com.zerog.ia.installer.util.Help" objectID="722460bd88f2">
@@ -23371,7 +23051,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>25488789</long>
+												<long>25934031</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -28087,19 +27767,6 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e0e319d9b743">
-															<property name="propertyValue">
-																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[lax.main.class]]></string>
-															</property>
-															<property name="propertyComment">
-																<string><![CDATA[the class that contains the main method for the application]]></string>
-															</property>
-														</object>
-													</method>
-													<method name="addElement">
 														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="6fa5a673b115">
 															<property name="propertyValue">
 																<string><![CDATA[33554432]]></string>
@@ -28109,6 +27776,19 @@ it will search for ones in this list]]></string>
 															</property>
 															<property name="propertyComment">
 																<string><![CDATA[VM intial heap size]]></string>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e0e319d9b743">
+															<property name="propertyValue">
+																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[lax.main.class]]></string>
+															</property>
+															<property name="propertyComment">
+																<string><![CDATA[the class that contains the main method for the application]]></string>
 															</property>
 														</object>
 													</method>
