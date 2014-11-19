@@ -47,6 +47,11 @@
     	<Question id="gmicTesQuestion" bgcolor="${gController.questionBgColor}">
 			<handler name="ondata">
 				console.log("Inside ondata********Question*****");
+				//fix for defect #80963. Test if flash object has crashed will run only for mac.
+				if(isMac()){
+					checkFlashCrashedLogin();
+					setInterval(checkFlashCrashedLogin, 1000); // check it out every one second if flash object has crashed.
+				}
 			</handler>
 			
 		</Question>
