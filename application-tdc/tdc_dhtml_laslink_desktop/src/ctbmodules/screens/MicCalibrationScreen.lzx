@@ -86,7 +86,9 @@
 						}
 						//gController.stopMicCheck();
 						//gScreens.show();
-					
+						
+						//Fix for defect #81082
+						gController.removeCalibrationNode();
 					</handler>
 					<handler name="onmouseover">
 	                   lz.Cursor.showHandCursor(true);
