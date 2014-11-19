@@ -186,12 +186,14 @@
 			//Debug.write("n : ", n);
 			return n * fact(n - 1);
 		}	
-	    
-		function isMac(){
+	    //fix for defect #80963. Changing method name to avoid confliction with isMac() in Login.html
+		function checkMac(){
+		console.log("Inside is Mac controller");
 			/*var os = flashSystem.capabilities.os;
 			os = os.split(" ");
-			return os[0] == 'Mac';	*/
+			return os[0] == 'Mac';*/
 			return false;
+			
 		}			
     ]]></script>
 
@@ -1084,15 +1086,22 @@
 		</handler>
 		
 		<method name = "_handleIsPasswordField" args="response"><![CDATA[
+			
 			this.setAttribute("productTypeVal",response);
+			var productName = "";
+			var versionNo = "";	
 			var currentProdType = this.productTypeVal;
-
+			
+			/*Retreive product name and version number & assign it to version display area - [OAS-915]*/
+			productName = lz.DataElement.stringToLzData(gController.productTypeVal).nodeName;
+			versionNo = lz.DataElement.stringToLzData(gController.productTypeVal).getAttr('version');
+			versionproductinfo.setAttribute("text",productName+" "+versionNo);
+			
 			if(currentProdType.indexOf('ISTEP') >= 0) {
 				this.setAttribute("displayText",true);
-
-			} else {
+			} else{
 				this.setAttribute("displayText",false);
-			}
+			}	
 			gScreens.showLogin();
 		]]>
 		</method>
@@ -2717,16 +2726,21 @@
                 dnrtitemold.parentNode.replaceChild (dncurritem, dnrtitemold);
             }
          ]]></method>
+		<!--Fix for defect 81082 -->
+		<method name="removeCalibrationNode">
+			var currentItem = gController.dpstudentdata.xpathQuery ('current_item');
+			var currentItemModel = gController.dpstudentdata.xpathQuery ('current_item/item_model');
+			currentItem.removeChild(currentItemModel);
+		</method>
 
 		<!-- swapping current item -->
 		<method name="changeCurrItemData"><![CDATA[
 			// Changes for Mic Calibration
-			if(gController.subtestTitle.indexOf('HABLANDO') >= 0 || gController.subtestTitle.indexOf('SPEAKING') >= 0){
-			gMicCalibrationScreen.hide();
-			var currentItem = gController.dpstudentdata.xpathQuery ('current_item');
-			var currentItemModel = gController.dpstudentdata.xpathQuery ('current_item/item_model');
-			currentItem.removeChild(currentItemModel);
-			gController.setAttribute('calibrationScreenWasVisible',false);
+			//Fix for defect 81082 
+			if((gController.subtestTitle.indexOf('HABLANDO') >= 0 || gController.subtestTitle.indexOf('SPEAKING') >= 0) 
+					&& this.calibrationScreenWasVisible){
+				gMicCalibrationScreen.hide();
+				gController.setAttribute('calibrationScreenWasVisible',false);
 			}
 			gRecordingPopup.hideAllRecorderPopups();
             var curritem = Number(
@@ -6338,6 +6352,9 @@
 
 		<method name="trackMouseMove" >
             <![CDATA[
+            /*
+		    //Inactivity timer has been commented for LAslinks client as per the story OAS-1077
+
             var xpos = Math.round( canvas.getMouse("x") );
             var ypos = Math.round( canvas.getMouse("y") );
             if ( (this.lastxpos != xpos) 
@@ -6358,24 +6375,34 @@
 					resetTrackTimer();
 				}
             }
+			*/
             ]]>
         </method>
         
         <method name="resetTrackTimer">
+         /*
+		    //Inactivity timer has been commented for LAslinks client as per the story OAS-1077
 			//Debug.write("trackTimer",this.trackTimer);
 			lz.Timer.resetTimer(trackDel,1000);
+         */
 		</method>
 
 		<method name="removeTrackTimer">
+            /*
+		    //Inactivity timer has been commented for LAslinks client as per the story OAS-1077
 			this.setAttribute('isHandlerInactive', true);
 			this.setAttribute('trackTimer',0);
 			lz.Timer.removeTimer(trackDel);
+			*/
 		</method>
 
 		<method name="recalltrackMouseMove">
+			/*
+		    //Inactivity timer has been commented for LAslinks client as per the story OAS-1077
 			this.setAttribute('isHandlerInactive', false);
 			this.setAttribute('trackTimer',0);
 			trackMouseMove();
+			*/
 		</method>
 		
 		<method name="setOverlayOnLasAssets"><![CDATA[
