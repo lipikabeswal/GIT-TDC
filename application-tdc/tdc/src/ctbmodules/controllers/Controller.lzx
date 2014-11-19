@@ -4206,36 +4206,42 @@ Debug.write("############ loadItem ############");
 
 		<method name="trackMouseMove" >
             <![CDATA[
-            var xpos = Math.round( canvas.getMouse("x") );
-            var ypos = Math.round( canvas.getMouse("y") );
-            if ( (this.lastxpos != xpos) 
-              || (this.lastypos != ypos) ) {
-                this.lastxpos = xpos;
-                this.lastypos = ypos;
-				this.setAttribute('trackTimer',0);
-                resetTrackTimer();
-            }else{
-            	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
-            	if(this.trackTimer >= timerInterval){ 
-					gCommunicator.closeOkCalculator();   
-					hideMagnifierGlass();
-					hideMaskingChoiceDD();
-					LzCursor.unlock();        		
-					stopQuestion();
-					removeTrackTimer();
-					gScreens.showTimeoutForInactivity();
-					canvas.setPromptDimension();
-            		timeoutDialog.open();					
-            	} else {
-					resetTrackTimer();
-				}
-            }
+             //Inactivity timer has been removed from LAslinks client as per the story OAS-1077
+		    if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
+	            var xpos = Math.round( canvas.getMouse("x") );
+	            var ypos = Math.round( canvas.getMouse("y") );
+	            if ( (this.lastxpos != xpos) 
+	              || (this.lastypos != ypos) ) {
+	                this.lastxpos = xpos;
+	                this.lastypos = ypos;
+					this.setAttribute('trackTimer',0);
+	                resetTrackTimer();
+	            }else{
+	            	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
+	            	if(this.trackTimer >= timerInterval){ 
+						gCommunicator.closeOkCalculator();   
+						hideMagnifierGlass();
+						hideMaskingChoiceDD();
+						LzCursor.unlock();        		
+						stopQuestion();
+						removeTrackTimer();
+						gScreens.showTimeoutForInactivity();
+						canvas.setPromptDimension();
+	            		timeoutDialog.open();					
+	            	} else {
+						resetTrackTimer();
+					}
+	            }
+	           } 
             ]]>
         </method>
         
         <method name="resetTrackTimer">
-			//Debug.write("trackTimer",this.trackTimer);
-			LzTimer.resetTimer(trackDel,1000);
+           //Inactivity timer has been removed from LAslinks client as per the story OAS-1077
+           if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
+				//Debug.write("trackTimer",this.trackTimer);
+				LzTimer.resetTimer(trackDel,1000);
+		  	}	
 		</method>
 		
 		<method name="testTimedout">
@@ -4247,15 +4253,21 @@ Debug.write("############ loadItem ############");
 		</method>
 
 		<method name="removeTrackTimer">
-			this.setAttribute('isHandlerInactive', true);
-			this.setAttribute('trackTimer',0);
-			LzTimer.removeTimer(trackDel);
+		     //Inactivity timer has been removed from LAslinks client as per the story OAS-1077
+			if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
+				this.setAttribute('isHandlerInactive', true);
+				this.setAttribute('trackTimer',0);
+				LzTimer.removeTimer(trackDel);
+			}
 		</method>
 
 		<method name="recalltrackMouseMove">
-			this.setAttribute('isHandlerInactive', false);
-			this.setAttribute('trackTimer',0);
-			trackMouseMove();
+		     //Inactivity timer has been removed from LAslinks client as per the story OAS-1077
+		    if(!(gController.isLaslink == true || gController.isLaslink == 'true')){
+				this.setAttribute('isHandlerInactive', false);
+				this.setAttribute('trackTimer',0);
+				trackMouseMove();
+			}	
 		</method>
 
 		<method name="startPauseTimer">
