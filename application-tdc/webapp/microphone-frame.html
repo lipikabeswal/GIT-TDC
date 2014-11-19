@@ -91,7 +91,7 @@
         <param name="allowFullScreen" value="true" />
         <param name="wmode" value="transparent">
         <!--[if !IE]>-->
-        <object type="application/x-shockwave-flash" data="MicrophoneDetection.swf" width="100%" height="100%">
+        <object type="application/x-shockwave-flash" data="MicrophoneDetection.swf" width="100%" height="100%" id="MicrophoneDetection">
             <param name="quality" value="high" />
             <param name="allowScriptAccess" value="sameDomain" />
             <param name="allowFullScreen" value="true" />
@@ -132,6 +132,22 @@
     function showRecordWaitPopup(){
     	//top.window.gRecordingPopup.show();
     }
+    
+   	//fix for defect #80963.
+   	 function checkFlashCrashed() {
+   	 //console.log("Inside checkFlashCrashed*****");
+  		try {
+	     	 var tmp = document.getElementById("MicrophoneDetection").SetVariable;
+	     	 if(!tmp) {
+	       	  	 top.window.reloadFlashPopup();
+	        	 return;
+	     	 }
+	  	 } catch (e) {
+		      top.window.reloadFlashPopup();
+		      return;
+	   }
+  
+}
 
 </script>
 </body>
