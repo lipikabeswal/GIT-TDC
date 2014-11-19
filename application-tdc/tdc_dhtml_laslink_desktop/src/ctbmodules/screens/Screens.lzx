@@ -81,10 +81,12 @@
  			if ( contents.ts.isinited ) contents.ts.setAttribute('visible', false );
             //prancingMan.remove();
             //standingMan.remove();
+            
             //the following attributes need to be reset to default value before using them into any screen
             gScreens.setAttribute('y',200);
             gScreens.middle.bgFrame.setAttribute('height',200);
             gScreens.copyWriteText.setAttribute('y',200);
+            versionproductinfo.setAttribute('y',200);//assign the top value - [OAS-915]
         </method>
 
         <method name="showDownload" args="totalSubtests">
@@ -198,6 +200,7 @@
 			gScreens.middle.bgFrame.setAttribute('height',230);
             gScreens.setAttribute('y',170);
             gScreens.copyWriteText.setAttribute('y',230);
+            versionproductinfo.setAttribute('y',230);//assign the top value - [OAS-915]
             contents.ps.prompt.setAttribute('text', 'Log in to resume your paused test or log out to resume later.' );
             contents.ps.studentName.setAttribute('text', 'Hello ' + sn);
 

@@ -236,12 +236,16 @@
 			        }
 			    </handler>
 				<text name="copyWriteText" y="200" font="Arial" fontsize="12" 
-			        fgcolor="${canvas.copyriteColor}" width="160"
+			        fgcolor="${canvas.copyriteColor}" width="40%"
 				    text="${canvas.Copyrite}">
 				    <handler name="oninit">
 			        	this.setAttribute('height',16);
 			    	</handler>
 				</text>
+				<!--Div for displaying the version no. and product name - [OAS-915]-->
+				<text id="versionproductinfo" y="${this.immediateparent.height}" x="${this.immediateparent.width - this.width}" font="Arial" fontsize="12" 
+			        fgcolor="${canvas.copyriteColor}" width="23%" text=" ">
+			    </text>    
             </Screens>
 			<SecurityScreen id="gSecurityScreen" x="100" y="100" width="600"
 				height="300" visible="false">
