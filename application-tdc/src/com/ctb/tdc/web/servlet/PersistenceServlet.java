@@ -212,7 +212,7 @@ public class PersistenceServlet extends HttpServlet {
 		else if (method != null && method.equals(ServletUtils.VERIFY_SETTINGS_METHOD)) {
 			result = verifyServletSettings();
 		} else if (method != null && method.equals(ServletUtils.LOGIN_METHOD))
-			result = login(xml);
+			result = login(xml, request);
 		else if (method != null && method.equals(ServletUtils.SAVE_METHOD))
 		{
 			System.out.println(" original save xml:"+xml);			
@@ -458,7 +458,7 @@ public class PersistenceServlet extends HttpServlet {
 	 * 
 	 * @param String xml
 	 */
-	private String login(String xml) {
+	private String login(String xml, HttpServletRequest request) {
 		String result = ServletUtils.ERROR;
 
 		try {
@@ -484,6 +484,11 @@ public class PersistenceServlet extends HttpServlet {
 			}
 
 			File flashCookieTarget = null;
+			//fix for defect 81152. The flash setting popu-up should only appear for C/D MAC client
+			String formType = "false";
+			if(request.getParameter("isCD") != null){
+				formType = request.getParameter("isCD").toString();
+			}
 			if (osName.indexOf("win") >= 0) {
 				
 				boolean successWindows = new File(userHome + windowsPath)
@@ -493,10 +498,13 @@ public class PersistenceServlet extends HttpServlet {
 			} else if (osName.indexOf("mac") >= 0) {
 				new File(userHome + macPath).mkdirs();
 				flashCookieTarget = new File(userHome + macPath	+ "//settings.sol");
-				if (flashCookieTarget.exists())
+				if (flashCookieTarget.exists() && formType != null && formType.equalsIgnoreCase("true"))
 				{
 					boolean successMac = flashCookieTarget.delete();
 					//logger.info(flashCookieTarget.getAbsolutePath()+(successMac?" deleted ":" not deleted "));
+				}else{
+					if (!flashCookieTarget.exists())
+						flashCookieTarget.createNewFile();
 				}
 			} else {
 				boolean successUnix = new File(userHome + unixPath).mkdirs();
@@ -518,15 +526,14 @@ public class PersistenceServlet extends HttpServlet {
 				outFile = new FileOutputStream(flashCookieTarget);
 				byte[] buf = new byte[1024];
 				int len;
-				if (!(osName.indexOf("mac") >= 0)) //don't copy file for mac
-				{
-					//logger.info("Copying file ");
+				if ((!(osName.indexOf("mac") >= 0) && formType != null && formType.equalsIgnoreCase("true"))
+						|| (formType != null && formType.equalsIgnoreCase("false"))){
 					while ((len = in.read(buf)) > 0)
 					{
 						outFile.write(buf, 0, len);
-					}
-
+					}					
 				}
+				
 			}catch (FileNotFoundException e) {
 				logger.info(flashCookieTarget.getAbsolutePath()+" not found");
 				

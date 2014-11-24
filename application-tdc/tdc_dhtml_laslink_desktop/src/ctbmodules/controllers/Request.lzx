@@ -68,6 +68,8 @@
 		<method name="login" args="username, password, accesscode" >
 			var xml = gXmlHelper.getLoginXml(username, password, accesscode, cid);
 			Debug.write("Login XMl: " , xml);
+			//for defect 81152 
+			persistenceDs.setQueryParam("isCD",isCD);
 			_doRequest(persistenceDs, LOGIN_METHOD, xml);
 		</method>
 		
