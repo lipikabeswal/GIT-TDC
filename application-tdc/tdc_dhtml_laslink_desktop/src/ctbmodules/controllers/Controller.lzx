@@ -2731,6 +2731,10 @@
 			var currentItem = gController.dpstudentdata.xpathQuery ('current_item');
 			var currentItemModel = gController.dpstudentdata.xpathQuery ('current_item/item_model');
 			currentItem.removeChild(currentItemModel);
+			// Added to bring focus back to item screen on mac as a fix for internal defect.
+			if(isMac()){
+				top.focus();
+			}
 		</method>
 
 		<!-- swapping current item -->
