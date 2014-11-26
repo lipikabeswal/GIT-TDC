@@ -137,6 +137,7 @@
                     <method name="dostart"><![CDATA[
                     // added for Mic calibration screen.
                     	gController.setAttribute('welcomeStatus','start');
+                    // Changes for Previewer/Reviewer: Calibration screen is not needed for Previewer/Reviewer.	
                     if((gController.subtestTitle.indexOf('HABLANDO') >= 0 || gController.subtestTitle.indexOf('SPEAKING') >= 0) && !isPreviewer ){
                   			gMicCalibrationScreen.getNodes();
 							gScreens.hide();
@@ -166,6 +167,7 @@
                     <method name="docontinue"><![CDATA[
 					// added for Mic calibration screen.
 					gController.setAttribute('welcomeStatus','continue');
+					// Changes for Previewer/Reviewer: Calibration screen is not needed for Previewer/Reviewer.
 					if((gController.subtestTitle.indexOf('HABLANDO') >= 0 || gController.subtestTitle.indexOf('SPEAKING') >= 0) && !isPreviewer){
                       		gMicCalibrationScreen.getNodes();
                       		gScreens.hide();
