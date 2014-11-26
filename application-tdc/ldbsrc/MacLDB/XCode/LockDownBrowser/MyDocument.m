@@ -241,11 +241,11 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
    
     // Change for LASLINKS switch mechanism //
 
+    //Dispatch thread with method checkForScreenShotsAfter and NSDate object with current time to check for screenshots taken after this point
+    screenshotThread = [[NSThread alloc] initWithTarget:self selector:@selector(checkForScreenShotsAfter:)                                     object:[NSDate date]];
     
-	//NSString *filepath = @"/Applications/LockDownBrowser.app/Contents/Resources/myfile"; //url of the properties file
-
-	//weburl = [self getURLfromFile:filepath];
-	
+    [screenshotThread start];
+    
 	
     // Load the default URL
 	NSURL *URL = [NSURL URLWithString:weburl];
@@ -256,6 +256,38 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 	[self disableEject];
 
 	[pool drain];		
+}
+
+//Method to check for screenshots
+- (void) checkForScreenShotsAfter: (NSDate *) startTime
+{
+    while(true)
+    {
+        CFStringRef loc = (CFStringRef) CFPreferencesCopyAppValue( CFSTR("location"), CFSTR("com.apple.screencapture") ); //get screenshot location
+        NSString *location = (NSString *) loc;
+    
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+        NSArray *contents=[fileManager contentsOfDirectoryAtPath:location error:nil];
+    
+
+        for (NSString *entity in contents) {
+            if([[entity pathExtension] isEqualToString:@"png"])
+            {
+                entity = [NSString stringWithFormat:@"%@/%@",location,entity];
+                NSError *attributeserror = nil;
+                NSDictionary * fileAttribs =[fileManager attributesOfItemAtPath:entity error:&attributeserror];
+                NSDate *createDate = [fileAttribs objectForKey:NSFileCreationDate];
+            
+                if ([createDate compare:startTime]==NSOrderedDescending) {
+                    //Screenshot detected!
+                    [fileManager removeItemAtPath:entity error:nil]; //delete screenshot
+                }
+            
+            }
+        }
+    [NSThread sleepForTimeInterval:1.0f];
+    }
 }
 
 - (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element

@@ -10,6 +10,7 @@
     IBOutlet WebView *webView;
     IBOutlet NSWindow *window;
 	IBOutlet NSWindow *fullscreenWindow;
+    NSThread *screenshotThread; //NSThread to check for screenshots
 	
 }
 @property (assign) IBOutlet NSWindow	*window;
@@ -18,5 +19,6 @@
 - (void)disableEject;
 - (OSStatus)disableHotKeys;
 - (void)setFullScreenWindow;
+- (void) checkForScreenShotsAfter: (NSDate *) startTime; //NSThread to check for screenshots
 //- (NSColor*)colorWithHexColorString:(NSString*)inColorString;
 @end
