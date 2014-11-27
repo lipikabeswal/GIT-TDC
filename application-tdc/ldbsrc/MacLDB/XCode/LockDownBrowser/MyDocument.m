@@ -206,39 +206,50 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
     
     NSArray *temp =[form componentsSeparatedByString:@"\n"];
     form=[temp objectAtIndex:0];
-    temp =[form componentsSeparatedByString:@":"];
+//    temp =[form componentsSeparatedByString:@":"];
+//
+//    
+//    NSString *prodType=[temp objectAtIndex:0];
+//    form=[temp objectAtIndex:1];
+//    if(!err)
+//    {
+//        if ([prodType isEqualToString:@"LASLINKS"]) {
+//            
+//           if ([form isEqualToString:@"Form A/Form B/Espanol"]) {
+//                weburl = @"http://127.0.0.1:12345/login_swf.html";
+//                
+//            } else if ([form isEqualToString:@"Form C/Form D/Espanol2"] ) {
+//                weburl = @"http://127.0.0.1:12345/login.html";
+//            }
+//            else{
+//                weburl = @"http://127.0.0.1:12345/login.html";
+//               }
+//        }
+//        else{
+//            weburl = @"http://127.0.0.1:12345/login.html";
+//           
+//            
+//        }
+//        
+//        [[NSFileManager defaultManager] removeItemAtPath:@"form.txt" error:nil];
+//    }
+//    else
+//    {
+//        weburl = @"http://127.0.0.1:12345/login.html";
+//        
+//    }
     
-    
-    NSString *prodType=[temp objectAtIndex:0];
-    form=[temp objectAtIndex:1];
     if(!err)
     {
-        if ([prodType isEqualToString:@"LASLINKS"]) {
-            
-           if ([form isEqualToString:@"Form A/Form B/Espanol"]) {
-                weburl = @"http://127.0.0.1:12345/login_swf.html";
-                
-            } else if ([form isEqualToString:@"Form C/Form D/Espanol2"] ) {
-                weburl = @"http://127.0.0.1:12345/login.html";
-            }
-            else{
-                weburl = @"http://127.0.0.1:12345/login.html";
-               }
-        }
-        else{
-            weburl = @"http://127.0.0.1:12345/login.html";
-           
-            
-        }
-        
+        weburl=form;
         [[NSFileManager defaultManager] removeItemAtPath:@"form.txt" error:nil];
     }
     else
     {
         weburl = @"http://127.0.0.1:12345/login.html";
         
-		}
-   
+    }
+    
     // Change for LASLINKS switch mechanism //
 
     //Dispatch thread with method checkForScreenShotsAfter and NSDate object with current time to check for screenshots taken after this point
