@@ -56,6 +56,8 @@
 		<antcall target="buildISTEP" /> 
 		
 		<antcall target="buildTABE" />
+
+		<antcall target="buildTASC" />
 		
 		<antcall target="postClean"></antcall>
 		<antcall target="buildTDCUpdate"></antcall>
@@ -93,6 +95,21 @@
 		</antcall>
 	</target>
 
+	<!-- **************************** TASC ******************************* -->	
+	<target name="buildTASC" description="Builds the TASC installer" depends="init">
+		<copy file="${project.icons.dir}/TASC-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TASC-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TASC-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="tasc" />
+			<param name="installer.version" value="11.0.0" />
+			<param name="installer.primary.url" value="https://oasdelivery.ctb.com" />
+			<!--
+			<param name="installer.secondary.url" value="https://tabe-oasdr.ctb.com" />
+			-->
+		</antcall>
+	</target>
+	
 	<!-- Internal tasks **************************************************** -->
 		
 		
