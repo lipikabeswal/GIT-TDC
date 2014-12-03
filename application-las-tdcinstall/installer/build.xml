@@ -1,7 +1,12 @@
 <project name="application-las-tdcinstall InstallAnywhere Installer" default="usage" basedir="."> 
  
+	<!--
  	<property name="project.installer.application.dir" value="C:\Program Files\InstallAnywhere 2008 Enterprise" />
 	<property name="project.installer.src"             value="tdc.iap_xml" />
+	-->
+ 	<property name="project.installer.application.dir" value="C:\Program Files (x86)\InstallAnywhere 2012" />
+	<property name="project.installer.src"             value="tdc_2012.iap_xml" />
+	
 	<property name="project.installer.xsl.dir"         value="${basedir}/antxsl" />
 	<property name="project.base.dir"              		value="${basedir}" />
 	<property name="project.artifacts.dir"              value="${basedir}/artifacts" />
