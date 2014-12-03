@@ -49,7 +49,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mm"]}},$lzc$class__mm.attributes)
 }}})($lzc$class__mm)
-};canvas=new $lzc$class__mm(null,{$delegates:["onfocus","$mc",null,"onkeydown","$me","$md","onmousedown","$mg","$mf","onbringBackFocus","$mh",null,"onfootnotedata","$mi",null,"onisMultiAudio","$mj",null,"oninit","$mk",null,"onfootnotetext","$ml",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-11-24T11:30:13Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mm(null,{$delegates:["onfocus","$mc",null,"onkeydown","$me","$md","onmousedown","$mg","$mf","onbringBackFocus","$mh",null,"onfootnotedata","$mi",null,"onisMultiAudio","$mj",null,"oninit","$mk",null,"onfootnotetext","$ml",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-12-03T13:40:46Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,height:"100%",isMultiAudio:void 0,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",proxied:false,readable:false,runtime:"dhtml",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -11462,12 +11462,17 @@ this.setAttribute("playorder",$0.getAttr("playorder"))
 };if($0.hasAttr("enableWhenAnswered")){
 this.setAttribute("enableWhenAnswered",$0.getAttr("enableWhenAnswered"))
 };this.setAttribute("hasPlayed",false);gController.addImageFields({"this.widget_id":this.widget_id,"imageComponent":this,"isPlayed":false})
-};if($0.hasAttr("src")){
+};if($0.hasAttr("isCalibration")){
+if($0.getAttr("isCalibration")=="true"||$0.getAttr("isCalibration")==true){
+var $2=gController.language;if($0.hasAttr("src")){
+$1="/resources/calibrationText_"+$2+".png"
+}}}else{
+if($0.hasAttr("src")){
 $1=this.getImageUrl($0.getAttr("src"))
 }else{
 if($0.hasAttr("image_ref")){
 $1=this.getImageUrl($0.getAttr("image_ref"))
-}};if($0.hasAttr("width")){
+}}};if($0.hasAttr("width")){
 this.setAttribute("width",Number($0.getAttr("width")))
 }else{
 this.setAttribute("width",null)
@@ -11477,16 +11482,16 @@ this.setAttribute("height",Number($0.getAttr("height")))
 this.setAttribute("height",null)
 };if($0.hasAttr("valign")){
 this.setAttribute("verticalAlign",$0.getAttr("valign"))
-};var $2=$0.getAttr("enlargeable");var $3=false;if($2=="yes"){
-$3=true
-}else if($2=="accommodated"){
-$3=gController.hasFontAccommodation
-};if($3){
+};var $3=$0.getAttr("enlargeable");var $4=false;if($3=="yes"){
+$4=true
+}else if($3=="accommodated"){
+$4=gController.hasFontAccommodation
+};if($4){
 this.enlarge.setAttribute("visible",true)
 }else{
 this.enlarge.setAttribute("visible",false)
 };this.autoenlarge=$0.getAttr("autoenlargeable");gController.imageComponent(this);if($0.hasAttr("alt_text")){
-var $4=$0.getAttr("alt_text");this.setAttribute("hasAltText",true);this.setAttribute("altText",$4);this.setAAText($4)
+var $5=$0.getAttr("alt_text");this.setAttribute("hasAltText",true);this.setAttribute("altText",$5);this.setAAText($5)
 }else{
 this.setAttribute("hasAltText",false)
 };if(this.imageview["resource"]!=$1){
@@ -27637,7 +27642,7 @@ $1=true;
 $0.id="restrictResponseOverlay";restrictResponseOverlay=$0
 }else if(restrictResponseOverlay===$0){
 restrictResponseOverlay=null;$0.id=null
-}},clickable:true,height:new LzAlwaysExpr("$m24y","$m24z",null),id:"restrictResponseOverlay",opacity:0.001,visible:false,width:new LzAlwaysExpr("$m250","$m251",null)},"class":$lzc$class__m29a},{attrs:{$classrootdepth:3,height:new LzAlwaysExpr("$m255","$m256",null),manipulativeToolbar:void 0,name:"header",testDetails:void 0,width:new LzAlwaysExpr("$m253","$m254",null)},"class":$lzc$class__m29b},{attrs:{$classrootdepth:3,bgcolor:16777164,height:6,valign:"bottom",width:new LzAlwaysExpr("$m26a","$m26b",null)},"class":$lzc$class__m29r}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}},clickable:true,height:new LzAlwaysExpr("$m24y","$m24z",null),id:"restrictResponseOverlay",opacity:0.0010,visible:false,width:new LzAlwaysExpr("$m250","$m251",null)},"class":$lzc$class__m29a},{attrs:{$classrootdepth:3,height:new LzAlwaysExpr("$m255","$m256",null),manipulativeToolbar:void 0,name:"header",testDetails:void 0,width:new LzAlwaysExpr("$m253","$m254",null)},"class":$lzc$class__m29b},{attrs:{$classrootdepth:3,bgcolor:16777164,height:6,valign:"bottom",width:new LzAlwaysExpr("$m26a","$m26b",null)},"class":$lzc$class__m29r}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m298"]}},$lzc$class__m298.attributes)
@@ -34163,7 +34168,7 @@ if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"dostart",function(){
-gController.setAttribute("welcomeStatus","start");if(gController.subtestTitle.indexOf("HABLANDO")>=0||gController.subtestTitle.indexOf("SPEAKING")>=0){
+gController.setAttribute("welcomeStatus","start");if((gController.subtestTitle.indexOf("HABLANDO")>=0||gController.subtestTitle.indexOf("SPEAKING")>=0)&&!isPreviewer){
 gMicCalibrationScreen.getNodes();gScreens.hide();gController.setAttribute("calibrationScreenWasVisible",true);gMicCalibrationScreen.setCalibrationDatapath();gMicCalibrationScreen.show()
 }else{
 gScreens.clicked();gController.openTest()
@@ -34212,7 +34217,7 @@ if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"docontinue",function(){
-gController.setAttribute("welcomeStatus","continue");if(gController.subtestTitle.indexOf("HABLANDO")>=0||gController.subtestTitle.indexOf("SPEAKING")>=0){
+gController.setAttribute("welcomeStatus","continue");if((gController.subtestTitle.indexOf("HABLANDO")>=0||gController.subtestTitle.indexOf("SPEAKING")>=0)&&!isPreviewer){
 gMicCalibrationScreen.getNodes();gScreens.hide();gController.lasAssetArray=[];gController.setAttribute("calibrationScreenWasVisible",true);gController.setAttribute("isplaying",false);gMicCalibrationScreen.setCalibrationDatapath();gMicCalibrationScreen.show()
 }else{
 gScreens.clicked();gController.isStopScreen=false;Debug.write("gController.istRestartLength"+gController.istRestartLength);Debug.write("gController.adaptive"+gController.adaptive);if(gController.istRestartLength==gController.subtestLength){
