@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<element_package iid="FCAT_TEST.002" security_classification_id="alg112">
-   <item_canvas id="IC">
-   <panel left_padding="12" stereotype="directions" id="stem1" width="500" 
-		       layout="vertical" spacing="12" x="0" y="79" height="37">
-			<text_widget halign="left" x="0" width="364" id="widget1000">
-				<![CDATA[<B>Calibración de micrófonos de las computadoras para administrar las pruebas</B>]]>
+<element_package iid="FCAT_TEST.002"
+	security_classification_id="alg112">
+	<item_canvas id="IC">
+		<panel left_padding="12" stereotype="directions" id="stem1"
+			width="500" layout="vertical" spacing="12" x="0" y="79"
+			height="37">
+			<text_widget halign="left" x="0" width="364"
+				id="widget1000">
+				<![CDATA[<B>Revisar el sonido del equipo</B>]]>
 			</text_widget>
 		</panel>
-      <scrolling_text_panel height="375" id="TD.6.0_010" stereotype="stimulus" width="360" x="12" y="125">
-         <text_widget halign="left" width="350" id="widget1003"><![CDATA[<br/><B>Por favor siga los pasos a continuación antes de comenzar a  usar la herramienta para afinar el micrófono de la computadora:</B><br/>]]></text_widget>
+		<scrolling_text_panel height="390" id="TD.6.0_010"
+			stereotype="stimulus" width="360" x="12" y="105">
+			<text_widget halign="left" width="350" id="widget1003"><![CDATA[<br/><B>Por favor siga los pasos a continuación antes de comenzar a  usar la herramienta para afinar el micrófono de la computadora:</B><br/>]]></text_widget>
 			<text_widget halign="left" width="350" id="widget1004"><![CDATA[  -  Revise que el micrófono esté connectado]]></text_widget>
 			<text_widget halign="left" width="350" id="widget1005"><![CDATA[  -  Asegúrese que el micrófono no esté en "mudo/mute"]]></text_widget>
 			<text_widget halign="left" width="350" id="widget1006"><![CDATA[  -  Fije el nivel de grabación del micrófono a por lo menos 70%; no fije el nivel de grabación del micrófono a un nivel bajo]]></text_widget>
 			<text_widget halign="left" width="350" id="widget1007"><![CDATA[  -  Asegúrese que el micrófono no esté "inactivo/disabled" en el tablero de control]]></text_widget>
 			<text_widget halign="left" width="350" id="widget1008"><![CDATA[  -  Asegúrese que el volumen del altavoz esté a un nivel audible]]></text_widget>
-      </scrolling_text_panel>
-      <panel left_padding="12" stereotype="stem" id="stem3" layout="vertical" spacing="12" width="385" x="410" y="124" height="210">
-			<text_widget halign="left" width="360" id="widget1012"  height="190" >
-				<![CDATA[Para probar la capacidad de la grabación y la reproducción, oprima el botón "Grabar" y hable en voz normal. Cuando haya terminado, oprima el botón "Parar". Para grabar de nuevo, oprima el botón "Grabar de Nuevo". Ahora oprima el botón "Reproducir" para evaluar el volume de su grabación. Si el audio que grabó no es audible, por favor siga todos los pasos de la lista nuevamente  y pruebe de nuevo. Si no puede escuchar la grabación, verifique que las versiones requeridas de Java, Flash, y Adobe AIR estén instaladas. Su departamento the IT puede ayudarle con ésto.]]>
-			</text_widget>
+		</scrolling_text_panel>
+		<panel stereotype="stem" id="stem3"
+			layout="vertical" spacing="12" width="418" x="380" y="105"
+			height="214">
+			<image_widget autoenlargeable="yes" autoplay="true"
+				enlargeable="no" halign="left" height="355"
+				src="calibrationText.png" isaudio="false" playonce="false"
+				playorder="1" width="400" isCalibration="true"/>
 		</panel>
-      <answer_area_panel id="A1" stereotype="answerArea" width="390" 
-		                   layout="vertical" spacing="12" x="410" height="180" 
-		                   top_padding="12" left_padding="12" y="330">
-        <recorder_widget x="1" y="1" ></recorder_widget>
-      </answer_area_panel>
-   </item_canvas>
-   <item_model answer_text="" iid="FCAT_TEST.002" eid="0" marked="0" answered="0" number="0" 
-	            type="question" correct="A">
-		<toolbar oneeighth_inch_ruler="required" mm_ruler="required" 
-		         formula_card="required" FCAT_formula_card="required" TN_formula_card="required" highlighter="required" 
-		         eraser="required" cm_ruler="required" 
-		         scientific_calculator="required" 
-		         standard_calculator="required" protractor="required" 
-		         option_eliminator="required" half_inch_ruler="required" 
-		         straight_edge="required" />
+		<answer_area_panel id="A1" stereotype="answerArea" width="390"
+			layout="vertical" spacing="12" x="410" height="180" top_padding="12"
+			left_padding="12" y="330">
+			<recorder_widget x="1" y="1"></recorder_widget>
+		</answer_area_panel>
+	</item_canvas>
+	<item_model answer_text="" iid="FCAT_TEST.002" eid="0" marked="0"
+		answered="0" number="0" type="question" correct="A">
+		<toolbar oneeighth_inch_ruler="required" mm_ruler="required"
+			formula_card="required" FCAT_formula_card="required"
+			TN_formula_card="required" highlighter="required" eraser="required"
+			cm_ruler="required" scientific_calculator="required"
+			standard_calculator="required" protractor="required"
+			option_eliminator="required" half_inch_ruler="required"
+			straight_edge="required" />
 		<interaction type="choice" max_choices="1">
 			<selector identifier="A" obj_id_ref="A" user_action="n" />
 			<selector identifier="B" obj_id_ref="B" user_action="n" />

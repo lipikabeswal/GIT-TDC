@@ -130,15 +130,26 @@
 			}
 
 	//Image url may come in either attribute name "src" or "image_ref", so take care of both.
-			if(data.hasAttr('src')) {
-				theSrc = getImageUrl(data.getAttr('src'));
-			}
-			else {
-				if(data.hasAttr('image_ref')) {
-					theSrc = getImageUrl(data.getAttr('image_ref'));
+	
+	// Changes for story LLO - Update Mic Calibration Text - Added to get instruction image source in Calibration screen
+			if(data.hasAttr('isCalibration')){
+				if(data.getAttr('isCalibration') == "true" || data.getAttr('isCalibration') == true){
+					var lang = gController.language ;
+					if(data.hasAttr('src')) {
+						theSrc = '/resources/calibrationText_'+lang+'.png';
+					}
 				}
-			}
-				
+					
+			}else{
+					if(data.hasAttr('src')) {
+						theSrc = getImageUrl(data.getAttr('src'));
+					}
+					else {
+						if(data.hasAttr('image_ref')) {
+							theSrc = getImageUrl(data.getAttr('image_ref'));
+						}
+					}
+			}		
 			if (data.hasAttr ('width')) {
     			this.setAttribute ('width', Number (data.getAttr ('width')));
 			} else {
