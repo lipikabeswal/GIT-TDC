@@ -71,7 +71,10 @@
         </handler>
 		<method name="enable">
 			this.field.setAttribute('isCtrl', false);
-			this.field.setAttribute('enabled',true);
+			//changes for defect #81183
+			if(!gController.canNotAnswer) {
+				this.field.setAttribute('enabled',true);
+			}
 		</method>
 		
 		<method name="disable">
@@ -175,7 +178,10 @@
             
 
             <handler name="onblur" args="s">
-            	this.setAttribute('enabled', true);
+       			//changes for defect #81183
+            	if(!gController.canNotAnswer) {
+            		this.setAttribute('enabled', true);
+            	}
             	this.setAttribute('isCtrl', false);
             </handler>
 
@@ -203,7 +209,10 @@
 
             <handler name="onkeyup" args="k"> <![CDATA[
 	 			if(k==17){
-			      this.setAttribute('enabled', true);
+				  //changes for defect #81183
+			      if(!gController.canNotAnswer) {
+            		this.setAttribute('enabled', true);
+            	  }
 			      this.setAttribute('isCtrl', false);
 			  	}
                   ]]>
