@@ -82,6 +82,10 @@
 
 			if(data != null && data.hasAttr('src')) {
 				var refsrc = String(data.getAttr('src'));
+				//code changes done for story-OAS-1235
+                var originalRefSrc=refsrc;
+                var refSrcExt = originalRefSrc.substr(originalRefSrc.indexOf('.'),originalRefSrc.length);
+               
 				refsrc = refsrc.toLowerCase();
 				if(refsrc.indexOf('istep') >= 0){
 					refCardContents.contents.setAttribute ('resource', 'ISTEP_refcard_contents');
@@ -93,6 +97,18 @@
 					refCardContents.contents.setAttribute('source',"ctbmodules/resources/manipulatives/refcard/CoreLink_RefCard.svg");
 					title.real_title.setAttribute('source',"ctbmodules/resources/manipulatives/refcard/CoreLink_RefCard-title.svg");					
 					this.setAttribute("scrolls",true);
+				}else{//code changes done for story-OAS-1235[generalize code to show ref card by ref card resource instead of product type]
+                    
+					var refSrcPath="ctbmodules/resources/manipulatives/refcard/";
+					//Note: Title naming convention: 
+					//1. same extension as refcard src, 2.title src name should start as main refcard src name with extra "_title" string.
+					var refTitleSrc=originalRefSrc.substr(0,originalRefSrc.indexOf('.'))+"_title"+refSrcExt;
+					
+					//set source to ref card
+					refCardContents.contents.setAttribute('source',refSrcPath+originalRefSrc);
+					title.real_title.setAttribute('source',refSrcPath+refTitleSrc);
+					
+				 	this.setAttribute("scrolls",true);					
 				}
 			}
 
