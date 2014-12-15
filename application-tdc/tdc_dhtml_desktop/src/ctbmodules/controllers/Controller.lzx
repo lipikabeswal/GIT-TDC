@@ -906,7 +906,14 @@
 		
 		<method name = "_handleIsPasswordField" args="response"><![CDATA[
 			this.setAttribute("productTypeVal",response);
+			var productName = "";
+			var versionNo = "";	
 			var currentProdType = this.productTypeVal;
+			
+			/*Retreive product name and version number & assign it to version display area*/
+			productName = lz.DataElement.stringToLzData(gController.productTypeVal).nodeName;
+			versionNo = lz.DataElement.stringToLzData(gController.productTypeVal).getAttr('version');
+			versionproductinfo.setAttribute("text",productName+" "+versionNo);
 
 			if(currentProdType.indexOf('ISTEP') >= 0) {
 				this.setAttribute("displayText",true);

@@ -244,6 +244,18 @@
 			        	elm.setAttribute('style','width: auto; font-family: CTB; font-size: 12px');
 			    	</handler>
 				</text>
+				<!--Div for displaying the version no. and product name-->
+				<text id="versionproductinfo" x="${this.immediateparent.width - this.width}" 
+					 fontsize="12" 
+			        fgcolor="${canvas.copyriteColor}" width="15%" text=" ">
+					<handler name="ontext"><![CDATA[
+			        	var elm=this.getDisplayObject();
+						var top=this.immediateparent.height-5;
+						this.setAttribute("y",top);
+						elm.setAttribute('style','width: auto; font-family: CTB;');
+			        ]]></handler>
+					
+			    </text> 
             </Screens>
 			<SecurityScreen id="gSecurityScreen" x="100" y="100" width="600"
 				height="300" visible="false">
