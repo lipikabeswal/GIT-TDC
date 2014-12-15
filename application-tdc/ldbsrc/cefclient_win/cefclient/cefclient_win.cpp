@@ -22,8 +22,8 @@
 
 #define MAX_LOADSTRING 100
 #define MAX_URL_LENGTH  255
-#define BUTTON_WIDTH 72
-#define URLBAR_HEIGHT  24
+
+#define TIMER_TOPMOST 1025
 
 // Global Variables:
 HINSTANCE hInst;   // current instance
@@ -37,12 +37,17 @@ ATOM MyRegisterClass(HINSTANCE hInstance);
 BOOL InitInstance(HINSTANCE, int);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
+void makeWindowVanish(HWND hwnd);
+void makeWindowAppear(HWND hwnd);
+void killImmersiveWindows();
+void ressurectImmersiveWindows();
 
 // Used for processing messages on the main application thread while running
 // in multi-threaded message loop mode.
 HWND hMessageWnd = NULL;
 HWND CreateMessageWindow(HINSTANCE hInstance);
 LRESULT CALLBACK MessageWndProc(HWND, UINT, WPARAM, LPARAM);
+std::vector<HWND> hiddenWindows(99);
 
 // The global ClientHandler reference.
 extern CefRefPtr<ClientHandler> g_handler;
@@ -115,6 +120,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
   if (!settings.multi_threaded_message_loop) {
     // Run the CEF message loop. This function will block until the application
     // recieves a WM_QUIT message.
+	ressurectImmersiveWindows();
     CefRunMessageLoop();
   } else {
     // Create a hidden window for message processing.
@@ -219,10 +225,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 
   if (!hWnd)
     return FALSE;
-   HMONITOR hmon = MonitorFromWindow(hWnd,
-                                   MONITOR_DEFAULTTONEAREST);
+HMONITOR hmon = MonitorFromWindow(hWnd, MONITOR_DEFAULTTONEAREST);
+
  MONITORINFO mi = { sizeof(mi) };
  if (!GetMonitorInfo(hmon, &mi)) return NULL;
+
+ //DestroyWindow(hWnd);
+
+
  hWnd= CreateWindow(szWindowClass,
        0,
        WS_POPUP | WS_VISIBLE ,
@@ -232,17 +242,21 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
        mi.rcMonitor.bottom - mi.rcMonitor.top,
 	   hWnd, NULL, hInstance, 0);
  
-  ShowWindow(hWnd, nCmdShow);
-
-  SetWindowPos(hWnd, HWND_TOPMOST,
-             mi.rcMonitor.left,
+	ShowWindow(hWnd, nCmdShow);
+	//SetWindowLong(hWnd, GWL_STYLE, ~(WS_CAPTION | WS_THICKFRAME));
+	SetWindowLong(hWnd, GWL_EXSTYLE, WS_POPUP | WS_VISIBLE & ~(WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE | WS_EX_CLIENTEDGE | WS_EX_STATICEDGE));
+	SetWindowPos(hWnd, HWND_TOPMOST, mi.rcMonitor.left,
 			mi.rcMonitor.top,
 			mi.rcMonitor.right - mi.rcMonitor.left,
 			mi.rcMonitor.bottom - mi.rcMonitor.top, 
              SWP_SHOWWINDOW );
 
-  UpdateWindow(hWnd);
+	//SetWindowPos(hWnd, HWND_TOPMOST,  mi.rcMonitor.left, mi.rcMonitor.top,mi.rcMonitor.right - mi.rcMonitor.left, mi.rcMonitor.bottom - mi.rcMonitor.top,SWP_NOZORDER | SWP_NOACTIVATE | SWP_FRAMECHANGED | SWP_SHOWWINDOW );
+	//BringWindowToTop(hWnd);
+	SetForegroundWindow(hWnd);
+	UpdateWindow(hWnd);
 
+	SetTimer(hWnd,TIMER_TOPMOST, 300,NULL);
   return TRUE;
 }
 
@@ -340,6 +354,51 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
       return 0;
     }
 
+	case WM_TIMER: 
+		if( wParam == TIMER_TOPMOST ){
+			killImmersiveWindows();
+			if (g_handler.get() && g_handler->GetBrowser()) {
+				CefWindowHandle hwnd =
+					g_handler->GetBrowser()->GetHost()->GetWindowHandle();
+
+				if (hwnd) {
+					HMONITOR hmon = MonitorFromWindow(hWnd,MONITOR_DEFAULTTONEAREST);
+					MONITORINFO mi = { sizeof(mi) };
+					if (!GetMonitorInfo(hmon, &mi)) return NULL;
+					HWND top = GetForegroundWindow();
+					DWORD topid;
+					GetWindowThreadProcessId(top, &topid);
+					if(topid!=GetCurrentProcessId())
+					{
+						hiddenWindows.push_back(top);
+						makeWindowVanish(top);
+					}
+					SetWindowPos(hWnd, HWND_TOPMOST,  mi.rcMonitor.left, mi.rcMonitor.top,mi.rcMonitor.right - mi.rcMonitor.left, mi.rcMonitor.bottom - mi.rcMonitor.top,SWP_SHOWWINDOW );
+					
+					SwitchToThisWindow(hWnd, true);
+					/*for(HWND tophwnd = top; hwnd; hwnd = GetNextWindow(hwnd, GW_HWNDNEXT))
+					{
+						DWORD topid;
+						GetWindowThreadProcessId(tophwnd, &topid);
+						if(topid!=GetCurrentProcessId())
+						{
+							makeWindowVanish(tophwnd);
+						}
+						else
+						{
+							continue;
+						}
+					}*/
+					//makeWindowVanish(FindWindow(L"Shell_TrayWnd",NULL));
+					/*PostMessage(hwnd, WM_SETFOCUS, wParam, NULL);*/
+
+					return 0;
+				}
+			}
+		}
+      break;
+ 
+
     case WM_COMMAND: {
       CefRefPtr<CefBrowser> browser;
       if (g_handler.get())
@@ -390,28 +449,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
     case WM_SIZE:
       // Minimizing resizes the window to 0x0 which causes our layout to go all
       // screwy, so we just ignore it.
-      if (wParam != SIZE_MINIMIZED && g_handler.get() &&
-          g_handler->GetBrowser()) {
-        CefWindowHandle hwnd =
-            g_handler->GetBrowser()->GetHost()->GetWindowHandle();
-        if (hwnd) {
-          // Resize the browser window and address bar to match the new frame
-          // window size
-          RECT rect;
-          GetClientRect(hWnd, &rect);
-          rect.top += URLBAR_HEIGHT;
+      //if (wParam != SIZE_MINIMIZED && g_handler.get() &&
+      //    g_handler->GetBrowser()) {
+      //  CefWindowHandle hwnd =
+      //      g_handler->GetBrowser()->GetHost()->GetWindowHandle();
+      //  if (hwnd) {
+      //    // Resize the browser window and address bar to match the new frame
+      //    // window size
+      //    RECT rect;
+      //    GetClientRect(hWnd, &rect);
+      //    rect.top += URLBAR_HEIGHT;
 
-          int urloffset = rect.left + BUTTON_WIDTH * 4;
+      //    int urloffset = rect.left + BUTTON_WIDTH * 4;
 
-          HDWP hdwp = BeginDeferWindowPos(1);
-          hdwp = DeferWindowPos(hdwp, editWnd, NULL, urloffset,
-            0, rect.right - urloffset, URLBAR_HEIGHT, SWP_NOZORDER);
-          hdwp = DeferWindowPos(hdwp, hwnd, NULL,
-            rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
-            SWP_NOZORDER);
-          EndDeferWindowPos(hdwp);
-        }
-      }
+      //    HDWP hdwp = BeginDeferWindowPos(1);
+      //    hdwp = DeferWindowPos(hdwp, editWnd, NULL, urloffset,
+      //      0, rect.right - urloffset, URLBAR_HEIGHT, SWP_NOZORDER);
+      //    hdwp = DeferWindowPos(hdwp, hwnd, NULL,
+      //      rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top,
+      //      SWP_NOZORDER);
+      //    EndDeferWindowPos(hdwp);
+      //  }
+      //}
       break;
 
     case WM_ERASEBKGND:
@@ -435,13 +494,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 		HMONITOR hmon = MonitorFromWindow(hWnd,MONITOR_DEFAULTTONEAREST);
 		MONITORINFO mi = { sizeof(mi) };
 		if (!GetMonitorInfo(hmon, &mi)) return NULL;
-        SetWindowPos(hWnd, HWND_TOPMOST,
+		
+       /*SetWindowPos(hWnd, HWND_TOPMOST,
             mi.rcMonitor.left,
 			mi.rcMonitor.top,
 			mi.rcMonitor.right - mi.rcMonitor.left,
 			mi.rcMonitor.bottom - mi.rcMonitor.top, 
-            SWP_SHOWWINDOW );
-		    PostMessage(hwnd, WM_SETFOCUS, wParam, NULL);
+            SWP_SHOWWINDOW );*/
+		SetWindowPos(hWnd, HWND_TOPMOST,  mi.rcMonitor.left, mi.rcMonitor.top,mi.rcMonitor.right - mi.rcMonitor.left, mi.rcMonitor.bottom - mi.rcMonitor.top,SWP_SHOWWINDOW );
+		    /*PostMessage(hwnd, WM_SETFOCUS, wParam, NULL);*/
           return 0;
         }
       }
@@ -472,14 +533,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
     return DefWindowProc(hWnd, message, wParam, lParam);
   }
 }
-
 // Message handler for about box.
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
   UNREFERENCED_PARAMETER(lParam);
   switch (message) {
   case WM_INITDIALOG:
     return (INT_PTR)TRUE;
-
+ 
   case WM_COMMAND:
     if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL) {
       EndDialog(hDlg, LOWORD(wParam));
@@ -490,20 +550,21 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
   return (INT_PTR)FALSE;
 }
 
+
 HWND CreateMessageWindow(HINSTANCE hInstance) {
   static const wchar_t kWndClass[] = L"ClientMessageWindow";
-
+ 
   WNDCLASSEX wc = {0};
   wc.cbSize = sizeof(wc);
   wc.lpfnWndProc = MessageWndProc;
   wc.hInstance = hInstance;
   wc.lpszClassName = kWndClass;
   RegisterClassEx(&wc);
-
+ 
   return CreateWindow(kWndClass, 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0,
                       hInstance, 0);
 }
-
+ 
 LRESULT CALLBACK MessageWndProc(HWND hWnd, UINT message, WPARAM wParam,
                                 LPARAM lParam) {
   switch (message) {
@@ -518,12 +579,203 @@ LRESULT CALLBACK MessageWndProc(HWND hWnd, UINT message, WPARAM wParam,
   }
   return DefWindowProc(hWnd, message, wParam, lParam);
 }
-
-
+ 
+ 
 // Global functions
-
+ 
 std::string AppGetWorkingDirectory() {
   return szWorkingDir;
+}
+
+void makeWindowVanish(HWND hwnd)
+{
+	//long style= GetWindowLong(hwnd, GWL_STYLE);
+    //style &= ~(WS_VISIBLE);    // this works - window become invisible
+ 
+    //style |= WS_EX_TOOLWINDOW;   // flags don't work - windows remains in taskbar
+    //style &= ~(WS_EX_APPWINDOW);
+ 
+    //ShowWindow(hwnd, SW_HIDE); // hide the window
+    //SetWindowLong(hwnd, GWL_STYLE, style); // set the style
+    //ShowWindow(hwnd, SW_SHOW); // show the window for the new style to come into effect
+	ShowWindow(hwnd, SW_HIDE); // hide the window so we can't see it
+}
+
+
+void makeWindowAppear(HWND hwnd)
+{
+	ShowWindow(hwnd, SW_RESTORE);
+}
+
+void ressurectImmersiveWindows()
+{
+	HWND immersiveHwnd = FindWindow(L"Shell_TrayWnd", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+	/*immersiveHwnd = FindWindow(L"Windows.UI.Core.CoreWindow", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}*/
+	immersiveHwnd = FindWindow(L"MetroGhostWindow", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"SearchPane", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"ImmersiveGutter", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"ImmersiveShell", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"ImmersiveLauncher", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+	/*immersiveHwnd = FindWindow(L"ImmersiveBackgroundWindow", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}*/
+	immersiveHwnd = FindWindow(L"Shell_CharmWindow", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"ApplicationManager_ImmersiveShellWindow", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+	/*immersiveHwnd = FindWindow(L"ApplicationManager_DesktopShellWindow", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}*/
+	immersiveHwnd = FindWindow(L"EdgeUiInputTopWndClass", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"TaskManagerWindow", L"Task Manager");
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(NULL,L"Charm Bar");
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(NULL,L"Clock and Date");
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"Shell_Dim",NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowAppear(immersiveHwnd);
+	}
+
+	for(unsigned int i=0;i<hiddenWindows.size();i++)
+	{
+		HWND hiddenHwnd=hiddenWindows[i];
+
+		makeWindowAppear(hiddenHwnd);
+
+	}
+
+}
+void killImmersiveWindows()
+{
+	HWND immersiveHwnd = FindWindow(L"Shell_TrayWnd", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
+	/*immersiveHwnd = FindWindow(L"Windows.UI.Core.CoreWindow", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}*/
+	immersiveHwnd = FindWindow(L"MetroGhostWindow", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"SearchPane", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"ImmersiveGutter", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"ImmersiveShell", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"ImmersiveLauncher", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"ImmersiveBackgroundWindow", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"Shell_CharmWindow", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"ApplicationManager_ImmersiveShellWindow", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
+	/*immersiveHwnd = FindWindow(L"ApplicationManager_DesktopShellWindow", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}*/
+	immersiveHwnd = FindWindow(L"EdgeUiInputTopWndClass", NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(L"TaskManagerWindow",NULL);
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(NULL,L"Charm Bar");
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
+	immersiveHwnd = FindWindow(NULL,L"Clock and Date");
+	if(immersiveHwnd)
+	{
+		makeWindowVanish(immersiveHwnd);
+	}
 }
 
 void AppQuitMessageLoop() {
