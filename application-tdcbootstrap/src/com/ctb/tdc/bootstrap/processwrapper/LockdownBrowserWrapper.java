@@ -68,7 +68,7 @@ public class LockdownBrowserWrapper extends Thread {
 	public static native boolean Kill_Task_Mgr();
 	public static native boolean Process_Check();
 	//public static native int Get_Blacklist_Process_No();
-	
+	static Process ldbProcess;
 	static volatile boolean flag = false;
 	static volatile boolean ready = false;
 	
@@ -744,12 +744,13 @@ private static class LockdownWinMain extends Thread {
 								processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));
 								processBuilder.redirectErrorStream(true);
 								ldb=processBuilder.start();
-								try {
+								// Commenting code block as this is now handled from native code.
+								/*try {
 									Runtime.getRuntime().exec("tskill explorer");
 									} catch (IOException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
-								}
+								}*/
 							}
 							
 						}
@@ -777,6 +778,7 @@ private static class LockdownWinMain extends Thread {
 						            }
 						        }
 						    }).start();
+						ldbProcess=ldb;
 						ldb.waitFor();
 						ConsoleUtils.messageOut("AIR app finished at"+System.currentTimeMillis());
 						this.isAvailable=false;
@@ -1043,9 +1045,12 @@ private static class LockdownWinMain extends Thread {
 	        		Thread.sleep(250);
 	        		Runtime.getRuntime().exec("taskkill /f /fi \"WINDOWTITLE eq Lockdown Browser\"");*/
 
-        			Runtime.getRuntime().exec("taskkill /f -im cefclient.exe");
+        			/*Runtime.getRuntime().exec("taskkill /f -im cefclient.exe");
 	        		Thread.sleep(350);
-	        		Runtime.getRuntime().exec("taskkill /f -im cefclient.exe");
+	        		Runtime.getRuntime().exec("taskkill /f -im cefclient.exe");*/
+        			// Killing ldb processes.
+        			ldbProcess.destroy();
+        			
         		} catch (Exception e) {
         			e.printStackTrace();
         		}
