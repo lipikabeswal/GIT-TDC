@@ -84,7 +84,6 @@
 				var refsrc = String(data.getAttr('src'));
 				//code changes done for story-OAS-1235
                 var originalRefSrc=refsrc;
-                var refSrcExt = originalRefSrc.substr(originalRefSrc.indexOf('.'),originalRefSrc.length);
                
 				refsrc = refsrc.toLowerCase();
 				if(refsrc.indexOf('istep') >= 0){
@@ -98,7 +97,9 @@
 					title.real_title.setAttribute('source',"ctbmodules/resources/manipulatives/refcard/CoreLink_RefCard-title.svg");					
 					this.setAttribute("scrolls",true);
 				}else{//code changes done for story-OAS-1235[generalize code to show ref card by ref card resource instead of product type]
-                    
+                   	//as per content team's requirement change in OAS-1235, Ref card image always render as svg image. 
+                	//var refSrcExt = originalRefSrc.substr(originalRefSrc.indexOf('.'),originalRefSrc.length);
+               		var refSrcExt =".svg";
 					var refSrcPath="ctbmodules/resources/manipulatives/refcard/";
 					//Note: Title naming convention: 
 					//1. same extension as refcard src, 2.title src name should start as main refcard src name with extra "_title" string.
