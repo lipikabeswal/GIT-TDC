@@ -136,6 +136,13 @@
 		<frame src="iknow_toolbar/toolbar_reference_on.png"/>        
 		<frame src="iknow_toolbar/toolbar_reference_disabled.png"/> 
 	</resource>
+	
+	<!-- Toolbar Button calculator formula card-->
+	<resource name="toolbar_calc_formula_card_btn">      
+		<frame src="iknow_toolbar/toolbar_calc_reference_off.png"/>   
+		<frame src="iknow_toolbar/toolbar_calc_reference_on.png"/>        
+		<frame src="iknow_toolbar/toolbar_calc_reference_disabled.png"/> 
+	</resource>
 
 	<!-- Toolbar Button calculator-->
 	<resource name="toolbar_calculator_btn">      

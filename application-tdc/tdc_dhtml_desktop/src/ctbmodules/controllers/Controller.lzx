@@ -412,6 +412,9 @@
 		-->
 		<attribute name="formulaCardResource" value="false"
 			type="string" />
+			
+		<attribute name="calcFormulaCardResource" value="false"
+			type="string" />
 
 		<!-- true when login response xml has seed-->
 		<attribute name="isLoginResponseHavingSeed" value="false"
@@ -3510,6 +3513,7 @@
 			 				           "FCAT_formula_card", 
 			 				           "TN_formula_card",
 			 				           "formula_card_resource", 
+									   "calc_formula_card_resource",
 			 				           "standard_calculator", 
 			 				           "straight_edge");
 				for (var i = 0; i < manips.length; i++){
@@ -4155,7 +4159,12 @@
 						this.setAttribute("hasDynamicRefCard", true); // to check that item has dynamic ref card
 						toolstate = 'up';
 					}
-
+					if(i == 'calc_formula_card_resource' && dntoolbar.attributes [i] != null) {
+						this.setAttribute("calcFormulaCardResource", dntoolbar.attributes [i]); // store the card swf name to an attribute 
+						this.setAttribute("hasDynamicRefCard", true); // to check that item has dynamic ref card
+						toolstate = 'up';
+					}
+					
                     if (this._isGlobalManipulator (i)) {  // disable highlighter if student does not get it
                         if (initglobal){
                         	if(i == 'highlighter' && !this.showHighlighter){
@@ -4184,12 +4193,14 @@
 				// if item has fixed card and dynamic card both,in that case dynamic card will be disabled 
 				if(this.hasTNorFCATrefCard) {
 					dngeneral.setAttr('formula_card_resource', 'disable');
+					dngeneral.setAttr('calc_formula_card_resource', 'disable');
 				}
 
 				//set To default values
 				this.hasDynamicRefCard = false;	
 				this.hasTNorFCATrefCard = false;	
 				this.formulaCardResource = null;
+				this.calcFormulaCardResource = null;
             }
 
 
@@ -4329,8 +4340,11 @@
                     dnmanip = new lz.DataElement (which, {}, []);
 
 			var fCardrsrc = dpstudentdata.xpathQuery('current_item/item_model/toolbar/@formula_card_resource');
+			var fCalcCardrsrc = dpstudentdata.xpathQuery('current_item/item_model/toolbar/@calc_formula_card_resource');
 					if(which == 'formula_card_resource' && fCardrsrc != null) {						
 						dnmanip.setAttr('src', fCardrsrc);
+					} else if(which == 'calc_formula_card_resource' && fCalcCardrsrc != null) {						
+						dnmanip.setAttr('src', fCalcCardrsrc);
 					}
                     dn.appendChild (dnmanip);
                 }

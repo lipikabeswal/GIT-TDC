@@ -210,6 +210,9 @@
 			<ManipulativeButton resource="toolbar_formula_card_btn"
 	                            toolid="formula_card_resource"
 	                            tooltip="Reference Card" xpos = "${this.x+ classroot.globals.width+10}" name="formula_card_resource"/>
+	        <ManipulativeButton resource="toolbar_calc_formula_card_btn"
+	                            toolid="calc_formula_card_resource"
+	                            tooltip="Calculator Reference Card" xpos = "${this.x+ classroot.globals.width+10}" name="calc_formula_card_resource"/>			
 			<ManipulativeButton resource="toolbar_calculator_btn"
 	                            toolid="standard_calculator"
 	                            tooltip="Calculator" 

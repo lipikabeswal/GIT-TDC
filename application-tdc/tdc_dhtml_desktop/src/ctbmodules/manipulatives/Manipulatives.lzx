@@ -4,12 +4,13 @@
     <include href="ruler/BaseRuler.lzx"/>
 	<include href="ruler/MaskingRuler.lzx"/>
 	<include href="../question/cache/components/CachableRefCard.lzx"/>
+	<include href="../question/cache/components/CachableCalcRefCard.lzx"/>
 
 
 	<include href="calculator/standardCalculator.lzx"/>
 	<include href="calculator/scientificCalculator.lzx"/>
 	<include href="refcard/RefCard.lzx"/>
-		<include href="scratchpad/Scratchpad.lzx"/>
+	<include href="scratchpad/Scratchpad.lzx"/>
 	
     <class name="Manipulatives" clip="true"
            datapath="dsstudentdata:/testing_client_model/current_item/item_model/manipulatives/general">
@@ -31,8 +32,9 @@
 		<attribute name="TN_FORMULA_CARD_INDEX" type="number" value="8" />
 		<attribute name="STANDARD_CALCULATOR_INDEX" type="number" value="9" />
 		<attribute name="SCIENTIFIC_CALCULATOR_INDEX" type="number" value="10" />
-		<attribute name="FORMULA_CARD_INDEX" type="number" value="11" />
+		<attribute name="FORMULA_CARD_INDEX" type="number" value="14" />
 		<attribute name="MASKING_RULER_INDEX" type="number" value="12" />
+		<attribute name="CALC_FORMULA_CARD_INDEX" type="number" value="11" />
 		<attribute name="tiCalculatorDetails" value="$once{new Object()}"/>
 		<handler name="oninit">
 			this.reset();
@@ -48,6 +50,7 @@
 		
 		<handler name="ondata" args="data"><![CDATA[
 			var fCardrsrc = dsstudentdata.getPointer().xpathQuery('testing_client_model/current_item/item_model/toolbar/@formula_card_resource');
+			var fCalcCardrsrc = dsstudentdata.getPointer().xpathQuery('testing_client_model/current_item/item_model/toolbar/@calc_formula_card_resource');
 
 			//Clean the cachable ref cards used by previous item
 			for (var i in this.subviews) {
@@ -68,6 +71,19 @@
 				}
 	
 				gManipulatives.cache.getComponent(newNode); //get the cachable ref card from cache
+			} 
+			if(typeof fCalcCardrsrc != "undefined" && fCalcCardrsrc != null) {
+
+				var xmlString = '<calc_formula_card_resource src="'+fCalcCardrsrc+'" />'; //the string to be converted to datanode
+				var newNode = lz.DataElement.stringToLzData(xmlString);// convert string to datanode
+				var oldNode = dsstudentdata.getPointer().xpathQuery('testing_client_model/current_item/item_model/manipulatives/general/calc_formula_card_resource');
+						
+				if(oldNode != null) {
+					oldNode.setAttr('src', fCalcCardrsrc);
+					newNode = oldNode;
+				}
+	
+				gManipulatives.cache.getComponent(newNode); //get the cachable calc ref card from cache
 			} 
 			this.arrangeAccordingToZOrder();
 		]]></handler>        
@@ -185,6 +201,9 @@
 			else if (tool == 'masking_ruler'){
 				result = MASKING_RULER_INDEX;
 			}
+			else if (tool == 'calc_formula_card'){
+				result = CALC_FORMULA_CARD_INDEX;
+			}
 			return result;
 		</method>
 		
@@ -228,6 +247,9 @@
 			}
 			else if (index == MASKING_RULER_INDEX){
 				result = 'masking_ruler';
+			}
+			else if (index == CALC_FORMULA_CARD_INDEX){
+				result = 'calc_formula_card';
 			}
 			return result;
 		</method>
