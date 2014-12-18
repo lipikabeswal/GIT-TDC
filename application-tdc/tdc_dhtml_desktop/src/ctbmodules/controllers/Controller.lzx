@@ -525,6 +525,7 @@
 		<attribute name="findAnswer" type="boolean" value="true"/>
 		<!-- isEnlargeable is to track if a table is enlargable -->
 		<attribute name="isEnlargeable" type="boolean" value="false"/>
+		<attribute name="manipButtonRef"/>
 		
 		
 		<attribute name="isTI30CalculatorOpen" type="boolean" value="false" />
@@ -614,6 +615,8 @@
 		<attribute name="isAnswerAreaDisabled" type="boolean" value="false" />
 		<attribute name="musicSliderReff"/> 
 		
+		<attribute name="subtestTitle" type="string" value="" />
+		<attribute name="isWritingPopupOpen" type="boolean" value="false" />
 		
 		<!--<attribute name="audioFormat" type="string" value="null" />
 		<attribute name="systemValue" type="string" value="null" />-->
@@ -1586,6 +1589,8 @@
                  ));*/
         	Debug.warn("*****************************Init Test***************************");
 			var restartId = this.restartscid;
+			var subTest = dpsubtest.xpathQuery('sco/@title');
+			this.setAttribute("subtestTitle", subTest.toLowerCase());
             lz.Timer.removeTimer( dupdateTimeLeft );
             resetCatAttributes();
             var itemCount;
@@ -3238,12 +3243,12 @@
 			
 		<method name="pauseTest"><![CDATA[
             if ( pausable == true ) {
-            	gController.setAttribute("isAnswerAreaDisabled",true);
+				stopQuestion();
+				gController.setAttribute("isAnswerAreaDisabled",true);
             	this.doArrowMouseup();
             	gReadableText.stopReading(false);
                 freezeUI();
-                stopQuestion();
-				removeTrackTimer();
+                removeTrackTimer();
 				//gMusicPlayer.hide();
 		   //For defect 65881         
             if(this.recorder != null)
@@ -4534,7 +4539,7 @@
 		<method name="startQuestion">
                if ( false == isuntimed ) {
 				//Debug.write("isuntimed false then in if");
-                updateTimeLeft();
+				updateTimeLeft();
                 lz.Timer.resetTimer( dupdateTimeLeft, TIMER_INTERVAL );
             }
             //this.qtimestamp = lz.Timer.getTimer();
@@ -5057,6 +5062,13 @@
            	gMusicPlayer.hide();
 			checkHideMagnifierGlass();
 			checkHideMaskingChoiceDD();
+
+			/*TASC: If condition is written for the story OAS967 : 
+			60 min popup for Writing */					
+	    	if(gController.isWritingPopupOpen){
+	    	 	writingDialog.close();
+	    	}
+
 			gPleaseWaitPopup.show();
 			this.isWaitPopupOpen = true;
 		</method>
@@ -5084,6 +5096,12 @@
 			checkShowMagnifierGlass();
 			checkShowMaskingChoiceDD();
 			
+			/*TASC: If condition is written for the story OAS967 : 
+			60 min popup for Writing */
+			if(gController.isWritingPopupOpen){
+			   this.openWritingDialog();
+			}
+
 			/*if(gCommunicator.firstRequestDone) {
 				if(gReadableText.speechRequestSent) {
 					showError(gXmlHelper.getSpeechErrorXml());
@@ -6089,6 +6107,13 @@
 	            }else{
 	            	this.setAttribute('trackTimer',Math.round(this.trackTimer+1000));
 	            	if(this.trackTimer >= timerInterval){
+
+						/*TASC: If condition is written for the story OAS967 : 
+							15 min popup for Writing */					
+				    	if(gController.isWritingPopupOpen){
+				    	 	this.closeWritingDialog();
+				    	}
+
 						stopQuestion();
 						removeTrackTimer();
 						if(jQuery('#calculatorDiv').is(":visible")){	
@@ -6099,6 +6124,7 @@
 						}
 						hideMagnifierGlass();
 						hideMaskingChoiceDD();
+						
 						gScreens.showTimeoutForInactivity();
 						canvas.setPromptDimension();
 	            		timeoutDialog.open();
@@ -6126,7 +6152,86 @@
 		</method>
 	
 		<!--TABE:added for pause/inactivity timer end-->
-
+		
+		<!--  TASC: this method is written for the story OAS967 : 
+				60 min popup for Writing
+		-->
+		<method name="showPopupForWritingTest">
+		<![CDATA[
+			if(this.productTypeVal.indexOf('TASC') >= 0){
+                var isSampleTest = dpsubtest.xpathQuery( 'sco/@isSample' );
+				if(isSampleTest == 'false'){
+				    if(gController.subtestTitle.indexOf('writing') >= 0 || gController.subtestTitle.indexOf('escritura') >= 0 ){
+						setTextToWritingDialog();
+						this.openWritingDialog();
+					}
+				}
+			}
+		]]>
+		</method>
+		
+		<method name="openWritingDialog">
+		<![CDATA[
+			if(gItemInterface.visible){
+				restrictQuestionOverlay.setAttribute('opacity','2');
+				restrictQuestionOverlay.setAttribute('visible',true);
+				restrictResponseOverlay.setAttribute('visible',true);
+				gHotKeys.disableKeys();
+				this.checkHideMagnifierGlass();
+				this.checkHideMaskingChoiceDD();
+				gTooltip.hideTooltip ();
+				if(this.manipButtonRef != undefined && this.manipButtonRef.isButtonMouseOver){
+					this.manipButtonRef.onmouseout.sendEvent();
+				}
+				this.hideTICalculators();
+				this.hideManipulatives();
+				if(this.questionBar != undefined && this.questionBar.isButtonMouseOver){
+					this.questionBar._changeStatus (false);
+				}
+				if(gEnlargePopup.isEnlargePopupOpen){
+					gEnlargePopup.setAttribute('visible',false);
+				}
+				jQuery('[name="dManupulative"]').trigger("mouseup");
+			}
+			this.stopTimer();
+			writingDialog.open();
+			this.setAttribute('isWritingPopupOpen',true);
+            gController.clearCurrentCursor();
+			lz.Cursor.showHandCursor(false);
+			
+		]]>
+		</method>
+		<method name="closeWritingDialog">
+		<![CDATA[
+			if(gItemInterface.visible){	
+				restrictQuestionOverlay.setAttribute('opacity','0.00001');
+				restrictQuestionOverlay.setAttribute('visible',false);
+				restrictResponseOverlay.setAttribute('visible',false);
+				gHotKeys.enableKeys();
+				this.checkShowMagnifierGlass();
+				this.checkShowMaskingChoiceDD();
+				this.showTICalculators();
+				this.showManipulatives();
+			}
+            this.startQuestion();
+			writingDialog.close();
+			this.setAttribute('isWritingPopupOpen',false);
+				
+			
+		]]>
+		</method>
+		<method name="setTextToWritingDialog">
+		<![CDATA[
+			if(gController.subtestTitle.indexOf('escritura') >= 0){
+				writingDialog.spanishText.setAttribute('visible',true);
+			}else if(gController.subtestTitle.indexOf('writing') >= 0){
+				writingDialog.englishText.setAttribute('visible',true);
+			}
+		]]>
+		</method>
+		
+		<!-- END the story OAS967 -->
+		
 	</node>
 
 </library>

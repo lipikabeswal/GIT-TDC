@@ -56,12 +56,15 @@
 				<attribute name="tooltipdel" value="$once{new LzDelegate (this, 'showTooltip')}" type="expression"/>
 				<attribute name="isEnabled" value="false" />
 				<attribute name="isSelected" value="false" />
-
+				<attribute name="isButtonMouseOver" value="false" type="boolean"/>
+				
 				<handler name="onmouseover">
 				        lz.Cursor.showHandCursor(true);
 						this.setAttribute('frame',2);
 						gController.setAttribute("manipSelected",this);
 						lz.Timer.addTimer (tooltipdel, 500);
+						gController.setAttribute('manipButtonRef',this);
+						this.setAttribute('isButtonMouseOver',true);
 					</handler>
 
 				<handler name="onmouseout">
@@ -75,6 +78,7 @@
 							}   
 						}	
 						lz.Timer.removeTimer (this.tooltipdel);
+						this.setAttribute('isButtonMouseOver',false);
 					</handler>
 
 				<handler name="onclick">
@@ -128,12 +132,16 @@
 				<attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}" type="expression"/>
 				<attribute name="isEnabled" value="false" />
 				<attribute name="isSelected" value="false" />
+				<attribute name="isButtonMouseOver" value="false" type="boolean"/>
+				
 				<handler name="onmouseover">
 				        lz.Cursor.showHandCursor(true);
 						this.setAttribute('frame',2);
 						gController.setAttribute("manipSelected",this);
 						if(!gMaskingAnswer.visible)
 							lz.Timer.addTimer (tooltipdel, 500);
+						gController.setAttribute('manipButtonRef',this);
+						this.setAttribute('isButtonMouseOver',true);	
 					</handler>
 
 				<handler name="onmouseout">
@@ -143,6 +151,7 @@
 							this.setAttribute('frame',1);
 						}   
 						lz.Timer.removeTimer (this.tooltipdel);
+						this.setAttribute('isButtonMouseOver',false);
 					</handler>
 
 				<handler name="onclick">

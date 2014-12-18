@@ -13,7 +13,7 @@
         <attribute name="clickable" value="${ isenabled == true }"/>
 
         <attribute name="showconnector" value="false"/>
-        
+        <attribute name="isButtonMouseOver" value="false" type="boolean"/>
 		<attribute name="allow_revisit" value="$path{'@allow_revisit'}"   />
 		<attribute name="allow_revisit_on_restart" value="$path{'@allow_revisit_on_restart'}"   />
 <attribute name="isvisited" value="$path{'@is_visited'}" setter="setIsVisited(isvisited)"/>		
@@ -114,10 +114,13 @@
         <handler name="onmouseover">
             lz.Cursor.showHandCursor(true);
             this._changeStatus (true);
+            this.setAttribute('isButtonMouseOver',true);
+            gController.fixFocus(this);
         </handler>
 
         <handler name="onmouseout">
             lz.Cursor.showHandCursor(false);
+            this.setAttribute('isButtonMouseOver',false);
             this._changeStatus (false);
         </handler>
 

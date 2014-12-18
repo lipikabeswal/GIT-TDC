@@ -6,6 +6,7 @@
       clickable="true"
       showhandcursor="false" >
       
+     <attribute name="isEnlargePopupOpen" type="boolean" value="false"/>
       
     <dataset name="dsenlarge">
         <question/>
@@ -23,11 +24,13 @@
         this.clickdel.unregisterAll();   
         this.setAttribute("visible", false);	
         this.contents.scaler.stretcher.scaled.datapath.setPointer(null);
+        this.setAttribute('isEnlargePopupOpen',false);
    </method>
 	
    <method name="enlarge" args="dn, w, h, color, stereotype">
    		//Debug.write("arguments ",dn, w, h, color, stereotype);
    		gController.setAttribute('zoomClicked',true);
+   		this.setAttribute('isEnlargePopupOpen',true);
         this.clickdel.register (lz.GlobalMouse, 'onmousedown');        
 		//Debug.write("this.dsenlarge",this.dsenlarge);
         var dnq = this.dsenlarge.getPointer().p.childNodes[0];

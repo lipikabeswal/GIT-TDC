@@ -215,7 +215,8 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 							gController.sendHeartbeat();
 							//to start the test timer 
 							//START Defect 64592
-							if(gController.state != gController.DOWNLOAD_STATE){
+							// second condition is added for the story OAS967 : 60 min popup for Writing
+							if(gController.state != gController.DOWNLOAD_STATE && !gController.isWritingPopupOpen){
 							gController.startQuestion();
 							}
 							//END

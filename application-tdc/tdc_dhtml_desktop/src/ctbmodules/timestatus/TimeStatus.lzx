@@ -91,13 +91,17 @@
                 this.showtime = show;
             </method>
             
-            <text name="thetime" x="68" y="-2"
+            <text name="thetime" x="68" y="-2" id="gThetime"
                   resize="true" fgcolor="white" fontsize="15"
                   datapath="dsdisplay:/display/@timeleft">
             	<handler name="ontext">
             		var elm=this.getDisplayObject();
 	               	elm.setAttribute('style','font-size: 15px; line-height: 18px; pointer-events: none; width: auto; height: 18px;');
-            	</handler>
+            		// for the story OAS 967
+					if(this.text =='60:00'){
+						gController.showPopupForWritingTest();
+					}
+				</handler>
             </text>
 
             <multistatebutton name="showhidetime" y="22" 

@@ -10,7 +10,8 @@
 		<attribute name="scratchpadOpen" type="boolean" value="${gController.scratchpadOpen}" />
         <attribute name="tooltipdel" value="$once{new lz.Delegate (this, 'showTooltip')}" type="expression"/>
         <attribute name="xpos" type="string"/>
-
+		<attribute name="isButtonMouseOver" value="false" type="boolean"/>
+		
         <handler name="oninit">
             this.datapath.setXPath ('@' + this.toolid);
         </handler>
@@ -49,6 +50,8 @@
             if (!this.isselected && this.isenabled) this.setAttribute('frame', 2); 
             gController.setAttribute("manipSelected",this);
             lz.Timer.addTimer (tooltipdel, 500);
+            this.setAttribute('isButtonMouseOver',true);
+            gController.setAttribute('manipButtonRef',this);
         ]]></handler>
 
         <handler name="onmouseout"><![CDATA[
@@ -56,6 +59,7 @@
             if (!this.isselected && this.isenabled) this.setAttribute('frame', 1); 
             gTooltip.hideTooltip ();
             lz.Timer.removeTimer (this.tooltipdel);
+            this.setAttribute('isButtonMouseOver',false);
         ]]></handler>
 
         <handler name="onclick">

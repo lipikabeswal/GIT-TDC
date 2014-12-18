@@ -23,7 +23,8 @@
         <!-- Additional overlay, only visible while navigating through items.
         		Gets visible based on Controller attribute isAnswerAreaDisabled
         -->
-		<view id="restrictResponseOverlay" height="${gItemInterface.height}" visible="false" width="${gQuestion.width}" clickable="true" opacity="0.00001" bgcolor="yellow">
+		<view id="restrictResponseOverlay" height="${gItemInterface.height}" visible="false" width="${gQuestion.width}" clickable="true" opacity="0.00001" bgcolor="yellow"
+		 showhandcursor="false">
 			<handler name="onvisible">
 				if(restrictResponseOverlay.visible == true || restrictResponseOverlay.visible == 'true'){
 					restrictResponseOverlay.bringToFront();
@@ -46,6 +47,14 @@
 				 <Question width="100%" height="100%" id="gQuestion"
                           datapath="dsitem:/element_package/item_canvas"
                           bgcolor="${gController.questionBgColor}"/>
+                          
+                <!-- Additional overlay added,  TASC: this popup is written for the story OAS967 : 
+				60 min popup for Writing
+                   -->
+				<view id="restrictQuestionOverlay" height="${gQuestion.height}" visible="false" width="${gQuestion.width}" 
+				clickable="true" opacity="0.00001" bgcolor="#909090" showhandcursor="false">
+					
+				</view>          
                 <view width="100%" height="100%" name="header">
                     <resizelayout axis="y"/>
                     <view name="testDetails" width="${classroot.contents.width + 2}" height="50"
