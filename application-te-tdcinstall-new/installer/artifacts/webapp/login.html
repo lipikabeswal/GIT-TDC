@@ -937,7 +937,7 @@ function checkEmptyString(str) {
 			break;
 		}
 	}
-	if (event.ctrlKey && gController.iskeyEnabled && gHotKeys.onceOnly) {
+	if (event.ctrlKey && gController.iskeyEnabled && gHotKeys.onceOnly && (gController.isWritingPopupOpen == false)) {
 			//console.log("hotKeysHandle event.ctrlKey == true || keystroke==== "+keystroke);
 			switch(keystroke){
 				case 'l':
