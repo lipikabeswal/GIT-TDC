@@ -482,6 +482,7 @@
 
             <handler name="onmouseup">
                 this.btn.setAttribute('frame',2);
+                this.onclick.sendEvent();
             </handler>
 
             <handler name="onclick"><![CDATA[
