@@ -163,6 +163,17 @@
 			  gController.musicSliderReff.onmouseup.sendEvent();
 			}
             show();
+            
+            /*TASC: If condition is written for the story OAS967 : 
+			60 min popup for Writing */
+			
+			gController.startQuestion();
+            if(gController.isStopButtonClicked && gController.isWritingPopupOpen){
+		    	gController.openWritingDialog();
+		    }
+		    gController.setAttribute('isStopButtonClicked',false);
+		    	
+		    
         ]]></method>
         <method name="showOutOfTime" args="a, m">
             removeAllStates();

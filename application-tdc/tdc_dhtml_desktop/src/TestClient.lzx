@@ -277,6 +277,50 @@
 			<include href="ctbmodules/question/PleaseWaitPopup.lzx"/>
 			<include href="ctbmodules/question/MusicPlayer.lzx"/>
 			<include href="ctbmodules/manipulatives/maskinganswer/MaskingAnswer.lzx"/>
+			
+			<!--  TASC: this popup is written for the story OAS967 : 
+				60 min popup for Writing
+			-->
+			  <modaldialog id="writingDialog" name="writingDialog" title=" " 
+						width="400" height="220" visible="false" bgcolor="0x6691B4" 
+						valign="middle"
+			      		align="center" allowdrag="false" showhandcursor="false">
+				    <text name="englishText"
+						 font="CTB"	
+			             fontsize="15" 
+			             fgcolor="white"
+						 width="100%"
+						 multiline="true" visible="false">
+						 There are 60 minutes remaining in the Writing test. The last question in the test is an essay question. 
+						 You should allow 45 minutes for the essay question. If you have not yet begun to respond to the essay, 
+						 you should begin within the next 15 minutes in order to allow sufficient time to complete it.
+			           </text>
+					   <text name="spanishText"
+						 font="CTB"	
+			             fontsize="15" 
+			             fgcolor="white"
+						 width="100%"
+						 multiline="true" visible="false">
+						 Quedan 60 minutos para terminar el examen de escritura. La última pregunta del examen es un ensayo. 
+						 Debes dejar 45 minutos para redactar el ensayo. Si no has comenzado a redactar el ensayo, debes comenzar d
+			             entro de los próximos 15 minutos con el fin de tener suficiente tiempo para completarlo.
+			           </text>	
+				    <view align="center" valign="middle" layout="axis:x; spacing:20">
+				      <OkButton>
+			                <handler name="onclick">
+			                	gController.closeWritingDialog();
+			                	lz.Cursor.showHandCursor(false);
+			               </handler>
+			               <handler name="onmouseover">
+			                	lz.Cursor.showHandCursor(true);
+			               </handler>
+			               <handler name="onmouseout">
+			                	lz.Cursor.showHandCursor(false);
+			               </handler>
+			           </OkButton>
+				    </view>
+				    <simplelayout spacing="5"/>
+			  </modaldialog>
         </view>
 
     </view>
@@ -303,49 +347,6 @@
 	    <simplelayout spacing="5"/>
   </modaldialog>
   
-  <!--  TASC: this popup is written for the story OAS967 : 
-				60 min popup for Writing
--->
-  <modaldialog id="writingDialog" name="writingDialog" title=" " 
-			width="400" height="220" visible="false" bgcolor="0x6691B4" 
-			x="${restrictQuestionOverlay.width/2}" 
-			y="${restrictQuestionOverlay.height/2}" allowdrag="false" showhandcursor="false">
-	    <text name="englishText"
-			 font="CTB"	
-             fontsize="15" 
-             fgcolor="white"
-			 width="100%"
-			 multiline="true" visible="false">
-			 There are 60 minutes remaining in the Writing test. The last question in the test is an essay question. 
-			 You should allow 45 minutes for the essay question. If you have not yet begun to respond to the essay, 
-			 you should begin within the next 15 minutes in order to allow sufficient time to complete it.
-           </text>
-		   <text name="spanishText"
-			 font="CTB"	
-             fontsize="15" 
-             fgcolor="white"
-			 width="100%"
-			 multiline="true" visible="false">
-			 Quedan 60 minutos para terminar el examen de escritura. La última pregunta del examen es un ensayo. 
-			 Debes dejar 45 minutos para redactar el ensayo. Si no has comenzado a redactar el ensayo, debes comenzar d
-             entro de los próximos 15 minutos con el fin de tener suficiente tiempo para completarlo.
-           </text>	
-	    <view align="center" valign="middle" layout="axis:x; spacing:20">
-	      <OkButton>
-                <handler name="onclick">
-                	gController.closeWritingDialog();
-                	lz.Cursor.showHandCursor(false);
-               </handler>
-               <handler name="onmouseover">
-                	lz.Cursor.showHandCursor(true);
-               </handler>
-               <handler name="onmouseout">
-                	lz.Cursor.showHandCursor(false);
-               </handler>
-           </OkButton>
-	    </view>
-	    <simplelayout spacing="5"/>
-  </modaldialog>
     </view>
   
 </view>
