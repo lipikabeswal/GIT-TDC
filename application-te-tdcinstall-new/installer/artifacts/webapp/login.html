@@ -389,8 +389,39 @@ function preventTextDragging(){
 				e.preventDefault();
 			});
 }
+ function cntChars(which,widgetId){
+				var refObj='';
+				if(!gController){
+				  return;
+				}
+				 if(!which && which!=null && which!=undefined){
+				        return;
+				}
+	
+				for(var i=0;i<gController.crFields.length;i++){
+					if(gController.crFields[i].widget_id == widgetId){
+			            refObj=gController.crFields[i].ref
+						break;
+					}
+				}
+    		if(refObj){
+		            setTimeout(function(){
+		                       refObj.setAttribute("numCharacters",which.value.length);
+		                       refObj.updateCharacterMeter();
+		                       },150);
+		
+				}
 
-  
+    
+				var maxStrLen =parseInt(jQuery(which).attr('maxlen'));
+			    var matches = jQuery(which).val().match(/\n/g);
+			    var breaks = matches ? matches.length : 0;
+			    var maxLength=maxStrLen+breaks;
+			    jQuery(which).attr('maxlength',maxLength);
+			    var rem = maxStrLen - which.value.length;
+			    
+			    return which.value;
+}
  jQuery(document).ready(function() {
  	jQuery("textarea").each(function() {
  		jQuery(this).css({'overflow-x': 'hidden', 'overflow-y': 'hidden'});
