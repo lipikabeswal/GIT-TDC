@@ -3499,6 +3499,27 @@
 				closeTI84Calc();
 			}	
 		]]></method>	
+		
+		<!-- Method clearTICalculators added to clear all the variables related to TI calculators at the time of subtest end-->
+		<method name="clearTICalculators"><![CDATA[
+			gController.setAttribute('isTI30CalculatorOpen',false);
+            gController.setAttribute('isTI84CalculatorOpen',false);
+			stateTI84=gManipulatives.tiCalculatorDetails.TI84; 
+			stateTI30=gManipulatives.tiCalculatorDetails.TI30;
+			if(stateTI30 == "sel"){
+				gManipulatives.tiCalculatorDetails.TI30 = 'up';
+			}
+			if(stateTI84 == "sel"){
+				gManipulatives.tiCalculatorDetails.TI84 = 'up';
+			}
+			if(jQuery('#calculatorDiv').is(":visible")){
+				closeTI30Calc();
+			}	
+			if(jQuery('#calculatorTI84Div').is(":visible")){	
+				closeTI84Calc();
+			}	
+		]]></method>
+		
 
 		<!-- TI calculators implementation end-->
 

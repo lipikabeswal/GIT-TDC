@@ -89,6 +89,9 @@
                     gController.saveEndSubtest();
                     //START Defect# 59282
                     gController.resetCrFields();
+                    //the following method is called to clear all the variables related to TI calculators at the time of subtest end.
+                    gController.clearTICalculators();
+                    
                     //END
                 ]]></method>
                 <handler name="onmouseover">
