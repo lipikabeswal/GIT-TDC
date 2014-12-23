@@ -103,6 +103,12 @@
                 else
                    this.setAnswer("");
             }
+            //To fix CR charecter meter issue for "ENTER" key press. 
+			setCRAttrs();
+            
+            var elm = this.outer.rich.answer.inp.getDisplayObject();
+			cntChars(elm,this.widget_id);
+			//ends here
 
             if (data.getAttr("width")) {
                 this.setAttribute('editTextWidth', Number(data.getAttr("width")));
@@ -159,7 +165,20 @@
 				canvas.setAttribute('focusobj', this.outer.rich.answer);
 			}
         ]]></handler>
-
+		  /*fix for Charecter meter issue for CR*/
+        <method name="setCRAttrs"><![CDATA[
+			var inpElm = this.outer.rich.answer.inp.getDisplayObject();
+			inpElm.setAttribute('maxlen',Number(this.characterLimit));
+			//inpElm.setAttribute("onkeydown","javascript: return cntChars(this,'"+this.widget_id+"');");
+			//inpElm.setAttribute("onkeyup","javascript: return cntChars(this,'"+this.widget_id+"');");
+			//inpElm.setAttribute("onpaste","javascript: return cntChars(this,'"+this.widget_id+"');");
+			//inpElm.setAttribute("oncut","javascript: return cntChars(this,'"+this.widget_id+"');");
+			inpElm.style.whiteSpace = "pre";
+			]]></method>
+	  
+			
+			
+			
         <method name="setAnswer" args="text">
         <![CDATA[
           var currentFocus = lz.Focus.getFocus();
@@ -304,7 +323,10 @@
 						this.setAttribute('text',a);
 					</method>
 
-					  <handler name="ontext"><![CDATA[
+					  <handler name="ontext" ><![CDATA[
+                       var elm = this.inp.getDisplayObject();
+						cntChars(elm,classroot.widget_id);
+						if (this.inp){
 						 var textFontColor;
 						 if(!classroot.isInitialText){
 							 if (text) {
@@ -350,7 +372,7 @@
 								textContent = textContent.substring(0,Number(classroot.characterLimit));
 								updateScrollText(textContent);
 							}
-
+						}
 
 					   ]]></handler>
 
