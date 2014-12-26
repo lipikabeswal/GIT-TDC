@@ -943,13 +943,136 @@ function removeReadOnlyCR(){
 function checkEmptyString(str) {
 	return (!str || /^\s*$/.test(str) || /^\n*$/.test(str) || /^\r*$/.test(str));
 } 
- 
+/* Method to call particular method based on answer choice selection in SR Item*/
+function selectAnswerChoice(){
+
+	var keyValue = String.fromCharCode(event.keyCode).toLowerCase();
+	switch(keyValue){
+			
+					case 'a' :
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+								gHotKeys.toggleA();
+								event.preventDefault(); // disable Ctrl+F
+							}
+					break;
+					case 'b' :
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+								gHotKeys.toggleB();
+								event.preventDefault(); // disable Ctrl+F
+							}
+					break;
+					case 'c' :
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+								gHotKeys.toggleC();
+								event.preventDefault(); // disable Ctrl+F
+							}
+					break;
+					case 'd' :
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+								gHotKeys.toggleD();
+								event.preventDefault(); // disable Ctrl+F
+							}
+					break;
+					case 'e' :
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+								gHotKeys.toggleE();
+								event.preventDefault(); // disable Ctrl+F
+							}
+					break;
+					case 'f' :
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+								gHotKeys.toggleF();
+								event.preventDefault(); // disable Ctrl+F
+							}
+					break;
+					case 'g' :
+						console.log("****Inside case G****"+gItemInterface.visible+"======"+"gRevisitFalsePopup.visible"+"======"+gPleaseWaitPopup.visible);
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+								gHotKeys.toggleG();
+								event.preventDefault(); // disable Ctrl+F
+							}
+					break;
+					case 'h' :
+						console.log("****Inside case H*****"+gItemInterface.visible+"======"+"gRevisitFalsePopup.visible"+"======"+gPleaseWaitPopup.visible);
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+								gHotKeys.toggleH();
+								event.preventDefault(); // disable Ctrl+F
+							}
+					break;
+					case 'i' :
+						console.log("****Inside case I*****"+gItemInterface.visible+"======"+"gRevisitFalsePopup.visible"+"======"+gPleaseWaitPopup.visible);
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+								gHotKeys.toggleI();
+								event.preventDefault(); // disable Ctrl+F
+							}
+					break;
+					case 'j' :
+						console.log("****Inside case J*****"+gItemInterface.visible+"======"+"gRevisitFalsePopup.visible"+"======"+gPleaseWaitPopup.visible);
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+								gHotKeys.toggleJ();
+								event.preventDefault(); // disable Ctrl+F
+							}
+					break;
+				 default:
+					break;
+			}
+}
+/*Used to detect key-combos and prevent its action if combo is not appropriate */
+var answerChoiceHandler = function(){
+		var downedKeysArr = [];
+		var isMetaKeyDown = false;
+		var checkMac = window.navigator.platform;
+		function keyPressedDown(e) {
+				
+		 	  	var evtobj = window.event? event : e;
+		 	  	//Used to block Ctrl+~ and Cmd key in Mac
+		 	  	if((checkMac.indexOf("Mac") != -1) && (evtobj.which == 91 || evtobj.which == 93 || evtobj.which == 192) ){  
+		 	  		isMetaKeyDown = true;
+		 	  		return false;
+		 	  	}else if(evtobj.which == 93){
+		 	  		 //Used to block right option key in Windows
+		 	  		return false;
+		 	  	}
+		 	  	if(downedKeysArr.indexOf(evtobj.keyCode) < 0  && !(evtobj.which == 16) && !(evtobj.which == 20) && !isMetaKeyDown)
+		      	{
+		      		downedKeysArr.push(evtobj.keyCode);
+		      		
+		      	}
+			  // console.log(downedKeysArr.length+" pressed down");  
+		}
+		
+		function keyPressedUp(e) {
+				if(!gController.isCrItem() && (gItemInterface.visible == true || gItemInterface.visible == 'true')){
+				     	var evtobj = window.event? event : e;
+		 	  			if((checkMac.indexOf("Mac") != -1) && (evtobj.which == 91 || evtobj.which == 93 || evtobj.which == 192)){
+		 	  				isMetaKeyDown = false;
+				 	  		return false;
+		 	  			}
+		 	  			var index=downedKeysArr.indexOf(evtobj.keyCode);
+				   		if (index >= 0) {
+					    	if(downedKeysArr.length == 1 && (evtobj.which >= 65 || evtobj.which <= 74) && !gController.isCrItem()){
+					    		selectAnswerChoice();
+					    	}
+					    	
+				    	 	downedKeysArr.splice( index, 1 );
+				       		
+				   		 }
+		    			//console.log(downedKeysArr.length+" pressed Up"); 
+		    			
+		    			
+		   		 }
+			} 
+	return {keyPressedDown:keyPressedDown, keyPressedUp:keyPressedUp, downedKeysArr:downedKeysArr, isMetaKeyDown:isMetaKeyDown}
+}();
+
  // to disabled the tab key when Scratchpad is opened 
  //Clicking Tab twice selects entire contents of Scratchpad
  
  function disableTabKey() {
  	var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
- 	
+ 	if(!gController.isCrItem() && (gItemInterface.visible == true || gItemInterface.visible == 'true')){
+ 		answerChoiceHandler.keyPressedDown();
+ 	}
 	if(event.which == 9 && gController.scratchpadOpen) { 
 		//console.log("TAB!!!!!!!!!!!!");
 		event.preventDefault();
@@ -957,7 +1080,7 @@ function checkEmptyString(str) {
 	}
 	// Fix for defect #79634 - Pause screen is flickering while pressing Ctrl+L on the pause screen.
 	if(event.ctrlKey){
-		console.log("Inside external case l=====");
+		//console.log("Inside external case l=====");
 		switch(keystroke){
 			case 'l':
 				if(!gItemInterface.visible) {
@@ -1181,7 +1304,8 @@ var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
 </HEAD>
 
 <BODY topmargin=0 leftmargin=0 rightmargin=0 bottommargin=0 scroll=no bgcolor="#6691B4"
-onkeydown="disableTabKey()" oncontextmenu="javascript:return false;">
+onkeydown="disableTabKey()" onkeyup="answerChoiceHandler.keyPressedUp()" oncontextmenu="javascript:return false;">
+
 <button id="mybutton" style="visibility:hidden; width:0px; height:0px; display:none;">clickMe </button>
 
 
