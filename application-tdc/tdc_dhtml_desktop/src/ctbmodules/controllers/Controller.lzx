@@ -3499,7 +3499,7 @@
 				closeTI84Calc();
 			}	
 		]]></method>	
-		
+
 		<!-- Method clearTICalculators added to clear all the variables related to TI calculators at the time of subtest end-->
 		<method name="clearTICalculators"><![CDATA[
 			gController.setAttribute('isTI30CalculatorOpen',false);
@@ -4347,6 +4347,16 @@
 	                        			dn.setAttr (i, 'disable');
 									}else{
 										dn.setAttr (i, 'up');
+										//console.log("maskingRulerPos===");
+										var maskingRulerPos = dpstudentdata.xpathQuery("current_item/item_model/manipulatives/global/masking_ruler");
+										//console.log("maskingRulerPos==="+maskingRulerPos.serialize());
+										if(maskingRulerPos != null){
+											maskingRulerPos.setAttr ('rotation', 0);
+											maskingRulerPos.setAttr ('width',gManipulatives.width);
+											maskingRulerPos.setAttr ('x',0);
+											maskingRulerPos.setAttr ('y',(gManipulatives.height - gMaskingRuler.height)/2);
+										}
+										setMaskingRulerPos();
 									}
 	                        	}
 	                        }
@@ -4417,6 +4427,15 @@
                 return String( b );
             } 
         </method>
+
+		<method name="setMaskingRulerPos">
+			/*Masking ruler should always open in the default position while behaving as radio manipulative*/
+			//console.log("setMaskingRulerPos***");
+			gMaskingRuler.setAttribute ('rotation', 0);
+			gMaskingRuler.ruler.setAttribute ('width',gManipulatives.width);
+			gMaskingRuler.setAttribute ('x', 0);
+			gMaskingRuler.setAttribute ('y', (gManipulatives.height - gMaskingRuler.height)/2);
+		</method>
 
 		<attribute name="dsendHeartbeat"
 			value="$once{ new lz.Delegate( this, 'sendHeartbeat' )}" type="expression"/>
@@ -6220,6 +6239,7 @@
 				gHotKeys.disableKeys();
 				this.checkHideMagnifierGlass();
 				this.checkHideMaskingChoiceDD();
+				gMaskingRuler.setAttribute('visible',false);
 				gTooltip.hideTooltip ();
 				if(this.manipButtonRef != undefined && this.manipButtonRef.isButtonMouseOver){
 					this.manipButtonRef.onmouseout.sendEvent();
@@ -6252,6 +6272,7 @@
 				gHotKeys.enableKeys();
 				this.checkShowMagnifierGlass();
 				this.checkShowMaskingChoiceDD();
+				gMaskingRuler.setAttribute('visible',true);
 				this.showTICalculators();
 				this.showManipulatives();
 			}else if(gScreens.contents.fs.visible){
