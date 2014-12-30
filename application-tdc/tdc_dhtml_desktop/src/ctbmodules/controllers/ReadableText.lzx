@@ -32,6 +32,7 @@
 		<attribute name="READ_SELECTION_REMOVED" type="string" value="selection removed." />
 	    <attribute name="GET_URL" type="string" />
 	    <attribute name="TEXT_PARAM" type="string" value="text" />
+	    <attribute name="AUDIO_FORMAT" type="string" value="audioFormat" />
 	    <attribute name="primed" type="boolean" value="false" />
 		<attribute name="dTimeout" value="$once{new lz.Delegate(this, 'timedout')}" type="expression"/>
 		<attribute name="TIMEOUT_INTERVAL" type="number" value="30000" />
@@ -58,8 +59,14 @@
         </method>
         
 		<handler name="oninit">
+			var getUrl = null;
 			var postUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/SpeechServlet.do';
-			var getUrl = postUrl + '?file=speech.mp3';
+			//Audio file format to be downloaded for Mac OS should be .mp3 and for others .ogg
+			if(gController.audioFormat == "mp3"){
+				getUrl = postUrl + '?file=speech.mp3';
+			}else{
+				getUrl = postUrl + '?file=speech.ogg';
+			}	
 			setAttribute('GET_URL', getUrl);
 			speechDs.setAttribute('src', postUrl);
 			audioPlayerDs.setAttribute('src', postUrl);
@@ -135,10 +142,7 @@
 		
         <method name="doRead" args="txt"><![CDATA[
 			this.currentText = txt;//TTS CR
-        	//Changes for Defect # 65040
-        	if(canvas.capabilities.audio){
-        		this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
-			}
+			this.audioPlayer.setAttribute("volume",gManipulativeBar.screenreader.volumeController.volumeControl.value/100);
 			lz.Timer.resetTimer(this.dTimeout, TIMEOUT_INTERVAL);
  	    	stopReading();
  	        speechDs.setQueryParam(TEXT_PARAM, txt);
@@ -148,15 +152,18 @@
  	        	var speedValue = getSpeedNumber(smf);
  	        	speechDs.setQueryParam(SPEED_PARAM, speedValue);
  	        }
+ 	        var audioFormat = gController.audioFormat;
+ 	       	speechDs.setQueryParam(AUDIO_FORMAT, audioFormat);
+ 	       	
 			speechDs.doRequest();
        ]]></method>
         
         <method name="getMp3" ><![CDATA[
         	//ISTEP CR: to avoid browser caching of the mp3
-        	if(canvas.isPreviewer){
-				audioPlayer.__media.setAttribute("src",GET_URL+"&"+timestamp()+".mp3");
+			if(gController.audioFormat == "mp3"){
+        		audioPlayer.__media.setAttribute("src",GET_URL+"&"+timestamp()+".mp3");
 			}else{
-				play();
+				audioPlayer.__media.setAttribute("src",GET_URL+"&"+timestamp()+".ogg");
 			}
         ]]></method>
 
@@ -234,11 +241,8 @@
 				var status = ds.childNodes[0].childNodes[0].data;
 				if (status == "START") {
 		       		//gReadableText.isplaying = true; // TTS CR:when mp3 is loaded and ready to play
-	
-					//Changes for Defect # 65040
-					if(canvas.capabilities.audio){
-	 					this.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value);
-	 				}
+
+	 				this.audioPlayer.setAttribute("volume",gManipulativeBar.screenreader.volumeController.volumeControl.value/100);
 					if(gController.isWaitPopupOpen) {
 						gReadableText.speechRequestSent = false;
 						gCommunicator.firstRequestDone = false;
@@ -285,13 +289,9 @@
                            }"/>
         <method name="stopReading" args="fromSp"><![CDATA[
         	if(fromSp != true || (fromSp == true && gReadableText.readingScratchpad)){
-        		if(canvas.isPreviewer){
-					if(gReadableText.audioPlayer.__media.hasAttribute('src')){
-        				audioPlayer.pause();
-						gReadableText.setAttribute('isPlaying',false);
-					}
-				}else{
-					stop();
+				if(gReadableText.audioPlayer.__media.hasAttribute('src')){
+       				audioPlayer.pause();
+					gReadableText.setAttribute('isPlaying',false);
 				}
         	}
         ]]></method>
@@ -326,6 +326,7 @@
 					console.log("audioPlayer#onsrc event: src=" + src);
 				</handler>	
 				<handler name="onplay">
+					gReadableText.setAttribute('isPlaying',true);
 					if(gController.isWaitPopupOpen) {
 						gReadableText.speechRequestSent = false;
 						gCommunicator.firstRequestDone = false;
@@ -345,7 +346,6 @@
 		        			gReadableText.setAttribute('primed', true);
 		        		}
 		        	}
-					gReadableText.setAttribute('isPlaying',true);
 				</handler>			
 				<handler name="onloadeddata">
 					console.log("audioPlayer#onloadeddata event");	

@@ -620,9 +620,9 @@
 		
 		<attribute name="subtestTitle" type="string" value="" />
 		<attribute name="isWritingPopupOpen" type="boolean" value="false" />
-		
-		<!--<attribute name="audioFormat" type="string" value="null" />
-		<attribute name="systemValue" type="string" value="null" />-->
+		<!-- screen reader audio format-->
+		<attribute name="audioFormat" type="string" value="null" />
+		<!--<attribute name="systemValue" type="string" value="null" />-->
 		
 		<!--  Cancels a drag operation inside a TE item -->
     	<method name="cancelIframeDrag">
@@ -705,16 +705,15 @@
 		</method>
 
 		<handler name="oninit">
-			/*if($dhtml){
+			//for screen reader audio file format to be downloaded for Mac OS should be .mp3 and for others .ogg
+			if($dhtml){
 				this.audioFormat = "mp3";
 				if(navigator.appVersion.indexOf("Mac")!=-1){
 					this.audioFormat = "mp3";
-					console.log("audioFormat****"+this.audioFormat);
 				}else{
 					this.audioFormat = "ogg";
-					console.log("audioFormat****"+this.audioFormat);
 				}
-			}*/
+			}
 			this.setAttribute('isHandlerInactive', true);
         	checkIsProduct();
         	//gScreens.showLogin();

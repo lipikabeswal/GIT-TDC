@@ -365,9 +365,10 @@
 
 				<handler name="onselect"><![CDATA[
 					if(classroot.speedSelected != this.value){
-						if(gReadableText.isplaying && gReadableText.isReadable && 
+						classroot.setAttribute('speedSelected', this.value);
+						if(gReadableText.isPlaying && gReadableText.isReadable && 
 							gReadableText.clickable && gReadableText.currentText.length > 0) {
-	
+							console.log("onselect should read====");
 							gReadableText.read(gReadableText.currentText,false);
 						}
 					}
