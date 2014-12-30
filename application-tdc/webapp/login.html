@@ -1050,9 +1050,9 @@ var answerChoiceHandler = function(){
 		 	  			}
 		 	  			var index=downedKeysArr.indexOf(evtobj.keyCode);
 				   		if (index >= 0) {
-					    	if(downedKeysArr.length == 1 && (evtobj.which >= 65 || evtobj.which <= 74) && !gController.isCrItem()){
-					    		selectAnswerChoice();
-					    	}
+				   				if(downedKeysArr.length == 1 && (evtobj.which >= 65 || evtobj.which <= 74) && !gController.isCrItem() && (!gScratchpad.scratchpadHasFocus)){
+					    			selectAnswerChoice();
+					    		}
 					    	
 				    	 	downedKeysArr.splice( index, 1 );
 				       		
