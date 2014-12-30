@@ -58,7 +58,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mq"]}},$lzc$class__mq.attributes)
 }}})($lzc$class__mq)
-};canvas=new $lzc$class__mq(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onkeydown","$mi","$mh","onmousedown","$mk","$mj","onbringBackFocus","$ml",null,"onfootnotedata","$mm",null,"onisMultiAudio","$mn",null,"oninit","$mo",null,"onfootnotetext","$mp",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-12-30T07:59:08Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mq(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onkeydown","$mi","$mh","onmousedown","$mk","$mj","onbringBackFocus","$ml",null,"onfootnotedata","$mm",null,"onisMultiAudio","$mn",null,"oninit","$mo",null,"onfootnotetext","$mp",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2014-12-30T13:14:25Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -10828,15 +10828,14 @@ volumeDs=null
 Class.make("$lzc$class__mrz",["$mrt",function($0){
 console.log("audioPlayer#onsrc event: src="+this.src)
 },"$mru",function($0){
-if(gController.isWaitPopupOpen){
+gReadableText.setAttribute("isPlaying",true);if(gController.isWaitPopupOpen){
 gReadableText.speechRequestSent=false;gCommunicator.firstRequestDone=false;gController.hideWaitPopup();gController.sendHeartbeat();gController.startQuestion();gController.unlockUI()
 };if(!gCommunicator.error){
 lz.Timer.removeTimer(gReadableText.dTimeout);if(gReadableText.primed){
 gController.unlockUI()
 }else{
 gReadableText.setAttribute("primed",true)
-}};gReadableText.setAttribute("isPlaying",true)
-},"$mrv",function($0){
+}}},"$mrv",function($0){
 console.log("audioPlayer#onloadeddata event")
 },"$mrw",function($0){
 console.log("browser assumes media can play through now")
@@ -10862,7 +10861,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mrz"]}},$lzc$class__mrz.attributes)
 }}})($lzc$class__mrz)
-};lz.ClassAttributeTypes["$lzc$class__mry"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{GET_URL:"string",READ_PERIOD:"string",READ_SELECTION_REMOVED:"string",READ_SLASH:"string",READ_SPACE:"string",SPEED_PARAM:"string",TEXT_PARAM:"string",TIMEOUT_INTERVAL:"number",clickable:"boolean",currentText:"string",isplaying:"boolean",primed:"boolean",readingScratchpad:"boolean",speechRequestSent:"boolean"});{
+};lz.ClassAttributeTypes["$lzc$class__mry"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{AUDIO_FORMAT:"string",GET_URL:"string",READ_PERIOD:"string",READ_SELECTION_REMOVED:"string",READ_SLASH:"string",READ_SPACE:"string",SPEED_PARAM:"string",TEXT_PARAM:"string",TIMEOUT_INTERVAL:"number",clickable:"boolean",currentText:"string",isplaying:"boolean",primed:"boolean",readingScratchpad:"boolean",speechRequestSent:"boolean"});{
 Class.make("$lzc$class__mry",["$mrh",function($0){
 this.sendToBack()
 },"$mri",function($0){
@@ -10878,7 +10877,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"READ_SPACE",void 0,"READ_PERIOD",void 0,"READ_SLASH",void 0,"READ_SELECTION_REMOVED",void 0,"GET_URL",void 0,"TEXT_PARAM",void 0,"primed",void 0,"$mrl",function($0){
+}},"READ_SPACE",void 0,"READ_PERIOD",void 0,"READ_SLASH",void 0,"READ_SELECTION_REMOVED",void 0,"GET_URL",void 0,"TEXT_PARAM",void 0,"AUDIO_FORMAT",void 0,"primed",void 0,"$mrl",function($0){
 this.setAttribute("dTimeout",new (lz.Delegate)(this,"timedout"))
 },"dTimeout",void 0,"TIMEOUT_INTERVAL",void 0,"readingScratchpad",void 0,"currentText",void 0,"SPEED_PARAM",void 0,"isplaying",void 0,"speechRequestSent",void 0,"$mrm",function($0){
 this.setAttribute("dRequestor",new (lz.Delegate)(this,"requestor"))
@@ -10890,7 +10889,11 @@ this.setAttribute("dcheckIfPlaying",new (lz.Delegate)(this,"checkIfPlaying"))
 if(this.primed){
 gPleaseWaitPopup.show()
 }},"$mro",function($0){
-var $1=lz.Browser.getInitArg("servletUrl")+"/SpeechServlet.do";var $2=$1+"?file=speech.mp3";this.setAttribute("GET_URL",$2);speechDs.setAttribute("src",$1);audioPlayerDs.setAttribute("src",$1);volumeDs.setAttribute("src",$1)
+var $1=null;var $2=lz.Browser.getInitArg("servletUrl")+"/SpeechServlet.do";if(gController.audioFormat=="mp3"){
+$1=$2+"?file=speech.mp3"
+}else{
+$1=$2+"?file=speech.ogg"
+};this.setAttribute("GET_URL",$1);speechDs.setAttribute("src",$2);audioPlayerDs.setAttribute("src",$2);volumeDs.setAttribute("src",$2)
 },"getSelectionRemoved",function(){
 return this.READ_SELECTION_REMOVED
 },"read",function($0,$1){
@@ -10911,16 +10914,14 @@ case 0:
 $0=null;
 
 }},"doRead",function($0){
-this.currentText=$0;if(canvas.capabilities.audio){
-this.audioPlayer.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value)
-};lz.Timer.resetTimer(this.dTimeout,this.TIMEOUT_INTERVAL);this.stopReading();speechDs.setQueryParam(this.TEXT_PARAM,$0);if(gController.hasTTSspeed){
+this.currentText=$0;this.audioPlayer.setAttribute("volume",gManipulativeBar.screenreader.volumeController.volumeControl.value/100);lz.Timer.resetTimer(this.dTimeout,this.TIMEOUT_INTERVAL);this.stopReading();speechDs.setQueryParam(this.TEXT_PARAM,$0);if(gController.hasTTSspeed){
 var $1=gManipulativeBar.speedController.value;var $2=this.getSpeedNumber($1);speechDs.setQueryParam(this.SPEED_PARAM,$2)
-};speechDs.doRequest()
+};var $3=gController.audioFormat;speechDs.setQueryParam(this.AUDIO_FORMAT,$3);speechDs.doRequest()
 },"getMp3",function(){
-if(canvas.isPreviewer){
+if(gController.audioFormat=="mp3"){
 this.audioPlayer.__media.setAttribute("src",this.GET_URL+"&"+this.timestamp()+".mp3")
 }else{
-this.play()
+this.audioPlayer.__media.setAttribute("src",this.GET_URL+"&"+this.timestamp()+".ogg")
 }},"timestamp",function(){
 return "timestamp="+Math.random()
 },"getReadableTextForCharacter",function($0){
@@ -10956,9 +10957,7 @@ gManipulativeBar.screenreader.volumeController.volumeControl.track.thumb.setAttr
 },"checkMp3Status",function($0){
 var $1=gRequest.getDatasetText($0);if($0.childNodes[0].childNodes[0]!=null){
 var $2=$0.childNodes[0].childNodes[0].data;if($2=="START"){
-if(canvas.capabilities.audio){
-this.setVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value)
-};if(gController.isWaitPopupOpen){
+this.audioPlayer.setAttribute("volume",gManipulativeBar.screenreader.volumeController.volumeControl.value/100);if(gController.isWaitPopupOpen){
 gReadableText.speechRequestSent=false;gCommunicator.firstRequestDone=false;gController.hideWaitPopup();gController.sendHeartbeat();gController.startQuestion();gController.unlockUI()
 };if(!gCommunicator.error){
 lz.Timer.removeTimer(this.dTimeout);if(this.primed){
@@ -10989,11 +10988,8 @@ lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"isReadable",void 0,"stopReading",function($0){
 if($0!=true||$0==true&&gReadableText.readingScratchpad){
-if(canvas.isPreviewer){
 if(gReadableText.audioPlayer.__media.hasAttribute("src")){
 this.audioPlayer.pause();gReadableText.setAttribute("isPlaying",false)
-}}else{
-this.stop()
 }}},"requestor",function($0){
 switch(arguments.length){
 case 0:
@@ -11030,7 +11026,7 @@ $1=true;
 $0.id="gReadableText";gReadableText=$0
 }else if(gReadableText===$0){
 gReadableText=null;$0.id=null
-}},GET_URL:void 0,READ_PERIOD:"point",READ_SELECTION_REMOVED:"selection removed.",READ_SLASH:"slash",READ_SPACE:"blank",SPEED_PARAM:"speedValue",TEXT_PARAM:"text",TIMEOUT_INTERVAL:30000,audioPlayer:void 0,clickable:new LzAlwaysExpr("$mrj","$mrk",null),currentText:"",dRequestor:new LzOnceExpr("$mrm",null),dTimeout:new LzOnceExpr("$mrl",null),dcheckIfPlaying:new LzOnceExpr("$mrn",null),eraserFlag:new LzOnceExpr("$mrq",null),height:0,highlightFlag:new LzOnceExpr("$mrp",null),id:"gReadableText",isReadable:new LzAlwaysExpr("$mrr","$mrs",null),isenabled:new LzOnceExpr("$mri",null),isplaying:false,options:{ignorelayout:true},primed:false,readingScratchpad:false,speechRequestSent:false,visible:false,width:0},"class":$lzc$class__mry},2);lz.ClassAttributeTypes["$lzc$class__msr"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+}},AUDIO_FORMAT:"audioFormat",GET_URL:void 0,READ_PERIOD:"point",READ_SELECTION_REMOVED:"selection removed.",READ_SLASH:"slash",READ_SPACE:"blank",SPEED_PARAM:"speedValue",TEXT_PARAM:"text",TIMEOUT_INTERVAL:30000,audioPlayer:void 0,clickable:new LzAlwaysExpr("$mrj","$mrk",null),currentText:"",dRequestor:new LzOnceExpr("$mrm",null),dTimeout:new LzOnceExpr("$mrl",null),dcheckIfPlaying:new LzOnceExpr("$mrn",null),eraserFlag:new LzOnceExpr("$mrq",null),height:0,highlightFlag:new LzOnceExpr("$mrp",null),id:"gReadableText",isReadable:new LzAlwaysExpr("$mrr","$mrs",null),isenabled:new LzOnceExpr("$mri",null),isplaying:false,options:{ignorelayout:true},primed:false,readingScratchpad:false,speechRequestSent:false,visible:false,width:0},"class":$lzc$class__mry},2);lz.ClassAttributeTypes["$lzc$class__msr"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class__msr",["$msb",function($0){
 var $1=this.classroot.thetext.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
@@ -26244,11 +26240,8 @@ LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAt
 }}})($lzc$class__m23p)
 };lz.ClassAttributeTypes["vol_sliderthumb"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basesliderthumb"],{});{
 Class.make("$lzc$class_vol_sliderthumb",["$m23q",function($0){
-console.log("onmouseup of thumb");if(!canvas.isPreviewer){
-this.setAttribute("clickable",false);gReadableText.setPlayerVolume(gManipulativeBar.screenreader.volumeController.volumeControl.value)
-}else{
-gManipulativeBar.screenreader.volumeController.volumeControl.value=gManipulativeBar.screenreader.volumeController.volumeControl.value/100;gReadableText.audioPlayer.setAttribute("volume",gManipulativeBar.screenreader.volumeController.volumeControl.value);console.log("ELSE----onmouseup of thumb"+gManipulativeBar.screenreader.volumeController.volumeControl.value)
-}},"$lzsc$initialize",function($0,$1,$2,$3){
+gReadableText.audioPlayer.setAttribute("volume",gManipulativeBar.screenreader.volumeController.volumeControl.value/100)
+},"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -27565,8 +27558,8 @@ lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
 }},"$m26i",function($0){
 if(this.classroot.speedSelected!=this.value){
-if(gReadableText.isplaying&&gReadableText.isReadable&&gReadableText.clickable&&gReadableText.currentText.length>0){
-gReadableText.read(gReadableText.currentText,false)
+this.classroot.setAttribute("speedSelected",this.value);if(gReadableText.isPlaying&&gReadableText.isReadable&&gReadableText.clickable&&gReadableText.currentText.length>0){
+console.log("onselect should read====");gReadableText.read(gReadableText.currentText,false)
 }}},"$classrootdepth",void 0,"$datapath",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
@@ -31066,7 +31059,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2gq"]}},$lzc$class__m2gq.attributes)
 }}})($lzc$class__m2gq)
-};lz.ClassAttributeTypes["$lzc$class__m2go"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{CHECK_PROD_TYPE_METHOD:"string",DEFAULT_TYPE:"string",DOWNLOAD_STATE:"string",FEEDBACK_STATE:"string",FINISH_LEV:"string",FINISH_SAVE_STATE:"string",FINISH_STATE:"string",INIT_LEV:"string",LOGIN_STATE:"string",MAX_CR_ID:"number",NONE_STATE:"string",OUT_OF_TIME_OPEN_STATE:"string",PAUSED_RESUME_STATE:"string",PAUSE_LEV:"string",PAUSE_STATE:"string",RESUME_LEV:"string",RestartTest:"boolean",SAVE_END_SUBTEST_STATE:"string",SAVE_LEV:"string",SAVE_LOAD_STATE:"string",SAVE_METHOD:"string",STOP_LEV:"string",SUBTEST_FINISH_STATE:"string",SUBTEST_STATE:"string",TERMINATED_LEV:"string",THEME_TYPE:"string",TIMEOUT_STATE:"string",TIMER_INTERVAL:"number",TUTORIAL_COMPLETE_STATE:"string",UPLOAD_AUDIT_FILE_STATE:"string",WRITE_TO_AUDIT_FILE_STATE:"string",accesscode:"string",allowRevisit:"boolean",alphabetString:"string",answerBgColor:"color",answerFontColor:"color",answerPanelLayout:"string",applyFlashFix:"boolean",blockFileName:"boolean",calcFormulaCardResource:"string",catOver:"boolean",communicatorResponse:"string",currentCrId:"number",currentSubtestIndex:"number",doUnlockUI:"boolean",durationms:"number",durationmsforpause:"number",elapsedms:"number",elapsedmsforpause:"number",findAnswer:"boolean",firstSubtest:"boolean",focusOnGr:"boolean",focusOnScratchpad:"boolean",formulaCardResource:"string",fwdOnly:"boolean",gAnsweredCount:"number",gCurrentItemPos:"number",gPrevStimulusId:"number",gStimulusId:"number",hasDynamicRefCard:"boolean",hasFontAccommodation:"boolean",hasTNorFCATrefCard:"boolean",hasTTSspeed:"boolean",heartbeatResult:"string",iframeDragActive:"boolean",iframeid:"string",inQuestion:"boolean",isAnswerAreaDisabled:"boolean",isAnswerSet:"boolean",isEnlargeable:"boolean",isFinishTest:"boolean",isHandlerInactive:"boolean",isISTEP:"boolean",isLoginResponseHavingSeed:"boolean",isOneCalculatorOpen:"boolean",isPreviewer:"boolean",isRelogin:"boolean",isRevisitPopupOpen:"boolean",isSizer:"boolean",isStopButtonClicked:"boolean",isStopScreen:"boolean",isStopTest:"boolean",isTE:"boolean",isTI30CalculatorOpen:"boolean",isTI84CalculatorOpen:"boolean",isWaitPopupAfter60SecOpen:"boolean",isWaitPopupOpen:"boolean",isWritingPopupOpen:"boolean",isaudio:"boolean",iskeyEnabled:"boolean",istLength:"number",istRestartLength:"number",itemHasRationalNode:"boolean",maxModBase:"number",modBase:"number",navigateConfirm:"boolean",newModBase:"number",nextItem:"number",password:"string",playIfAnswered:"boolean",prevItemId:"number",productTypeVal:"string",qtimestamp:"number",qtimestampforpause:"number",questionBgColor:"color",questionFontColor:"color",recordingStopped:"boolean",relogin:"boolean",requestPending:"boolean",restartItemCount:"number",scratchpadOpen:"boolean",seed:"number",seedDigitSum:"number",sendCatSave:"boolean",showPleaseWaitOver:"boolean",skipCacheDestroy:"boolean",state:"string",subtestLength:"number",subtestTitle:"string",timeoutforpause:"boolean",timerInterval:"number",timing:"boolean",timingforpause:"boolean",trackTimer:"number",userid:"string",zoomClicked:"boolean"});{
+};lz.ClassAttributeTypes["$lzc$class__m2go"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{CHECK_PROD_TYPE_METHOD:"string",DEFAULT_TYPE:"string",DOWNLOAD_STATE:"string",FEEDBACK_STATE:"string",FINISH_LEV:"string",FINISH_SAVE_STATE:"string",FINISH_STATE:"string",INIT_LEV:"string",LOGIN_STATE:"string",MAX_CR_ID:"number",NONE_STATE:"string",OUT_OF_TIME_OPEN_STATE:"string",PAUSED_RESUME_STATE:"string",PAUSE_LEV:"string",PAUSE_STATE:"string",RESUME_LEV:"string",RestartTest:"boolean",SAVE_END_SUBTEST_STATE:"string",SAVE_LEV:"string",SAVE_LOAD_STATE:"string",SAVE_METHOD:"string",STOP_LEV:"string",SUBTEST_FINISH_STATE:"string",SUBTEST_STATE:"string",TERMINATED_LEV:"string",THEME_TYPE:"string",TIMEOUT_STATE:"string",TIMER_INTERVAL:"number",TUTORIAL_COMPLETE_STATE:"string",UPLOAD_AUDIT_FILE_STATE:"string",WRITE_TO_AUDIT_FILE_STATE:"string",accesscode:"string",allowRevisit:"boolean",alphabetString:"string",answerBgColor:"color",answerFontColor:"color",answerPanelLayout:"string",applyFlashFix:"boolean",audioFormat:"string",blockFileName:"boolean",calcFormulaCardResource:"string",catOver:"boolean",communicatorResponse:"string",currentCrId:"number",currentSubtestIndex:"number",doUnlockUI:"boolean",durationms:"number",durationmsforpause:"number",elapsedms:"number",elapsedmsforpause:"number",findAnswer:"boolean",firstSubtest:"boolean",focusOnGr:"boolean",focusOnScratchpad:"boolean",formulaCardResource:"string",fwdOnly:"boolean",gAnsweredCount:"number",gCurrentItemPos:"number",gPrevStimulusId:"number",gStimulusId:"number",hasDynamicRefCard:"boolean",hasFontAccommodation:"boolean",hasTNorFCATrefCard:"boolean",hasTTSspeed:"boolean",heartbeatResult:"string",iframeDragActive:"boolean",iframeid:"string",inQuestion:"boolean",isAnswerAreaDisabled:"boolean",isAnswerSet:"boolean",isEnlargeable:"boolean",isFinishTest:"boolean",isHandlerInactive:"boolean",isISTEP:"boolean",isLoginResponseHavingSeed:"boolean",isOneCalculatorOpen:"boolean",isPreviewer:"boolean",isRelogin:"boolean",isRevisitPopupOpen:"boolean",isSizer:"boolean",isStopButtonClicked:"boolean",isStopScreen:"boolean",isStopTest:"boolean",isTE:"boolean",isTI30CalculatorOpen:"boolean",isTI84CalculatorOpen:"boolean",isWaitPopupAfter60SecOpen:"boolean",isWaitPopupOpen:"boolean",isWritingPopupOpen:"boolean",isaudio:"boolean",iskeyEnabled:"boolean",istLength:"number",istRestartLength:"number",itemHasRationalNode:"boolean",maxModBase:"number",modBase:"number",navigateConfirm:"boolean",newModBase:"number",nextItem:"number",password:"string",playIfAnswered:"boolean",prevItemId:"number",productTypeVal:"string",qtimestamp:"number",qtimestampforpause:"number",questionBgColor:"color",questionFontColor:"color",recordingStopped:"boolean",relogin:"boolean",requestPending:"boolean",restartItemCount:"number",scratchpadOpen:"boolean",seed:"number",seedDigitSum:"number",sendCatSave:"boolean",showPleaseWaitOver:"boolean",skipCacheDestroy:"boolean",state:"string",subtestLength:"number",subtestTitle:"string",timeoutforpause:"boolean",timerInterval:"number",timing:"boolean",timingforpause:"boolean",trackTimer:"number",userid:"string",zoomClicked:"boolean"});{
 Class.make("$lzc$class__m2go",["$m2f6",function($0){
 this.setAttribute("dp",new (lz.datapointer)())
 },"dp",void 0,"$m2f7",function($0){
@@ -31176,7 +31169,7 @@ this.setAttribute("largeCharacterDetector",new (lz.LargeCharacterDetector)())
 this.setAttribute("drelogin",new LzDelegate(this,"relaunch"))
 },"drelogin",void 0,"isTE",void 0,"$m2g8",function($0){
 this.setAttribute("textHistory",new (lz.TextFieldHistory)())
-},"textHistory",void 0,"isAnswerAreaDisabled",void 0,"musicSliderReff",void 0,"subtestTitle",void 0,"isWritingPopupOpen",void 0,"cancelIframeDrag",function(){
+},"textHistory",void 0,"isAnswerAreaDisabled",void 0,"musicSliderReff",void 0,"subtestTitle",void 0,"isWritingPopupOpen",void 0,"audioFormat",void 0,"cancelIframeDrag",function(){
 if(this.htmlFields.length==1){
 var $0=this.htmlFields[0].frameObj;if($0==null){
 $0=this.htmlFields[0]["ref"].getIframeObject()
@@ -31196,7 +31189,11 @@ $2.setAttr("type",this.DEFAULT_TYPE)
 }}},"clearScratchpad",function(){
 this.setAttribute("scratchpadOpen",false);gScratchpad.setAttribute("text","")
 },"$m2ga",function($0){
-this.setAttribute("isHandlerInactive",true);this.checkIsProduct();var $1=lz.Browser.getInitArg("servletUrl");dsitem.setAttribute("src",$1+"/ContentServlet.do");dsMusic.setAttribute("src",$1+"/ContentServlet.do")
+this.audioFormat="mp3";if(navigator.appVersion.indexOf("Mac")!=-1){
+this.audioFormat="mp3"
+}else{
+this.audioFormat="ogg"
+};this.setAttribute("isHandlerInactive",true);this.checkIsProduct();var $1=lz.Browser.getInitArg("servletUrl");dsitem.setAttribute("src",$1+"/ContentServlet.do");dsMusic.setAttribute("src",$1+"/ContentServlet.do")
 },"checkIsProduct",function(){
 this.setState(this.CHECK_PROD_TYPE_METHOD);gCommunicator.checkIsProduct()
 },"login",function($0,$1,$2){
@@ -32027,7 +32024,7 @@ gScratchpad.restoreFocusAndCursor()
 }else{
 gScratchpad.setAttribute("scratchpadHasFocus",false)
 }},"finishTest",function(){
-gController.setAttribute("isAnswerAreaDisabled",true);this.doArrowMouseup();gTooltip.hideTooltip();gReadableText.stopReading(false);this.freezeUI();if(gScratchpad.scratchpadHasFocus){
+this.stopTimer();this.setAttribute("isStopButtonClicked",true);gController.setAttribute("isAnswerAreaDisabled",true);this.doArrowMouseup();gTooltip.hideTooltip();gReadableText.stopReading(false);this.freezeUI();if(gScratchpad.scratchpadHasFocus){
 gController.setAttribute("focusOnScratchpad",true)
 }else{
 gController.setAttribute("focusOnScratchpad",false)
@@ -32993,7 +32990,9 @@ if(gController.subtestTitle.indexOf("writing")>=0||gController.subtestTitle.inde
 this.setTextToWritingDialog();this.openWritingDialog()
 }}}},"openWritingDialog",function(){
 if(gItemInterface.visible){
-restrictQuestionOverlay.setAttribute("opacity","2");restrictQuestionOverlay.setAttribute("visible",true);restrictResponseOverlay.setAttribute("visible",true);gHotKeys.disableKeys();this.checkHideMagnifierGlass();this.checkHideMaskingChoiceDD();gMaskingRuler.setAttribute("visible",false);gTooltip.hideTooltip();if(this.manipButtonRef!=undefined&&this.manipButtonRef.isButtonMouseOver){
+restrictQuestionOverlay.setAttribute("opacity","2");restrictQuestionOverlay.setAttribute("visible",true);restrictResponseOverlay.setAttribute("visible",true);gHotKeys.disableKeys();this.checkHideMagnifierGlass();this.checkHideMaskingChoiceDD();var $0=this.dpstudentdata.xpathQuery("testing_client_model:/current_item/item_model/manipulatives/global/@masking_ruler");if($0=="sel"){
+gMaskingRuler.setAttribute("visible",false)
+};gTooltip.hideTooltip();if(this.manipButtonRef!=undefined&&this.manipButtonRef.isButtonMouseOver){
 this.manipButtonRef.onmouseout.sendEvent()
 };this.hideTICalculators();this.hideManipulatives();if(this.questionBar!=undefined&&this.questionBar.isButtonMouseOver){
 this.questionBar._changeStatus(false)
@@ -33003,7 +33002,9 @@ gEnlargePopup.setAttribute("visible",false)
 };this.stopTimer();writingDialog.open();this.setAttribute("isWritingPopupOpen",true);gController.clearCurrentCursor();lz.Cursor.showHandCursor(false)
 },"closeWritingDialog",function(){
 if(gItemInterface.visible){
-restrictQuestionOverlay.setAttribute("opacity","0.00001");restrictQuestionOverlay.setAttribute("visible",false);restrictResponseOverlay.setAttribute("visible",false);gHotKeys.enableKeys();this.checkShowMagnifierGlass();this.checkShowMaskingChoiceDD();gMaskingRuler.setAttribute("visible",true);this.showTICalculators();this.showManipulatives()
+restrictQuestionOverlay.setAttribute("opacity","0.00001");restrictQuestionOverlay.setAttribute("visible",false);restrictResponseOverlay.setAttribute("visible",false);gHotKeys.enableKeys();this.checkShowMagnifierGlass();this.checkShowMaskingChoiceDD();var $0=this.dpstudentdata.xpathQuery("testing_client_model:/current_item/item_model/manipulatives/global/@masking_ruler");if($0=="sel"){
+gMaskingRuler.setAttribute("visible",true)
+};this.showTICalculators();this.showManipulatives()
 }else if(gScreens.contents.fs.visible){
 restrictQuestionOverlay.setAttribute("opacity","0.00001");restrictQuestionOverlay.setAttribute("visible",false);restrictResponseOverlay.setAttribute("visible",false)
 };this.startQuestion();writingDialog.close();this.setAttribute("isWritingPopupOpen",false)
@@ -33038,7 +33039,7 @@ $1=true;
 $0.id="gController";gController=$0
 }else if(gController===$0){
 gController=null;$0.id=null
-}},CHECK_PROD_TYPE_METHOD:"isProductCheck",DEFAULT_TYPE:"UN",DOWNLOAD_STATE:"download",FEEDBACK_STATE:"feedback",FINISH_LEV:"lms_finish",FINISH_SAVE_STATE:"finishSave",FINISH_STATE:"finish",INIT_LEV:"lms_initialize",LOGIN_STATE:"login",MAX_CR_ID:10000000000,NONE_STATE:"none",OUT_OF_TIME_OPEN_STATE:"outOfTimeOpen",PAUSED_RESUME_STATE:"pausedResume",PAUSE_LEV:"stu_pause",PAUSE_STATE:"pause",RESUME_LEV:"stu_resume",RestartTest:false,SAVE_END_SUBTEST_STATE:"saveEndSubtest",SAVE_LEV:"stu_save",SAVE_LOAD_STATE:"saveload",SAVE_METHOD:"savemethod",STOP_LEV:"stu_stop",SUBTEST_FINISH_STATE:"subtestFinish",SUBTEST_STATE:"subtest",TERMINATED_LEV:"terminated",THEME_TYPE:"NI",TIMEOUT_STATE:"timeout",TIMER_INTERVAL:500,TUTORIAL_COMPLETE_STATE:"tutorialComplete",UPLOAD_AUDIT_FILE_STATE:"uploadAuditFile",WARNING_MINUTE:3,WRITE_TO_AUDIT_FILE_STATE:"writeToAuditFile",abScore:0,accesscode:"null",accomstyles:void 0,adaptive:new LzOnceExpr("$m2g2",null),allowRevisit:true,alphabetString:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",answerArray:new LzOnceExpr("$m2fr",null),answerBgColor:16777136,answerFontColor:0,answerObj:new LzOnceExpr("$m2fy",null),answerPanelLayout:"vertical",answerdp:new LzOnceExpr("$m2f7",null),answeredDel:new LzOnceExpr("$m2fx",null),applyFlashFix:false,assignedRandomDistractorIndex:new LzOnceExpr("$m2fn",null),audible:new LzOnceExpr("$m2gf",null),audioArray:new LzOnceExpr("$m2fe",null),audioFields:new LzOnceExpr("$m2fb",null),audioId:void 0,blockFileName:false,calcFormulaCardResource:"false",catOver:false,communicatorResponse:"null",crFields:new LzOnceExpr("$m2fa",null),currentCrId:10000000000,currentImageId:null,currentSubtestIndex:0,dNetworkLostPopup:new LzOnceExpr("$m2fo",null),dRestoreCursor:new LzOnceExpr("$m2g5",null),dcloseBrowser:new LzOnceExpr("$m2gc",null),displayText:false,distractorArrayFor3:new LzAlwaysExpr("$m2ff","$m2fg",null),distractorArrayFor4:new LzAlwaysExpr("$m2fh","$m2fi",null),distractorArrayFor5:new LzAlwaysExpr("$m2fj","$m2fk",null),doUnlockUI:true,dp:new LzOnceExpr("$m2f6",null),dpdisplay:void 0,dpitem:void 0,dplogin:void 0,dprestart:void 0,dpstimulus:void 0,dpstudentdata:void 0,dpsubtest:void 0,dpsubtestdata:void 0,dptemp:void 0,drelogin:new LzOnceExpr("$m2g7",null),dsendHeartbeat:new LzOnceExpr("$m2gj",null),dsform:void 0,dshowClient:new LzOnceExpr("$m2ft",null),dupdateTimeLeft:new LzOnceExpr("$m2gk",null),dupdateTimeLeftForPause:new LzOnceExpr("$m2gm",null),durationms:0,durationmsforpause:0,elapsedms:0,elapsedmsforpause:0,findAnswer:true,firstSubtest:true,focusOnGr:false,focusOnScratchpad:false,formulaCardResource:"false",fwdOnly:false,gAnsweredCount:0,gCurrentItemPos:0,gPrevStimulusId:0,gStimulusId:0,hasDynamicRefCard:false,hasFontAccommodation:false,hasTNorFCATrefCard:false,hasTTSspeed:false,heartbeatResult:"null",htmlFields:new LzOnceExpr("$m2fw",null),id:"gController",idImageFieldTemp:new LzOnceExpr("$m2fd",null),idImageFields:new LzOnceExpr("$m2fc",null),iframeDragActive:false,iframeid:"NONE",imageData:new LzOnceExpr("$m2fv",null),imageLIArray:new LzOnceExpr("$m2fq",null),inQuestion:false,isAnswerAreaDisabled:false,isAnswerSet:false,isAudioPlaying:void 0,isEnlargeable:false,isFinishTest:false,isHandlerInactive:false,isISTEP:false,isLoginResponseHavingSeed:false,isOneCalculatorOpen:false,isPreviewer:new LzOnceExpr("$m2f9",null),isRelogin:false,isRevisitPopupOpen:false,isSizer:false,isStopButtonClicked:false,isStopScreen:false,isStopTest:true,isTE:false,isTI30CalculatorOpen:false,isTI84CalculatorOpen:false,isWaitPopupAfter60SecOpen:false,isWaitPopupOpen:false,isWritingPopupOpen:false,isaudio:false,iskeyEnabled:true,istLength:0,istRestartLength:0,isuntimed:new LzOnceExpr("$m2gl",null),itemHasRationalNode:false,itemloaded:false,largeCharacterDetector:new LzOnceExpr("$m2g6",null),lasAssetArray:new LzOnceExpr("$m2fz",null),lastPlayOrderId:void 0,loadNode:void 0,lsid:0,magnifierState:false,magnifierVisible:false,manipButtonRef:void 0,manipSelected:void 0,maskingAnswerDDState:false,maxModBase:51,modBase:24,musicId:new LzOnceExpr("$m2gg",null),musicSliderReff:void 0,navigateConfirm:false,newModBase:24,nextItem:0,objScore:null,password:"null",pausable:new LzOnceExpr("$m2ge",null),pending:new LzOnceExpr("$m2gh",null),playIfAnswered:false,prevItemId:0,productTypeVal:"ISTEP",qtimestamp:0,qtimestampforpause:0,questionBgColor:16777215,questionFontColor:0,randomIndexArray:new LzAlwaysExpr("$m2fl","$m2fm",null),recorder:null,recorderField:new LzOnceExpr("$m2fp",null),recordingStopped:false,relogin:false,requestPending:false,restartItemCount:0,restartscid:0,runtimeready:false,scid:0,scratchpadOpen:false,seed:void 0,seedDigitSum:void 0,sem:0,sendCatSave:true,showMaskingAnswerPopUp:false,showPleaseWaitOver:false,skipCacheDestroy:false,state:new LzOnceExpr("$m2f8",null),stuLoginDetails:new LzOnceExpr("$m2fu",null),stylesArr:new LzAlwaysExpr("$m2g3","$m2g4",null),subtestLength:0,subtestTitle:"",tempAnsArray:new LzOnceExpr("$m2fs",null),testSessionData:null,textHistory:new LzOnceExpr("$m2g8",null),timeoutforpause:false,timerInterval:1200000,timing:false,timingforpause:false,totalNumberOfTests:null,trackDel:new LzOnceExpr("$m2gn",null),trackTimer:0,trackingcomponents:false,uisemaphore:1,userid:"null",youarehereset:false,zoomClicked:false},"class":$lzc$class__m2go},11);lz.ClassAttributeTypes["LoginButton"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
+}},CHECK_PROD_TYPE_METHOD:"isProductCheck",DEFAULT_TYPE:"UN",DOWNLOAD_STATE:"download",FEEDBACK_STATE:"feedback",FINISH_LEV:"lms_finish",FINISH_SAVE_STATE:"finishSave",FINISH_STATE:"finish",INIT_LEV:"lms_initialize",LOGIN_STATE:"login",MAX_CR_ID:10000000000,NONE_STATE:"none",OUT_OF_TIME_OPEN_STATE:"outOfTimeOpen",PAUSED_RESUME_STATE:"pausedResume",PAUSE_LEV:"stu_pause",PAUSE_STATE:"pause",RESUME_LEV:"stu_resume",RestartTest:false,SAVE_END_SUBTEST_STATE:"saveEndSubtest",SAVE_LEV:"stu_save",SAVE_LOAD_STATE:"saveload",SAVE_METHOD:"savemethod",STOP_LEV:"stu_stop",SUBTEST_FINISH_STATE:"subtestFinish",SUBTEST_STATE:"subtest",TERMINATED_LEV:"terminated",THEME_TYPE:"NI",TIMEOUT_STATE:"timeout",TIMER_INTERVAL:500,TUTORIAL_COMPLETE_STATE:"tutorialComplete",UPLOAD_AUDIT_FILE_STATE:"uploadAuditFile",WARNING_MINUTE:3,WRITE_TO_AUDIT_FILE_STATE:"writeToAuditFile",abScore:0,accesscode:"null",accomstyles:void 0,adaptive:new LzOnceExpr("$m2g2",null),allowRevisit:true,alphabetString:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",answerArray:new LzOnceExpr("$m2fr",null),answerBgColor:16777136,answerFontColor:0,answerObj:new LzOnceExpr("$m2fy",null),answerPanelLayout:"vertical",answerdp:new LzOnceExpr("$m2f7",null),answeredDel:new LzOnceExpr("$m2fx",null),applyFlashFix:false,assignedRandomDistractorIndex:new LzOnceExpr("$m2fn",null),audible:new LzOnceExpr("$m2gf",null),audioArray:new LzOnceExpr("$m2fe",null),audioFields:new LzOnceExpr("$m2fb",null),audioFormat:"null",audioId:void 0,blockFileName:false,calcFormulaCardResource:"false",catOver:false,communicatorResponse:"null",crFields:new LzOnceExpr("$m2fa",null),currentCrId:10000000000,currentImageId:null,currentSubtestIndex:0,dNetworkLostPopup:new LzOnceExpr("$m2fo",null),dRestoreCursor:new LzOnceExpr("$m2g5",null),dcloseBrowser:new LzOnceExpr("$m2gc",null),displayText:false,distractorArrayFor3:new LzAlwaysExpr("$m2ff","$m2fg",null),distractorArrayFor4:new LzAlwaysExpr("$m2fh","$m2fi",null),distractorArrayFor5:new LzAlwaysExpr("$m2fj","$m2fk",null),doUnlockUI:true,dp:new LzOnceExpr("$m2f6",null),dpdisplay:void 0,dpitem:void 0,dplogin:void 0,dprestart:void 0,dpstimulus:void 0,dpstudentdata:void 0,dpsubtest:void 0,dpsubtestdata:void 0,dptemp:void 0,drelogin:new LzOnceExpr("$m2g7",null),dsendHeartbeat:new LzOnceExpr("$m2gj",null),dsform:void 0,dshowClient:new LzOnceExpr("$m2ft",null),dupdateTimeLeft:new LzOnceExpr("$m2gk",null),dupdateTimeLeftForPause:new LzOnceExpr("$m2gm",null),durationms:0,durationmsforpause:0,elapsedms:0,elapsedmsforpause:0,findAnswer:true,firstSubtest:true,focusOnGr:false,focusOnScratchpad:false,formulaCardResource:"false",fwdOnly:false,gAnsweredCount:0,gCurrentItemPos:0,gPrevStimulusId:0,gStimulusId:0,hasDynamicRefCard:false,hasFontAccommodation:false,hasTNorFCATrefCard:false,hasTTSspeed:false,heartbeatResult:"null",htmlFields:new LzOnceExpr("$m2fw",null),id:"gController",idImageFieldTemp:new LzOnceExpr("$m2fd",null),idImageFields:new LzOnceExpr("$m2fc",null),iframeDragActive:false,iframeid:"NONE",imageData:new LzOnceExpr("$m2fv",null),imageLIArray:new LzOnceExpr("$m2fq",null),inQuestion:false,isAnswerAreaDisabled:false,isAnswerSet:false,isAudioPlaying:void 0,isEnlargeable:false,isFinishTest:false,isHandlerInactive:false,isISTEP:false,isLoginResponseHavingSeed:false,isOneCalculatorOpen:false,isPreviewer:new LzOnceExpr("$m2f9",null),isRelogin:false,isRevisitPopupOpen:false,isSizer:false,isStopButtonClicked:false,isStopScreen:false,isStopTest:true,isTE:false,isTI30CalculatorOpen:false,isTI84CalculatorOpen:false,isWaitPopupAfter60SecOpen:false,isWaitPopupOpen:false,isWritingPopupOpen:false,isaudio:false,iskeyEnabled:true,istLength:0,istRestartLength:0,isuntimed:new LzOnceExpr("$m2gl",null),itemHasRationalNode:false,itemloaded:false,largeCharacterDetector:new LzOnceExpr("$m2g6",null),lasAssetArray:new LzOnceExpr("$m2fz",null),lastPlayOrderId:void 0,loadNode:void 0,lsid:0,magnifierState:false,magnifierVisible:false,manipButtonRef:void 0,manipSelected:void 0,maskingAnswerDDState:false,maxModBase:51,modBase:24,musicId:new LzOnceExpr("$m2gg",null),musicSliderReff:void 0,navigateConfirm:false,newModBase:24,nextItem:0,objScore:null,password:"null",pausable:new LzOnceExpr("$m2ge",null),pending:new LzOnceExpr("$m2gh",null),playIfAnswered:false,prevItemId:0,productTypeVal:"ISTEP",qtimestamp:0,qtimestampforpause:0,questionBgColor:16777215,questionFontColor:0,randomIndexArray:new LzAlwaysExpr("$m2fl","$m2fm",null),recorder:null,recorderField:new LzOnceExpr("$m2fp",null),recordingStopped:false,relogin:false,requestPending:false,restartItemCount:0,restartscid:0,runtimeready:false,scid:0,scratchpadOpen:false,seed:void 0,seedDigitSum:void 0,sem:0,sendCatSave:true,showMaskingAnswerPopUp:false,showPleaseWaitOver:false,skipCacheDestroy:false,state:new LzOnceExpr("$m2f8",null),stuLoginDetails:new LzOnceExpr("$m2fu",null),stylesArr:new LzAlwaysExpr("$m2g3","$m2g4",null),subtestLength:0,subtestTitle:"",tempAnsArray:new LzOnceExpr("$m2fs",null),testSessionData:null,textHistory:new LzOnceExpr("$m2g8",null),timeoutforpause:false,timerInterval:1200000,timing:false,timingforpause:false,totalNumberOfTests:null,trackDel:new LzOnceExpr("$m2gn",null),trackTimer:0,trackingcomponents:false,uisemaphore:1,userid:"null",youarehereset:false,zoomClicked:false},"class":$lzc$class__m2go},11);lz.ClassAttributeTypes["LoginButton"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
 Class.make("$lzc$class_LoginButton",["$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
@@ -38255,6 +38256,8 @@ timeoutDialog.open()
 }},"show",function(){
 if(gController.timeoutforpause){
 timeoutDialog.close()
+};if(timeoutDialog.visible==true){
+timeoutDialog.onmouseup.sendEvent();gController.setAttribute("timeoutforpause",true);timeoutDialog.close()
 };gController.removeTrackTimer();this.setAttribute("visible",true);gPleaseWaitPopup.bringToFront();this.contents.networkLost.inBar.barAnimator.doStart();lz.ModeManager.makeModal(this);this.resetControls();gHotKeys.disableKeys();gController.setAttribute("isAnswerAreaDisabled",false);gController.hideTICalculators();gTooltip.hideTooltip()
 },"windowbg",void 0,"contents",void 0,"showControls",function(){
 gPleaseWaitPopup.contents.pleaseWait.setAttribute("visible",false);gPleaseWaitPopup.contents.retryingPopupMessage.setAttribute("visible",true);gPleaseWaitPopup.contents.exitButton.setAttribute("enabled",true)
