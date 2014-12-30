@@ -194,10 +194,10 @@ public class TTSUtil {
 		
 	}
 	
-	public MP3 speak(final String text, final String speedValue) throws Exception {
+	public MP3 speak(final String text, final String speedValue, String audioFormat) throws Exception {
 		// remote synth using TextHelp server
 		System.out.println("TTS: sending speech request");
-		String thResponse = textHelpRequest(text,speedValue);
+		String thResponse = textHelpRequest(text,speedValue,audioFormat);
 		if(thResponse == null) {
 			System.out.println("TTS: No response from TextHelp - TTS server is specified incorrectly or is down");
 			throw new Exception("No response from TextHelp.");
@@ -205,8 +205,15 @@ public class TTSUtil {
 			System.out.println("TTS: response contains error");
 			throw new Exception("Error response from TextHelp: " + thResponse);
 		} else {
-			System.out.println("TTS: Sending MP3 request");
-			String mp3URL = thResponse.substring(thResponse.indexOf("mp3=") + 4);
+			//String mp3URL = thResponse.substring(thResponse.indexOf("mp3=") + 4);
+			String mp3URL="";
+			if(thResponse.indexOf("mp3=")>=0){
+				 System.out.println("TTS: Sending MP3 request");
+				 mp3URL = thResponse.substring(thResponse.indexOf("mp3=") + 4);
+			}else{
+				 System.out.println("TTS: Sending ogg request");
+				 mp3URL = thResponse.substring(thResponse.indexOf("ogg=") + 4);
+			}
 			System.out.println("TTS: MP3 URL: " + mp3URL);
 			MP3 mp3 = textHelpMP3(mp3URL);
 			if(mp3 == null) {
@@ -503,7 +510,7 @@ public class TTSUtil {
     	return buff.toString();
     }
     
-    private String execSpeechRequest (String text, String speedValue){
+    private String execSpeechRequest (String text, String speedValue, String audioFormat){
 		String result = null;
 	
 		int responseCode = HttpStatus.SC_OK;
@@ -512,7 +519,7 @@ public class TTSUtil {
 		String method = ttsSettings.getMethod();
 		
 		if(TTSSettings.READSPEAKERMETHOD.equals(method)) {
-			return execReadspeakerSpeechRequest(text, speedValue);
+			return execReadspeakerSpeechRequest(text, speedValue, audioFormat);
 		} else if (TTSSettings.TEXTHELPMETHOD.equals(method)) {
 			return execTexthelpSpeechRequest(text, speedValue);
 		} else {
@@ -584,7 +591,7 @@ public class TTSUtil {
 		return result;
 	}
     
-    private String execReadspeakerSpeechRequest (String text, String speedValue){
+    private String execReadspeakerSpeechRequest (String text, String speedValue, String audioFormat){
 		String result = null;
 	
 		int responseCode = HttpStatus.SC_OK;
@@ -618,6 +625,11 @@ public class TTSUtil {
 			nameValuePairs.add(new BasicNameValuePair("text", text));
 			nameValuePairs.add(new BasicNameValuePair("voice", voice));
 			nameValuePairs.add(new BasicNameValuePair("speed", speedValue));
+			if(audioFormat.equals("ogg")){
+				nameValuePairs.add(new BasicNameValuePair("audioformat", "ogg"));
+			}else{
+				nameValuePairs.add(new BasicNameValuePair("audioformat", "mp3"));
+			}
 			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 			System.out.println(speechURL);
@@ -652,6 +664,9 @@ public class TTSUtil {
 				if(result.indexOf("mp3") >= 0) {
 					result = "mp3=" + result;
 					in.close();
+				}else if(result.indexOf("ogg") >= 0) {
+					result = "ogg=" + result;
+					in.close();
 				} else {
 					result = null;
 				}
@@ -662,9 +677,9 @@ public class TTSUtil {
 		return result;
 	}
     
-	public String textHelpRequest(String text, String speedValue) {
+	public String textHelpRequest(String text, String speedValue, String audioFormat) {
 		text = text.replaceAll("<", "less than");
-		String result = execSpeechRequest(text, speedValue);
+		String result = execSpeechRequest(text, speedValue,audioFormat);
 		return result;
 	}
 	

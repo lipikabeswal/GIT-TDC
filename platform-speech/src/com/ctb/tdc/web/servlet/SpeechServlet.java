@@ -120,11 +120,15 @@ public class SpeechServlet extends HttpServlet {
 			
 			if(request.getParameter("text") != null) {
 				String text = request.getParameter("text");
-				
+				String audioFormat = "mp3"; //default audio format
 			    String speedValue = "-2";
 			    
 				if(request.getParameter("speedValue") != null) {
 					speedValue = request.getParameter("speedValue");
+				}
+				//for Mac audioFormat is .mp3 and for others .ogg
+				if(request.getParameter("audioFormat") != null){
+					audioFormat = request.getParameter("audioFormat");
 				}
 				
 				MP3 mp3 = new MP3();
@@ -134,7 +138,7 @@ public class SpeechServlet extends HttpServlet {
 					//TTSUtil.decryptFile(cacheUrl.replaceAll(".mp3", ".enc"), cacheUrl);
 				} else {
 					TTSUtil ttsutil = new TTSUtil();
-					mp3 = ttsutil.speak(text,speedValue);
+					mp3 = ttsutil.speak(text,speedValue,audioFormat);
 					ttsutil = null;
 					TTSUtil.cacheFile(speedValue + text, mp3);
 				}
