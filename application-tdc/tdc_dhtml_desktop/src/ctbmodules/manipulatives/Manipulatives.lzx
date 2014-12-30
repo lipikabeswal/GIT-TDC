@@ -56,7 +56,7 @@
 			for (var i in this.subviews) {
 				if (this.subviews [i] instanceof lz.CachableComponent) {
 					this.cache.returnComponent (this.subviews [i]);
-					if(this.subviews[i] != null){
+					if(this.subviews[i] != null){//A check  added to prevent further deletion of refcard instances, once all the instances have been deleted.
 						this.subviews[i].destroy();
 					}
 		        }
