@@ -53,6 +53,12 @@
        	if(gController.timeoutforpause){
     	 	timeoutDialog.close();
     	 }
+    	// While please-wait pop-up is open, inactivity modal window should be closed.
+    	if(timeoutDialog.visible == true){
+    		timeoutDialog.onmouseup.sendEvent();
+    		gController.setAttribute('timeoutforpause',true);
+    		timeoutDialog.close();
+    	}
 		gController.removeTrackTimer();
         this.setAttribute("visible", true);
 		gPleaseWaitPopup.bringToFront();
