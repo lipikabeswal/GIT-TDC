@@ -3354,6 +3354,12 @@
  		]]></method>
 
 		<method name="finishTest"><![CDATA[
+		
+		     /*TASC: If condition is written for the story OAS967 : 
+			60 min popup for Writing */
+			this.stopTimer();
+			this.setAttribute("isStopButtonClicked",true);
+			
 			gController.setAttribute("isAnswerAreaDisabled",true);
 			this.doArrowMouseup();
 			gTooltip.hideTooltip ();
@@ -6238,7 +6244,12 @@
 				gHotKeys.disableKeys();
 				this.checkHideMagnifierGlass();
 				this.checkHideMaskingChoiceDD();
-				gMaskingRuler.setAttribute('visible',false);
+
+				var maskRulerSel = dpstudentdata.xpathQuery('testing_client_model:/current_item/item_model/manipulatives/global/@masking_ruler')
+				if(maskRulerSel == "sel"){
+					gMaskingRuler.setAttribute('visible',false);
+				}
+
 				gTooltip.hideTooltip ();
 				if(this.manipButtonRef != undefined && this.manipButtonRef.isButtonMouseOver){
 					this.manipButtonRef.onmouseout.sendEvent();
@@ -6271,7 +6282,12 @@
 				gHotKeys.enableKeys();
 				this.checkShowMagnifierGlass();
 				this.checkShowMaskingChoiceDD();
-				gMaskingRuler.setAttribute('visible',true);
+
+				var maskRulerSel = dpstudentdata.xpathQuery('testing_client_model:/current_item/item_model/manipulatives/global/@masking_ruler')
+				if(maskRulerSel == "sel"){
+					gMaskingRuler.setAttribute('visible',true);
+				}
+
 				this.showTICalculators();
 				this.showManipulatives();
 			}else if(gScreens.contents.fs.visible){
