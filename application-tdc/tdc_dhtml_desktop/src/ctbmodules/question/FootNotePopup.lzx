@@ -311,19 +311,19 @@
         if (!isClickInPopup()) {
             this.hide();
         }
-        else if(!this.closeButton.containsPt(this.closeButton.getMouse('x'),
-                                             this.closeButton.getMouse('y')) &&
-                !this.body.theScroller.containsPt(this.body.theScroller.getMouse('x'),
-                                                  this.body.theScroller.getMouse('y'))){
+        else if(!this.closeButton.containsPt((this.closeButton.getMouse('x')/canvas.xscalefactor),
+                                             (this.closeButton.getMouse('y')/canvas.xscalefactor)) &&
+                !this.body.theScroller.containsPt((this.body.theScroller.getMouse('x')/canvas.xscalefactor),
+                                                  (this.body.theScroller.getMouse('y')/canvas.xscalefactor))){
         	readMe();
         }
     ]]></method>
 
 	<method name="isClickInPopup"><![CDATA[
-		var clickInRoot = this.containsPt(this.getMouse("x"),
-                                          this.getMouse("y"));
-        var clickInArrow = this.arrow.containsPt(this.arrow.getMouse("x"),
-                                                 this.arrow.getMouse("y"));
+		var clickInRoot = this.containsPt((this.getMouse("x")/canvas.xscalefactor),
+                                          (this.getMouse("y")/canvas.xscalefactor));
+        var clickInArrow = this.arrow.containsPt((this.arrow.getMouse("x")/canvas.xscalefactor),
+                                                 (this.arrow.getMouse("y")/canvas.xscalefactor));
 		return (clickInRoot || clickInArrow);
 	]]></method>
 	

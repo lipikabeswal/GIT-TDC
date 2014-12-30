@@ -13,7 +13,7 @@
 	<attribute name="bg" type="color" value="0xFFFFFF"/>
 	<attribute name="fg" type="color" value="0x000000"/> 	
 	<method name="checkClick" args="ignore=null">
-		if(!this.containsPt(this.getMouse('x'), this.getMouse('y'))){
+		if(!this.containsPt((this.getMouse('x')/canvas.xscalefactor), (this.getMouse('y')/canvas.xscalefactor))){
 			this.hide();
 		}
         else if(!this.contents.closeButton.containsPt(this.contents.closeButton.getMouse('x'),
@@ -58,6 +58,8 @@
         contents.rationale.setAttribute('text', txt);
         this.clickdel.register (lz.GlobalMouse, 'onmousedown');        
         this.setAttribute("visible", true);
+        this.setAttribute("fg",gController.questionFontColor);
+        this.setAttribute("bg",gController.questionBgColor);
     </method>
 
     <drawview name="windowbg" width="${parent.popupWidth}" height="${parent.popupHeight}">

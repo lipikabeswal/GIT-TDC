@@ -62,6 +62,7 @@
         gHotKeys.disableKeys();
         gController.setAttribute('isAnswerAreaDisabled',false);
         gController.hideTICalculators();//hide TI calculators when please wait popup is opened if calc was open previously
+        gTooltip.hideTooltip();
         /* commenting code to fix defect #77441 and #77444 */ 
 		/*if(this.manipRef != undefined)
         	this.manipRef.onmouseup.sendEvent();*/  
