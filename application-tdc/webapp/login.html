@@ -1062,7 +1062,16 @@ var answerChoiceHandler = function(){
 		    			
 		   		 }
 			} 
-	return {keyPressedDown:keyPressedDown, keyPressedUp:keyPressedUp, downedKeysArr:downedKeysArr, isMetaKeyDown:isMetaKeyDown}
+		function clearDownedKeysArr() {
+			if(downedKeysArr != null){
+				while(downedKeysArr.length > 0){
+					console.log("Poping array*****");
+					downedKeysArr.pop();
+				}
+			}
+		}
+
+	return {keyPressedDown:keyPressedDown, keyPressedUp:keyPressedUp, downedKeysArr:downedKeysArr, isMetaKeyDown:isMetaKeyDown, clearDownedKeysArr:clearDownedKeysArr}
 }();
 
  // to disabled the tab key when Scratchpad is opened 
