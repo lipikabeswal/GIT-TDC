@@ -3320,6 +3320,7 @@
 			hideTICalculators(); //hide TI calculators when on pause screen
 			gTooltip.hideTooltip();
 			gController.setAttribute("isAnswerAreaDisabled",false);
+			answerChoiceHandler.clearDownedKeysArr(); 
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3470,7 +3471,8 @@
 				gScreens.showFinish( totalQuestions() - totalAnswered(),
 	                                 totalMarked() );
 			}
-             gController.setAttribute("isAnswerAreaDisabled",false);          
+             gController.setAttribute("isAnswerAreaDisabled",false);       
+             answerChoiceHandler.clearDownedKeysArr();   
 		]]></method>
 
 		<!-- TI calculators implementation start-->
