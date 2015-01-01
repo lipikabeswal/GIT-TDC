@@ -545,6 +545,9 @@
 		<attribute name="timeoutforpause" type="boolean" value="false" />
 		<attribute name="trackTimer" type="number" value="0"/>
 		
+		<!-- Changes for Language Switch for Espanol Test -->
+		<attribute name="language" type="string" value="English"/>
+		
 		<!--
 			============================================================
 			Datapointers
@@ -585,7 +588,22 @@
 
 		<datapointer name="dptemp" xpath="dstemp:/answers" />
 		
-		<datapointer name="dpsubtestdata" xpath="dssubtest:/subtest/ob_assessment/assessment_title"/>
+		<datapointer name="dpsubtestdata" xpath="dssubtest:/subtest/ob_assessment/assessment_title">
+		<handler name="ondata"><![CDATA[
+			
+				var lang = gController.dpsubtestdata.xpathQuery('@language');   // taking language value
+				if((typeof(lang)) != "undefined") { // case if language is provided in test
+					gController.setAttribute('language',lang);
+				}else{
+					gController.setAttribute('language',"English");
+				}
+				// Case when Language attribute is present in test, but value is not provided.
+				if((gController.language.indexOf('Spanish') < 0) && gController.language.indexOf('English') < 0){
+		
+					gController.setAttribute('language',"English");
+				}
+			]]></handler>
+		</datapointer>
 		
 		<attribute name="fwdOnly" value="false" type="boolean" />
 		<attribute name="adaptive" value="$path{ 'dssubtest:/subtest/sco/@adaptive' }"/>
@@ -6304,9 +6322,9 @@
 		</method>
 		<method name="setTextToWritingDialog">
 		<![CDATA[
-			if(gController.subtestTitle.indexOf('escritura') >= 0){
+		    if(gController.language.indexOf("Spanish") >= 0){
 				writingDialog.spanishText.setAttribute('visible',true);
-			}else if(gController.subtestTitle.indexOf('writing') >= 0){
+			}else if(gController.language.indexOf("English") >= 0){
 				writingDialog.englishText.setAttribute('visible',true);
 			}
 		]]>

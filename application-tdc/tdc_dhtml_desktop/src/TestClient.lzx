@@ -302,8 +302,8 @@
 						 width="100%"
 						 multiline="true" visible="false">
 						 Quedan 60 minutos para terminar el examen de escritura. La última pregunta del examen es un ensayo. 
-						 Debes dejar 45 minutos para redactar el ensayo. Si no has comenzado a redactar el ensayo, debes comenzar d
-			             entro de los próximos 15 minutos con el fin de tener suficiente tiempo para completarlo.
+						 Debes dejar 45 minutos para redactar el ensayo. Si no has comenzado a redactar el ensayo, debes comenzar 
+			             dentro de los próximos 15 minutos con el fin de tener suficiente tiempo para completarlo.
 			           </text>	
 				    <view align="center" valign="middle" layout="axis:x; spacing:20">
 				      <OkButton>
