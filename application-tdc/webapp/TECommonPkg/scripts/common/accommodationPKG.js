@@ -746,21 +746,31 @@ function accommodationPKG() {
                     var text = $(document.elementFromPoint(x1, y1));
                     if ($(text).is("div.text")) {
                         textEle = text;
+						
                     } else if ($(text).is("div.textarea")) {
                         textEle = text.find("div.text").eq(0);
+						
                     } else {
                         textEle = text.parents(".text").eq(0);
+						
                     }
                     selectStart = true;
 					if (textEle && textEle.length > 0 && textEle[0].scrollHeight > textEle.outerHeight(true) + 5) {
 						isScrollableDivY = true;
                         prevX = "NA";
                         prevY = "NA";
-                        initialScrollHeight = 6;//padding adjustments
+                        initialScrollHeight = 25;//padding adjustments
                         initialScrollWidth = 0;
+						
 						//Defect 80253 fix
                         $(textEle).children().each(function () {
+							if(!$(this).hasClass("highlighter"))
+							{
 							initialScrollHeight += $(this).outerHeight();
+							
+							
+							}
+							
                             initialScrollWidth = $(this).outerWidth() > initialScrollWidth ? $(this).outerWidth() : initialScrollWidth;
 							
                         });
@@ -1085,6 +1095,7 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
         var currentLeft = (event.clientX * transX) - actualParentOffsetLeft + $(targetObj).scrollLeft();
         var targetObjHeight = $(targetObj).height();
         var targetObjWidth = $(targetObj).width();
+		
 		
         var width = 0;
         var height = 0;
