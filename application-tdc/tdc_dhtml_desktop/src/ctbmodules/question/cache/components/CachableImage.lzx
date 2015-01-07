@@ -368,6 +368,11 @@
         	<handler name="onclick">
         		classroot.read();
         	</handler>
+        	<handler name="onmouseover">
+                   if(classroot.readable){
+                   		this.setAttribute('showhandcursor',true);
+                   	}	
+             </handler>
         	
         	<handler name="onload">
 				if(classroot.isaudio){
