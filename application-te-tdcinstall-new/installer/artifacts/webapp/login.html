@@ -1033,7 +1033,11 @@ var answerChoiceHandler = function(){
 		 	  		 //Used to block right option key in Windows
 		 	  		return false;
 		 	  	}
-		 	  	if(downedKeysArr.indexOf(evtobj.keyCode) < 0  && !(evtobj.which == 16) && !(evtobj.which == 20) && !isMetaKeyDown)
+		 	  	if(!gController.isCrItem() && evtobj.which == 86 && isMetaKeyDown){
+		 	  		//console.log("***GOT Cmd+V****");
+		 	  		return false;
+		 	  	}
+		 	  	if(downedKeysArr.indexOf(evtobj.keyCode) < 0  && !(evtobj.which == 16) && !(evtobj.which == 20) && !isMetaKeyDown && !gController.isCrItem())
 		      	{
 		      		downedKeysArr.push(evtobj.keyCode);
 		      		
@@ -1042,15 +1046,14 @@ var answerChoiceHandler = function(){
 		}
 		
 		function keyPressedUp(e) {
-				if(!gController.isCrItem() && (gItemInterface.visible == true || gItemInterface.visible == 'true')){
 				     	var evtobj = window.event? event : e;
 		 	  			if((checkMac.indexOf("Mac") != -1) && (evtobj.which == 91 || evtobj.which == 93 || evtobj.which == 192)){
 		 	  				isMetaKeyDown = false;
 				 	  		return false;
 		 	  			}
-		 	  			var index=downedKeysArr.indexOf(evtobj.keyCode);
+				if(!gController.isCrItem() && (gItemInterface.visible == true || gItemInterface.visible == 'true')){
+				     	var index=downedKeysArr.indexOf(evtobj.keyCode);
 				   		if (index >= 0) {
-				   		//prevent selection for hotkeys when focus is on scratchpad
 				   				if(downedKeysArr.length == 1 && (evtobj.which >= 65 || evtobj.which <= 74) && !gController.isCrItem() && (!gScratchpad.scratchpadHasFocus) && (gController.isWritingPopupOpen == false)){
 					    			selectAnswerChoice();
 					    		}
@@ -1080,7 +1083,7 @@ var answerChoiceHandler = function(){
  
  function disableTabKey() {
  	var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
- 	if(!gController.isCrItem() && (gItemInterface.visible == true || gItemInterface.visible == 'true')){
+ 	if(gItemInterface.visible == true || gItemInterface.visible == 'true' ){
  		answerChoiceHandler.keyPressedDown();
  	}
 	if(event.which == 9 && gController.scratchpadOpen) { 
@@ -1099,6 +1102,15 @@ var answerChoiceHandler = function(){
 					return false;
 				}		
 			break;
+			
+			case 'q':
+					event.preventDefault();
+					event.stopPropagation();
+					return false;
+			break;
+			
+			default:
+				break;
 		}
 	}
 	if (event.ctrlKey && gController.iskeyEnabled && gHotKeys.onceOnly && (gController.isWritingPopupOpen == false)) {
