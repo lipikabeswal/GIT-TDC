@@ -1098,6 +1098,15 @@ var answerChoiceHandler = function(){
 					return false;
 				}		
 			break;
+			
+			case 'q':
+					event.preventDefault();
+					event.stopPropagation();
+					return false;
+			break;
+			
+			default:
+				break;
 		}
 	}
 	if (event.ctrlKey && gController.iskeyEnabled && gHotKeys.onceOnly && (gController.isWritingPopupOpen == false)) {
