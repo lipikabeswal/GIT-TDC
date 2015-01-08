@@ -1027,13 +1027,19 @@ var answerChoiceHandler = function(){
 		 	  	var evtobj = window.event? event : e;
 		 	  	//Used to block Ctrl+~ and Cmd key in Mac
 		 	  	if((checkMac.indexOf("Mac") != -1) && (evtobj.which == 91 || evtobj.which == 93 || evtobj.which == 192) ){  
-		 	  		isMetaKeyDown = true;
-		 	  		return false;
+						isMetaKeyDown = true;
+		 	  			return false;
 		 	  	}else if(evtobj.which == 93){
 		 	  		 //Used to block right option key in Windows
 		 	  		return false;
 		 	  	}
-		 	  	if(downedKeysArr.indexOf(evtobj.keyCode) < 0  && !(evtobj.which == 16) && !(evtobj.which == 20) && !isMetaKeyDown)
+		 	  	// Code changes made to prevent continuous Cmd+V execution on SR items.
+		 	  	if(!gController.isCrItem() && evtobj.which == 86 && isMetaKeyDown){
+		 	  		//console.log("***GOT Cmd+V****");
+		 	  		return false;
+		 	  	}
+		 	  	// KeyCode 229 is used to prevent disabling of hot keys after ctrl+Q is pressed on SR item.
+		 	  	if(downedKeysArr.indexOf(evtobj.keyCode) < 0  && !(evtobj.which == 16) && !(evtobj.which == 20) && !isMetaKeyDown && !gController.isCrItem() && !(evtobj.which == 229))
 		      	{
 		      		downedKeysArr.push(evtobj.keyCode);
 		      		
@@ -1042,13 +1048,13 @@ var answerChoiceHandler = function(){
 		}
 		
 		function keyPressedUp(e) {
-				if(!gController.isCrItem() && (gItemInterface.visible == true || gItemInterface.visible == 'true')){
 				     	var evtobj = window.event? event : e;
 		 	  			if((checkMac.indexOf("Mac") != -1) && (evtobj.which == 91 || evtobj.which == 93 || evtobj.which == 192)){
 		 	  				isMetaKeyDown = false;
 				 	  		return false;
 		 	  			}
-		 	  			var index=downedKeysArr.indexOf(evtobj.keyCode);
+				if(!gController.isCrItem() && (gItemInterface.visible == true || gItemInterface.visible == 'true')){
+				     	var index=downedKeysArr.indexOf(evtobj.keyCode);
 				   		if (index >= 0) {
 				   				if(downedKeysArr.length == 1 && (evtobj.which >= 65 || evtobj.which <= 74) && !gController.isCrItem() && (!gScratchpad.scratchpadHasFocus) && (gController.isWritingPopupOpen == false)){
 					    			selectAnswerChoice();
@@ -1079,7 +1085,7 @@ var answerChoiceHandler = function(){
  
  function disableTabKey() {
  	var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
- 	if(!gController.isCrItem() && (gItemInterface.visible == true || gItemInterface.visible == 'true')){
+ 	if(gItemInterface.visible == true || gItemInterface.visible == 'true' ){
  		answerChoiceHandler.keyPressedDown();
  	}
 	if(event.which == 9 && gController.scratchpadOpen) { 

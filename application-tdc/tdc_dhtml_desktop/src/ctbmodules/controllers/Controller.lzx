@@ -2679,6 +2679,7 @@
 				gManipulativeBar.globals.maskingAnswer.setAttribute('visible', false);
 			}
 			this.setAttribute("isAnswerAreaDisabled",false);
+			 answerChoiceHandler.clearDownedKeysArr(); 
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
