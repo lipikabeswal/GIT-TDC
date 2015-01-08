@@ -769,12 +769,13 @@ function accommodationPKG() {
 							initialScrollHeight += $(this).outerHeight();
 							
 							
-							}
+							
 							
                             initialScrollWidth = $(this).outerWidth() > initialScrollWidth ? $(this).outerWidth() : initialScrollWidth;
+							}
 							
                         });
-						initialScrollWidth += 6;//padding adjustments
+						initialScrollWidth += 2;//padding adjustments
 						var retObj = scrollableDivMouseDown(e, x1, y1, textEle);
 						x1 = retObj.x1;
                         y1 = retObj.y1;
@@ -853,7 +854,7 @@ function accommodationPKG() {
                     //sendNotification();
                     selectStart = false;
 					if (isScrollableDivY) {
-					removeOrReduceHighlighterBox(initialScrollHeight-6, initialScrollWidth-6);
+					removeOrReduceHighlighterBox(initialScrollHeight-6, initialScrollWidth-3);
 					scrollableDivMouseUp(e);
 						isScrollableDivY = false;
                     } else {
