@@ -69,7 +69,11 @@
 //Debug.write(this, "set characterLimit", cl);
             this.setAttribute("characterLimit", cl);
             //setting the CR area maximum character limit. By default it is 10000.
-			this.outer.rich.answer.inp.setAttribute('maxlength',Number(this.characterLimit));
+			//this.outer.rich.answer.inp.setAttribute('maxlength',Number(this.characterLimit));
+			
+			//for mac defect #81177
+			var elm = this.outer.rich.answer.inp.getDisplayObject();
+			elm.setAttribute('maxlength',Number(this.characterLimit));
 
             // To distinguish between numerous input fields, we'll maintain an array of hashes
             // containing their widget ID and answered state (filled or empty). Additionally each
@@ -313,7 +317,7 @@
 							this.setAttribute('fontsize', 18);
 						else
 							this.setAttribute('fontsize', 12);
-						this.inp.setAttribute("maxlength",Number(classroot.characterLimit));
+						//this.inp.setAttribute("maxlength",Number(classroot.characterLimit));
 						var elm = this.inp.getDisplayObject();
 						elm.setAttribute('spellcheck',false);
 
