@@ -11,19 +11,21 @@
 	<attribute name="popupHeight" type="number" value="165"/>
 	<attribute name="fs" type="number" value="12"/>
 	<attribute name="bg" type="color" value="0xFFFFFF"/>
-	<attribute name="fg" type="color" value="0x000000"/> 	
+	<attribute name="fg" type="color" value="0x000000"/> 
+	<attribute name="readingRationalePopup" type="boolean" value="false" />	
 	<method name="checkClick" args="ignore=null">
 		if(!this.containsPt((this.getMouse('x')/canvas.xscalefactor), (this.getMouse('y')/canvas.xscalefactor))){
 			this.hide();
 		}
-        else if(!this.contents.closeButton.containsPt(this.contents.closeButton.getMouse('x'),
-                                                   this.contents.closeButton.getMouse('y'))){
+        else if(!this.contents.closeButton.containsPt(this.contents.closeButton.getMouse('x')/canvas.xscalefactor, this.contents.closeButton.getMouse('y')/canvas.xscalefactor)){
+        	//console.log("check click on close button==");
         	readMe();
         }
 	</method>
 	<method name="readMe">
 		if(canvas.readable){
        		gReadableText.read(gReadableText.stripHtmlTags(this.contents.rationale.text));
+       		this.setAttribute("readingRationalePopup", true);
        	}
 	</method>
 	<method name="setup" args="fm, fc, bc"><![CDATA[
@@ -43,8 +45,13 @@
 	]]></method>
 	
 	<method name="hide">
+	    this.setAttribute("visible", false);
+		if(this.readingRationalePopup == true){
+			gReadableText.stopReading(false);
+         	this.setAttribute("readingRationalePopup",false);
+		}
         this.clickdel.unregisterAll();   
-        this.setAttribute("visible", false);	
+     
    </method>
 	
    <method name="show" args="txt">
