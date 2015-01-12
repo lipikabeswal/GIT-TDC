@@ -257,10 +257,11 @@ jQuery.fn.initMagnify=function(options){
 			$('#scratch').trigger("mouseup");
 			$('#protractor').trigger("mouseup");
         });
-        
-        window.dManupulative=false;
+         localStorage.setItem("dManupulative", false);
+        //window.dManupulative=false;
         $('[name="dManupulative"]').on("mousedown",function() {
-		  window.dManupulative = true;
+		  //window.dManupulative = true;
+		   localStorage.setItem("dManupulative", true);
 		});
         
         /* added to prevent sticking of TE draggable 
@@ -271,7 +272,8 @@ jQuery.fn.initMagnify=function(options){
         		$('iframe')[0].contentWindow.$(".ui-draggable-dragging").trigger("mouseup");
         	}*/
         	var iframeCon=$("iframe").contents().find(".ui-draggable");
-        	if(iframeCon && !window.dManupulative){
+        	 var dManupulativeVals=localStorage.getItem("dManupulative");
+        	if(iframeCon && !dManupulativeVals){
         		iframeCon.trigger("mouseup");
         	}	
         	isMagnifierMouseovered = true;
