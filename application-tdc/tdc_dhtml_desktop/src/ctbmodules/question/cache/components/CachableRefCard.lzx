@@ -106,7 +106,8 @@
 					var refTitleSrc=originalRefSrc.substr(0,originalRefSrc.indexOf('.'))+"_title"+refSrcExt;
 					
 					//set source to ref card
-					refCardContents.contents.setAttribute('source',refSrcPath+originalRefSrc);
+					var originalRefSrc = originalRefSrc.substr(0,originalRefSrc.indexOf('.'));
+					refCardContents.contents.setAttribute('source',refSrcPath+originalRefSrc+refSrcExt);
 					title.real_title.setAttribute('source',refSrcPath+refTitleSrc);
 					
 				 	this.setAttribute("scrolls",true);					
