@@ -1316,7 +1316,8 @@ function makeDrggable() {
             iframeFix: true,
             scope: "topmost",
             start: function (event, ui) {
-                window.parent.dManupulative = false; //OAS change
+                //window.parent.dManupulative = false; //OAS change
+                localStorage.setItem("dManupulative", false);//OAS change
                 scaleDropArea();
                 if (isStandAlone) {
                     scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
@@ -1325,7 +1326,8 @@ function makeDrggable() {
 
             },
             stop: function (event, ui) {
-                window.parent.dManupulative = false; // OAS change
+                //window.parent.dManupulative = false; // OAS change
+                localStorage.setItem("dManupulative", false);//OAS change
                 $(document).trigger("mouseup");
                 startHighLighting(event);
 
