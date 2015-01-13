@@ -4684,8 +4684,8 @@
 				timestamp = LzTimeKernel.getTimer();
 			}
 			//Debug.write("timestamp------ ",durationms,elapsedms,timestamp,qtimestamp);
-            if ( timing ) {
-                var remainingms =
+            if ( timing && !this.isWritingPopupOpen) {
+				 var remainingms =
                     durationms - elapsedms - (timestamp - qtimestamp);
                 if ( remainingms <= 0 ) {
                     dpdisplay.setNodeAttribute( 'timeleft', '00:00' );
