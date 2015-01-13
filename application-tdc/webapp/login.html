@@ -1085,6 +1085,14 @@ var answerChoiceHandler = function(){
  
  function disableTabKey() {
  	var keystroke = String.fromCharCode(event.keyCode).toLowerCase();
+ 	//Condition added to prevent special character typed into the CR area using Alt key in MAC
+ 	if(event.altKey){
+ 		  console.log("inside event.altKey "+event.altKey+"keystroke "+keystroke);
+ 		event.stopImmediatePropagation();
+ 		event.preventDefault();
+		event.stopPropagation();
+		return false;
+ 	}
  	if(gItemInterface.visible == true || gItemInterface.visible == 'true' ){
  		answerChoiceHandler.keyPressedDown();
  	}
