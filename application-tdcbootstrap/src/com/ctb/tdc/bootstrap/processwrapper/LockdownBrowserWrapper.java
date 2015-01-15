@@ -89,6 +89,9 @@ public class LockdownBrowserWrapper extends Thread {
             
 		if ( macOS ) {
 			LockdownBrowserWrapper.ismac = true;
+			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/mac");
+			this.ldbHome = ldbHomeDir.getAbsolutePath();
+			// Code added to launch LockDownBrowser.app for Laslinks and Tabe.
 			if(productType.equals("LASLINKS") || productType.equals("TABE")){
 				if(formName.equals("Form A / Form B / Español A") || formName.equals("TABE Online")){
 					writeForm("http://127.0.0.1:" + jettyPort + "/login_swf.html");
@@ -96,14 +99,19 @@ public class LockdownBrowserWrapper extends Thread {
 					writeForm("http://127.0.0.1:" + jettyPort + "/login.html");
 				}
 //				//consoleOut("Laslinks Product****");
-				
+				this.ldbCommand = new String[1];
+				this.ldbCommand[0] = this.ldbHome + "/LockDownBrowser.app/Contents/MacOS/LockDownBrowser";
+	            this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
+	            command.add(ldbCommand[0]);
+			}else{
+				// Code added to launch cefclient.app for other products like TASC
+				this.ldbCommand = new String[2];
+				this.ldbCommand[0] =this.ldbHome +"/cefclient.app/Contents/MacOS/cefclient";
+				this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
+				command.add(this.ldbHome +"/cefclient.app/Contents/MacOS/cefclient");
+				command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 			}
-			File ldbHomeDir = new File(this.tdcHome + "/lockdownbrowser/mac");
-			this.ldbHome = ldbHomeDir.getAbsolutePath();
-			this.ldbCommand = new String[1];
-			this.ldbCommand[0] = this.ldbHome + "/LockDownBrowser.app/Contents/MacOS/LockDownBrowser";
-            this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
-            command.add(ldbCommand[0]);
+            
 		} else if ( linux ) {
 					/*LockdownBrowserWrapper.islinux = true;
 					
@@ -499,6 +507,7 @@ private static class LockdownWinMain extends Thread {
 					        }
 					    }).start();
 					this.isAvailable = true;
+					ldbProcess=ldb; // Capturing ldb instance.
 					ldb.waitFor();
 					isProcessExit=true;
 					this.isAvailable = false;
@@ -1039,6 +1048,18 @@ private static class LockdownWinMain extends Thread {
         		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
         		Thread.sleep(250);
         		Runtime.getRuntime().exec("killall -KILL LockDownBrowser");
+        		
+        		// Code added to destroy cefclient process.
+        		Runtime.getRuntime().exec("killall -KILL cefclient");
+        		Thread.sleep(250);
+        		Runtime.getRuntime().exec("killall -KILL cefclient");
+        		
+        		// Code added to destroy instance of cefclient.
+        		try{
+        			ldbProcess.destroy();
+        		}catch (Exception e){
+        			e.printStackTrace();
+        		}
         	} else {
         		try {/*
         			Runtime.getRuntime().exec("taskkill /f /fi \"WINDOWTITLE eq Lockdown Browser\"");
