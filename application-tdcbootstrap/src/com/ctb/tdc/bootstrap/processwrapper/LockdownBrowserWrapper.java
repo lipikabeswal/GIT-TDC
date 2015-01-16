@@ -210,6 +210,7 @@ public class LockdownBrowserWrapper extends Thread {
 					//this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
 					//this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 					command.add(this.ldbHome +"/ChromiumLDB/cefclient");
+					command.add("--disable-accelerated-2d-canvas");					
 					command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 					command.add("--cache-path="); //cache directory specified as null to prevent caching
 					
@@ -226,6 +227,7 @@ public class LockdownBrowserWrapper extends Thread {
 				//this.ldbCommand[0] =this.ldbHome +"/ChromiumLDB/cefclient";
 				//this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 				command.add(this.ldbHome +"/ChromiumLDB/cefclient");
+				command.add("--disable-accelerated-2d-canvas");
 				command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 			}
 			
