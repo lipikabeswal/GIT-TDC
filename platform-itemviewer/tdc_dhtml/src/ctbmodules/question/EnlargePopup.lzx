@@ -76,6 +76,7 @@
         //set some props
         this.windowbg.changeColor(color);
         this.setAttribute("visible", true);
+        this.contents.zoombtn.setAttribute('visible',true);
 		v.setAttribute("visible", true);
         
         // why do I need to set this again - it hasn't changed ??!!
