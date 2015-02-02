@@ -104,13 +104,15 @@ public class LockdownBrowserWrapper extends Thread {
 	            command.add(ldbCommand[0]);
 			}else{
 				// Code added to launch cefclient.app for other products like TASC
-				this.ldbCommand = new String[3];
+				this.ldbCommand = new String[4];
 				this.ldbCommand[0] =this.ldbHome +"/cefclient.app/Contents/MacOS/cefclient";
 				this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
 				this.ldbCommand[2] = "--off-screen-rendering-enabled"; //added to improve rendering of client in browser
+				this.ldbCommand[3] = "--transparent-painting-enabled";
 				command.add(this.ldbHome +"/cefclient.app/Contents/MacOS/cefclient");
 				command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
 				command.add("--off-screen-rendering-enabled");
+				command.add("--transparent-painting-enabled");
 			}
             
 		} else if ( linux ) {
