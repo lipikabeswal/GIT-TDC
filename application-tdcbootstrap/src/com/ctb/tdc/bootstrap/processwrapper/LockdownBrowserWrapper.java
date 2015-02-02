@@ -98,18 +98,19 @@ public class LockdownBrowserWrapper extends Thread {
 				}else if(formName.equals("Form C / Form D / Español B") || formName.equals("TABE Testlets")){
 					writeForm("http://127.0.0.1:" + jettyPort + "/login.html");
 				}
-//				//consoleOut("Laslinks Product****");
 				this.ldbCommand = new String[1];
 				this.ldbCommand[0] = this.ldbHome + "/LockDownBrowser.app/Contents/MacOS/LockDownBrowser";
 	            this.ldbCommand[0] = this.ldbCommand[0].replaceAll(" ", "\\ ");
 	            command.add(ldbCommand[0]);
 			}else{
 				// Code added to launch cefclient.app for other products like TASC
-				this.ldbCommand = new String[2];
+				this.ldbCommand = new String[3];
 				this.ldbCommand[0] =this.ldbHome +"/cefclient.app/Contents/MacOS/cefclient";
 				this.ldbCommand[1] = "--url=http://127.0.0.1:" + jettyPort + "/login.html";
+				this.ldbCommand[2] = "--off-screen-rendering-enabled"; //added to improve rendering of client in browser
 				command.add(this.ldbHome +"/cefclient.app/Contents/MacOS/cefclient");
 				command.add("--url=http://127.0.0.1:" + jettyPort + "/login.html");
+				command.add("--off-screen-rendering-enabled");
 			}
             
 		} else if ( linux ) {
@@ -237,6 +238,10 @@ public class LockdownBrowserWrapper extends Thread {
 		
 	}
 
+	/*Function to write the URL to be launched in Mac
+	 * Used only in old Mac LDB
+	 * 
+	 */
 	private void writeForm(String output) {
 		try {
 			
@@ -244,21 +249,9 @@ public class LockdownBrowserWrapper extends Thread {
 		    out.println(output);
 		    out.close();
 		} catch (IOException e) {
-		    //oh noes!
+		   	ConsoleUtils.messageOut("Failed to writeform, default will be launched");
 		}	
 	}
-	/*private static void consoleOut(String output) {
-		try {
-			
-		    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("console.txt", true)));
-		    out.println(output);
-		    out.close();
-		} catch (IOException e) {
-		    //oh noes!
-		}	
-	}*/
-	
-	
 	
 	/**
 	 * Returns whether the LockdownBrowsesr process is currently available.  The 
@@ -477,6 +470,7 @@ private static class LockdownWinMain extends Thread {
 				//System.loadLibrary("lock");
 				// endchange for mac 10.4
 				
+				//Check whether forbidden apps are running
 				ProcessBlock processBlock = new ProcessBlock (this.tdcHome);
 				processBlock.start();
 				processBlock.join();
@@ -484,7 +478,7 @@ private static class LockdownWinMain extends Thread {
 				if (flag) {
 					// Run the LDB...
 					//Runtime.getRuntime().exec("sh clear_clipboard.sh", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
-					Runtime.getRuntime().exec("rm -rf ~/Library/Caches/*", null, new File(this.tdcHome.replaceAll(" ", "\\ ")));
+					//Runtime.getRuntime().exec("rm -rf ~/Library/Caches/*", null, new File(this.tdcHome.replaceAll(" ", "\\ "))); //does not work
 					ConsoleUtils.messageOut(" Using ldbHome = " + this.ldbHome);
 					ConsoleUtils.messageOut(" Executing " + this.ldbCommand[0]);
 					
@@ -495,6 +489,8 @@ private static class LockdownWinMain extends Thread {
 					
 					Process ldb=processBuilder.start();
 					ConsoleUtils.messageOut("LDB app started at " + System.currentTimeMillis());
+					
+					//code to consume all console output produced by the LDB
 					final BufferedReader consoleBufferReader = new BufferedReader(new InputStreamReader(ldb.getInputStream()));
 					new Thread(new Runnable() {
 					        public void run() {
@@ -759,7 +755,6 @@ private static class LockdownWinMain extends Thread {
 								/*try {
 									Runtime.getRuntime().exec("tskill explorer");
 									} catch (IOException e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}*/
 							}
@@ -767,7 +762,7 @@ private static class LockdownWinMain extends Thread {
 						}
 						else{
 
-							ConsoleUtils.messageOut("Somethinge else will be launched");
+							ConsoleUtils.messageOut("Normal client will be launched");
 							processBuilder= new ProcessBuilder(command);
 							processBuilder.directory(new File(this.ldbHome+"/ChromiumLDB/"));
 							processBuilder.redirectErrorStream(true);
@@ -783,7 +778,6 @@ private static class LockdownWinMain extends Thread {
 						        		//ConsoleUtils.messageOut("Inside Output Consume Loop *******: "+consoleBufferReader.readLine());
 						        		consoleBufferReader.readLine();
 									} catch (IOException e) {
-										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
 						            }
