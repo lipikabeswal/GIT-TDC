@@ -203,7 +203,7 @@ static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, C
 - (void)windowDidResignKey:(NSNotification*)notification {
     if (g_handler.get() && g_handler->GetBrowserId()) {
         // Give focus to the browser window.
-        g_handler->GetBrowser()->GetHost()->SetFocus(true);
+        g_handler->GetBrowser()->GetHost()->SetFocus(false);
     }
 }
 
@@ -408,7 +408,7 @@ NSThread *screenshotThread; //NSThread to check for screenshots
 
   NSView* contentView = [mainWnd contentView];
 
-    startTime_ = [[NSDate alloc] init];
+  startTime_ = [[NSDate alloc] init];
 
   // Create the handler.
   g_handler = new ClientHandler();
@@ -439,7 +439,7 @@ NSThread *screenshotThread; //NSThread to check for screenshots
                                 g_handler->GetStartupURL(), settings);
     int windowLevel;
 	
-	if ([[mainWnd screen] isEqual:[[NSScreen screens] objectAtIndex:0]]) {
+    if ([[mainWnd screen] isEqual:[[NSScreen screens] objectAtIndex:0]]) {
 		[NSMenu setMenuBarVisible:NO];
 	}
     
@@ -454,7 +454,7 @@ NSThread *screenshotThread; //NSThread to check for screenshots
                         styleMask:NSBorderlessWindowMask
                         backing:NSBackingStoreBuffered
                         defer:YES screen:[NSScreen mainScreen]];
-    
+    //[fullscreenWindow setDelegate:delegate];
 	[fullscreenWindow setLevel:windowLevel];
 	[fullscreenWindow setContentView:[mainWnd contentView]];
 	[fullscreenWindow setFrame:
@@ -465,7 +465,7 @@ NSThread *screenshotThread; //NSThread to check for screenshots
     //[fullscreenWindow setSharingType:NSWindowSharingNone]; //prevents other applications from taking screenshots
     
 	oldHotKeyMode = PushSymbolicHotKeyMode(kHIHotKeyModeAllDisabled);
-	//[mainWnd orderOut:nil];
+	[mainWnd orderOut:nil];
     
     [self disableHotKeys];
     [self clearClipBoard];

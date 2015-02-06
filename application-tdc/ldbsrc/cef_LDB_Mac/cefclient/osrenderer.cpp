@@ -46,7 +46,7 @@ void ClientOSRenderer::Initialize() {
 
   glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 
-  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+  glClearColor(0.398f, 0.566f, 0.703f, 1.0f); //Match the color of the TDC background 
 
   // Necessary for non-power-of-2 textures to render correctly.
   glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -95,17 +95,17 @@ void ClientOSRenderer::Render() {
   glLoadIdentity();
   glOrtho(0, 0, view_width_, view_height_, 0.1, 100.0);
 
-  // Draw the background gradient.
-  glPushAttrib(GL_ALL_ATTRIB_BITS);
-  glBegin(GL_QUADS);
-  glColor4f(1.0, 0.0, 0.0, 1.0);  // red
-  glVertex2f(-1.0, -1.0);
-  glVertex2f(1.0, -1.0);
-  glColor4f(0.0, 0.0, 1.0, 1.0);  // blue
-  glVertex2f(1.0, 1.0);
-  glVertex2f(-1.0, 1.0);
-  glEnd();
-  glPopAttrib();
+  // Draw the background gradient. Causes the red-blue gradient test screen
+//  glPushAttrib(GL_ALL_ATTRIB_BITS);
+//  glBegin(GL_QUADS);
+//  glColor4f(1.0, 0.0, 0.0, 1.0);  // red
+//  glVertex2f(-1.0, -1.0);
+//  glVertex2f(1.0, -1.0);
+//  glColor4f(0.0, 0.0, 1.0, 1.0);  // blue
+//  glVertex2f(1.0, 1.0);
+//  glVertex2f(-1.0, 1.0);
+//  glEnd();
+//  glPopAttrib();
 
   // Rotate the view based on the mouse spin.
   if (spin_x_ != 0)
