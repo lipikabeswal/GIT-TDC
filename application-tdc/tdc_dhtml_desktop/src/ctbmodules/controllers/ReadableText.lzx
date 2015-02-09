@@ -61,12 +61,18 @@
 		<handler name="oninit">
 			var getUrl = null;
 			var postUrl = lz.Browser.getInitArg( 'servletUrl' ) + '/SpeechServlet.do';
+			//Commenting below code as similar audio file format(.ogg) will be supported for both Mac and Windows.
+
 			//Audio file format to be downloaded for Mac OS should be .mp3 and for others .ogg
-			if(gController.audioFormat == "mp3"){
+			/*if(gController.audioFormat == "mp3"){
 				getUrl = postUrl + '?file=speech.mp3';
 			}else{
 				getUrl = postUrl + '?file=speech.ogg';
-			}	
+			}*/
+			
+			//Audio file format is changed to .ogg for both Mac and Windows to support TTS on CEF LDB. 
+			getUrl = postUrl + '?file=speech.ogg';
+	
 			setAttribute('GET_URL', getUrl);
 			speechDs.setAttribute('src', postUrl);
 			audioPlayerDs.setAttribute('src', postUrl);

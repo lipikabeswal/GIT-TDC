@@ -725,12 +725,13 @@
 		<handler name="oninit">
 			//for screen reader audio file format to be downloaded for Mac OS should be .mp3 and for others .ogg
 			if($dhtml){
-				this.audioFormat = "mp3";
-				if(navigator.appVersion.indexOf("Mac")!=-1){
+				// Audio file format is changed to .ogg for both Mac and Windows to support TTS on CEF LDB .
+				this.audioFormat = "ogg";
+				/*if(navigator.appVersion.indexOf("Mac")!=-1){
 					this.audioFormat = "mp3";
 				}else{
 					this.audioFormat = "ogg";
-				}
+				}*/
 			}
 			this.setAttribute('isHandlerInactive', true);
         	checkIsProduct();
