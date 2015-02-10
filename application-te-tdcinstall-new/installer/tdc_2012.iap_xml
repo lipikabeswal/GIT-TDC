@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2012 Enterprise, Build 4349
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Mon Feb 09 12:47:26 PST 2015 -->
+     DATE:   Tue Feb 10 13:29:56 PST 2015 -->
 <InstallAnywhere_Deployment_Project increments="19625">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
@@ -10,7 +10,7 @@
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,55,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,55,46,48,44,32,79,114,97,99,108,101,32,67,111,114,112,111,114,97,116,105,111,110,44,32,104,116,116,112,58,47,47,106,97,118,97,46,111,114,97,99,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,64,119,24,-64,-112,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,11,4,120,32,11,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,119,104,0,-96,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,5,10,118,37,11,1,0,0</authorizationID>
 	</essentialScriptInfo>
 	<installationObjects uniqueObjects="864">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
@@ -223,19 +223,6 @@ it will search for ones in this list]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c9932d29915f">
-									<property name="propertyValue">
-										<string><![CDATA[67108864]]></string>
-									</property>
-									<property name="propertyName">
-										<string><![CDATA[lax.nl.java.option.java.heap.size.max ]]></string>
-									</property>
-									<property name="propertyComment">
-										<string><![CDATA[VM max heap size]]></string>
-									</property>
-								</object>
-							</method>
-							<method name="addElement">
 								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c08952">
 									<property name="propertyValue">
 										<string><![CDATA[7.0]]></string>
@@ -249,15 +236,15 @@ it will search for ones in this list]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c99265e4915f">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c9932d29915f">
 									<property name="propertyValue">
-										<string><![CDATA[33554432]]></string>
+										<string><![CDATA[67108864]]></string>
 									</property>
 									<property name="propertyName">
-										<string><![CDATA[lax.nl.java.option.java.heap.size.initial]]></string>
+										<string><![CDATA[lax.nl.java.option.java.heap.size.max ]]></string>
 									</property>
 									<property name="propertyComment">
-										<string><![CDATA[VM intial heap size]]></string>
+										<string><![CDATA[VM max heap size]]></string>
 									</property>
 								</object>
 							</method>
@@ -271,6 +258,19 @@ it will search for ones in this list]]></string>
 									</property>
 									<property name="propertyComment">
 										<string><![CDATA[the class that contains the main method for the application]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c99265e4915f">
+									<property name="propertyValue">
+										<string><![CDATA[33554432]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[lax.nl.java.option.java.heap.size.initial]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[VM intial heap size]]></string>
 									</property>
 								</object>
 							</method>
@@ -2219,9 +2219,9 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="8398e5c6bd62">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="88d217bcbdfc">
 													<property name="propertyValue">
-														<string><![CDATA[false]]></string>
+														<string><![CDATA[true]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$GENERIC_PRODUCT_NAME$]]></string>
@@ -2235,9 +2235,9 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="8398e5c5bd63">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="88d217bbbdfd">
 													<property name="propertyValue">
-														<string><![CDATA[TASC]]></string>
+														<string><![CDATA[VANILLA]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_TYPE$]]></string>
@@ -2315,9 +2315,9 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="8398e5c6bd65">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="88d217bcbdff">
 													<property name="propertyValue">
-														<string><![CDATA[11.2]]></string>
+														<string><![CDATA[0.0]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
@@ -2900,7 +2900,7 @@ and any path to a file to read from that file]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="ruleExpression">
-								<string><![CDATA[CIAV221]]></string>
+								<string><![CDATA[CIAV998]]></string>
 							</property>
 							<property name="name">
 								<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
@@ -2915,7 +2915,7 @@ and any path to a file to read from that file]]></string>
 								<boolean>false</boolean>
 							</property>
 							<rules logicalOperation="OR">
-								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="59edbd8c9789">
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="88de8de2beb2">
 									<property name="belongsToUninstallPhase">
 										<boolean>false</boolean>
 									</property>
@@ -2938,7 +2938,7 @@ and any path to a file to read from that file]]></string>
 										<string><![CDATA[true]]></string>
 									</property>
 									<property name="ruleId">
-										<string><![CDATA[CIAV221]]></string>
+										<string><![CDATA[CIAV998]]></string>
 									</property>
 								</object>
 							</rules>
@@ -3087,7 +3087,7 @@ and any path to a file to read from that file]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="ruleExpression">
-								<string><![CDATA[CIAV145]]></string>
+								<string><![CDATA[CIAV96]]></string>
 							</property>
 							<property name="name">
 								<string><![CDATA[$PRODUCT_NAME$]]></string>
@@ -3102,7 +3102,7 @@ and any path to a file to read from that file]]></string>
 								<boolean>false</boolean>
 							</property>
 							<rules logicalOperation="OR">
-								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="59f97edb9789">
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="88dff23cbeb2">
 									<property name="belongsToUninstallPhase">
 										<boolean>false</boolean>
 									</property>
@@ -3125,7 +3125,7 @@ and any path to a file to read from that file]]></string>
 										<string><![CDATA[true]]></string>
 									</property>
 									<property name="ruleId">
-										<string><![CDATA[CIAV145]]></string>
+										<string><![CDATA[CIAV96]]></string>
 									</property>
 								</object>
 							</rules>
@@ -3255,7 +3255,7 @@ and any path to a file to read from that file]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="ruleExpression">
-								<string><![CDATA[CIAV145]]></string>
+								<string><![CDATA[CIAV89]]></string>
 							</property>
 							<property name="name">
 								<string><![CDATA[$DESKTOP_NAME$]]></string>
@@ -3270,7 +3270,7 @@ and any path to a file to read from that file]]></string>
 								<boolean>false</boolean>
 							</property>
 							<rules logicalOperation="OR">
-								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="401cec45a1cf">
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="88e0916fbeb2">
 									<property name="belongsToUninstallPhase">
 										<boolean>false</boolean>
 									</property>
@@ -3293,7 +3293,7 @@ and any path to a file to read from that file]]></string>
 										<string><![CDATA[true]]></string>
 									</property>
 									<property name="ruleId">
-										<string><![CDATA[CIAV145]]></string>
+										<string><![CDATA[CIAV89]]></string>
 									</property>
 								</object>
 							</rules>
@@ -17829,7 +17829,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="bundledVM">
-												<string><![CDATA[SunJRE160_02Win32.vm]]></string>
+												<string><![CDATA[OracleJRE7u51-windowsx32.vm]]></string>
 											</property>
 											<property name="withoutVmSearchOption">
 												<short>10</short>
@@ -18975,7 +18975,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="839a03fabd6b">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="88e74a09bfee">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -19173,7 +19173,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[February 9, 2015 12:47:26 PM PST]]></string>
+						<string><![CDATA[February 10, 2015 1:29:56 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -22550,7 +22550,7 @@ and any path to a file to read from that file]]></string>
 														<boolean>true</boolean>
 													</property>
 													<property name="execLevel">
-														<int>1</int>
+														<int>2</int>
 													</property>
 													<property name="asksUserAboutRestart">
 														<boolean>true</boolean>
