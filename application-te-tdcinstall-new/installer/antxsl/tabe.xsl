@@ -21,8 +21,8 @@
 	</xsl:template>
 
 
-	<xsl:template match="//object[@objectID='c0c6f1828b45']">
-		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="c0c6f1828b45">
+	<xsl:template match="//object[@objectID='8398e5c5bd63']">
+		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="8398e5c5bd63">
 			<property name="propertyValue">
 				<string><![CDATA[TABE]]></string>
 			</property>
