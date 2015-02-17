@@ -11,7 +11,7 @@
 	<key>CFBundleExecutable</key>
 	<string>cefclient Helper</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.cef.cefclient.helper</string>
+	<string>com.ctb.cefclient.helper</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

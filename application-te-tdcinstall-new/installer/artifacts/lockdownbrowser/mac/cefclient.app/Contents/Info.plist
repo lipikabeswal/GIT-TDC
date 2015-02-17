@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string>cefclient.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.cef.cefclient</string>
+	<string>com.ctb.cefclient</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
