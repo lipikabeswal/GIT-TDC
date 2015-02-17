@@ -63,7 +63,7 @@ int fnIsDown = 0;
 
 CFMachPortRef eventTap = nil;//required globally
 
-static CGEventRef MouseCallback(CGEventTapProxy proxy, CGEventType event_type, CGEventRef event, void *info)
+static CGEventRef KeyboardCallback(CGEventTapProxy proxy, CGEventType event_type, CGEventRef event, void *info)
 {
     
 	CGKeyCode keyCode = (CGKeyCode)CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode);
@@ -329,44 +329,45 @@ NSThread *screenshotThread; //NSThread to check for screenshots
   [NSApplication sharedApplication];
   //[NSBundle loadNibNamed:@"MainMenu" owner:NSApp];
 
-    CGEventMask eventMask = 0;
-    //CFMachPortRef eventTap = nil;
-    CFRunLoopSourceRef runLoopSource = nil;
-	CFRunLoopRef runLoop = nil;
+    //Old lockdown code : does not work on OSx 10.9 and above
+   CGEventMask eventMask = 0;
+   //CFMachPortRef eventTap = nil;
+   CFRunLoopSourceRef runLoopSource = nil;
+   CFRunLoopRef runLoop = nil;
  
-    
-    eventMask = CGEventMaskBit(kCGEventKeyDown)|CGEventMaskBit(kCGEventKeyUp)| CGEventMaskBit(kCGEventFlagsChanged);
-    
-    //eventMask |=CGEventMaskBit(kCGEventTapDisabledByTimeout);
+   
+   eventMask = CGEventMaskBit(kCGEventKeyDown)|CGEventMaskBit(kCGEventKeyUp)| CGEventMaskBit(kCGEventFlagsChanged);
+   
+   //eventMask |=CGEventMaskBit(kCGEventTapDisabledByTimeout);
 	
-    /* eventTap = CGEventTapCreate(kCGSessionEventTap,
-     kCGHeadInsertEventTap,
-     kCGEventTapOptionDefault,
-     eventMask,
-     MouseCallback,
-     self); */
-    
+   /* eventTap = CGEventTapCreate(kCGSessionEventTap,
+    kCGHeadInsertEventTap,
+    kCGEventTapOptionDefault,
+    eventMask,
+    MouseCallback,
+    self); */
+   
 	eventTap = CGEventTapCreate(kCGSessionEventTap,
 								kCGHeadInsertEventTap,
 								0x00000000, //value of kCGEventTapOptionDefault taken from constants header file
 								eventMask,
-								MouseCallback,
+								KeyboardCallback,
 								self);
-    
-    if (!eventTap) {
-        
-        fprintf(stderr, "Failed to create event tap\n");
-        exit(1);
-    }
-    
-    // Create a run loop source.
-    runLoopSource = CFMachPortCreateRunLoopSource(NULL, eventTap, 0);
+   
+   if (!eventTap) {
+       
+       fprintf(stderr, "Failed to create event tap\n");
+       exit(1);
+   }
+   
+   // Create a run loop source.
+   runLoopSource = CFMachPortCreateRunLoopSource(NULL, eventTap, 0);
 	if(runLoopSource == NULL) {
 		
 		//NSLog(@"no event in run loop");
 	}
 	
-    CFRelease(eventTap);
+   CFRelease(eventTap);
 	
 	runLoop = CFRunLoopGetCurrent();
 	if(runLoop == NULL) {
@@ -374,12 +375,12 @@ NSThread *screenshotThread; //NSThread to check for screenshots
 		//NSLog(@"no run loop");
 	}
 	
-    // Add to the current run loop.
-    CFRunLoopAddSource([[NSRunLoop currentRunLoop] getCFRunLoop], runLoopSource, kCFRunLoopCommonModes);
+   // Add to the current run loop.
+   CFRunLoopAddSource([[NSRunLoop currentRunLoop] getCFRunLoop], runLoopSource, kCFRunLoopCommonModes);
     
-    // Enable the event tap.
-    CGEventTapEnable(eventTap, true);
-    CFRelease(runLoopSource);
+  // Enable the event tap.
+  CGEventTapEnable(eventTap, true);
+  CFRelease(runLoopSource);
   
     
   // Set the delegate for application events.
@@ -391,13 +392,15 @@ NSThread *screenshotThread; //NSThread to check for screenshots
   // Create the main application window.
   NSRect screen_rect = [[NSScreen mainScreen] frame];
 
-    NSWindow* mainWnd = [[UnderlayOpenGLHostingWindow alloc]
-                          initWithContentRect:screen_rect
-                         styleMask:NSBorderlessWindowMask
-                         backing:NSBackingStoreBuffered
-                         defer:YES screen:[NSScreen mainScreen]];
-    [mainWnd setTitle:@"cefclient"];
-    [mainWnd setDelegate:delegate];
+  NSWindow* mainWnd = [[UnderlayOpenGLHostingWindow alloc]
+                        initWithContentRect:screen_rect
+                       styleMask:NSBorderlessWindowMask
+                       backing:NSBackingStoreBuffered
+                       defer:YES screen:[NSScreen mainScreen]];
+    
+    
+  [mainWnd setTitle:@"cefclient"];
+  [mainWnd setDelegate:delegate];
     
 
   // Rely on the window delegate to clean us up rather than immediately
@@ -437,17 +440,17 @@ NSThread *screenshotThread; //NSThread to check for screenshots
 
   CefBrowserHost::CreateBrowser(window_info, g_handler.get(),
                                 g_handler->GetStartupURL(), settings);
-    int windowLevel;
+    //int windowLevel;
 	
-    if ([[mainWnd screen] isEqual:[[NSScreen screens] objectAtIndex:0]]) {
-		[NSMenu setMenuBarVisible:NO];
-	}
+//    if ([[mainWnd screen] isEqual:[[NSScreen screens] objectAtIndex:0]]) {
+//		[NSMenu setMenuBarVisible:NO];
+//	}
     
 	if(CGCaptureAllDisplays() != kCGErrorSuccess) {
 		//NSLog(@"could not capture main display.....");
 	}
 	
-	windowLevel = CGShieldingWindowLevel();
+	/*windowLevel = CGShieldingWindowLevel();
     
 	NSWindow *fullscreenWindow = [[FullscreenWindow alloc]
                         initWithContentRect:[mainWnd contentRectForFrameRect:[mainWnd frame]]
@@ -460,14 +463,28 @@ NSThread *screenshotThread; //NSThread to check for screenshots
 	[fullscreenWindow setFrame:
     [fullscreenWindow frameRectForContentRect:[[mainWnd screen] frame]] display:YES animate:NO];
 	[fullscreenWindow makeKeyAndOrderFront:nil];
+    //[mainWnd orderOut:nil];
     [fullscreenWindow deminiaturize:nil];
     //[fullscreenWindow setOpaque:NO];
     //[fullscreenWindow setSharingType:NSWindowSharingNone]; //prevents other applications from taking screenshots
+    */
+    
+    
+    
+    
+    
+    [mainWnd setFrame:[mainWnd frameRectForContentRect:screen_rect] display:YES];
+    [mainWnd makeKeyAndOrderFront:nil];
+    
+    [mainWnd deminiaturize:nil];
+    //[mainWnd setLevel:CGShieldingWindowLevel()];
+    //[mainWnd setCollectionBehavior:NSWindowCollectionBehaviorFullScreenPrimary];
+    
+    [contentView enterFullScreenMode:[NSScreen mainScreen] withOptions:nil];
+    
     
 	oldHotKeyMode = PushSymbolicHotKeyMode(kHIHotKeyModeAllDisabled);
-	[mainWnd orderOut:nil];
-    
-    [self disableHotKeys];
+	[self disableHotKeys];
     [self clearClipBoard];
     
     

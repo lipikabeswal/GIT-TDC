@@ -72,6 +72,18 @@
 @interface UnderlayOpenGLHostingWindow : NSWindow
 @end
 
+@implementation UnderlayOpenGLHostingWindow
+
+- (BOOL)canBecomeKeyWindow {
+	return YES;
+}
+
+- (BOOL)canBecomeMainWindow {
+	return YES;
+}
+
+@end
+
 // The Mac OS X 10.6 SDK introduced new protocols used for delegates.  These
 // protocol defintions were not present in earlier releases of the Mac OS X
 // SDK.  In order to support building against the new SDK, which requires

@@ -27,6 +27,7 @@
 #include "cefclient/resource_util.h"
 #include "cefclient/string_util.h"
 #include "cefclient/window_test.h"
+#include <iostream>
 
 namespace {
 
@@ -194,6 +195,7 @@ void ClientHandler::OnLoadingStateChange(CefRefPtr<CefBrowser> browser,
                                          bool isLoading,
                                          bool canGoBack,
                                          bool canGoForward) {
+    std::cout<<"loading state changed!!!!";
   REQUIRE_UI_THREAD();
   SetLoading(isLoading);
   SetNavState(canGoBack, canGoForward);
@@ -309,9 +311,20 @@ bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
         {
             return true;
         }
-        
-        
-        
+    }
+    else if(event.modifiers == EVENTFLAG_CONTROL_DOWN) //disable all ctrl + * shortcuts except TDC key combos
+    {
+        bool isHotKey=(event.native_key_code == 0x01 || //S
+                       event.native_key_code == 0x20 || //U
+                       event.native_key_code == 0x1F || //O
+                       event.native_key_code == 0x03 || //F
+                       event.native_key_code == 0x26 || //J
+                       event.native_key_code == 0x28 || //K
+                       event.native_key_code == 0x25 ); //L
+        if(!isHotKey)
+        {
+            return true;
+        }
         
     }
     
@@ -414,6 +427,7 @@ void ClientHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
 
 void ClientHandler::OnLoadStart(CefRefPtr<CefBrowser> browser,
                                 CefRefPtr<CefFrame> frame) {
+    std::cout<<"loading started!!!!";
   REQUIRE_UI_THREAD();
 
   if (m_BrowserId == browser->GetIdentifier() && frame->IsMain()) {
@@ -425,6 +439,7 @@ void ClientHandler::OnLoadStart(CefRefPtr<CefBrowser> browser,
 void ClientHandler::OnLoadEnd(CefRefPtr<CefBrowser> browser,
                               CefRefPtr<CefFrame> frame,
                               int httpStatusCode) {
+    std::cout<<"loading ended!!!!";
   REQUIRE_UI_THREAD();
 
   if (m_BrowserId == browser->GetIdentifier() && frame->IsMain()) {
@@ -442,6 +457,7 @@ void ClientHandler::OnLoadError(CefRefPtr<CefBrowser> browser,
                                 ErrorCode errorCode,
                                 const CefString& errorText,
                                 const CefString& failedUrl) {
+    std::cout<<"loading error!!!!";
   REQUIRE_UI_THREAD();
 
   // Don't display an error for downloaded files.
