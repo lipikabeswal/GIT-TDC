@@ -1056,8 +1056,8 @@ var answerChoiceHandler = function(){
 				if(!gController.isCrItem() && (gItemInterface.visible == true || gItemInterface.visible == 'true')){
 				     	var index=downedKeysArr.indexOf(evtobj.keyCode);
 				   		if (index >= 0) {
-				   				if(downedKeysArr.length == 1 && (evtobj.which >= 65 || evtobj.which <= 74) && !gController.isCrItem() && (!gScratchpad.scratchpadHasFocus) && (gController.isWritingPopupOpen == false)){
-					    			selectAnswerChoice();
+				   				if(downedKeysArr.length == 1 && (evtobj.which >= 65 && evtobj.which <= 74) && !gController.isCrItem() && (!gScratchpad.scratchpadHasFocus) && (gController.isWritingPopupOpen == false)){
+				   					 selectAnswerChoice();
 					    		}
 					    	
 				    	 	downedKeysArr.splice( index, 1 );
