@@ -661,19 +661,19 @@ function setScaleFactor(xscalefactor,yscalefactor){
 	    		&& typeof iframe.contentWindow.accomPkg != 'undefined') {
 		    }
 		    
-	    		var fontObj = getFontAccomodation();	
-	    		var bgColorObj = getBackColorAccomodation();				
-	    		
-	   		/*if(fontObj.hasFontMag){
-	   			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '18px',bgColorObj);
-	   		}
-	   		else {
-	   			iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
-	   		}*/
-	    	iframe.contentWindow.isReadable(canvas.readable);
-	    	//iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj.fgcolor, '12px',bgColorObj);
-	    	/*var xscalefact = (780 * xscalefactorjs)/800;
-	    	var yscalefact = (450 * yscalefactorjs)/462;*/
+	    	var fontObj = getFontAccomodation();	
+	    	var bgColorObj = getBackColorAccomodation();
+	    						
+	    	/*OAS-1647 - Validate if student has large font accomodation*/	
+	   		if(fontObj.hasFontMag){
+	   			localStorage.setItem("hasFontMag",true);
+	   		}else{
+	   			localStorage.setItem("hasFontMag",false);	
+	   		}		
+	   		iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj);
+	   		
+	   		
+	   		iframe.contentWindow.isReadable(canvas.readable);
 	    	var xscalefact = 780/800;
 	    	var yscalefact = 450/462;
 	    	iframe.contentWindow.translate(xscalefact, yscalefact);
@@ -1057,7 +1057,7 @@ var answerChoiceHandler = function(){
 				     	var index=downedKeysArr.indexOf(evtobj.keyCode);
 				   		if (index >= 0) {
 				   				if(downedKeysArr.length == 1 && (evtobj.which >= 65 && evtobj.which <= 74) && !gController.isCrItem() && (!gScratchpad.scratchpadHasFocus) && (gController.isWritingPopupOpen == false)){
-				   					 selectAnswerChoice();
+					    			selectAnswerChoice();
 					    		}
 					    	
 				    	 	downedKeysArr.splice( index, 1 );

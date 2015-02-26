@@ -451,9 +451,9 @@ function accommodationPKG() {
         };
     }
 
-    // public method
-    this.setVisualAccessFeatures = function (fontColor, backColor) {
-        setColorFontAccomm(backColor.stemArea, backColor.responseArea, fontColor.stemArea, fontColor.responseArea);
+    /*OAS-1647 - Validate if student has large font accomodation*/
+    this.setVisualAccessFeatures = function (fontColor) {
+        setColorFontAccomm(fontColor.hasFontMag);
     }
 
 
@@ -1045,8 +1045,19 @@ function accommodationPKG() {
 function scrollableDivMouseDown(e, x1, y1, targetParentObject) {
     var x1, y1;
     var isScrollableDivY = "";
-    var transX = 1 / $("#scaleX").val(),
-        transY = 1 / $("#scaleY").val();
+    /*OAS-1647 - Apply scaling while highlighting*/
+    var transX, transY;
+    if(localStorage.getItem("hasFontMag") != undefined){
+        if(localStorage.getItem("hasFontMag") == 'true' || localStorage.getItem("hasFontMag") == true){
+    		transX = 1 / 1.4;
+        	transY = 1 / 1.4;
+    	}else{
+    		transX = 1 / $("#scaleX").val();
+        	transY = 1 / $("#scaleY").val();
+    	}
+    }else{
+    	// do nothing
+    }	    
     $("#current").attr({
         id: ''
     })
@@ -1076,9 +1087,20 @@ function scrollableDivMouseDown(e, x1, y1, targetParentObject) {
 }
 
 function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart, dirDown, initialScrollHeight, initialScrollWidth) {
-    var transX = 1 / $("#scaleX").val(),
-        transY = 1 / $("#scaleY").val();
+    var transX, transY;
     var targetObj = "";
+    /*OAS-1647 - Apply scaling while highlighting*/
+    if(localStorage.getItem("hasFontMag") != undefined){
+        if(localStorage.getItem("hasFontMag") == 'true' || localStorage.getItem("hasFontMag") == true){
+    		transX = 1 / 1.4;
+        	transY = 1 / 1.4;
+    	}else{
+    		transX = 1 / $("#scaleX").val();
+        	transY = 1 / $("#scaleY").val();
+    	}
+    }else{
+    	// do nothing
+    }
 	if ($(event.target).is("div.text") || $(event.target).is("div.textarea")) {
         targetObj = $(event.target);
     } else if ($(event.target).parents("div.text").length > 0) {
