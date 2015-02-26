@@ -141,9 +141,7 @@ function makeFFDraggable(ele) {
         var text = getFreeFlowSelectionHtml();
         if (text != undefined) {
             $("body").append("<div id = '" + drag + "' class = 'ffText'>" + text + "</div>");
-			//$("body").append("<div class = 'draggabletxt'>" + $('.ffText').text() + "</div>");
             var $moveable = $('.ffText');
-			//var $moveable = $('.draggabletxt');
             $(document).mousemove(function (e) {
                 var isOpera = !! window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
                 var isChrome = !! window.chrome && !isOpera;
@@ -1320,7 +1318,16 @@ function makeDrggable() {
                 localStorage.setItem("dManupulative", false);//OAS change
                 scaleDropArea();
                 if (isStandAlone) {
-                    scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
+                	/*OAS-1647 - Scale draggable objects while dragstart from original container*/
+                	if(localStorage.getItem("hasFontMag") != undefined){
+                		if(localStorage.getItem("hasFontMag") == 'true' || localStorage.getItem("hasFontMag") == true){
+                    		scalingContent($(ui.helper), 1.4, 1.4);
+                    	}else{
+                    		scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
+                    	}
+                    }else{
+                    	//do nothing
+                    }		
                     stopHighLighting(event);
                 }
 
@@ -1628,7 +1635,16 @@ function makeDropAreaSortable(drop) {
                 e.preventDefault();
                 return false;
             }
-            scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
+            /*OAS-1647 - Scale draggable objects while dragstart from drop area*/
+            if(localStorage.getItem("hasFontMag") != undefined){
+                if(localStorage.getItem("hasFontMag") == 'true' || localStorage.getItem("hasFontMag") == true){
+                	scalingContent($(ui.helper), 1.4, 1.4);
+                }else{	
+            		scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
+                }
+            }else{
+                  	//do nothing
+            }
             stopHighLighting(e);
         },
         containment: "document",
@@ -2377,51 +2393,14 @@ function changeQuesProp(dialog) {
     }
 }
 
-function setColorFontAccomm(quesBackgroundColor, ansBackgroundColor, quesFontColor, ansFontColor) {
-    var qsArea = $("div[ansarea='false']"),
-        quesArea = $("div.element:not(.mathpalette,[ansarea])");
-    for (var index = 0; index < qsArea.length; index++) {
-        if (qsArea.eq(index).attr("bgrequired") == "1") {
-            qsArea.eq(index).css("background-color", "#" + quesBackgroundColor);
-        }
-        //if(!qsArea.eq(index).is("div.divbox")){
-        qsArea.eq(index).children(".text").css("color", "#" + quesFontColor);
-        //qsArea.eq(index).find(".correctAns").css("color", "#" + quesFontColor);
-        qsArea.eq(index).children(".text table, td").css("border-color", "#000000");
-        // }
-        if (qsArea.eq(index).find(".answer").length > 0) {
-            qsArea.eq(index).find(".answer").css("color", "#" + quesFontColor);
-        }
-    }
-    for (var index1 = 0; index1 < quesArea.length; index1++) {
-        if (quesArea.eq(index1).attr("bgrequired") == "1" || quesArea.eq(index1).attr("bgrequired") == undefined) {
-            quesArea.eq(index1).css("background-color", "#" + quesBackgroundColor);
-        }
-        // if(!quesArea.eq(index1).is("div.divbox")){
-        quesArea.eq(index1).children(".text").css("color", "#" + quesFontColor);
-        //quesArea.eq(index1).find(".correctAns").css("color", "#" + quesFontColor);
-        quesArea.eq(index1).children(".text table, td").css("border-color", "#000000");
-        // }
-        if (quesArea.eq(index1).find(".answer").length > 0) {
-            quesArea.eq(index1).find(".answer").css("color", "#" + quesFontColor);
-        }
-    }
-    $("#previewArea").css("background-color", "#" + quesBackgroundColor);
-    var ansArea = $("div[ansarea='true']");
-    for (var index2 = 0; index2 < ansArea.length; index2++) {
-        if (ansArea.eq(index2).attr("bgrequired") == "1") {
-            ansArea.eq(index2).css("background-color", "#" + ansBackgroundColor);
-        }
-        // if(!ansArea.eq(index2).is("div.divbox")){
-        ansArea.eq(index2).children(".text").css("color", "#" + ansFontColor);
-        if (ansArea.eq(index2).find(".answer").length > 0) {
-            ansArea.eq(index2).find(".answer").css("color", "#" + ansFontColor);
-        }
-
-        //ansArea.eq(index2).find(".correctAns").css("color", "#" + ansFontColor);
-        ansArea.eq(index2).children(".text table, td").css("border-color", "#000000");
-        //	  }
-    }
+function setColorFontAccomm(hasFontMag) {
+	/*OAS-1647 - Apply scaling to previewArea*/
+	if(hasFontMag){
+		setLargeFont(1.4, 1.4);
+	    $("#previewArea").css("overflow", "auto");
+	}else{
+		//do nothing
+	}
 }
 
 //Checking and unchecking of text to speech button from outside tool preview mode
