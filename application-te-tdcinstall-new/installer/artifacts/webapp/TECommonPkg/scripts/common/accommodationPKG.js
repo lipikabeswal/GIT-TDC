@@ -451,9 +451,9 @@ function accommodationPKG() {
         };
     }
 
-    /*OAS-1647 - Validate if student has large font accomodation*/
-    this.setVisualAccessFeatures = function (fontColor) {
-        setColorFontAccomm(fontColor.hasFontMag);
+    /* OAS-1592/1647 - Apply color/font accomodation for TE items */
+    this.setVisualAccessFeatures = function (fontColor, backColor) {
+        setColorFontAccomm(backColor.stemArea, backColor.responseArea, fontColor.stemArea, fontColor.responseArea,fontColor.hasFontMag);
     }
 
 
@@ -1053,7 +1053,7 @@ function scrollableDivMouseDown(e, x1, y1, targetParentObject) {
         	transY = 1 / 1.4;
     	}else{
     		transX = 1 / $("#scaleX").val();
-        	transY = 1 / $("#scaleY").val();
+        transY = 1 / $("#scaleY").val();
     	}
     }else{
     	// do nothing
