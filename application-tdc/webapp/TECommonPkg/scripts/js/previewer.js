@@ -130,6 +130,18 @@ $(document).ready(function () {
     }
     var mathBtn = $(".palette-button").css("background-image", "");
 	
+	/*OAS-1592 - Assign font color to '.ui-draggable-dragging' objects for interactiontype='6' */
+    var gFontObj = window.parent.getFontAccomodation();
+    var dndPassageRestricted = $("#previewArea div[interactiontype='6']");
+    if (dndPassageRestricted.length > 0) {
+    	$("[behavior='2']:not([isdropped=true])").on("dragstart", function(e){
+    		if(gFontObj.stemArea != null){
+	    		$(".ui-draggable-dragging").css("color",gFontObj.stemArea);
+	    	}	
+    	});
+   	}            
+    
+	
 });
 
 function makeFFDraggable(ele) {
@@ -1323,7 +1335,7 @@ function makeDrggable() {
                 		if(localStorage.getItem("hasFontMag") == 'true' || localStorage.getItem("hasFontMag") == true){
                     		scalingContent($(ui.helper), 1.4, 1.4);
                     	}else{
-                    		scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
+                    scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
                     	}
                     }else{
                     	//do nothing
@@ -1640,7 +1652,7 @@ function makeDropAreaSortable(drop) {
                 if(localStorage.getItem("hasFontMag") == 'true' || localStorage.getItem("hasFontMag") == true){
                 	scalingContent($(ui.helper), 1.4, 1.4);
                 }else{	
-            		scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
+            scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
                 }
             }else{
                   	//do nothing
@@ -2393,7 +2405,7 @@ function changeQuesProp(dialog) {
     }
 }
 
-function setColorFontAccomm(hasFontMag) {
+function setColorFontAccomm(quesBackgroundColor, ansBackgroundColor, quesFontColor, ansFontColor, hasFontMag) {
 	/*OAS-1647 - Apply scaling to previewArea*/
 	if(hasFontMag){
 		setLargeFont(1.4, 1.4);
@@ -2401,6 +2413,50 @@ function setColorFontAccomm(hasFontMag) {
 	}else{
 		//do nothing
 	}
+    /*OAS-1592 - Apply color accomodation to question and answer areas.*/
+    var qsArea = $("div[ansarea='false']"),
+    quesArea = $("div.element:not(.mathpalette,[ansarea])");
+    for (var index = 0; index < qsArea.length; index++) {
+        if (qsArea.eq(index).attr("bgrequired") == "1") {
+            qsArea.eq(index).css({"background-color":quesBackgroundColor,
+            						"border-color":quesFontColor});
+        }
+        qsArea.eq(index).children(".text").css("color",quesFontColor);
+        qsArea.eq(index).children(".text table, td").css("border-color",quesFontColor);
+        if (qsArea.eq(index).find(".answer").length > 0) {
+            qsArea.eq(index).find(".answer").css("color",quesFontColor);
+        }
+    }
+    for (var index1 = 0; index1 < quesArea.length; index1++) {
+        if (quesArea.eq(index1).attr("bgrequired") == "1" || quesArea.eq(index1).attr("bgrequired") == undefined) {
+            quesArea.eq(index1).css("background-color",quesBackgroundColor);
+        }
+        quesArea.eq(index1).children(".text").css("color",quesFontColor);
+        quesArea.eq(index1).children(".text table, td").css("border-color",quesFontColor);
+        if (quesArea.eq(index1).find(".answer").length > 0) {
+            quesArea.eq(index1).find(".answer").css("color",quesFontColor);
+        }
+    }
+    
+    $("#previewArea").css("background-color",quesBackgroundColor);
+    var ansArea = $("div[ansarea='true']");
+    for (var index2 = 0; index2 < ansArea.length; index2++) {
+        if (ansArea.eq(index2).attr("bgrequired") == "1") {
+            ansArea.eq(index2).css({"background-color":ansBackgroundColor,
+            						"border-color":ansFontColor});
+        }
+        ansArea.eq(index2).children(".text").css("color",ansFontColor);
+        if (ansArea.eq(index2).find(".answer").length > 0) {
+            ansArea.eq(index2).find(".answer").css("color",ansFontColor);
+        }
+        ansArea.eq(index2).children(".text table, td").css("border-color",ansFontColor);
+    }
+    
+    var dropArea = $("div[data-role='droparea']");
+    for(var i=0; i<dropArea.length; i++){
+      	dropArea.eq(i).css({"background-color":ansBackgroundColor,
+      						"border-color":ansFontColor});
+    }
 }
 
 //Checking and unchecking of text to speech button from outside tool preview mode

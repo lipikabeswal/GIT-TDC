@@ -300,7 +300,6 @@ var ans = false;
     if(elem){
         if(elem.contentWindow){
             if(elem.contentWindow.accomPkg){
-   				console.log("inside setState");
    				htmlContent = replaceAbsPathWithRelPath(htmlContent);
            		elem.contentWindow.accomPkg.setState(htmlContent,jsonContent,checkedVals);
 			}
@@ -572,20 +571,21 @@ function closeTI84Calc(){
 }
 
 /*show/hide/destroy TI calculators ends*/	
- 
+
+/*OAS-1592 - Retreive question and answer font-color  accommodation*/ 
 function getFontAccomodation(){
 	var fontObj = new Object();
-	var questionBgColor = gController.questionBgColor;
+	var answerFontColor = gController.answerFontColor;
 	var questionFontColor = gController.questionFontColor;
 	
-	if(typeof questionBgColor == "number"){
-		questionBgColor = questionBgColor.toString(16);
-		while(questionBgColor.length<6)
+	if(typeof answerFontColor == "number"){
+		answerFontColor = questionFontColor.toString(16);
+		while(answerFontColor.length<6)
         {
-            questionBgColor='0'+questionBgColor;
+            answerFontColor='0'+answerFontColor;
         }
-		if(questionBgColor.indexOf("0x") < 0){
-			questionBgColor = "0x"+ questionBgColor;
+		if(answerFontColor.indexOf("0x") < 0){
+			answerFontColor = "0x"+ questionFontColor;
 		}
 	}
 	
@@ -599,8 +599,8 @@ function getFontAccomodation(){
 			questionFontColor = "0x"+ questionFontColor;
 		}
 	}
-	fontObj.bgcolor = questionBgColor.replace('0x', '#');
-	fontObj.fgcolor = questionFontColor.replace('0x', '#');
+	fontObj.stemArea = questionFontColor.replace('0x', '#');
+	fontObj.responseArea = answerFontColor.replace('0x', '#');
 	fontObj.hasFontMag = gController.hasFontAccommodation;
 	return fontObj;
 }
@@ -653,7 +653,6 @@ function setScaleFactor(xscalefactor,yscalefactor){
  var iframeLoaded = false;
  function iframeState(id){
      	var iframe = jQuery("iframe")[0];
-     	console.log("iframe state");
      	if(iframe){
 		    //check whether iFrame loaded successfully or not
 		    if(iframe != null
@@ -661,18 +660,17 @@ function setScaleFactor(xscalefactor,yscalefactor){
 	    		&& typeof iframe.contentWindow.accomPkg != 'undefined') {
 		    }
 		    
-	    	var fontObj = getFontAccomodation();	
-	    	var bgColorObj = getBackColorAccomodation();
-	    						
+	    		var fontObj = getFontAccomodation();	
+	    		var bgColorObj = getBackColorAccomodation();				
+	    		
 	    	/*OAS-1647 - Validate if student has large font accomodation*/	
 	   		if(fontObj.hasFontMag){
 	   			localStorage.setItem("hasFontMag",true);
 	   		}else{
 	   			localStorage.setItem("hasFontMag",false);	
-	   		}		
-	   		iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj);
-	   		
-	   		
+	   		}
+	   		/*OAS-1592/1647 - Apply color/font accomodation for TE items */ 
+	   		iframe.contentWindow.accomPkg.setVisualAccessFeatures(fontObj,bgColorObj);
 	   		iframe.contentWindow.isReadable(canvas.readable);
 	    	var xscalefact = 780/800;
 	    	var yscalefact = 450/462;

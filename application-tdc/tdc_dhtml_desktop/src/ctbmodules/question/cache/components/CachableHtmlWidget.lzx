@@ -91,13 +91,9 @@
 			this.setAttribute('answerObjSet', {});
 			gController.setAttribute('findAnswer',true); //using for freezing/unfreezing UI 
 			gController.setAttribute('isTE',true);
-			/*Start applying bgcolor default white to Question and Panel class TE items, for suppressing color accomodation for TE items.*/
-			if(gController.hasFontAccommodation){
-				this.parent.parent.setAttribute('bgcolor','white');
-			}
-			this.parent.setAttribute('bgcolor','white');
-			gQuestion.setAttribute('bgcolor','white');
-			/*End applying bgcolor default white to Question and Panel class TE items, for suppressing color accomodation for TE items.*/
+			/*OAS-1592 - Start applying bgcolor to Question and Panel class TE items */
+			this.ht.parent.setAttribute('bgcolor',gController.questionBgColor);
+			
 				
 			if (data.hasAttr("id")) {
 		      	var id = data.getAttr('id');
