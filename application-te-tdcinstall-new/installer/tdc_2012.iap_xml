@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2012 Enterprise, Build 4349
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Thu Feb 26 12:43:06 PST 2015 -->
-<InstallAnywhere_Deployment_Project increments="19625">
+     DATE:   Thu Feb 26 14:34:22 PST 2015 -->
+<InstallAnywhere_Deployment_Project increments="19635">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="14" minor="0" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,55,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,55,46,48,44,32,79,114,97,99,108,101,32,67,111,114,112,111,114,97,116,105,111,110,44,32,104,116,116,112,58,47,47,106,97,118,97,46,111,114,97,99,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,64,-57,-88,-32,-128,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,3,9,112,39,11,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,-57,8,-64,48,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,12,6,118,40,11,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="864">
+	<installationObjects uniqueObjects="865">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="belongsToUninstallPhase">
 				<boolean>false</boolean>
@@ -2209,6 +2209,22 @@ and any path to a file to read from that file]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$PREVIOUSLY_INSTALLED$]]></string>
+													</property>
+													<property name="passByValue">
+														<boolean>false</boolean>
+													</property>
+													<property name="substituteUnknownVariable">
+														<boolean>false</boolean>
+													</property>
+												</object>
+											</method>
+											<method name="addElement">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="db8320418678">
+													<property name="propertyValue">
+														<string><![CDATA[true]]></string>
+													</property>
+													<property name="propertyName">
+														<string><![CDATA[$VANILLA$]]></string>
 													</property>
 													<property name="passByValue">
 														<boolean>false</boolean>
@@ -18975,7 +18991,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="db2227fd8671">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="db8804c58682">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -19173,7 +19189,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[February 26, 2015 12:43:06 PM PST]]></string>
+						<string><![CDATA[February 26, 2015 2:34:21 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -19408,10 +19424,10 @@ The log is in $USER_INSTALL_DIR$]]></string>
 						<string><![CDATA[Install $PRODUCT_NAME$]]></string>
 					</property>
 					<property name="installerName">
-						<string><![CDATA[InstallOAS_TASC_DEF]]></string>
+						<string><![CDATA[InstallOAS]]></string>
 					</property>
 					<property name="productName">
-						<string><![CDATA[TASC Online Assessment]]></string>
+						<string><![CDATA[Online Assessment]]></string>
 					</property>
 					<property name="productID">
 						<object class="com.zerog.registry.UUID">
@@ -22550,7 +22566,7 @@ and any path to a file to read from that file]]></string>
 														<boolean>true</boolean>
 													</property>
 													<property name="execLevel">
-														<int>2</int>
+														<int>1</int>
 													</property>
 													<property name="asksUserAboutRestart">
 														<boolean>true</boolean>
