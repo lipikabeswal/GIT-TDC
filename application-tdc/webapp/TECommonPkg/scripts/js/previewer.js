@@ -12,7 +12,7 @@ $(document).ready(function () {
 	  } else {
 	    $("head").append("<link rel='stylesheet' href='../../TECommonPkg/styles/css/tdc-font.css' type='text/css' />");
 	  }
-
+	  
    scaleDropArea();
 
     /* hides the customized dropdown in mcqs*/
@@ -146,7 +146,6 @@ $(document).ready(function () {
 
 function makeFFDraggable(ele) {
     ele.on("dragstart", function (evt) {
-
         var sel = window.getSelection();
         var drag = $(sel.anchorNode.parentNode).parents(".divbox").attr("id");
         blokFreeFlowTextSelection();
@@ -1334,8 +1333,8 @@ function makeDrggable() {
                 	if(localStorage.getItem("hasFontMag") != undefined){
                 		if(localStorage.getItem("hasFontMag") == 'true' || localStorage.getItem("hasFontMag") == true){
                     		scalingContent($(ui.helper), 1.4, 1.4);
-                    	}else{
-                    scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
+                    	}else{	
+                    		scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
                     	}
                     }else{
                     	//do nothing
@@ -2448,10 +2447,10 @@ function setColorFontAccomm(quesBackgroundColor, ansBackgroundColor, quesFontCol
         ansArea.eq(index2).children(".text").css("color",ansFontColor);
         if (ansArea.eq(index2).find(".answer").length > 0) {
             ansArea.eq(index2).find(".answer").css("color",ansFontColor);
-        }
+    }
         ansArea.eq(index2).children(".text table, td").css("border-color",ansFontColor);
     }
-    
+   
     var dropArea = $("div[data-role='droparea']");
     for(var i=0; i<dropArea.length; i++){
       	dropArea.eq(i).css({"background-color":ansBackgroundColor,
@@ -4027,14 +4026,20 @@ function identifySpecialCharPassage(htmlData) {
 function checkImage(items) {
     var isImgPresent = false,
         itemText = "";
+		
     for (var itemCount = 0; itemCount < items.length; itemCount++) {
         itemText = items.eq(itemCount).find(".text").html();
-        if (itemText.indexOf("<img") > 0) {
-            isImgPresent = true;
-            break;
-        } else {
-            isImgPresent = false;
-        }
+		
+		if(itemText != null){
+			if (itemText.indexOf("<img") > 0) {
+				isImgPresent = true;
+				break;
+			} else {
+				isImgPresent = false;
+			}
+		}else{
+			isImgPresent = false;
+		}
     }
     return isImgPresent;
 }

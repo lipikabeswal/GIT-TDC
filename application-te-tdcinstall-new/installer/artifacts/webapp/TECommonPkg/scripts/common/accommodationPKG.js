@@ -451,8 +451,9 @@ function accommodationPKG() {
         };
     }
 
-    /* OAS-1592/1647 - Apply color/font accomodation for TE items */
+   /* OAS-1592/1647 - Apply color/font accomodation for TE items */
     this.setVisualAccessFeatures = function (fontColor, backColor) {
+		
         setColorFontAccomm(backColor.stemArea, backColor.responseArea, fontColor.stemArea, fontColor.responseArea,fontColor.hasFontMag);
     }
 
@@ -688,6 +689,7 @@ function accommodationPKG() {
 
     // public method
     this.enableHighlighter = function (isEnabled) {
+   
         this.enableHighlighterArea = isEnabled;
         if (isEnabled) {
             $(document).data("active", true);
@@ -717,13 +719,14 @@ function accommodationPKG() {
     }
 
     var enabledHighlighterBox = function () {
+
         var x1, y1;
         var dirUp = "";
         var prevX = "";
         var prevY = "";
         var selectStart = false;
         var dirDown = "";
-        var isScrollableDivY = false;
+        var isScrollableDivY = true; /*Internal Defect against OAS-1647- Highlighter not working properly*/
         var initialScrollHeight = 0;
         var initialScrollWidth = 0;
         var textEle = "";
@@ -732,10 +735,12 @@ function accommodationPKG() {
         $(document).on("mousedown", function (e) {
             dataRole = $(e.target.parentNode).attr("data-role");
             if (dataRole == "droparea" || dataRole == "checkbox" || dataRole == "radio") {
+            
                 mouseOnUnwantedEle = true;
             } else {
                 mouseOnUnwantedEle = false;
                 if ($(document).data("active")) {
+              
                     $("#current").attr({
                         id: ''
                     });
@@ -745,26 +750,56 @@ function accommodationPKG() {
 
                     var text = $(document.elementFromPoint(x1, y1));
                     if ($(text).is("div.text")) {
+					
                         textEle = text;
+                       
 						
                     } else if ($(text).is("div.textarea")) {
+					
                         textEle = text.find("div.text").eq(0);
+                         
 						
                     } else {
+					
                         textEle = text.parents(".text").eq(0);
+                       
 						
                     }
+					/*Internal Defect against OAS-1647- Highlighter not working properly : Finding the parent object according to mouse click*/
+					if($(textEle).is("span.text") ){
+						textEle = textEle.parent().parent();
+					}
+					if(textEle.length == 0){
+						textEle = text;
+					}
+					if($(textEle).is(".radio")||$(textEle).is(".checkbox")){
+						textEle = textEle.parent(".divbox");	
+					}
+					
                     selectStart = true;
-					if (textEle && textEle.length > 0 && textEle[0].scrollHeight > textEle.outerHeight(true) + 5) {
+					/*Internal Defect against OAS-1647- Highlighter not working properly */                  
+					if (textEle && textEle.length > 0 || textEle[0].scrollHeight > textEle.outerHeight(true) + 5) {
+					  
 						isScrollableDivY = true;
                         prevX = "NA";
                         prevY = "NA";
+						if(textEle[0].scrollHeight < textEle.outerHeight(true) + 5 && !(textEle.hasClass("divbox"))){
+							initialScrollHeight = 2.5;//padding adjustments
+							initialScrollWidth = 0;
+						}
+						else if(textEle.hasClass("divbox")){
+							initialScrollHeight = 80;//padding adjustments
+							initialScrollWidth = 15;
+						}
+						else{
                         initialScrollHeight = 25;//padding adjustments
-                        initialScrollWidth = 0;
+                         initialScrollWidth = 0;
+						}
+                       
 						
 						//Defect 80253 fix
                         $(textEle).children().each(function () {
-							if(!$(this).hasClass("highlighter"))
+							if(!$(this).hasClass("highlighter") )
 							{
 							initialScrollHeight += $(this).outerHeight();
 							
@@ -789,7 +824,7 @@ function accommodationPKG() {
                         }).fadeIn();
                     }
                 }
-            }
+           }
 			/*var radio = $(".radio-button").within(e.pageX, e.pageY); 
 			if(radio.length < 0){
 				e.originalEvent.preventDefault();
@@ -800,6 +835,7 @@ function accommodationPKG() {
                 if ($(document).data("active")) {
 					
                     $("#current").css("border", "2px solid");
+                    
 					if (isScrollableDivY) {
 						var retObj = scrollableDivMouseMove(e, x1, y1, dirUp, prevX, prevY, selectStart, dirDown, initialScrollHeight, initialScrollWidth);
 						dirUp = retObj.dirUp;
@@ -812,6 +848,7 @@ function accommodationPKG() {
 					} else {
 
                         if (selectStart && !(isInsideScrollableDiv(x1, y1, e.pageX, e.pageY))) {
+                    	
 						  if (x1 > e.pageX && y1 > e.pageY) {
 							$("#current").css({
                                     width: Math.abs(e.pageX - x1),
@@ -854,9 +891,9 @@ function accommodationPKG() {
                     //sendNotification();
                     selectStart = false;
 					if (isScrollableDivY) {
-					removeOrReduceHighlighterBox(initialScrollHeight-6, initialScrollWidth-3);
+					removeOrReduceHighlighterBox(initialScrollHeight-3, initialScrollWidth-3);
 					scrollableDivMouseUp(e);
-						isScrollableDivY = false;
+						isScrollableDivY = true; /*Internal Defect against OAS-1647- Highlighter not working properly : Same behavior for both scrollable and non-scrollable div */
                     } else {
 					var pos = $("#current").position();
                         $("#current").attr({
@@ -872,6 +909,7 @@ function accommodationPKG() {
     }
 
         function setPosition(newParent, event, newBox, scalingFactorY, scalingFactorX) {
+
             var newHeight = newBox.height() * scalingFactorY;
             var newWidth = newBox.width() * scalingFactorX;
             var top = (event.clientY - newParent.offset().top) * scalingFactorY + newParent.scrollTop() - newHeight;
@@ -887,6 +925,7 @@ function accommodationPKG() {
         }
 
         function areaScrollWithHighlighter(obj) {
+ 
             var ele, divs = $(".text"),
                 highlighterBox, high, $this, boxPos, highPos, scrollPos = 0,
                 highTop = 0;
@@ -1086,6 +1125,7 @@ function scrollableDivMouseDown(e, x1, y1, targetParentObject) {
 	}
 }
 
+
 function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart, dirDown, initialScrollHeight, initialScrollWidth) {
     var transX, transY;
     var targetObj = "";
@@ -1223,6 +1263,7 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
 }
 
 function scrollableDivMouseUp(e) {
+
     var targetParentObject = '';
     if ($(e.target).is("div.text") || $(e.target).is("div.divbox")) {
         targetParentObject = $(e.target);
@@ -1301,6 +1342,7 @@ function recreatePreviewarea(scoreJson) {
 }
 
 function isInsideScrollableDiv(startPosX, startPosY, currentPosX, currentPosY) {
+
     var testResult = false;
     var tempX = tempY = "";
     var text = "";
@@ -1350,6 +1392,7 @@ function clearSelection() {
 }
 
 function gethighlightedRegion() {
+
     var highlighter = $("body").find(".highlighter");
     var styleArr = new Array(),
         styleObj = {}, ht = wd = lt = tp = 0;
@@ -1373,6 +1416,7 @@ function gethighlightedRegion() {
 }
 
 function highlightItems(json) {
+
     var highlighterDiv;
     for (var hDivCount = 0; hDivCount < json.highlights.length; hDivCount++) {
         highlighterObj = json.highlights[hDivCount];
@@ -1388,8 +1432,11 @@ function highlightItems(json) {
     }
 }
 function removeOrReduceHighlighterBox(initialScrollHeight, initialScrollWidth){
+
 	var highlighterDiv = $("#current");
+	
 	if(highlighterDiv.length > 0) {
+	
 	//fix for 79597
 		var allHighlighters = highlighterDiv.parent(".text").find("div.highlighter").each(function(){
 		var width = $(this).width();
