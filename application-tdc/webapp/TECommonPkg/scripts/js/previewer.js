@@ -1,8 +1,8 @@
  var editorContentJSON, accomPkg, isStandAlone = false,
     droppedSequence, isPageLoaded = true,
     accomPkgScoreOb = 0,
-    accomPkgPossibleSc = 0;
-
+    accomPkgPossibleSc = 0 ;
+    
 $(document).ready(function () {
       /* load custom font file dynamically */
 	  if ($.browser.msie) {
@@ -12,7 +12,7 @@ $(document).ready(function () {
 	  } else {
 	    $("head").append("<link rel='stylesheet' href='../../TECommonPkg/styles/css/tdc-font.css' type='text/css' />");
 	  }
-	  
+
    scaleDropArea();
 
     /* hides the customized dropdown in mcqs*/
@@ -146,6 +146,7 @@ $(document).ready(function () {
 
 function makeFFDraggable(ele) {
     ele.on("dragstart", function (evt) {
+
         var sel = window.getSelection();
         var drag = $(sel.anchorNode.parentNode).parents(".divbox").attr("id");
         blokFreeFlowTextSelection();
@@ -1042,7 +1043,8 @@ function activateControls($previewHtml, pos, json, selectedScreen, isFromOutside
         $ele, top = 0,
         left = 0,
         screens;
-    $("#previewArea").css("background-color", "rgb(255, 255, 255)");
+    /*Internal defect for OAS-1592: preview area background color is set dynamically */
+    //$("#previewArea").css("background-color", "rgb(255, 255, 255)");
     if (isStandAlone) {
         $previewHtml = resetFontName($previewHtml);
     }
@@ -1333,8 +1335,8 @@ function makeDrggable() {
                 	if(localStorage.getItem("hasFontMag") != undefined){
                 		if(localStorage.getItem("hasFontMag") == 'true' || localStorage.getItem("hasFontMag") == true){
                     		scalingContent($(ui.helper), 1.4, 1.4);
-                    	}else{	
-                    		scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
+                    	}else{
+                    scalingContent($(ui.helper), $("#scaleX").val(), $("#scaleY").val());
                     	}
                     }else{
                     	//do nothing
@@ -2351,7 +2353,11 @@ function makePassageRes(drag, drop, accessType) {
             "top": dropElePos.top,
             "left": dropElePos.left
         });
-        $droppedElement.find(".answer").css("color", drop.find(".text").css("color"));
+        /*Internal defect for OAS-1592: after draggable objects(i.e. highlighted passage text) are dropped in drop areas, font color of the dropped objects should be same as that of answer area font color. */
+        var gFontObj = window.parent.getFontAccomodation();
+        if(gFontObj.responseArea != null){
+	        $droppedElement.find(".answer").css("color", gFontObj.responseArea);
+	    }    
     }
 
     setDropAreaScrollbar(drop);
@@ -2447,10 +2453,10 @@ function setColorFontAccomm(quesBackgroundColor, ansBackgroundColor, quesFontCol
         ansArea.eq(index2).children(".text").css("color",ansFontColor);
         if (ansArea.eq(index2).find(".answer").length > 0) {
             ansArea.eq(index2).find(".answer").css("color",ansFontColor);
-    }
+        }
         ansArea.eq(index2).children(".text table, td").css("border-color",ansFontColor);
     }
-   
+    
     var dropArea = $("div[data-role='droparea']");
     for(var i=0; i<dropArea.length; i++){
       	dropArea.eq(i).css({"background-color":ansBackgroundColor,
@@ -4026,20 +4032,19 @@ function identifySpecialCharPassage(htmlData) {
 function checkImage(items) {
     var isImgPresent = false,
         itemText = "";
-		
     for (var itemCount = 0; itemCount < items.length; itemCount++) {
         itemText = items.eq(itemCount).find(".text").html();
 		
 		if(itemText != null){
-			if (itemText.indexOf("<img") > 0) {
-				isImgPresent = true;
-				break;
+        if (itemText.indexOf("<img") > 0) {
+            isImgPresent = true;
+            break;
 			} else {
 				isImgPresent = false;
 			}
-		}else{
-			isImgPresent = false;
-		}
+        } else {
+            isImgPresent = false;
+        }
     }
     return isImgPresent;
 }
