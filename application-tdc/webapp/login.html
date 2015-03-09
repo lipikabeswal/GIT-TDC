@@ -946,67 +946,67 @@ function selectAnswerChoice(){
 
 	var keyValue = String.fromCharCode(event.keyCode).toLowerCase();
 	switch(keyValue){
-			
+			/*Fix for defect #81876 - restricting user to use answer selection hot keys based on visibility of restrictResponseOverlay*/
 					case 'a' :
-							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && restrictResponseOverlay.visible == false) {
 								gHotKeys.toggleA();
 								event.preventDefault(); // disable Ctrl+F
 							}
 					break;
 					case 'b' :
-							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && restrictResponseOverlay.visible == false) {
 								gHotKeys.toggleB();
 								event.preventDefault(); // disable Ctrl+F
 							}
 					break;
 					case 'c' :
-							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && restrictResponseOverlay.visible == false) {
 								gHotKeys.toggleC();
 								event.preventDefault(); // disable Ctrl+F
 							}
 					break;
 					case 'd' :
-							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && restrictResponseOverlay.visible == false) {
 								gHotKeys.toggleD();
 								event.preventDefault(); // disable Ctrl+F
 							}
 					break;
 					case 'e' :
-							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && restrictResponseOverlay.visible == false) {
 								gHotKeys.toggleE();
 								event.preventDefault(); // disable Ctrl+F
 							}
 					break;
 					case 'f' :
-							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && restrictResponseOverlay.visible == false) {
 								gHotKeys.toggleF();
 								event.preventDefault(); // disable Ctrl+F
 							}
 					break;
 					case 'g' :
 						console.log("****Inside case G****"+gItemInterface.visible+"======"+"gRevisitFalsePopup.visible"+"======"+gPleaseWaitPopup.visible);
-							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && restrictResponseOverlay.visible == false) {
 								gHotKeys.toggleG();
 								event.preventDefault(); // disable Ctrl+F
 							}
 					break;
 					case 'h' :
 						console.log("****Inside case H*****"+gItemInterface.visible+"======"+"gRevisitFalsePopup.visible"+"======"+gPleaseWaitPopup.visible);
-							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && restrictResponseOverlay.visible == false) {
 								gHotKeys.toggleH();
 								event.preventDefault(); // disable Ctrl+F
 							}
 					break;
 					case 'i' :
 						console.log("****Inside case I*****"+gItemInterface.visible+"======"+"gRevisitFalsePopup.visible"+"======"+gPleaseWaitPopup.visible);
-							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && restrictResponseOverlay.visible == false) {
 								gHotKeys.toggleI();
 								event.preventDefault(); // disable Ctrl+F
 							}
 					break;
 					case 'j' :
 						console.log("****Inside case J*****"+gItemInterface.visible+"======"+"gRevisitFalsePopup.visible"+"======"+gPleaseWaitPopup.visible);
-							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false) {
+							if((gItemInterface.visible == true || gItemInterface.visible == 'true') &&  gRevisitFalsePopup.visible == false && gPleaseWaitPopup.visible == false && restrictResponseOverlay.visible == false) {
 								gHotKeys.toggleJ();
 								event.preventDefault(); // disable Ctrl+F
 							}
