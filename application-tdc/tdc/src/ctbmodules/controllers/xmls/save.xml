@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<adssvc_request method="save_testing_session_data" sdsid="string" token="string" xmlns="">
+<adssvc_request method="save_testing_session_data" sdsid="string" token="string" xmlns="" retry="false">
 	<save_testing_session_data>
 		<tsd lsid="" scid="" mseq="" cid="" tts_speed_value=""/>
 	</save_testing_session_data>

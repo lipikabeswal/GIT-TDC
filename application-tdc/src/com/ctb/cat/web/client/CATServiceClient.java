@@ -181,10 +181,14 @@ public class CATServiceClient {
 		logger.debug("CATServiceClient: start: end\n\n");
 	}
 	
-	public static void nextItem(String itemId, Integer itemRawScore, String itemResponse, Integer timeElapsed) throws RemoteException {
+	public static void nextItem(String itemId, Integer itemRawScore, String itemResponse, Integer timeElapsed, boolean isRetry) throws RemoteException {
 		logger.debug("CATServiceClient: nextItem: start");
 		
-		CATServiceClient.itemPosition += 1;
+		/* Restricting item position to be incremented for duplicate save requests for the same item.
+		 * Change for OAS-1930 (Defect# 81701)
+		 */
+		if (!isRetry)
+			CATServiceClient.itemPosition += 1;
 		
 		CATServiceClient.itemId = itemId;
 		CATServiceClient.itemRawScore = itemRawScore;
@@ -199,6 +203,12 @@ public class CATServiceClient {
 		logger.debug("CATServiceClient: nextItem: service nextItem response: session id: " + response.getSessionID());
 		logger.debug("CATServiceClient: nextItem: service nextItem response: next item id: " + response.getNextItemID());
 		logger.debug("CATServiceClient: nextItem: service nextItem response: next item position: " + response.getNextItemPosition());
+		
+		/*logger.info("CATServiceClient: nextItem: service nextItem response: status code: " + response.getStatusCode());
+		logger.info("CATServiceClient: nextItem: service nextItem response: status message: " + response.getStatusMessage());
+		logger.info("CATServiceClient: nextItem: service nextItem response: session id: " + response.getSessionID());
+		logger.info("CATServiceClient: nextItem: service nextItem response: next item id: " + response.getNextItemID());
+		logger.info("CATServiceClient: nextItem: service nextItem response: next item position: " + response.getNextItemPosition());*/
 		if("OK".equals(response.getStatusCode())) {
 			processResultData(response.getResearchReportData());
 			if(response.getNextItemID() != null) {
@@ -219,7 +229,7 @@ public class CATServiceClient {
 		
 		if(itemPosition == getTestLength()) {
 			logger.debug("CATServiceClient: stop: stop called on last item, changing to standard nextItem call");
-			nextItem(itemId, itemRawScore, itemResponse, timeElapsed);
+			nextItem(itemId, itemRawScore, itemResponse, timeElapsed, false);
 		} else {
 			CATServiceClient.itemPosition += 1;
 			

@@ -147,6 +147,12 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 						else {
                          	if(ds != null) { 
 								setAttribute('dRequestDataSet',ds);
+								/* Capture a retry save request to identify duplicate calls.
+									Change for OAS-1930 (Defect# 81701)
+								*/
+								var saveRetryXml = LzDataNode.stringToLzData(dRequestDataSet.params.getValue("requestXML"));
+								saveRetryXml.setAttr("retry",true);
+								dRequestDataSet.params.setValue('requestXML', saveRetryXml);
 								startRequestTimer();
 							}
 

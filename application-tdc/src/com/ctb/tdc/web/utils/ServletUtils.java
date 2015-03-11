@@ -290,6 +290,14 @@ public class ServletUtils {
 	}
 	
 	/**
+	 * This method is for parsing the save xml to retrieve the value of "retry" attribute
+	 * Change for OAS-1930 (Defect# 81701)
+	 */
+	public static String parseCatRetry(String xml) {
+		return parseTag("retry=", xml);
+	}
+	
+	/**
 	 * parse response value in xml
 	 *
 	 */

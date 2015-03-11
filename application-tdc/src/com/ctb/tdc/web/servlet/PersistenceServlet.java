@@ -268,6 +268,10 @@ public class PersistenceServlet extends HttpServlet {
 		boolean doSave = "1".equals(ServletUtils.parseCatSave(xml));
 		boolean doStop = "true".equals(ServletUtils.parseCatStop(xml));
 		
+		/* retrieve the value of 'retry' attribute from request xml 
+		 * Change for OAS-1930 (Defect# 81701)
+		 */ 
+		boolean isRetry = "true".equals(ServletUtils.parseCatRetry(xml));
 		if(doSave) {
 			String dur = ServletUtils.parseDur(xml);
 			String itemresponse = ServletUtils.parseResponse(xml);
@@ -275,7 +279,7 @@ public class PersistenceServlet extends HttpServlet {
 				//TODO - distinguish between time out and student stop
 				CATServiceClient.stop("Student Stop", realId, itemRawScore, itemresponse, Integer.parseInt(dur));
 			} else {
-				CATServiceClient.nextItem(realId, itemRawScore, itemresponse, Integer.parseInt(dur));
+				CATServiceClient.nextItem(realId, itemRawScore, itemresponse, Integer.parseInt(dur), isRetry);
 			}
 		}
 		
