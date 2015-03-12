@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2012 Enterprise, Build 4349
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Wed Oct 15 11:34:46 PDT 2014 -->
+     DATE:   Tue Mar 10 17:08:31 PDT 2015 -->
 <InstallAnywhere_Deployment_Project increments="17153">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
@@ -10,7 +10,7 @@
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,55,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,55,46,48,44,32,79,114,97,99,108,101,32,67,111,114,112,111,114,97,116,105,111,110,44,32,104,116,116,112,58,47,47,106,97,118,97,46,111,114,97,99,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,64,23,17,64,-64,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,0,4,119,37,9,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,7,33,64,-128,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,2,8,121,38,12,1,0,0</authorizationID>
 	</essentialScriptInfo>
 	<installationObjects uniqueObjects="777">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
@@ -70,7 +70,7 @@
 								<string><![CDATA[bootstrap.jar]]></string>
 							</property>
 							<property name="fileSize">
-								<long>131533</long>
+								<long>131543</long>
 							</property>
 							<property name="macBinary">
 								<boolean>false</boolean>
@@ -1042,7 +1042,7 @@
 										<boolean>false</boolean>
 									</property>
 									<property name="totalSize">
-										<long>3361</long>
+										<long>3033</long>
 									</property>
 									<property name="unixPermissions">
 										<string><![CDATA[775]]></string>
@@ -1881,9 +1881,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="2c84c246a948">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="19a8660d864f">
 													<property name="propertyValue">
-														<string><![CDATA[17.0]]></string>
+														<string><![CDATA[17.1]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
@@ -15811,7 +15811,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="28988414b5b7">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="19aa871b86ef">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -15933,7 +15933,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[October 15, 2014 11:34:46 AM PDT]]></string>
+						<string><![CDATA[March 10, 2015 5:08:30 PM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -16005,7 +16005,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[October 15, 2014 11:34:46 AM PDT]]></string>
+						<string><![CDATA[March 10, 2015 5:08:30 PM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -16264,7 +16264,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<int>17</int>
 							</property>
 							<property name="minor">
-								<int>0</int>
+								<int>1</int>
 							</property>
 							<property name="revision">
 								<int>0</int>
@@ -16449,7 +16449,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 				<boolean>true</boolean>
 			</property>
 			<property name="launcher64BitLaunchSetting">
-				<int>0</int>
+				<int>1</int>
 			</property>
 			<property name="help">
 				<object class="com.zerog.ia.installer.util.Help" objectID="722460bd88f2">
@@ -18055,7 +18055,7 @@ done
 				<boolean>false</boolean>
 			</property>
 			<property name="notUpdateGlobalRegistry">
-				<boolean>false</boolean>
+				<boolean>true</boolean>
 			</property>
 			<property name="externalResourceBundles">
 				<object class="java.util.Vector"/>
@@ -18264,7 +18264,7 @@ done
 			<property name="softwareIdentificationTag">
 				<object class="com.zerog.ia.installer.SoftwareIdentificationTag" objectID="288c702db354">
 					<property name="swidRequired">
-						<boolean>true</boolean>
+						<boolean>false</boolean>
 					</property>
 					<property name="entitlementRequiredIndicator">
 						<boolean>false</boolean>
@@ -18627,6 +18627,19 @@ Relative paths are relative to the launcher.]]></string>
 																</object>
 															</method>
 															<method name="addElement">
+																<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="722460c78911">
+																	<property name="propertyValue">
+																		<string><![CDATA[$USER_INSTALL_DIR$]]></string>
+																	</property>
+																	<property name="propertyName">
+																		<string><![CDATA[lax.root.install.dir]]></string>
+																	</property>
+																	<property name="propertyComment">
+																		<string><![CDATA[path to the installdir magic folder]]></string>
+																	</property>
+																</object>
+															</method>
+															<method name="addElement">
 																<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="288c70cab484">
 																	<property name="propertyValue">
 																		<string><![CDATA[0]]></string>
@@ -18640,19 +18653,6 @@ Relative paths are relative to the launcher.]]></string>
 1, to Prefer 32bit JVM, if not available use 64 bit JVM
 2, to Prefer 64bit JVM, if not available exit with error
 3, to Prefer 32bit JVM, if not available exit with error]]></string>
-																	</property>
-																</object>
-															</method>
-															<method name="addElement">
-																<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="722460c78911">
-																	<property name="propertyValue">
-																		<string><![CDATA[$USER_INSTALL_DIR$]]></string>
-																	</property>
-																	<property name="propertyName">
-																		<string><![CDATA[lax.root.install.dir]]></string>
-																	</property>
-																	<property name="propertyComment">
-																		<string><![CDATA[path to the installdir magic folder]]></string>
 																	</property>
 																</object>
 															</method>
@@ -19345,7 +19345,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>26558097</long>
+												<long>26557729</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -20573,6 +20573,19 @@ Relative paths are relative to the launcher.]]></string>
 														</object>
 													</method>
 													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="59ec896bad24">
+															<property name="propertyValue">
+																<string><![CDATA[$USER_INSTALL_DIR$]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[lax.root.install.dir]]></string>
+															</property>
+															<property name="propertyComment">
+																<string><![CDATA[path to the installdir magic folder]]></string>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
 														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="288c70e8b4d9">
 															<property name="propertyValue">
 																<string><![CDATA[0]]></string>
@@ -20586,19 +20599,6 @@ Relative paths are relative to the launcher.]]></string>
 1, to Prefer 32bit JVM, if not available use 64 bit JVM
 2, to Prefer 64bit JVM, if not available exit with error
 3, to Prefer 32bit JVM, if not available exit with error]]></string>
-															</property>
-														</object>
-													</method>
-													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="59ec896bad24">
-															<property name="propertyValue">
-																<string><![CDATA[$USER_INSTALL_DIR$]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[lax.root.install.dir]]></string>
-															</property>
-															<property name="propertyComment">
-																<string><![CDATA[path to the installdir magic folder]]></string>
 															</property>
 														</object>
 													</method>
@@ -23093,6 +23093,19 @@ Relative paths are relative to the launcher.]]></string>
 														</object>
 													</method>
 													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="420b3acb8d59">
+															<property name="propertyValue">
+																<string><![CDATA[$USER_INSTALL_DIR$]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[lax.root.install.dir]]></string>
+															</property>
+															<property name="propertyComment">
+																<string><![CDATA[path to the installdir magic folder]]></string>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
 														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="288c70e9b4d9">
 															<property name="propertyValue">
 																<string><![CDATA[0]]></string>
@@ -23106,19 +23119,6 @@ Relative paths are relative to the launcher.]]></string>
 1, to Prefer 32bit JVM, if not available use 64 bit JVM
 2, to Prefer 64bit JVM, if not available exit with error
 3, to Prefer 32bit JVM, if not available exit with error]]></string>
-															</property>
-														</object>
-													</method>
-													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="420b3acb8d59">
-															<property name="propertyValue">
-																<string><![CDATA[$USER_INSTALL_DIR$]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[lax.root.install.dir]]></string>
-															</property>
-															<property name="propertyComment">
-																<string><![CDATA[path to the installdir magic folder]]></string>
 															</property>
 														</object>
 													</method>
@@ -23514,6 +23514,19 @@ Relative paths are relative to the launcher.]]></string>
 														</object>
 													</method>
 													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="ee6f34e4913b">
+															<property name="propertyValue">
+																<string><![CDATA[$USER_INSTALL_DIR$]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[lax.root.install.dir]]></string>
+															</property>
+															<property name="propertyComment">
+																<string><![CDATA[path to the installdir magic folder]]></string>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
 														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="288c70e8b4d8">
 															<property name="propertyValue">
 																<string><![CDATA[0]]></string>
@@ -23527,19 +23540,6 @@ Relative paths are relative to the launcher.]]></string>
 1, to Prefer 32bit JVM, if not available use 64 bit JVM
 2, to Prefer 64bit JVM, if not available exit with error
 3, to Prefer 32bit JVM, if not available exit with error]]></string>
-															</property>
-														</object>
-													</method>
-													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="ee6f34e4913b">
-															<property name="propertyValue">
-																<string><![CDATA[$USER_INSTALL_DIR$]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[lax.root.install.dir]]></string>
-															</property>
-															<property name="propertyComment">
-																<string><![CDATA[path to the installdir magic folder]]></string>
 															</property>
 														</object>
 													</method>
@@ -23625,19 +23625,6 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="6fa5a673b115">
-															<property name="propertyValue">
-																<string><![CDATA[33554432]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[lax.nl.java.option.java.heap.size.initial]]></string>
-															</property>
-															<property name="propertyComment">
-																<string><![CDATA[VM intial heap size]]></string>
-															</property>
-														</object>
-													</method>
-													<method name="addElement">
 														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="92b37c789de4">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
@@ -23647,6 +23634,19 @@ it will search for ones in this list]]></string>
 															</property>
 															<property name="propertyComment">
 																<string><![CDATA[the class that contains the main method for the application]]></string>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="6fa5a673b115">
+															<property name="propertyValue">
+																<string><![CDATA[33554432]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[lax.nl.java.option.java.heap.size.initial]]></string>
+															</property>
+															<property name="propertyComment">
+																<string><![CDATA[VM intial heap size]]></string>
 															</property>
 														</object>
 													</method>
@@ -24040,6 +24040,19 @@ Relative paths are relative to the launcher.]]></string>
 														</object>
 													</method>
 													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="6fa40475b10b">
+															<property name="propertyValue">
+																<string><![CDATA[$USER_INSTALL_DIR$]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[lax.root.install.dir]]></string>
+															</property>
+															<property name="propertyComment">
+																<string><![CDATA[path to the installdir magic folder]]></string>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
 														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="288c70e9b4d8">
 															<property name="propertyValue">
 																<string><![CDATA[0]]></string>
@@ -24053,19 +24066,6 @@ Relative paths are relative to the launcher.]]></string>
 1, to Prefer 32bit JVM, if not available use 64 bit JVM
 2, to Prefer 64bit JVM, if not available exit with error
 3, to Prefer 32bit JVM, if not available exit with error]]></string>
-															</property>
-														</object>
-													</method>
-													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="6fa40475b10b">
-															<property name="propertyValue">
-																<string><![CDATA[$USER_INSTALL_DIR$]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[lax.root.install.dir]]></string>
-															</property>
-															<property name="propertyComment">
-																<string><![CDATA[path to the installdir magic folder]]></string>
 															</property>
 														</object>
 													</method>
