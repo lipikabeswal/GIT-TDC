@@ -470,3 +470,6 @@ input[type="checkbox"]:not(:checked) + .text:before, [type="checkbox"]:checked +
 #advanced_pt_34{
 	background-image : url("image/basicSymbol/advanced_pt_34.PNG")!important;
 }
+.text.no-user-select{
+		overflow-x:hidden;
+	}

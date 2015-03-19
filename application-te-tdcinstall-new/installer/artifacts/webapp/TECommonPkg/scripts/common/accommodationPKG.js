@@ -751,20 +751,11 @@ function accommodationPKG() {
 
                     var text = $(document.elementFromPoint(x1, y1));
                     if ($(text).is("div.text")) {
-					
                         textEle = text;
-                       
-						
                     } else if ($(text).is("div.textarea")) {
-					
                         textEle = text.find("div.text").eq(0);
-                         
-						
                     } else {
-					
                         textEle = text.parents(".text").eq(0);
-                       
-						
                     }
 					/*Internal Defect against OAS-1647- Highlighter not working properly : Finding the parent object according to mouse click*/
 					if($(textEle).is("span.text") ){
@@ -785,16 +776,16 @@ function accommodationPKG() {
                         prevX = "NA";
                         prevY = "NA";
 						if(textEle[0].scrollHeight < textEle.outerHeight(true) + 5 && !(textEle.hasClass("divbox"))){
-							initialScrollHeight = 2.5;//padding adjustments
-							initialScrollWidth = 0;
+							initialScrollHeight = 3.5;//padding adjustments
+							initialScrollWidth = 2;
 						}
 						else if(textEle.hasClass("divbox")){
-							initialScrollHeight = 80;//padding adjustments
-							initialScrollWidth = 15;
+							initialScrollHeight = 120;//padding adjustments
+							initialScrollWidth =15;
 						}
 						else{
-                        initialScrollHeight = 25;//padding adjustments
-                         initialScrollWidth = 0;
+                        	initialScrollHeight = 35;//padding adjustments
+                         	initialScrollWidth = 0;
 						}
                        
 						
@@ -802,16 +793,17 @@ function accommodationPKG() {
                         $(textEle).children().each(function () {
 							if(!$(this).hasClass("highlighter") )
 							{
-							initialScrollHeight += $(this).outerHeight();
-							
-							
-							
-							
-                            initialScrollWidth = $(this).outerWidth() > initialScrollWidth ? $(this).outerWidth() : initialScrollWidth;
+								initialScrollHeight += $(this).outerHeight();
+	                            initialScrollWidth = $(this).outerWidth() > initialScrollWidth ? $(this).outerWidth() : initialScrollWidth;
 							}
 							
                         });
-						initialScrollWidth += 2;//padding adjustments
+                        
+                        //padding adjustment only for non scrollable divs(EQA defect fix)
+                        if(textEle[0].scrollHeight == textEle[0].clientHeight){
+						initialScrollWidth +=20;//padding adjustments
+						}
+						
 						var retObj = scrollableDivMouseDown(e, x1, y1, textEle);
 						x1 = retObj.x1;
                         y1 = retObj.y1;
@@ -892,7 +884,10 @@ function accommodationPKG() {
                     //sendNotification();
                     selectStart = false;
 					if (isScrollableDivY) {
-					removeOrReduceHighlighterBox(initialScrollHeight-3, initialScrollWidth-3);
+					//change for EQA defect fix 3/16/2015
+					if(textEle[0].scrollHeight > textEle[0].clientHeight){
+						removeOrReduceHighlighterBox(initialScrollHeight-3, initialScrollWidth-3);
+					}
 					scrollableDivMouseUp(e);
 						isScrollableDivY = true; /*Internal Defect against OAS-1647- Highlighter not working properly : Same behavior for both scrollable and non-scrollable div */
                     } else {
@@ -1082,8 +1077,11 @@ function accommodationPKG() {
     }
 }
 
+var mouseDownTargetArea;
+
 function scrollableDivMouseDown(e, x1, y1, targetParentObject) {
     var x1, y1;
+    mouseDownTargetArea = $(event.target).is("div[ansarea='true']");
     var isScrollableDivY = "";
     /*OAS-1647 - Apply scaling while highlighting*/
     var transX, transY;
@@ -1101,7 +1099,7 @@ function scrollableDivMouseDown(e, x1, y1, targetParentObject) {
     $("#current").attr({
         id: ''
     })
-    var box = $('<div id=\'current\' style="background:yellow;position:absolute;opacity:0.3;z-index:99999;" class="highlighter"></div>').hide();
+    var box = $('<div id=\'current\' style="background:yellow;position:absolute;opacity:0.3;z-index:99999;padding-right:5px;padding-bottom:1px" class="highlighter"></div>').hide();
     $(targetParentObject).append(box);
     $(targetParentObject).css("position", "absolute");
     $(targetParentObject).attr('mainParent', 'true');
@@ -1128,6 +1126,7 @@ function scrollableDivMouseDown(e, x1, y1, targetParentObject) {
 
 
 function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart, dirDown, initialScrollHeight, initialScrollWidth) {
+	
     var transX, transY;
     var targetObj = "";
     /*OAS-1647 - Apply scaling while highlighting*/
@@ -1142,15 +1141,23 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
     }else{
     	// do nothing
     }
+    
+    var targetDiv = $(event.target).parents("div.divbox").attr('ansarea');
+   
+    var ansarea =  $(event.target).is("div[ansarea='true']");
+    var divbox = $(event.target).is("div.divbox");
 	if ($(event.target).is("div.text") || $(event.target).is("div.textarea")) {
-        targetObj = $(event.target);
+		targetObj = $(event.target);
     } else if ($(event.target).parents("div.text").length > 0) {
         targetObj = $(event.target).parents("div.text")[0];
-    } else if ($(event.target).parents("div.divbox").length > 0) {
+    } else if ((mouseDownTargetArea && $(event.target).parents("div.divbox").length > 0) || ($(event.target).parents("div.divbox").length > 0 && (targetDiv == true || targetDiv == 'true'))) {
         targetObj = $(event.target).parents("div.divbox")[0];
+    } else if(ansarea && divbox){
+    	targetObj = $(event.target);
+    	
     }
     $("#current").css("border", "2px solid");
-
+    
     if ($(targetObj).offset() != null) {
 		var scrollTop = $(targetObj).is(".text")? $(targetObj).scrollTop():$(targetObj).find("div.text").eq(0).scrollTop();
         var actualParentOffsetTop = $(targetObj).offset().top * transY;
@@ -1175,20 +1182,23 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
 			isInsideMainparent = true;
 		}
 		
+		
 		//Checking if the cursor is in same container or not.					
         if (!isInsideMainparent || (initialScrollHeight  < currentTop) || (initialScrollWidth  < currentLeft)) {
-            selectStart = false;
-			removeOrReduceHighlighterBox(initialScrollHeight-6, initialScrollWidth-6);
+            	selectStart = false;
+            	
+            	if( $(targetObj) != undefined && $(targetObj).scrollHeight > $(targetObj).clientHeight ){
+					removeOrReduceHighlighterBox(initialScrollHeight-6, initialScrollWidth-6);
+				}
         }
-        if (selectStart) {
+        
+       	if (selectStart) {
             var scrollHeightAdjust = 0;
             if ((initialScrollHeight > targetObjHeight +scrollTop) && currentTop > ( targetObjHeight +scrollTop) - 10 && dirDown) {
                 var scrollableHeight = initialScrollHeight -scrollTop-targetObjHeight;
                 if (scrollableHeight > 10) {
                     $(targetObj).scrollTop(scrollTop + 5);
                     scrollHeightAdjust = 5;
-                   
-                    
                 } else {
                     $(targetObj).scrollTop(scrollTop + scrollableHeight);
                     scrollHeightAdjust = scrollableHeight;
@@ -1202,6 +1212,8 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
                     $(targetObj).scrollTop(scrollTop - scrollableHeight);
                     scrollHeightAdjust = -scrollableHeight;
                 }
+            }else{
+            	// do nothing
             }
             if (x1 > currentLeft && y1 > currentTop) {
                 width = Math.abs(currentLeft - x1);
@@ -1221,7 +1233,7 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
             } else if (x1 > currentLeft && y1 < currentTop) {
 				width = Math.abs(currentLeft - x1);
                 height = Math.abs(currentTop - y1)+scrollHeightAdjust;
-				if($("#current").css("display")=="none" && width > 2 && height>2){
+	 				if($("#current").css("display")=="none" && width > 2 && height>2){
 					$("#current").remove();
 					selectStart = false;
 				}else{
@@ -1244,11 +1256,12 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
                 }).fadeIn();
             } else {
                 width = Math.abs(currentLeft - x1);
-                height = Math.abs(currentTop - y1)+scrollHeightAdjust ;
+                height = Math.abs(currentTop - y1)+scrollHeightAdjust;
                 $("#current").css({
                     width: width,
                     height: height
                 }).fadeIn();
+                
             }
         }
         prevY = currentTop;
@@ -1264,7 +1277,7 @@ function scrollableDivMouseMove(event, x1, y1, dirUp, prevX, prevY, selectStart,
 }
 
 function scrollableDivMouseUp(e) {
-
+    
     var targetParentObject = '';
     if ($(e.target).is("div.text") || $(e.target).is("div.divbox")) {
         targetParentObject = $(e.target);
@@ -1273,8 +1286,10 @@ function scrollableDivMouseUp(e) {
     } else if ($(e.target).parents("div.divbox").length > 0) {
         targetParentObject = $(e.target).parents("div.divbox")[0];
     }
+
     if ($(document).data("active")) {
         $(targetParentObject).removeAttr('mainParent');
+        
         $("#current").attr({
             id: ''
         });
