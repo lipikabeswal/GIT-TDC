@@ -291,21 +291,31 @@ bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
         
         if(event.native_key_code == 0x00) //CMD+A
         {
+            
+            //browser->GetMainFrame()->ExecuteJavaScript("console.log('You pressed the cmd+A!');", "", 0);
             browser->GetFocusedFrame()->SelectAll();
+            return true;
         }
         else if (event.native_key_code == 0x07)  //CMD+X
         {
+            //browser->GetMainFrame()->ExecuteJavaScript("console.log('You pressed the cmd+X!');", "", 0);
             browser->GetFocusedFrame()->Cut();
-            
+            return true;
         }
         else if (event.native_key_code == 0x08)   //CMD+C
         {
+            
+            //browser->GetMainFrame()->ExecuteJavaScript("console.log('You pressed the cmd+C!');", "", 0);
             browser->GetFocusedFrame()->Copy();
+            return true;
             
         }
         else if (event.native_key_code == 0x09) //CMD+V
         {
+            //browser->GetMainFrame()->ExecuteJavaScript("console.log('You pressed the cmd+V!');", "", 0);
+
             browser->GetFocusedFrame()->Paste();
+            return true;
         }
         else
         {

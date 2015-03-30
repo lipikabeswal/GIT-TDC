@@ -581,9 +581,9 @@ int main(int argc, char* argv[]) {
   
   // Create the application delegate and window.
   NSObject* delegate = [[ClientAppDelegate alloc] init];
-    [delegate performSelectorOnMainThread:@selector(createApp:) withObject:delegate
-                            waitUntilDone:NO];
-   
+    
+   [delegate performSelectorOnMainThread:@selector(createApp:) withObject:delegate waitUntilDone:NO];
+    
 
 
    //Dispatch thread with method checkForScreenShotsAfter and NSDate object with current time to check for screenshots taken after this point

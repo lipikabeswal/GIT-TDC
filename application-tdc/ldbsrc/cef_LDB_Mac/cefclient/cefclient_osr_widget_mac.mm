@@ -35,7 +35,7 @@
 - (CefRect) convertRectToBackingInternal: (const CefRect&) rect;
 - (CefRect) convertRectFromBackingInternal: (const CefRect&) rect;
 
-@property (readwrite) bool was_last_mouse_down_on_view;
+@property (readwrite, atomic) bool was_last_mouse_down_on_view;
 @end
 
 namespace {
@@ -537,50 +537,6 @@ void ClientOSRHandler::SetLoading(bool isLoading) {
   }
 
   return NO;
-}
-
-
-
-- (void)undo:(id)sender {
-  CefRefPtr<CefBrowser> browser = [self getBrowser];
-  if (browser)
-    browser->GetFocusedFrame()->Undo();
-}
-
-- (void)redo:(id)sender {
-  CefRefPtr<CefBrowser> browser = [self getBrowser];
-  if (browser)
-    browser->GetFocusedFrame()->Redo();
-}
-
-- (void)cut:(id)sender {
-  CefRefPtr<CefBrowser> browser = [self getBrowser];
-  if (browser)
-    browser->GetFocusedFrame()->Cut();
-}
-
-- (void)copy:(id)sender {
-  CefRefPtr<CefBrowser> browser = [self getBrowser];
-  if (browser)
-    browser->GetFocusedFrame()->Copy();
-}
-
-- (void)paste:(id)sender {
-  CefRefPtr<CefBrowser> browser = [self getBrowser];
-  if (browser)
-    browser->GetFocusedFrame()->Paste();
-}
-
-- (void)delete:(id)sender {
-  CefRefPtr<CefBrowser> browser = [self getBrowser];
-  if (browser)
-    browser->GetFocusedFrame()->Delete();
-}
-
-- (void)selectAll:(id)sender {
-  CefRefPtr<CefBrowser> browser = [self getBrowser];
-  if (browser)
-    browser->GetFocusedFrame()->SelectAll();
 }
 
 - (NSPoint)getClickPointForEvent:(NSEvent*)event {
