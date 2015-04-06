@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2012 Enterprise, Build 4349
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Tue Mar 24 11:37:45 PDT 2015 -->
-<InstallAnywhere_Deployment_Project increments="20599">
+     DATE:   Mon Apr 06 12:10:57 PDT 2015 -->
+<InstallAnywhere_Deployment_Project increments="20902">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="14" minor="0" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,55,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,55,46,48,44,32,79,114,97,99,108,101,32,67,111,114,112,111,114,97,116,105,111,110,44,32,104,116,116,112,58,47,47,106,97,118,97,46,111,114,97,99,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,64,71,26,112,-16,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,11,13,115,45,12,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,-105,42,-128,-80,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,1,15,116,32,12,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="899">
+	<installationObjects uniqueObjects="907">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="belongsToUninstallPhase">
 				<boolean>false</boolean>
@@ -1849,9 +1849,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="c0c6f1828b45">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a394f9d6867a">
 													<property name="propertyValue">
-														<string><![CDATA[VANILLA]]></string>
+														<string><![CDATA[TERRANOVA]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_TYPE$]]></string>
@@ -1881,9 +1881,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="7263eb99977f">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a394f9d6867b">
 													<property name="propertyValue">
-														<string><![CDATA[true]]></string>
+														<string><![CDATA[false]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$VANILLA$]]></string>
@@ -1945,9 +1945,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="7265d10a9785">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="8a443e7d8681">
 													<property name="propertyValue">
-														<string><![CDATA[false]]></string>
+														<string><![CDATA[true]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$TERRANOVA$]]></string>
@@ -2025,9 +2025,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="29595a9ca14f">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a394f9e5867f">
 													<property name="propertyValue">
-														<string><![CDATA[9.6]]></string>
+														<string><![CDATA[19.0]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
@@ -3374,6 +3374,62 @@
 									</property>
 									<property name="operandOne">
 										<string><![CDATA[$TERRANOVA$]]></string>
+									</property>
+									<property name="operandTwo">
+										<string><![CDATA[true]]></string>
+									</property>
+									<property name="ruleId">
+										<string><![CDATA[CIAV266]]></string>
+									</property>
+								</object>
+							</rules>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="a39b9b838684">
+							<property name="belongsToUninstallPhase">
+								<boolean>false</boolean>
+							</property>
+							<property name="rollbackEnabledCancel">
+								<boolean>true</boolean>
+							</property>
+							<property name="rollbackEnabledError">
+								<boolean>true</boolean>
+							</property>
+							<property name="ruleExpression">
+								<string><![CDATA[CIAV266]]></string>
+							</property>
+							<property name="name">
+								<string><![CDATA[$DESKTOP_NAME$]]></string>
+							</property>
+							<property name="value">
+								<string><![CDATA[TerraNova Online Assessment - ver 16.0]]></string>
+							</property>
+							<property name="passByValue">
+								<boolean>false</boolean>
+							</property>
+							<property name="substituteUnknownVariable">
+								<boolean>false</boolean>
+							</property>
+							<rules logicalOperation="OR">
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="a39b9b848684">
+									<property name="belongsToUninstallPhase">
+										<boolean>false</boolean>
+									</property>
+									<property name="rollbackEnabledCancel">
+										<boolean>true</boolean>
+									</property>
+									<property name="rollbackEnabledError">
+										<boolean>true</boolean>
+									</property>
+									<property name="ruleExpression">
+										<string><![CDATA[]]></string>
+									</property>
+									<property name="operation">
+										<string><![CDATA[equals]]></string>
+									</property>
+									<property name="operandOne">
+										<string><![CDATA[$TNG$]]></string>
 									</property>
 									<property name="operandTwo">
 										<string><![CDATA[true]]></string>
@@ -17550,6 +17606,202 @@ echo y| CACLS *.dll /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "PO
 										</object>
 									</rules>
 								</object>
+								<object class="com.zerog.ia.installer.actions.ExecuteScript" objectID="8a629d10868e">
+									<property name="belongsToUninstallPhase">
+										<boolean>false</boolean>
+									</property>
+									<property name="rollbackEnabledCancel">
+										<boolean>true</boolean>
+									</property>
+									<property name="rollbackEnabledError">
+										<boolean>true</boolean>
+									</property>
+									<property name="ruleExpression">
+										<string><![CDATA[CP722 && CIAV440]]></string>
+									</property>
+									<property name="showPleaseWaitPanel">
+										<boolean>true</boolean>
+									</property>
+									<property name="waitForProcess">
+										<boolean>true</boolean>
+									</property>
+									<property name="script">
+										<string><![CDATA[cd $USER_INSTALL_DIR$
+cd ..
+echo y| CACLS "TerraNova Online Assessment" /T /P EVERYONE:F
+cd $USER_INSTALL_DIR$
+echo y| CACLS *.exe /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+cd $USER_INSTALL_DIR$
+cd lockdownbrowser\pc
+echo y| CACLS *.exe /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+echo y| CACLS *.dll /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+cd $USER_INSTALL_DIR$
+cd "Uninstall_TerraNova Online Assessment"
+echo y| CACLS *.exe /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+cd resource
+echo y| CACLS *.exe /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+echo y| CACLS *.dll /T /P USERS:R ADMINISTRATOR:F SYSTEM:F "CREATOR OWNER":F "POWER USERS":C
+]]></string>
+									</property>
+									<property name="showIndeterminateDialog">
+										<boolean>false</boolean>
+									</property>
+									<property name="dialogLabel">
+										<string><![CDATA[Executing Installation Script...]]></string>
+									</property>
+									<property name="comment">
+										<string><![CDATA[Set User Permissions For PC]]></string>
+									</property>
+									<property name="stdoutVar">
+										<string><![CDATA[$EXECUTE_STDOUT$]]></string>
+									</property>
+									<property name="stderrVar">
+										<string><![CDATA[$EXECUTE_STDERR$]]></string>
+									</property>
+									<property name="exitCodeVar">
+										<string><![CDATA[$EXECUTE_EXITCODE$]]></string>
+									</property>
+									<property name="substituteUnknownVariable">
+										<boolean>false</boolean>
+									</property>
+									<rules logicalOperation="AND">
+										<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="8a629d11868e">
+											<property name="belongsToUninstallPhase">
+												<boolean>false</boolean>
+											</property>
+											<property name="rollbackEnabledCancel">
+												<boolean>true</boolean>
+											</property>
+											<property name="rollbackEnabledError">
+												<boolean>true</boolean>
+											</property>
+											<property name="ruleExpression">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="installOnPlatformList">
+												<object class="java.util.Vector">
+													<method name="addElement">
+														<string><![CDATA[Windows 2000]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows XP]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows Vista]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows NT]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows 2003]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows 7]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows 8]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[^Windows.*]]></string>
+													</method>
+												</object>
+											</property>
+											<property name="doNotInstallOnPlatformList">
+												<object class="java.util.Vector">
+													<method name="addElement">
+														<string><![CDATA[Windows 95]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows 98]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Windows Me]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Mac OS X]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[OS/2]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Solaris]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[SunOS]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[HP-UX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Linux]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[AIX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Irix]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[DG-UX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Compaq's Digital UNIX]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[FreeBSD]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Rhapsody]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[NetWare]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[z/OS]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[OS/390]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[Unlisted Platforms]]></string>
+													</method>
+													<method name="addElement">
+														<string><![CDATA[OS/400]]></string>
+													</method>
+												</object>
+											</property>
+											<property name="ruleId">
+												<string><![CDATA[CP722]]></string>
+											</property>
+										</object>
+										<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="8a629d10868f">
+											<property name="belongsToUninstallPhase">
+												<boolean>false</boolean>
+											</property>
+											<property name="rollbackEnabledCancel">
+												<boolean>true</boolean>
+											</property>
+											<property name="rollbackEnabledError">
+												<boolean>true</boolean>
+											</property>
+											<property name="ruleExpression">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="operation">
+												<string><![CDATA[equals]]></string>
+											</property>
+											<property name="operandOne">
+												<string><![CDATA[$TERRANOVA$]]></string>
+											</property>
+											<property name="operandTwo">
+												<string><![CDATA[true]]></string>
+											</property>
+											<property name="ruleId">
+												<string><![CDATA[CIAV440]]></string>
+											</property>
+										</object>
+									</rules>
+								</object>
 							</visualChildren>
 						</object>
 					</method>
@@ -18375,6 +18627,174 @@ chmod 777 *.*]]></string>
 									</property>
 									<property name="operandOne">
 										<string><![CDATA[$TNG$]]></string>
+									</property>
+									<property name="operandTwo">
+										<string><![CDATA[true]]></string>
+									</property>
+									<property name="ruleId">
+										<string><![CDATA[CIAV777]]></string>
+									</property>
+								</object>
+							</rules>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.ExecuteScript" objectID="8a634cb18690">
+							<property name="belongsToUninstallPhase">
+								<boolean>false</boolean>
+							</property>
+							<property name="rollbackEnabledCancel">
+								<boolean>true</boolean>
+							</property>
+							<property name="rollbackEnabledError">
+								<boolean>true</boolean>
+							</property>
+							<property name="ruleExpression">
+								<string><![CDATA[CP360 && CIAV777]]></string>
+							</property>
+							<property name="showPleaseWaitPanel">
+								<boolean>true</boolean>
+							</property>
+							<property name="waitForProcess">
+								<boolean>true</boolean>
+							</property>
+							<property name="script">
+								<string><![CDATA[cd /Applications
+cd 'TerraNova Online Assessment'
+cd webapp/WEB-INF/classes/com/ctb/tdc/web/servlet
+chmod 777 *.*]]></string>
+							</property>
+							<property name="showIndeterminateDialog">
+								<boolean>false</boolean>
+							</property>
+							<property name="dialogLabel">
+								<string><![CDATA[Executing Installation Script...]]></string>
+							</property>
+							<property name="comment">
+								<string><![CDATA[set permission for all files under servlet folder (Mac OS only)]]></string>
+							</property>
+							<property name="stdoutVar">
+								<string><![CDATA[$EXECUTE_STDOUT$]]></string>
+							</property>
+							<property name="stderrVar">
+								<string><![CDATA[$EXECUTE_STDERR$]]></string>
+							</property>
+							<property name="exitCodeVar">
+								<string><![CDATA[$EXECUTE_EXITCODE$]]></string>
+							</property>
+							<property name="substituteUnknownVariable">
+								<boolean>false</boolean>
+							</property>
+							<rules logicalOperation="AND">
+								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="8a634cb28690">
+									<property name="belongsToUninstallPhase">
+										<boolean>false</boolean>
+									</property>
+									<property name="rollbackEnabledCancel">
+										<boolean>true</boolean>
+									</property>
+									<property name="rollbackEnabledError">
+										<boolean>true</boolean>
+									</property>
+									<property name="ruleExpression">
+										<string><![CDATA[]]></string>
+									</property>
+									<property name="installOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Mac OS X]]></string>
+											</method>
+										</object>
+									</property>
+									<property name="doNotInstallOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2000]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows XP]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2003]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows Vista]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Solaris]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[SunOS]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[HP-UX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Linux]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[AIX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[FreeBSD]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[NetWare]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[OS/400]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Unlisted Platforms]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[OS/2]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Irix]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[DG-UX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Compaq's Digital UNIX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Rhapsody]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[z/OS]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[OS/390]]></string>
+											</method>
+										</object>
+									</property>
+									<property name="ruleId">
+										<string><![CDATA[CP360]]></string>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="8a634cb18691">
+									<property name="belongsToUninstallPhase">
+										<boolean>false</boolean>
+									</property>
+									<property name="rollbackEnabledCancel">
+										<boolean>true</boolean>
+									</property>
+									<property name="rollbackEnabledError">
+										<boolean>true</boolean>
+									</property>
+									<property name="ruleExpression">
+										<string><![CDATA[]]></string>
+									</property>
+									<property name="operation">
+										<string><![CDATA[equals]]></string>
+									</property>
+									<property name="operandOne">
+										<string><![CDATA[$TERRANOVA$]]></string>
 									</property>
 									<property name="operandTwo">
 										<string><![CDATA[true]]></string>
@@ -19758,7 +20178,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="6094bc46867b">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="a3a5ce2b8684">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -19952,7 +20372,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[March 24, 2015 11:37:44 AM PDT]]></string>
+						<string><![CDATA[April 6, 2015 12:10:57 PM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -29019,7 +29439,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[$BRANDED_NAME$]]></string>
+												<string><![CDATA[$DESKTOP_NAME$]]></string>
 											</property>
 											<property name="args">
 												<string><![CDATA[]]></string>
