@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2012 Enterprise, Build 4349
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Mon Apr 06 12:10:57 PDT 2015 -->
-<InstallAnywhere_Deployment_Project increments="20902">
+     DATE:   Tue Apr 07 13:18:03 PDT 2015 -->
+<InstallAnywhere_Deployment_Project increments="21030">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="14" minor="0" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,55,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,55,46,48,44,32,79,114,97,99,108,101,32,67,111,114,112,111,114,97,116,105,111,110,44,32,104,116,116,112,58,47,47,106,97,118,97,46,111,114,97,99,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,64,-105,42,-128,-80,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,1,15,116,32,12,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,-105,-118,80,-80,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,3,9,120,37,12,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="907">
+	<installationObjects uniqueObjects="910">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="belongsToUninstallPhase">
 				<boolean>false</boolean>
@@ -1817,9 +1817,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="96a2333d978d">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a56853878553">
 													<property name="propertyValue">
-														<string><![CDATA[true]]></string>
+														<string><![CDATA[false]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$GENERIC_PRODUCT_NAME$]]></string>
@@ -1945,9 +1945,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="8a443e7d8681">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a56853878557">
 													<property name="propertyValue">
-														<string><![CDATA[true]]></string>
+														<string><![CDATA[false]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$TERRANOVA$]]></string>
@@ -1961,9 +1961,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="72663fa49785">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a56853888557">
 													<property name="propertyValue">
-														<string><![CDATA[false]]></string>
+														<string><![CDATA[true]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$TNG$]]></string>
@@ -2025,9 +2025,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a394f9e5867f">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a56853888559">
 													<property name="propertyValue">
-														<string><![CDATA[19.0]]></string>
+														<string><![CDATA[16.0]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
@@ -3403,7 +3403,7 @@
 								<string><![CDATA[$DESKTOP_NAME$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[TerraNova Online Assessment - ver 16.0]]></string>
+								<string><![CDATA[TerraNova 3 Online Assessment - ver 16.0]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -15566,14 +15566,14 @@ a="`echo $USER_INSTALL_DIR$`"
 echo a=$a
 b=`echo $a | tr " " "\ "`
 echo b=$b
-c=/TNG_Online_Assessment
+c=/TerraNova_3_Online_Assessment
 d=$b$c
 echo d=$d
 
 for userName in `cat temp`; do
 
-        rm /home/$userName/Desktop/TNG_Online_Assessment
-        ln -s "$d" /home/$userName/Desktop/TNG_Online_Assessment
+        rm /home/$userName/Desktop/TerraNova_3_Online_Assessment
+        ln -s "$d" /home/$userName/Desktop/TerraNova_3_Online_Assessment
 
 done
 ]]></string>
@@ -15597,7 +15597,7 @@ done
 								<string><![CDATA[$EXECUTE_EXITCODE$]]></string>
 							</property>
 							<property name="substituteUnknownVariable">
-								<boolean>false</boolean>
+								<boolean>true</boolean>
 							</property>
 							<rules logicalOperation="AND">
 								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="555528beaffd">
@@ -15709,6 +15709,186 @@ done
 									</property>
 									<property name="operandOne">
 										<string><![CDATA[$TNG$]]></string>
+									</property>
+									<property name="operandTwo">
+										<string><![CDATA[true]]></string>
+									</property>
+									<property name="ruleId">
+										<string><![CDATA[CIAV531]]></string>
+									</property>
+								</object>
+							</rules>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.ExecuteScript" objectID="a905bc0c8699">
+							<property name="belongsToUninstallPhase">
+								<boolean>false</boolean>
+							</property>
+							<property name="rollbackEnabledCancel">
+								<boolean>true</boolean>
+							</property>
+							<property name="rollbackEnabledError">
+								<boolean>true</boolean>
+							</property>
+							<property name="ruleExpression">
+								<string><![CDATA[CP697 && CIAV531]]></string>
+							</property>
+							<property name="showPleaseWaitPanel">
+								<boolean>true</boolean>
+							</property>
+							<property name="waitForProcess">
+								<boolean>true</boolean>
+							</property>
+							<property name="script">
+								<string><![CDATA[ls /home > temp
+a="`echo $USER_INSTALL_DIR$`"
+echo a=$a
+b=`echo $a | tr " " "\ "`
+echo b=$b
+c=/TerraNova_Online_Assessment
+d=$b$c
+echo d=$d
+
+for userName in `cat temp`; do
+
+        rm /home/$userName/Desktop/TerraNova_Online_Assessment
+        ln -s "$d" /home/$userName/Desktop/TerraNova_Online_Assessment
+
+done
+]]></string>
+							</property>
+							<property name="showIndeterminateDialog">
+								<boolean>false</boolean>
+							</property>
+							<property name="dialogLabel">
+								<string><![CDATA[Executing Installation Script...]]></string>
+							</property>
+							<property name="comment">
+								<string><![CDATA[Create a shortcut on all user desktops]]></string>
+							</property>
+							<property name="stdoutVar">
+								<string><![CDATA[$EXECUTE_STDOUT$]]></string>
+							</property>
+							<property name="stderrVar">
+								<string><![CDATA[$EXECUTE_STDERR$]]></string>
+							</property>
+							<property name="exitCodeVar">
+								<string><![CDATA[$EXECUTE_EXITCODE$]]></string>
+							</property>
+							<property name="substituteUnknownVariable">
+								<boolean>false</boolean>
+							</property>
+							<rules logicalOperation="AND">
+								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="a905bc0d8699">
+									<property name="belongsToUninstallPhase">
+										<boolean>false</boolean>
+									</property>
+									<property name="rollbackEnabledCancel">
+										<boolean>true</boolean>
+									</property>
+									<property name="rollbackEnabledError">
+										<boolean>true</boolean>
+									</property>
+									<property name="ruleExpression">
+										<string><![CDATA[]]></string>
+									</property>
+									<property name="installOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Linux]]></string>
+											</method>
+										</object>
+									</property>
+									<property name="doNotInstallOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Windows NT]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2000]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows XP]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows 2003]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Windows Vista]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Mac OS X]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Solaris]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[SunOS]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[HP-UX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[AIX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[FreeBSD]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[NetWare]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[OS/400]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Unlisted Platforms]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[OS/2]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Irix]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[DG-UX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Compaq's Digital UNIX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Rhapsody]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[z/OS]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[OS/390]]></string>
+											</method>
+										</object>
+									</property>
+									<property name="ruleId">
+										<string><![CDATA[CP697]]></string>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="a905bc0c869a">
+									<property name="belongsToUninstallPhase">
+										<boolean>false</boolean>
+									</property>
+									<property name="rollbackEnabledCancel">
+										<boolean>true</boolean>
+									</property>
+									<property name="rollbackEnabledError">
+										<boolean>true</boolean>
+									</property>
+									<property name="ruleExpression">
+										<string><![CDATA[]]></string>
+									</property>
+									<property name="operation">
+										<string><![CDATA[equals]]></string>
+									</property>
+									<property name="operandOne">
+										<string><![CDATA[$TERRANOVA$]]></string>
 									</property>
 									<property name="operandTwo">
 										<string><![CDATA[true]]></string>
@@ -20178,7 +20358,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="a3a5ce2b8684">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="a909981d869a">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -20372,7 +20552,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[April 6, 2015 12:10:57 PM PDT]]></string>
+						<string><![CDATA[April 7, 2015 1:18:02 PM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -20607,10 +20787,10 @@ The log is in $USER_INSTALL_DIR$]]></string>
 						<string><![CDATA[Install $PRODUCT_NAME$]]></string>
 					</property>
 					<property name="installerName">
-						<string><![CDATA[InstallOAS_TERRANOVA]]></string>
+						<string><![CDATA[InstallOAS_TERRANOVA3]]></string>
 					</property>
 					<property name="productName">
-						<string><![CDATA[TerraNova Online Assessment]]></string>
+						<string><![CDATA[TerraNova 3 Online Assessment]]></string>
 					</property>
 					<property name="productID">
 						<object class="com.zerog.registry.UUID">
