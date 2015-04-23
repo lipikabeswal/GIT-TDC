@@ -38,8 +38,8 @@ public String showOptionDialogLASLINKS(){
 }
 public String showOptionDialogTABE(){
 	int rc;
-	String[] forms = {"TABE Online","TABE Testlets"}; 
-	String[] formsMac = {"TABE Testlets","TABE Online"}; 
+	String[] forms = {"TABE Online","TABE Formative Testlet"}; 
+	String[] formsMac = {"TABE Formative Testlet","TABE Online"}; 
 	if(isMac()){
 		rc = showOptionDialog(null, "Please use mouse-click to select :","Test Selection", 0, JOptionPane.PLAIN_MESSAGE, null, formsMac, formsMac[1]);
 	}else{

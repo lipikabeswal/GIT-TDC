@@ -95,7 +95,7 @@ public class LockdownBrowserWrapper extends Thread {
 			if(productType.equals("LASLINKS") || productType.equals("TABE")){
 				if(formName.equals("Form A / Form B / Español A") || formName.equals("TABE Online")){
 					writeForm("http://127.0.0.1:" + jettyPort + "/login_swf.html");
-				}else if(formName.equals("Form C / Form D / Español B") || formName.equals("TABE Testlets")){
+				}else if(formName.equals("Form C / Form D / Español B") || formName.equals("TABE Formative Testlet")){
 					writeForm("http://127.0.0.1:" + jettyPort + "/login.html");
 				}
 				this.ldbCommand = new String[1];
@@ -153,7 +153,7 @@ public class LockdownBrowserWrapper extends Thread {
 							command.add((this.ldbHome + "/OASTDC/bin/OASTDC").replaceAll(" ", "\\ "));
 							command.add("http://127.0.0.1:" + jettyPort + "/login_swf.html");
 							
-						}else if(formName.equals("Form C / Form D / Español B") || formName.equals("TABE Testlets")){
+						}else if(formName.equals("Form C / Form D / Español B") || formName.equals("TABE Formative Testlet")){
 							//ConsoleUtils.messageOut("Launching Form C&D");
 							/*this.ldbCommand = new String[3];
 							this.ldbCommand[0] ="java";
@@ -203,8 +203,8 @@ public class LockdownBrowserWrapper extends Thread {
 					//command.add(this.ldbHome +"/LockdownBrowser.exe");
 					//command.add("--url=http://127.0.0.1:" + jettyPort + loginHtml);
 					
-				}else if(formName.equals("Form C / Form D / Español B")  || formName.equals("TABE Testlets")){
-				//	ConsoleUtils.messageOut("Inside TABE Adaptive");
+				}else if(formName.equals("Form C / Form D / Español B")  || formName.equals("TABE Formative Testlet")){
+					//ConsoleUtils.consoleOut("Inside TABE Adaptive");
 					/*this.ldbCommand = new String[3];
 					this.ldbCommand[0] ="java";
 					this.ldbCommand[1] = "-jar";
