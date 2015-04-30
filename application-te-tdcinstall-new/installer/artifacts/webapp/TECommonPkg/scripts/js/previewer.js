@@ -1540,15 +1540,16 @@ function makeDroppable() {
 					 eleId = ui.draggable.attr("id");
 					var isSameDNDElement = $this.find("#"+eleId).length > 0 && !$("#"+eleId).is(".palette-button")?true:false;//Already present and not palet button
 					if (dropChildLen < dropMax) {
-                       
-						if($("#"+eleId).is(".palette-button")){
+                       prepareDNDElements(ui.draggable, $this);
+                       /* below code snippet has been commented to fix QC defects #82264, #82276 and #82265 */
+						/*if($("#"+eleId).is(".palette-button")){
 							prepareDNDElements(ui.draggable, $this);
 						}
 						else{
 							if(!isSameDNDElement) { 
 								prepareDNDElements(ui.draggable, $this);
 							}
-						}
+						}*/
                     }
                 }
             }
