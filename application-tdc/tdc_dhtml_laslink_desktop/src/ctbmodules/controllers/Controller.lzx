@@ -2900,6 +2900,7 @@
 			gManipulativeBarOverlay.setAttribute('visible',false);
 			this.setAttribute("isAnswerAreaDisabled",false);
 			tempAnsArray = [];
+			answerChoiceHandler.clearDownedKeysArr(); 
         ]]></method>
 
 		<method name="saveSharedStimulusHighlights"><![CDATA[
@@ -3573,6 +3574,7 @@
 				this.setAttribute("isMousedownOnManip",false);
 			}
 			gController.setAttribute("isAnswerAreaDisabled",false);
+			answerChoiceHandler.clearDownedKeysArr(); 
 		</method>
 
 		<method name="pausedContinue" args="pw">
@@ -3755,6 +3757,7 @@
 	                                 totalMarked() );
 			}
             gController.setAttribute("isAnswerAreaDisabled",false);
+            answerChoiceHandler.clearDownedKeysArr();  
 		]]></method>
 
 		<method name="closeOpenManipulatives"><![CDATA[
