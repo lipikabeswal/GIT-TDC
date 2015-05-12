@@ -301,8 +301,16 @@ public class PersistenceServlet extends HttpServlet {
 		else if (method != null
 				&& method.equals(ServletUtils.CHECK_PROD_TYPE_METHOD)){
 					clearClipboardData();
-					result = "<"+PRODUCT_TYPE.trim()+" version=\""+VERSION.substring(0, VERSION.lastIndexOf(".")).trim()+"\"/>";
-					//logger.info("RESULT******"+result);
+					//Changes for story OAS-2484 - Display Subversion
+					int decimalCount = VERSION.length() - VERSION.replace(".", "").length();
+					if(decimalCount<=2){
+						result = "<"+PRODUCT_TYPE.trim()+" version=\""+VERSION.substring(0, VERSION.length())+"\"/>";
+					}else if(decimalCount > 2){
+						int index = VERSION.indexOf(".", VERSION.indexOf(".") + 1);
+						result = "<"+PRODUCT_TYPE.trim()+" version=\""+VERSION.substring(0, (index+2)).trim()+"\"/>";
+					}else{
+						result = ServletUtils.ERROR;
+					}
 				}
 		else if (method != null
 				&& method.equals(ServletUtils.OK_CALCULATOR)) {

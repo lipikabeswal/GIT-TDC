@@ -460,8 +460,9 @@
         </view>
 	
         <state name="prancingMan" apply="false">
+        <!-- Change added to make subversion visible in Welcome Screen -->
             <view resource="animations/prancingMan.swf"
-                  x="-120" y="${ parent.contents.height }"/>
+                  x="-120" y="${ parent.contents.height + 15}"/>
         </state>
 
         <state name="standingMan" apply="false">
