@@ -296,7 +296,7 @@ public class PersistenceServlet extends HttpServlet {
 			result = writeToAuditFile(xml);
 		else if (method != null
 				&& method.equals(ServletUtils.CHECK_PROD_TYPE_METHOD)){
-			result = "<"+PRODUCT_TYPE.trim()+" version=\""+VERSION.substring(0, VERSION.lastIndexOf(".")).trim()+"\"/>";
+			result = "<"+PRODUCT_TYPE.trim()+" version=\""+VERSION.trim()+"\"/>";
 				}
 // Change to handle OK Calculator
 		else if (method != null
@@ -1064,11 +1064,23 @@ public class PersistenceServlet extends HttpServlet {
 		String path=System.getProperty(TDC_HOME) + File.separator + 
 		"etc" + File.separator + "version.properties";
 		String version=null;
+		String[] splitVersion=null;
+		StringBuilder str = new StringBuilder();
 		File file=new File(path);
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader(file));
 			version=br.readLine().split("=")[1];
+			splitVersion = version.split("\\.");
+			for(int i=0; i<splitVersion.length; i++){
+				if(i <= 1){
+					str.append(splitVersion[i]+".");
+				}else{
+					str.append(splitVersion[i]);
+					version = str.toString();
+					break;
+				}
+			};
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
