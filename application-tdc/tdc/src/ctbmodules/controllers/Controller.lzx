@@ -506,6 +506,8 @@
         <attribute name="testTimeout" type="boolean" value="false"/>
 		
 		<attribute name="isCatStop" value="false" type="boolean" />
+		<attribute name="CHECK_PROD_TYPE_METHOD" type="string"
+			value="isProductCheck" />
 		
 			<datapath name="dstest" xpath="testDetails:/test_data"/> //For Oklahoma Performance Level
 		<!--
@@ -627,12 +629,18 @@
 
 		<method event="oninit">
 			this.setAttribute('isHandlerInactive', true);
-        	gScreens.showLogin();
+			checkIsProduct();
+        	//gScreens.showLogin();
 			var base = LzBrowser.getInitArg( 'servletUrl' );
 			dsitem.setSrc(base + '/ContentServlet.do'); 
 			dsMusic.setSrc(base + '/ContentServlet.do');
 			       	
         </method>
+        
+        <method name = "checkIsProduct">
+			setState(CHECK_PROD_TYPE_METHOD);
+			gCommunicator.checkIsProduct();
+		</method>
 
 		<method name="login" args="_userid, _password, _accesscode">
 			setAttribute('userid', _userid == null ? null : _userid.toLowerCase());
@@ -796,10 +804,25 @@
 					case OK_CALCULATOR_STATE:
 						_handleOkCalculatorResponse(response);
 						break;
+					case CHECK_PROD_TYPE_METHOD:
+						_handleProductType(response);
+						break;
 					default:
 						break;
 				}
 			}
+		</method>
+		
+		<method name = "_handleProductType" args="response"><![CDATA[
+			this.setAttribute("productTypeVal",response);
+			var productName = "";
+			var versionNo = "";	
+			productName = LzDataNode.stringToLzData(gController.productTypeVal).nodeName;
+			versionNo = LzDataNode.stringToLzData(gController.productTypeVal).getAttr("version");
+			versionproductinfo.setAttribute("text",productName+" "+versionNo);
+			Debug.write(response);
+			gScreens.showLogin();
+		]]>
 		</method>
 
 		<method name="_handleUploadAuditFileResponse" args="response"><![CDATA[

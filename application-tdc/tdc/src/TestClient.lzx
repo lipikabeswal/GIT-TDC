@@ -192,6 +192,8 @@
                 <text y="200" font="Arial" fontsize="12" 
 			        fgcolor="${canvas.copyriteColor}" height="16" 
 				    text="${canvas.Copyrite}"/>
+				<text id="versionproductinfo"  y="200" x="${immediateparent.width - this.width}" font="Arial" fontsize="12" 
+			        fgcolor="${canvas.copyriteColor}" height="18" width="23%" text=" "/>
             </Screens>
             <Tutorial id="gTutorial" width="800" height="600"
                         visible="false"/>

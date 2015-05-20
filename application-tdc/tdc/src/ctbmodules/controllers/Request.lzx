@@ -57,6 +57,7 @@
 		<attribute name="OK_CALCULATOR" type="string" value="okCalculator" />
 		<attribute name="SHOW_HIDE_OK_CALCULATOR" type="string" value="showHideOkCalculator" />
 		<attribute name="CLOSE_OK_CALCULATOR" type="string" value="closeOkCalculator" />
+		<attribute name="CHECK_PROD_TYPE_METHOD" type="string" value="isProductCheck" />
 		
 		<handler name="oninit">
 			var base = LzBrowser.getInitArg( 'servletUrl' );
@@ -306,6 +307,10 @@ Debug.write("do request " + _method + " timestamp: " + timestamp);
 		<method name="closeOkCalculator">
  	   		Debug.write("closeOkCalculator ");
 		 	_doRequest(persistenceDs, CLOSE_OK_CALCULATOR, "");
+		</method>
+		
+		<method name="checkIsProduct" >
+			_doRequest(persistenceDs, CHECK_PROD_TYPE_METHOD, "");
 		</method>
 		
 	</node>

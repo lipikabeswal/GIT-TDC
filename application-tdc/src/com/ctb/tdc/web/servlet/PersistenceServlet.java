@@ -4,12 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -80,7 +83,18 @@ public class PersistenceServlet extends HttpServlet {
 	private static final String WEBINF_FOLDER_PATH = System.getProperty(TDC_HOME) + File.separator + 
 														"webapp" + File.separator + "WEB-INF";
 	private static final String PRODUCT_TYPE = System.getProperty("tdc.productType");
-
+	static String version = null;
+	
+	static{
+		try {
+			version = getVersion();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+	}
+	private static final String VERSION = version;
 	private static native void nativeUpLevelWindow(final String windowName);
 	
 	static {
@@ -231,6 +245,12 @@ public class PersistenceServlet extends HttpServlet {
 				calculatorDialog30.setCalculatorPaused(false);
 			}
 			//result = showHideOkCalculator(request.getParameter("isHidden"));
+		}
+		else if (method != null
+				&& method.equals(ServletUtils.CHECK_PROD_TYPE_METHOD)){
+			clearClipboardData();
+			result = "<"+PRODUCT_TYPE.trim()+" version=\""+VERSION.trim()+"\"/>";
+			//logger.info("RESULT******"+result);
 		}
 		else if (method != null
 				&& method.equals(ServletUtils.CLOSE_OK_CALCULATOR))
@@ -1072,4 +1092,28 @@ public class PersistenceServlet extends HttpServlet {
         calculatorDialog30.setVisible(true);
         calculatorDialog30.setVisible(false);
     }
+    
+    public static void clearClipboardData(){
+    	StringSelection stringSelection = new StringSelection("");
+    	Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+    }
+    
+    /*
+     * Changes to display version on the Login screen
+     */
+    public static String getVersion() throws IOException {
+		String path=System.getProperty(TDC_HOME) + File.separator + 
+		"etc" + File.separator + "version.properties";
+		String version=null;
+		File file=new File(path);
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(file));
+			version=br.readLine().split("=")[1];
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return version;
+	}
 }

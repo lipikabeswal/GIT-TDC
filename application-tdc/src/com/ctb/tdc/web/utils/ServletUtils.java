@@ -161,6 +161,7 @@ public class ServletUtils {
 	public static final String CLOSE_OK_CALCULATOR = "closeOkCalculator";
 	public static final String SCIENTIFIC_CALCULATOR = "Scientific Calculator";
 	public static final String GRAPHIC_CALCULATOR = "Graphic Calculator";
+	public static final String CHECK_PROD_TYPE_METHOD = "isProductCheck";
 	
 	
 //	parameters

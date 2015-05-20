@@ -251,6 +251,12 @@ Debug.write("gCommunicator.uploadAuditFile( " + lsid + " , " + scid + " ) ");
 		<method name="closeOkCalculator">
 			gRequest.closeOkCalculator();
 		</method> 
+		
+		<method name="checkIsProduct">
+   			if(!error){
+    			gRequest.checkIsProduct();
+    		}
+       	</method>
      </node>
 
 </library>
