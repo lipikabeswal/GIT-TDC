@@ -71,7 +71,8 @@ function lzEmbed(properties, ieupgradeversion, escapeme) {
         if (i == 'lzr' || i == 'lzt' || 
             i == 'krank' || i == 'debug' || 
             i == 'lzdebug' || i == 'lzkrank' || 
-            i == 'fb' || i == 'sourcelocators' ) {
+            i == 'fb' || i == 'sourcelocators' ||
+            i == 'randomNumber') {
             query += i + '=' + flashvars.d[i] + '&';
         }
     }
