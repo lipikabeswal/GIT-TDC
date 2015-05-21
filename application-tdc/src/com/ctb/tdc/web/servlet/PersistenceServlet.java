@@ -1261,15 +1261,19 @@ public static String getVersion() throws IOException {
 		try {
 			br = new BufferedReader(new FileReader(file));
 			version=br.readLine().split("=")[1];
-			splitVersion = version.split("\\.");
-			for(int i=0; i<splitVersion.length; i++){
-				if(i <= 1){
-					str.append(splitVersion[i]+".");
-				}else{
-					str.append(splitVersion[i]);
-					version = str.toString();
-					break;
+			if(PRODUCT_TYPE.equals("TABE")){
+				splitVersion = version.split("\\.");
+				for(int i=0; i<splitVersion.length; i++){
+					if(i <= 1){
+						str.append(splitVersion[i]+".");
+					}else{
+						str.append(splitVersion[i]);
+						version = str.toString();
+						break;
+					}
 				}
+			}else{
+				version = version.substring(0, version.lastIndexOf("."));
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
