@@ -286,13 +286,22 @@
 
 		<method name="setTextReaderAttributes" args="data"><![CDATA[
             var dataText = data.getFirstChild().data;
-            Debug.write("setTextReaderAttributes",dataText);
-			Debug.write("inside setTextReaderAttributes ",panel);
-			if(panel.datapath.xpathQuery('@stereotype') == 'directions' ||
+           // Debug.write("setTextReaderAttributes",dataText);
+			//Debug.write("inside setTextReaderAttributes ",panel);
+			// Code changes for story OAS-2979 - TASC - Suppress the alt-text for Blank Text Tags : TDC Changes
+			// 'space#1' generate '&nbsp;' and '&#160;' in previewer and TDC respectivly.
+            var filterDataText = dataText;
+            if(dataText == '&nbsp;' && (gController.productTypeVal.indexOf('TASC') >= 0)){
+			 filterDataText = gController.replace(dataText, '&nbsp;', '');
+			}
+			if(dataText == '&#160;' && (gController.productTypeVal.indexOf('TASC') >= 0)){
+			 filterDataText = gController.replace(dataText, '&#160;', '');
+			}
+			if(panel.datapath.xpathQuery('@stereotype') == 'directions' || 
 			   panel.datapath.xpathQuery('@stereotype') == 'stimulus'){
 				dataText = gReadableText.stripHtmlTags(gController.directionsSubstitution(dataText));
 			}  
-			Debug.write("dataText after stripHtmlTags ",dataText);
+			//Debug.write("dataText after stripHtmlTags ",dataText);
             if ( data.hasAttr( 'alt_text' ) ) {
             	var dataAltText = trim(data.getAttr( 'alt_text' ));
             	if(canvas.readable && dataAltText.length > 0){
@@ -305,13 +314,18 @@
                 setAttribute( 'hasAltText', true );
                 this.setAAText(dataAltText);
             } else {
-				Debug.write("inside else ",canvas.readable);
-            	setAttribute('hasReadableText', canvas.readable);
+				// Code changes for story OAS-2979 - TASC - Suppress the alt-text for Blank Text Tags : TDC Changes
+				if(filterDataText=='' && (gController.productTypeVal.indexOf('TASC') >= 0)){
+					setAttribute('hasReadableText', false);
+				}else{
+            		setAttribute('hasReadableText', canvas.readable);
+				}
                 setAttribute( 'hasAltText', false );
-                Debug.write("inside else hasReadableText",this.hasReadableText,this.hasAltText);
+               // Debug.write("inside else hasReadableText",this.hasReadableText,this.hasAltText);
                 this.setAAText(dataText);
-                Debug.write("after setAAText");
+              //  Debug.write("after setAAText");
             }
+			
 		]]></method>
 		
 		<method name="embedded_input_field" args="data"><![CDATA[
