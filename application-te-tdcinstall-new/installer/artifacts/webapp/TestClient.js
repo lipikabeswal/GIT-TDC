@@ -58,7 +58,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mq"]}},$lzc$class__mq.attributes)
 }}})($lzc$class__mq)
-};canvas=new $lzc$class__mq(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onkeydown","$mi","$mh","onmousedown","$mk","$mj","onbringBackFocus","$ml",null,"onfootnotedata","$mm",null,"onisMultiAudio","$mn",null,"oninit","$mo",null,"onfootnotetext","$mp",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2015-02-27T06:43:19Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mq(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onkeydown","$mi","$mh","onmousedown","$mk","$mj","onbringBackFocus","$ml",null,"onfootnotedata","$mm",null,"onisMultiAudio","$mn",null,"oninit","$mo",null,"onfootnotetext","$mp",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2015-05-22T06:11:02Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -11491,16 +11491,24 @@ $4="000000"
 $0.preventDefault();var $1=jQuery(this).parent().attr("header");var $2=jQuery(this).parent().attr("detail");var $3=jQuery(this).parent().attr("readable");var $4=$1+"|"+$2+"|"+$3+"|undefined|"+footnoteFontSize;showFootnote($4)
 })
 }},"setTextReaderAttributes",function($0){
-var $1=$0.getFirstChild().data;Debug.write("setTextReaderAttributes",$1);Debug.write("inside setTextReaderAttributes ",this.panel);if(this.panel.datapath.xpathQuery("@stereotype")=="directions"||this.panel.datapath.xpathQuery("@stereotype")=="stimulus"){
+var $1=$0.getFirstChild().data;var $2=$1;if($1=="&nbsp;"&&gController.productTypeVal.indexOf("TASC")>=0){
+$2=gController.replace($1,"&nbsp;","")
+};if($1=="&#160;"&&gController.productTypeVal.indexOf("TASC")>=0){
+$2=gController.replace($1,"&#160;","")
+};if(this.panel.datapath.xpathQuery("@stereotype")=="directions"||this.panel.datapath.xpathQuery("@stereotype")=="stimulus"){
 $1=gReadableText.stripHtmlTags(gController.directionsSubstitution($1))
-};Debug.write("dataText after stripHtmlTags ",$1);if($0.hasAttr("alt_text")){
-var $2=trim($0.getAttr("alt_text"));if(canvas.readable&&$2.length>0){
+};if($0.hasAttr("alt_text")){
+var $3=trim($0.getAttr("alt_text"));if(canvas.readable&&$3.length>0){
 this.setAttribute("hasReadableText",true)
 }else{
 this.setAttribute("hasReadableText",false)
-};this.setAttribute("altText",$2);this.setAttribute("hasAltText",true);this.setAAText($2)
+};this.setAttribute("altText",$3);this.setAttribute("hasAltText",true);this.setAAText($3)
 }else{
-Debug.write("inside else ",canvas.readable);this.setAttribute("hasReadableText",canvas.readable);this.setAttribute("hasAltText",false);Debug.write("inside else hasReadableText",this.hasReadableText,this.hasAltText);this.setAAText($1);Debug.write("after setAAText")
+if($2==""&&gController.productTypeVal.indexOf("TASC")>=0){
+this.setAttribute("hasReadableText",false)
+}else{
+this.setAttribute("hasReadableText",canvas.readable)
+};this.setAttribute("hasAltText",false);this.setAAText($1)
 }},"embedded_input_field",function($0){
 this.setTextReaderAttributes($0);var $1=new Array();var $2=$0.getFirstChild().data;Debug.write("dataText ",$2);if(this.panel.datapath.xpathQuery("@stereotype")=="directions"||this.panel.datapath.xpathQuery("@stereotype")=="stimulus"){
 $2=gController.directionsSubstitution($2)
