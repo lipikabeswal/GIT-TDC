@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2012 Enterprise, Build 4349
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Mon Feb 09 16:05:52 PST 2015 -->
-<InstallAnywhere_Deployment_Project increments="18052">
+     DATE:   Sat Jun 27 20:26:46 PDT 2015 -->
+<InstallAnywhere_Deployment_Project increments="18342">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="14" minor="0" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,55,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,55,46,48,44,32,79,114,97,99,108,101,32,67,111,114,112,111,114,97,116,105,111,110,44,32,104,116,116,112,58,47,47,106,97,118,97,46,111,114,97,99,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,64,119,-55,99,64,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,8,15,30,32,11,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,55,59,-13,96,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,6,7,19,40,14,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="812">
+	<installationObjects uniqueObjects="822">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="belongsToUninstallPhase">
 				<boolean>false</boolean>
@@ -55,39 +55,12 @@
 					<property name="propertyList">
 						<object class="java.util.Vector">
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c18950">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c08950">
 									<property name="propertyValue">
 										<string><![CDATA[]]></string>
 									</property>
 									<property name="propertyName">
-										<string><![CDATA[lax.stderr.redirect]]></string>
-									</property>
-									<property name="propertyComment">
-										<string><![CDATA[leave blank for no input, "console" to read from the console window,
-and any path to a file to read from that file]]></string>
-									</property>
-								</object>
-							</method>
-							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c18952">
-									<property name="propertyValue">
-										<string><![CDATA[2750]]></string>
-									</property>
-									<property name="propertyName">
-										<string><![CDATA[lax.nl.win32.microsoftvm.min.version]]></string>
-									</property>
-									<property name="propertyComment">
-										<string><![CDATA[The minimum version of Microsoft's VM this application will run against]]></string>
-									</property>
-								</object>
-							</method>
-							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c1894f">
-									<property name="propertyValue">
-										<string><![CDATA[]]></string>
-									</property>
-									<property name="propertyName">
-										<string><![CDATA[lax.stdin.redirect]]></string>
+										<string><![CDATA[lax.stdout.redirect]]></string>
 									</property>
 									<property name="propertyComment">
 										<string><![CDATA[leave blank for no input, "console" to read from the console window,
@@ -112,28 +85,28 @@ Relative paths are relative to the launcher.]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c0361cb18ca2">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e15e447915c">
 									<property name="propertyValue">
-										<string><![CDATA[$PRODUCT_TYPE$]]></string>
+										<string><![CDATA[$CMD_LINE_ARGUMENTS$]]></string>
 									</property>
 									<property name="propertyName">
-										<string><![CDATA[product.type]]></string>
+										<string><![CDATA[lax.command.line.args]]></string>
 									</property>
 									<property name="propertyComment">
-										<string><![CDATA[product type]]></string>
+										<string><![CDATA[what will be passed to the main method -- be sure to quote arguments with spaces in them]]></string>
 									</property>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c1894d">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c9932d29915f">
 									<property name="propertyValue">
-										<string><![CDATA[main]]></string>
+										<string><![CDATA[67108864]]></string>
 									</property>
 									<property name="propertyName">
-										<string><![CDATA[lax.main.method]]></string>
+										<string><![CDATA[lax.nl.java.option.java.heap.size.max ]]></string>
 									</property>
 									<property name="propertyComment">
-										<string><![CDATA[the method in the main class that will be invoked]]></string>
+										<string><![CDATA[VM max heap size]]></string>
 									</property>
 								</object>
 							</method>
@@ -147,6 +120,47 @@ Relative paths are relative to the launcher.]]></string>
 									</property>
 									<property name="propertyComment">
 										<string><![CDATA[path to the installdir magic folder]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="4d831e238ee9">
+									<property name="propertyValue">
+										<string><![CDATA[$USER_INSTALL_DIR$]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[tdc.home]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[path to the installdir magic folder]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="b715630ab318">
+									<property name="propertyValue">
+										<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[lax.main.class]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[the class that contains the main method for the application]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="12342548ac0a">
+									<property name="propertyValue">
+										<string><![CDATA[J2]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[lax.nl.valid.vm.list]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[a string containing one or more of [ ALL JDK JRE J1 J2 JRE_J1 JDK_J1 JRE_J2 JDK_J2 MSJ ]
+ delimited by spaces or commas.  If the native launcher cannot find the current vm,
+it will search for ones in this list]]></string>
 									</property>
 								</object>
 							</method>
@@ -168,96 +182,30 @@ Relative paths are relative to the launcher.]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="4d831e238ee9">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c18950">
 									<property name="propertyValue">
-										<string><![CDATA[$USER_INSTALL_DIR$]]></string>
+										<string><![CDATA[]]></string>
 									</property>
 									<property name="propertyName">
-										<string><![CDATA[tdc.home]]></string>
+										<string><![CDATA[lax.stderr.redirect]]></string>
 									</property>
 									<property name="propertyComment">
-										<string><![CDATA[path to the installdir magic folder]]></string>
+										<string><![CDATA[leave blank for no input, "console" to read from the console window,
+and any path to a file to read from that file]]></string>
 									</property>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0e15e447915c">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c1894f">
 									<property name="propertyValue">
-										<string><![CDATA[$CMD_LINE_ARGUMENTS$]]></string>
+										<string><![CDATA[]]></string>
 									</property>
 									<property name="propertyName">
-										<string><![CDATA[lax.command.line.args]]></string>
+										<string><![CDATA[lax.stdin.redirect]]></string>
 									</property>
 									<property name="propertyComment">
-										<string><![CDATA[what will be passed to the main method -- be sure to quote arguments with spaces in them]]></string>
-									</property>
-								</object>
-							</method>
-							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c18951">
-									<property name="propertyValue">
-										<string><![CDATA[$IA_CLASSPATH$]]></string>
-									</property>
-									<property name="propertyName">
-										<string><![CDATA[lax.class.path]]></string>
-									</property>
-									<property name="propertyComment">
-										<string><![CDATA[the Java classpath necessary to run this application
-Can be separated by colons (Mac OS/Unix) or semicolons (Windows)]]></string>
-									</property>
-								</object>
-							</method>
-							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="12342548ac0a">
-									<property name="propertyValue">
-										<string><![CDATA[J2]]></string>
-									</property>
-									<property name="propertyName">
-										<string><![CDATA[lax.nl.valid.vm.list]]></string>
-									</property>
-									<property name="propertyComment">
-										<string><![CDATA[a string containing one or more of [ ALL JDK JRE J1 J2 JRE_J1 JDK_J1 JRE_J2 JDK_J2 MSJ ]
- delimited by spaces or commas.  If the native launcher cannot find the current vm,
-it will search for ones in this list]]></string>
-									</property>
-								</object>
-							</method>
-							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c08952">
-									<property name="propertyValue">
-										<string><![CDATA[7.0]]></string>
-									</property>
-									<property name="propertyName">
-										<string><![CDATA[lax.version]]></string>
-									</property>
-									<property name="propertyComment">
-										<string><![CDATA[version of LaunchAnywhere that created this properties file]]></string>
-									</property>
-								</object>
-							</method>
-							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c9932d29915f">
-									<property name="propertyValue">
-										<string><![CDATA[67108864]]></string>
-									</property>
-									<property name="propertyName">
-										<string><![CDATA[lax.nl.java.option.java.heap.size.max ]]></string>
-									</property>
-									<property name="propertyComment">
-										<string><![CDATA[VM max heap size]]></string>
-									</property>
-								</object>
-							</method>
-							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="b715630ab318">
-									<property name="propertyValue">
-										<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
-									</property>
-									<property name="propertyName">
-										<string><![CDATA[lax.main.class]]></string>
-									</property>
-									<property name="propertyComment">
-										<string><![CDATA[the class that contains the main method for the application]]></string>
+										<string><![CDATA[leave blank for no input, "console" to read from the console window,
+and any path to a file to read from that file]]></string>
 									</property>
 								</object>
 							</method>
@@ -275,16 +223,81 @@ it will search for ones in this list]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c08950">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c1894d">
 									<property name="propertyValue">
-										<string><![CDATA[]]></string>
+										<string><![CDATA[main]]></string>
 									</property>
 									<property name="propertyName">
-										<string><![CDATA[lax.stdout.redirect]]></string>
+										<string><![CDATA[lax.main.method]]></string>
 									</property>
 									<property name="propertyComment">
-										<string><![CDATA[leave blank for no input, "console" to read from the console window,
-and any path to a file to read from that file]]></string>
+										<string><![CDATA[the method in the main class that will be invoked]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c08952">
+									<property name="propertyValue">
+										<string><![CDATA[7.0]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[lax.version]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[version of LaunchAnywhere that created this properties file]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="c0361cb18ca2">
+									<property name="propertyValue">
+										<string><![CDATA[$PRODUCT_TYPE$]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[product.type]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[product type]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="fa271dff87a7">
+									<property name="propertyValue">
+										<string><![CDATA[$USER_INSTALL_DIR$]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[lax.nl.current.vm]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[JVM from Tai]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c18952">
+									<property name="propertyValue">
+										<string><![CDATA[2750]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[lax.nl.win32.microsoftvm.min.version]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[The minimum version of Microsoft's VM this application will run against]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c18951">
+									<property name="propertyValue">
+										<string><![CDATA[$IA_CLASSPATH$]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[lax.class.path]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[the Java classpath necessary to run this application
+Can be separated by colons (Mac OS/Unix) or semicolons (Windows)]]></string>
 									</property>
 								</object>
 							</method>
@@ -472,7 +485,7 @@ and any path to a file to read from that file]]></string>
 								<string><![CDATA[bootstrap.jar]]></string>
 							</property>
 							<property name="fileSize">
-								<long>145599</long>
+								<long>137946</long>
 							</property>
 							<property name="macBinary">
 								<boolean>false</boolean>
@@ -2219,6 +2232,22 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</method>
 											<method name="addElement">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="d08202fcbd9f">
+													<property name="propertyValue">
+														<string><![CDATA[$PRODUCT_NAME$]]></string>
+													</property>
+													<property name="propertyName">
+														<string><![CDATA[$DESKTOP_NAME$]]></string>
+													</property>
+													<property name="passByValue">
+														<boolean>false</boolean>
+													</property>
+													<property name="substituteUnknownVariable">
+														<boolean>false</boolean>
+													</property>
+												</object>
+											</method>
+											<method name="addElement">
 												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="2566fcc3adf1">
 													<property name="propertyValue">
 														<string><![CDATA[LASLINKS]]></string>
@@ -3216,6 +3245,34 @@ Please uninstall the previous copy before installing this one.]]></string>
 							</property>
 							<property name="value">
 								<string><![CDATA[LAS LINKS Online Assessment]]></string>
+							</property>
+							<property name="passByValue">
+								<boolean>false</boolean>
+							</property>
+							<property name="substituteUnknownVariable">
+								<boolean>false</boolean>
+							</property>
+						</object>
+					</method>
+					<method name="addElement">
+						<object class="com.zerog.ia.installer.actions.EditVariableTable" objectID="d08491dbbd9f">
+							<property name="belongsToUninstallPhase">
+								<boolean>false</boolean>
+							</property>
+							<property name="rollbackEnabledCancel">
+								<boolean>true</boolean>
+							</property>
+							<property name="rollbackEnabledError">
+								<boolean>true</boolean>
+							</property>
+							<property name="ruleExpression">
+								<string><![CDATA[]]></string>
+							</property>
+							<property name="name">
+								<string><![CDATA[$DESKTOP_NAME$]]></string>
+							</property>
+							<property name="value">
+								<string><![CDATA[LAS LINKS Online Assessment - ver 12.4]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -15275,10 +15332,10 @@ chmod 777 *.*]]></string>
 								<string><![CDATA[Install Flash Player]]></string>
 							</property>
 							<property name="prompt">
-								<string><![CDATA[We strongly recommend that you install this Flash player (The NPAPI Flash Player 15 or 16 with Firefox plugin).... blah blah blah 
-You can uninstall Flash player now and click Next to install latest Flash playerblah... blah blah 
-Uncheck the box to skip Flash player installation... blah blah blah 
-(We need to rewrite this message)]]></string>
+								<string><![CDATA[We strongly recommend that you install this Flash player.
+You can uninstall Flash player now and click Next to install latest Flash player.
+Uncheck the box to skip Flash player installation.
+]]></string>
 							</property>
 							<property name="guiGroups">
 								<object class="java.util.Vector">
@@ -15293,9 +15350,9 @@ Uncheck the box to skip Flash player installation... blah blah blah
 											<property name="components">
 												<object class="java.util.Vector">
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.GUIComponentData" objectID="6bbc92178462">
+														<object class="com.zerog.ia.installer.util.GUIComponentData" objectID="4bb447d8877f">
 															<property name="label">
-																<string><![CDATA[Yes, I want to installer Flash player]]></string>
+																<string><![CDATA[Yes, I want to install Flash player]]></string>
 															</property>
 															<property name="defaultValue">
 																<string><![CDATA[Selected]]></string>
@@ -15472,7 +15529,7 @@ Uncheck the box to skip Flash player installation... blah blah blah
 								<boolean>true</boolean>
 							</property>
 							<property name="ruleExpression">
-								<string><![CDATA[CIAV948]]></string>
+								<string><![CDATA[CIAV948 && CP961]]></string>
 							</property>
 							<property name="targetAction">
 								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="6b8aa47b84b6">
@@ -15492,7 +15549,7 @@ Uncheck the box to skip Flash player installation... blah blah blah
 										<string><![CDATA[664]]></string>
 									</property>
 									<property name="sourceName">
-										<string><![CDATA[install_flashplayer16x32_mssd_aaa_aih.exe]]></string>
+										<string><![CDATA[flashplayer18_ha_install.exe]]></string>
 									</property>
 									<property name="overrideUnixPermissions">
 										<boolean>false</boolean>
@@ -15504,7 +15561,7 @@ Uncheck the box to skip Flash player installation... blah blah blah
 										<boolean>true</boolean>
 									</property>
 									<property name="destinationName">
-										<string><![CDATA[install_flashplayer16x32_mssd_aaa_aih.exe]]></string>
+										<string><![CDATA[flashplayer18_ha_install.exe]]></string>
 									</property>
 									<property name="fileSize">
 										<long>1055936</long>
@@ -15536,7 +15593,7 @@ Uncheck the box to skip Flash player installation... blah blah blah
 								<string><![CDATA[Executing...]]></string>
 							</property>
 							<property name="userLabel">
-								<string><![CDATA[install_flashplayer16x32_mssd_aaa_aih.exe]]></string>
+								<string><![CDATA[flashplayer18_ha_install.exe]]></string>
 							</property>
 							<property name="stdoutVar">
 								<string><![CDATA[$EXECUTE_STDOUT$]]></string>
@@ -15575,6 +15632,64 @@ Uncheck the box to skip Flash player installation... blah blah blah
 									</property>
 									<property name="ruleId">
 										<string><![CDATA[CIAV948]]></string>
+									</property>
+								</object>
+								<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="daa20d2f8778">
+									<property name="belongsToUninstallPhase">
+										<boolean>false</boolean>
+									</property>
+									<property name="rollbackEnabledCancel">
+										<boolean>true</boolean>
+									</property>
+									<property name="rollbackEnabledError">
+										<boolean>true</boolean>
+									</property>
+									<property name="ruleExpression">
+										<string><![CDATA[]]></string>
+									</property>
+									<property name="installOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[^Windows.*]]></string>
+											</method>
+										</object>
+									</property>
+									<property name="doNotInstallOnPlatformList">
+										<object class="java.util.Vector">
+											<method name="addElement">
+												<string><![CDATA[Mac OS X]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Solaris]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[SunOS]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[HP-UX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Linux]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[AIX]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[FreeBSD]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[NetWare]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[OS/400]]></string>
+											</method>
+											<method name="addElement">
+												<string><![CDATA[Unlisted Platforms]]></string>
+											</method>
+										</object>
+									</property>
+									<property name="ruleId">
+										<string><![CDATA[CP961]]></string>
 									</property>
 								</object>
 							</rules>
@@ -15738,7 +15853,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 				</object>
 			</property>
 			<property name="bundledJREInstall">
-				<int>4</int>
+				<int>1</int>
 			</property>
 			<property name="onlyInstallBundledVMIfOneNotFoundInSystem">
 				<boolean>false</boolean>
@@ -15750,7 +15865,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 				<int>155</int>
 			</property>
 			<property name="JREDirectoryName">
-				<string><![CDATA[jre]]></string>
+				<string><![CDATA[jre7]]></string>
 			</property>
 			<property name="buildConfigurations">
 				<object class="java.util.Vector">
@@ -15774,6 +15889,43 @@ The log is in $USER_INSTALL_DIR$]]></string>
 											</property>
 											<property name="bundledVM">
 												<string><![CDATA[SunJRE160_15Win32.vm]]></string>
+											</property>
+											<property name="withoutVmSearchOption">
+												<short>10</short>
+											</property>
+											<property name="withVMSearchOption">
+												<short>21</short>
+											</property>
+											<property name="win32InstallerLauncherType">
+												<short>90</short>
+											</property>
+											<property name="jvmResolutionFileSpecs">
+												<object class="java.util.Vector"/>
+											</property>
+											<property name="md5CheckApplicable_search_notFound_download">
+												<boolean>false</boolean>
+											</property>
+											<property name="md5CheckApplicable_dontSearch_download">
+												<boolean>false</boolean>
+											</property>
+										</object>
+									</method>
+									<method name="addElement">
+										<object class="com.zerog.ia.designer.build.BuildTarget" objectID="d13d0b4fbd88">
+											<property name="type">
+												<int>2</int>
+											</property>
+											<property name="outputDir">
+												<string><![CDATA[MacOSX]]></string>
+											</property>
+											<property name="buildNoVM">
+												<boolean>true</boolean>
+											</property>
+											<property name="buildWithVM">
+												<boolean>false</boolean>
+											</property>
+											<property name="bundledVM">
+												<string><![CDATA[OracleJRE7u51-windowsx32.vm]]></string>
 											</property>
 											<property name="withoutVmSearchOption">
 												<short>10</short>
@@ -15842,7 +15994,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="buildOutputLocation">
-								<string><![CDATA[C:\workspace\application-las-tdcinstall\installer\tdc_prototype_Build_Output]]></string>
+								<string><![CDATA[C:\workspace\application-las-tdcinstall-PROTOTYPE\installer\tdc_prototype_Build_Output]]></string>
 							</property>
 							<property name="relatedProjectSettings">
 								<object class="com.zerog.ia.installer.RelatedProjectSettings" objectID="236ad315a333">
@@ -16681,7 +16833,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="844faebc83ab">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="4bb535d0877f">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -16807,7 +16959,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[February 9, 2015 4:02:19 PM PST]]></string>
+						<string><![CDATA[March 4, 2015 4:24:04 PM PST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -16879,7 +17031,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[February 9, 2015 4:05:51 PM PST]]></string>
+						<string><![CDATA[June 27, 2015 8:26:46 PM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -17164,8 +17316,11 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					<property name="vendorURL">
 						<string><![CDATA[http://www.ctb.com]]></string>
 					</property>
+					<property name="email">
+						<string><![CDATA[]]></string>
+					</property>
 					<property name="copyright">
-						<string><![CDATA[2014]]></string>
+						<string><![CDATA[2015]]></string>
 					</property>
 					<property name="license">
 						<string><![CDATA[Commercial]]></string>
@@ -19976,7 +20131,7 @@ done
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[$BRANDED_NAME$]]></string>
+												<string><![CDATA[$DESKTOP_NAME$]]></string>
 											</property>
 											<property name="args">
 												<string><![CDATA[]]></string>
@@ -20485,7 +20640,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[$BRANDED_NAME$]]></string>
+												<string><![CDATA[$DESKTOP_NAME$]]></string>
 											</property>
 											<property name="args">
 												<string><![CDATA[]]></string>
@@ -23195,7 +23350,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[$BRANDED_NAME$]]></string>
+												<string><![CDATA[$DESKTOP_NAME$]]></string>
 											</property>
 											<property name="args">
 												<string><![CDATA[]]></string>
@@ -25444,7 +25599,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[$BRANDED_NAME$]]></string>
+												<string><![CDATA[$DESKTOP_NAME$]]></string>
 											</property>
 											<property name="args">
 												<string><![CDATA[]]></string>
@@ -25571,7 +25726,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[$BRANDED_NAME$]]></string>
+												<string><![CDATA[$DESKTOP_NAME$]]></string>
 											</property>
 											<property name="args">
 												<string><![CDATA[]]></string>
@@ -25702,7 +25857,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="ruleExpression">
-												<string><![CDATA[]]></string>
+												<string><![CDATA[CP381]]></string>
 											</property>
 											<property name="targetAction">
 												<object refID="6e8f1ba4843f"/>
@@ -25745,8 +25900,270 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[]]></string>
 											</property>
 											<property name="ruleExpression">
+												<string><![CDATA[CP381]]></string>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="d18bff11bdb9">
+													<property name="belongsToUninstallPhase">
+														<boolean>false</boolean>
+													</property>
+													<property name="rollbackEnabledCancel">
+														<boolean>true</boolean>
+													</property>
+													<property name="rollbackEnabledError">
+														<boolean>true</boolean>
+													</property>
+													<property name="ruleExpression">
+														<string><![CDATA[]]></string>
+													</property>
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[^Windows.*]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[NetWare]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="ruleId">
+														<string><![CDATA[CP381]]></string>
+													</property>
+												</object>
+											</rules>
+										</object>
+										<object class="com.zerog.ia.installer.actions.CreateShortcut" objectID="d18e04a1bdc9">
+											<property name="belongsToUninstallPhase">
+												<boolean>false</boolean>
+											</property>
+											<property name="rollbackEnabledCancel">
+												<boolean>true</boolean>
+											</property>
+											<property name="rollbackEnabledError">
+												<boolean>true</boolean>
+											</property>
+											<property name="ruleExpression">
+												<string><![CDATA[CP109]]></string>
+											</property>
+											<property name="targetAction">
+												<object refID="6e8f1ba4843f"/>
+											</property>
+											<property name="useInstalledFile">
+												<boolean>true</boolean>
+											</property>
+											<property name="workingDir">
 												<string><![CDATA[]]></string>
 											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="rollbackEnabledCancel">
+												<boolean>true</boolean>
+											</property>
+											<property name="rollbackEnabledError">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[Flash Settings]]></string>
+											</property>
+											<property name="args">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="ruleExpression">
+												<string><![CDATA[CP109]]></string>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="d18e6306bdfb">
+													<property name="belongsToUninstallPhase">
+														<boolean>false</boolean>
+													</property>
+													<property name="rollbackEnabledCancel">
+														<boolean>true</boolean>
+													</property>
+													<property name="rollbackEnabledError">
+														<boolean>true</boolean>
+													</property>
+													<property name="ruleExpression">
+														<string><![CDATA[]]></string>
+													</property>
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[^Windows.*]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[NetWare]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="ruleId">
+														<string><![CDATA[CP109]]></string>
+													</property>
+												</object>
+											</rules>
+										</object>
+										<object class="com.zerog.ia.installer.actions.CreateShortcut" objectID="daaa0c858836">
+											<property name="belongsToUninstallPhase">
+												<boolean>false</boolean>
+											</property>
+											<property name="rollbackEnabledCancel">
+												<boolean>true</boolean>
+											</property>
+											<property name="rollbackEnabledError">
+												<boolean>true</boolean>
+											</property>
+											<property name="ruleExpression">
+												<string><![CDATA[CP109]]></string>
+											</property>
+											<property name="targetAction">
+												<object refID="6e8f1ba4843f"/>
+											</property>
+											<property name="useInstalledFile">
+												<boolean>true</boolean>
+											</property>
+											<property name="workingDir">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="shouldUninstall">
+												<boolean>true</boolean>
+											</property>
+											<property name="rollbackEnabledCancel">
+												<boolean>true</boolean>
+											</property>
+											<property name="rollbackEnabledError">
+												<boolean>true</boolean>
+											</property>
+											<property name="destinationName">
+												<string><![CDATA[Flash Settings]]></string>
+											</property>
+											<property name="args">
+												<string><![CDATA[]]></string>
+											</property>
+											<property name="ruleExpression">
+												<string><![CDATA[CP109]]></string>
+											</property>
+											<rules logicalOperation="AND">
+												<object class="com.zerog.ia.installer.rules.PlatformChk" objectID="daaa0c868836">
+													<property name="belongsToUninstallPhase">
+														<boolean>false</boolean>
+													</property>
+													<property name="rollbackEnabledCancel">
+														<boolean>true</boolean>
+													</property>
+													<property name="rollbackEnabledError">
+														<boolean>true</boolean>
+													</property>
+													<property name="ruleExpression">
+														<string><![CDATA[]]></string>
+													</property>
+													<property name="installOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[Mac OS X]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="doNotInstallOnPlatformList">
+														<object class="java.util.Vector">
+															<method name="addElement">
+																<string><![CDATA[^Windows.*]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Solaris]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[SunOS]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[HP-UX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Linux]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[AIX]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[FreeBSD]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[NetWare]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[OS/400]]></string>
+															</method>
+															<method name="addElement">
+																<string><![CDATA[Unlisted Platforms]]></string>
+															</method>
+														</object>
+													</property>
+													<property name="ruleId">
+														<string><![CDATA[CP109]]></string>
+													</property>
+												</object>
+											</rules>
 										</object>
 										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="6b8a0bb583ab">
 											<property name="belongsToUninstallPhase">
@@ -26531,6 +26948,7 @@ and any path to a file to read from that file]]></string>
 								<object refID="422182d0914c"/>
 								<object refID="cda7b9f88e51"/>
 								<object refID="c05fbdf589d4"/>
+								<object refID="daaa0c858836"/>
 							</visualChildren>
 						</object>
 						<object class="com.zerog.ia.installer.GhostDirectory" objectID="cda858bb8e56">
@@ -26661,6 +27079,7 @@ and any path to a file to read from that file]]></string>
 								<object refID="cda835038e54"/>
 								<object refID="1759d32ca680"/>
 								<object refID="6e900b1084eb"/>
+								<object refID="d18e04a1bdc9"/>
 								<object refID="c060978e8bae"/>
 							</visualChildren>
 						</object>

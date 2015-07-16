@@ -5,7 +5,7 @@
 	<property name="project.installer.src"             value="tdc.iap_xml" />
 	-->
  	<property name="project.installer.application.dir" value="C:\Program Files (x86)\InstallAnywhere 2012" />
-	<property name="project.installer.src"             value="tdc_2012.iap_xml" />
+	<property name="project.installer.src"             value="tdc_prototype.iap_xml" />
 	
 	<property name="project.installer.xsl.dir"         value="${basedir}/antxsl" />
 	<property name="project.base.dir"              		value="${basedir}" />
