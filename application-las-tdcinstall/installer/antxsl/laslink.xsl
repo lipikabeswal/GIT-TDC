@@ -20,8 +20,8 @@
 		</property>
 	</xsl:template>
 
-	<xsl:template match="//object[@objectID='c0c6f1828b45']">
-		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="c0c6f1828b45">
+	<xsl:template match="//object[@objectID='2566fcc3adf1']">
+		<object class="com.zerog.ia.installer.util.VariablePropertyData" objectID="2566fcc3adf1">
 			<property name="propertyValue">
 				<string><![CDATA[LASLINKS]]></string>
 			</property>
