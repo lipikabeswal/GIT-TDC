@@ -1,7 +1,12 @@
 <project name="application-te-tdcinstall InstallAnywhere Installer" default="usage" basedir="."> 
  
+	<!--
  	<property name="project.installer.application.dir" value="C:\Program Files\InstallAnywhere 2008 Enterprise" />
 	<property name="project.installer.src"             value="tdc.iap_xml" />
+	-->
+ 	<property name="project.installer.application.dir" value="C:\Program Files (x86)\InstallAnywhere 2012" />
+	<property name="project.installer.src"             value="tdc_2012.iap_xml" />
+	
 	<property name="project.installer.xsl.dir"         value="${basedir}/antxsl" />
 	<property name="project.base.dir"              		value="${basedir}" />
 	<property name="project.artifacts.dir"              value="${basedir}/artifacts" />
@@ -53,11 +58,12 @@
 	<!-- **************************** build ******************************* -->	
 	<target name="build" description="Builds the various installers" depends="clean">
 
-		<antcall target="buildISTEP" /> 
-		
 		<antcall target="buildTABE" />
 
+		<!--
+		<antcall target="buildISTEP" /> 
 		<antcall target="buildTASC" />
+		-->
 		
 		<antcall target="postClean"></antcall>
 		<antcall target="buildTDCUpdate"></antcall>
@@ -87,7 +93,7 @@
 		<copy file="${project.icons.dir}/TABE-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
 		<antcall target="buildNonThinClientInstaller">
 			<param name="installer.type" value="tabe" />
-			<param name="installer.version" value="18.0.0" />
+			<param name="installer.version" value="18.3.0" />
 			<param name="installer.primary.url" value="https://tabe-oas.ctb.com" />
 			<!--
 			<param name="installer.secondary.url" value="https://tabe-oasdr.ctb.com" />
