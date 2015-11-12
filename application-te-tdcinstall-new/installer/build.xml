@@ -1,11 +1,11 @@
 <project name="application-te-tdcinstall InstallAnywhere Installer" default="usage" basedir="."> 
  
 	<!--
- 	<property name="project.installer.application.dir" value="C:\Program Files\InstallAnywhere 2008 Enterprise" />
-	<property name="project.installer.src"             value="tdc.iap_xml" />
-	-->
  	<property name="project.installer.application.dir" value="C:\Program Files (x86)\InstallAnywhere 2012" />
 	<property name="project.installer.src"             value="tdc_2012.iap_xml" />
+	-->
+ 	<property name="project.installer.application.dir" value="C:\Program Files (x86)\InstallAnywhere 2015" />
+	<property name="project.installer.src"             value="tdc_2015.iap_xml" />
 	
 	<property name="project.installer.xsl.dir"         value="${basedir}/antxsl" />
 	<property name="project.base.dir"              		value="${basedir}" />
@@ -61,7 +61,6 @@
 		<antcall target="buildTABE" />
 
 		<!--
-		<antcall target="buildISTEP" /> 
 		<antcall target="buildTASC" />
 		-->
 		
@@ -70,21 +69,6 @@
 	</target>
 	
 	
-	
-	<!-- **************************** ISTEP ******************************* -->	
-	<target name="buildISTEP" description="Builds the ISTEP installer" depends="init">
-		<copy file="${project.icons.dir}/CORELINK-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
-		<copy file="${project.icons.dir}/CORELINK-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
-		<copy file="${project.icons.dir}/CORELINK-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
-		<antcall target="buildNonThinClientInstaller">
-			<param name="installer.type" value="istep" />
-			<param name="installer.version" value="14.0.0" />
-			<param name="installer.primary.url" value="https://incore-oas.ctb.com" />
-			<!--
-			<param name="installer.secondary.url" value="https://incore-oas.ctb.com" />
-			-->
-		</antcall>
-	</target>
 	
 	<!-- **************************** TABE ******************************* -->	
 	<target name="buildTABE" description="Builds the TABE installer" depends="init">
@@ -207,7 +191,6 @@
 			BuildNamedUnixWithoutVM="false"
 			BuildWindowsWithVM="false"
 			BuildWindowsWithoutVM="true"
-			BuildMacOSX="true" 
 			BuildPureJava="false"
 		/>
 		
