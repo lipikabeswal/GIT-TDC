@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using Macrovision InstallAnywhere 2008 Enterprise, Build 3418
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Wed Oct 01 13:24:37 PDT 2014 -->
+     DATE:   Mon Jun 15 11:13:57 PDT 2015 -->
 <InstallAnywhere_Deployment_Project increments="13372">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
@@ -10,7 +10,7 @@
 		<scriptID>12,42,11,69,57,49,51,57,67,57,57,74,57,57,74,57,57,54,57,57,67,57,77,57,57,84</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,86,105,115,116,97,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,53,46,48,95,49,49,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,64,-61,105,-64,80,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,7,12,98,109,8,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,-13,105,-128,-16,80,112,118,100,85,99,113,97,113,65,81,84,74,67,70,68,72,74,64,69,66,69,64,95,71,5,2,10,6,109,104,13,1,0,0</authorizationID>
 	</essentialScriptInfo>
 	<installationObjects uniqueObjects="835">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
@@ -37,7 +37,7 @@
 								<string><![CDATA[bootstrap.jar]]></string>
 							</property>
 							<property name="fileSize">
-								<long>131244</long>
+								<long>131533</long>
 							</property>
 							<property name="macBinary">
 								<boolean>false</boolean>
@@ -53,7 +53,7 @@
 								<boolean>false</boolean>
 							</property>
 							<property name="totalSize">
-								<long>257</long>
+								<long>285</long>
 							</property>
 							<property name="unixPermissions">
 								<string><![CDATA[777]]></string>
@@ -345,7 +345,7 @@
 										<string><![CDATA[version.properties]]></string>
 									</property>
 									<property name="fileSize">
-										<long>21</long>
+										<long>22</long>
 									</property>
 									<property name="macBinary">
 										<boolean>false</boolean>
@@ -661,7 +661,7 @@
 										<boolean>false</boolean>
 									</property>
 									<property name="totalSize">
-										<long>3231</long>
+										<long>2878</long>
 									</property>
 									<property name="unixPermissions">
 										<string><![CDATA[775]]></string>
@@ -12025,7 +12025,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.build.last.date]]></string>
-						<string><![CDATA[March 2, 2013 10:18:06 AM PST]]></string>
+						<string><![CDATA[June 15, 2015 11:13:57 AM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.platform.windows.vm]]></string>
@@ -12097,7 +12097,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[October 1, 2014 1:24:37 PM PDT]]></string>
+						<string><![CDATA[June 15, 2015 11:13:57 AM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -13802,7 +13802,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>88</long>
+												<long>8280</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -13933,7 +13933,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>5297244</long>
+												<long>5313628</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -14026,7 +14026,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>23984514</long>
+												<long>25934031</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -14216,7 +14216,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>458226</long>
+												<long>462842</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -14416,7 +14416,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>73893</long>
+												<long>82085</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -15086,7 +15086,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e0e319c4b70f">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0bedc319959c">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tsutility.Main]]></string>
 															</property>
@@ -15967,7 +15967,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>306391</long>
+												<long>318984</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -16182,7 +16182,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[lock.enc]]></string>
 											</property>
 											<property name="fileSize">
-												<long>59391</long>
+												<long>58392</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
@@ -16357,7 +16357,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>378393</long>
+												<long>382489</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -16557,7 +16557,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>359254</long>
+												<long>363350</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -16757,7 +16757,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="totalSize">
-												<long>347092</long>
+												<long>351188</long>
 											</property>
 											<property name="unixPermissions">
 												<string><![CDATA[777]]></string>
@@ -17116,7 +17116,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e0e319d5b734">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0bedc32395c8">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.tuningutility.Main]]></string>
 															</property>
@@ -17659,19 +17659,6 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e0e319d9b743">
-															<property name="propertyValue">
-																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[lax.main.class]]></string>
-															</property>
-															<property name="propertyComment">
-																<string><![CDATA[the class that contains the main method for the application]]></string>
-															</property>
-														</object>
-													</method>
-													<method name="addElement">
 														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="6fa5a673b115">
 															<property name="propertyValue">
 																<string><![CDATA[33554432]]></string>
@@ -17681,6 +17668,19 @@ it will search for ones in this list]]></string>
 															</property>
 															<property name="propertyComment">
 																<string><![CDATA[VM intial heap size]]></string>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0bedc32395d9">
+															<property name="propertyValue">
+																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[lax.main.class]]></string>
+															</property>
+															<property name="propertyComment">
+																<string><![CDATA[the class that contains the main method for the application]]></string>
 															</property>
 														</object>
 													</method>
@@ -18100,7 +18100,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e0e319dbb750">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="0bedc32e95e6">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
 															</property>
@@ -18263,7 +18263,7 @@ and any path to a file to read from that file]]></string>
 														<string><![CDATA[app]]></string>
 													</property>
 													<property name="fileSize">
-														<long>-1</long>
+														<long>51</long>
 													</property>
 													<property name="macBinary">
 														<boolean>false</boolean>
@@ -18344,7 +18344,7 @@ and any path to a file to read from that file]]></string>
 												<string><![CDATA[startTDC.sh]]></string>
 											</property>
 											<property name="fileSize">
-												<long>-1</long>
+												<long>714</long>
 											</property>
 											<property name="macBinary">
 												<boolean>false</boolean>
