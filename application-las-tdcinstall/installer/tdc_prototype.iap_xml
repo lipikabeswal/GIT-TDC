@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This script was automatically generated using InstallAnywhere 2012 Enterprise, Build 4349
+<!-- This script was automatically generated using InstallAnywhere 2012 Enterprise with Cloud Pack, Build 4349
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Sat Jun 27 20:26:46 PDT 2015 -->
-<InstallAnywhere_Deployment_Project increments="18342">
+     DATE:   Fri Jul 17 08:44:25 PDT 2015 -->
+<InstallAnywhere_Deployment_Project increments="18262">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="14" minor="0" revision="0"/>
-		<editionID>49,52,46,48,32,69,110,116,101,114,112,114,105,115,101,32,66,117,105,108,100,32,52,51,52,57</editionID>
+		<editionID>49,52,46,48,32,69,110,116,101,114,112,114,105,115,101,32,119,105,116,104,32,67,108,111,117,100,32,80,97,99,107,32,66,117,105,108,100,32,52,51,52,57</editionID>
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,55,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,55,46,48,44,32,79,114,97,99,108,101,32,67,111,114,112,111,114,97,116,105,111,110,44,32,104,116,116,112,58,47,47,106,97,118,97,46,111,114,97,99,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,64,55,59,-13,96,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,6,7,19,40,14,1,0,0</authorizationID>
+		<authorizationID>1,0,0,64,-111,-65,32,-48,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,13,1,112,60,14,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="822">
+	<installationObjects uniqueObjects="820">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="belongsToUninstallPhase">
 				<boolean>false</boolean>
@@ -275,19 +275,6 @@ and any path to a file to read from that file]]></string>
 								</object>
 							</method>
 							<method name="addElement">
-								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c18952">
-									<property name="propertyValue">
-										<string><![CDATA[2750]]></string>
-									</property>
-									<property name="propertyName">
-										<string><![CDATA[lax.nl.win32.microsoftvm.min.version]]></string>
-									</property>
-									<property name="propertyComment">
-										<string><![CDATA[The minimum version of Microsoft's VM this application will run against]]></string>
-									</property>
-								</object>
-							</method>
-							<method name="addElement">
 								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c18951">
 									<property name="propertyValue">
 										<string><![CDATA[$IA_CLASSPATH$]]></string>
@@ -298,6 +285,19 @@ and any path to a file to read from that file]]></string>
 									<property name="propertyComment">
 										<string><![CDATA[the Java classpath necessary to run this application
 Can be separated by colons (Mac OS/Unix) or semicolons (Windows)]]></string>
+									</property>
+								</object>
+							</method>
+							<method name="addElement">
+								<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="853599c18952">
+									<property name="propertyValue">
+										<string><![CDATA[2750]]></string>
+									</property>
+									<property name="propertyName">
+										<string><![CDATA[lax.nl.win32.microsoftvm.min.version]]></string>
+									</property>
+									<property name="propertyComment">
+										<string><![CDATA[The minimum version of Microsoft's VM this application will run against]]></string>
 									</property>
 								</object>
 							</method>
@@ -15531,49 +15531,6 @@ Uncheck the box to skip Flash player installation.
 							<property name="ruleExpression">
 								<string><![CDATA[CIAV948 && CP961]]></string>
 							</property>
-							<property name="targetAction">
-								<object class="com.zerog.ia.installer.actions.InstallFile" objectID="6b8aa47b84b6">
-									<property name="belongsToUninstallPhase">
-										<boolean>false</boolean>
-									</property>
-									<property name="rollbackEnabledCancel">
-										<boolean>true</boolean>
-									</property>
-									<property name="rollbackEnabledError">
-										<boolean>true</boolean>
-									</property>
-									<property name="ruleExpression">
-										<string><![CDATA[]]></string>
-									</property>
-									<property name="unixPermissions">
-										<string><![CDATA[664]]></string>
-									</property>
-									<property name="sourceName">
-										<string><![CDATA[flashplayer18_ha_install.exe]]></string>
-									</property>
-									<property name="overrideUnixPermissions">
-										<boolean>false</boolean>
-									</property>
-									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\]]></string>
-									</property>
-									<property name="shouldUninstall">
-										<boolean>true</boolean>
-									</property>
-									<property name="destinationName">
-										<string><![CDATA[flashplayer18_ha_install.exe]]></string>
-									</property>
-									<property name="fileSize">
-										<long>1055936</long>
-									</property>
-									<property name="macBinary">
-										<boolean>false</boolean>
-									</property>
-									<property name="targetCheckKind">
-										<int>0</int>
-									</property>
-								</object>
-							</property>
 							<property name="commandLineArgs">
 								<string><![CDATA[$EXECUTE_FILE_TARGET$]]></string>
 							</property>
@@ -15591,9 +15548,6 @@ Uncheck the box to skip Flash player installation.
 							</property>
 							<property name="dialogLabel">
 								<string><![CDATA[Executing...]]></string>
-							</property>
-							<property name="userLabel">
-								<string><![CDATA[flashplayer18_ha_install.exe]]></string>
 							</property>
 							<property name="stdoutVar">
 								<string><![CDATA[$EXECUTE_STDOUT$]]></string>
@@ -16833,7 +16787,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="4bb535d0877f">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="b0316164828c">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -17031,7 +16985,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[June 27, 2015 8:26:46 PM PDT]]></string>
+						<string><![CDATA[July 17, 2015 8:44:25 AM PDT]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -25763,7 +25717,6 @@ and any path to a file to read from that file]]></string>
 												</object>
 											</rules>
 										</object>
-										<object refID="6b8aa47b84b6"/>
 										<object class="com.zerog.ia.installer.actions.InstallFile" objectID="6e8f1ba4843f">
 											<property name="belongsToUninstallPhase">
 												<boolean>false</boolean>
@@ -26164,47 +26117,6 @@ and any path to a file to read from that file]]></string>
 													</property>
 												</object>
 											</rules>
-										</object>
-										<object class="com.zerog.ia.installer.actions.InstallDirectory" objectID="6b8a0bb583ab">
-											<property name="belongsToUninstallPhase">
-												<boolean>false</boolean>
-											</property>
-											<property name="rollbackEnabledCancel">
-												<boolean>true</boolean>
-											</property>
-											<property name="rollbackEnabledError">
-												<boolean>true</boolean>
-											</property>
-											<property name="ruleExpression">
-												<string><![CDATA[]]></string>
-											</property>
-											<property name="unixPermissions">
-												<string><![CDATA[775]]></string>
-											</property>
-											<property name="sourceName">
-												<string><![CDATA[]]></string>
-											</property>
-											<property name="overrideUnixPermissions">
-												<boolean>false</boolean>
-											</property>
-											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\jre7]]></string>
-											</property>
-											<property name="shouldUninstall">
-												<boolean>true</boolean>
-											</property>
-											<property name="destinationName">
-												<string><![CDATA[jre7]]></string>
-											</property>
-											<property name="removeRecursively">
-												<boolean>false</boolean>
-											</property>
-											<property name="totalSize">
-												<long>1</long>
-											</property>
-											<property name="macBinary">
-												<boolean>false</boolean>
-											</property>
 										</object>
 									</installChildren>
 								</object>
@@ -26797,8 +26709,6 @@ and any path to a file to read from that file]]></string>
 								<object refID="2f12115bb721"/>
 								<object refID="2f10baeab708"/>
 								<object refID="3b2bb8068d37"/>
-								<object refID="6b8a0bb583ab"/>
-								<object refID="6b8aa47b84b6"/>
 								<object refID="6e8f1ba5843f"/>
 								<object refID="6e8f1ba4843f"/>
 								<object refID="faae05e18a44"/>
@@ -27507,7 +27417,5 @@ and any path to a file to read from that file]]></string>
 			</installChildren>
 		</object>
 	</installationObjects>
-	<restorationObjects count="1">
-		<object refID="6b8a0bb583ab"/>
-	</restorationObjects>
+	<restorationObjects count="0"/>
 </InstallAnywhere_Deployment_Project>
