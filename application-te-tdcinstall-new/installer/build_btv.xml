@@ -1,0 +1,240 @@
+<project name="application-te-tdcinstall InstallAnywhere Installer" default="usage" basedir="."> 
+ 
+ 	<property name="project.installer.application.dir"       value="C:\Program Files (x86)\InstallAnywhere 2015" />
+	<property name="project.installer.src"                   value="tdc_btv_2015.iap_xml" />
+	
+	<property name="project.base.dir"                        value="${basedir}" />
+	<property name="project.installer.prop.dir"              value="${basedir}/antproperties" />
+	<property name="project.artifacts.dir"                   value="${basedir}/artifacts" />
+	<property name="project.artifacts.etc.dir"               value="${basedir}/artifacts/etc" />
+	<property name="project.artifacts.webapp.resources.dir"  value="${basedir}/artifacts/webapp/resources" />
+	<property name="project.artifacts.webapp.classes.dir"    value="${basedir}/artifacts/webapp/WEB-INF/classes" />
+	<property name="project.icons.dir"                       value="${basedir}/icons" />
+
+	<taskdef name="buildinstaller" 
+			 classpath="${project.installer.application.dir}\resource\build\iaant.jar" 
+			 classname="com.zerog.ia.integration.ant.InstallAnywhereAntTask"/> 
+	
+	
+	<!-- **************************** usage ******************************* -->	
+	<target name="usage" description="Displays the usage of this ANT build script.">
+		<echo>
+			Usage: ant -buildfile build_btv.xml [target]
+		</echo>
+	</target>
+	
+	
+	<!-- **************************** clean ******************************* -->	
+	<target name="clean" description="Cleans the generated output files.">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${basedir}" defaultexcludes="off">
+				<include name="__tdc_*_Build_Output/**"/>
+				<include name="__tdc_*locales*/**"/>
+				<include name="__tdc*.iap_xml" />
+				<include name="tdc_Build_Output/**"/>
+				<include name="tdc*locales*/**"/>
+				<include name="*.tmp"/>
+				<include name="dockerfile_Default_Container_Configuration/**"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<!-- **************************** postClean ******************************* -->	
+	<target name="postClean" >
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${basedir}" defaultexcludes="off">
+				<include name="__tdc_*locales*/**"/>
+				<include name="__tdc*.iap_xml" />
+				<include name="tdc_Build_Output/**"/>
+				<include name="tdc*locales*/**"/>
+				<include name="*.tmp"/>
+				<include name="dockerfile_Default_Container_Configuration/**"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	
+	<!-- **************************** prepArtifacts ******************************* -->	
+	<target name="prepArtifacts" description="Clears out the artifats folder in preparation of it coming from application-tdc and application-tdcbootstrap">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset defaultexcludes="no" dir="${basedir}/artifacts/data" />
+			<fileset defaultexcludes="no" dir="${basedir}/artifacts/etc" />
+			<fileset defaultexcludes="no" dir="${basedir}/artifacts/lockdownbrowser" />
+			<fileset defaultexcludes="no" dir="${basedir}/artifacts/servletcontainer" />
+			<fileset defaultexcludes="no" dir="${basedir}/artifacts/webapp" />
+		</delete>
+		<delete file="${basedir}/artifacts/bootstrap.jar"/>
+	</target>
+	
+	
+	<!-- **************************** build ******************************* -->	
+	<target name="build" description="Builds the various installers" depends="clean">
+
+		<!-- Build TABE -->
+		<antcall target="buildTABE" />
+		
+		<antcall target="postClean" />
+
+		<!-- Build TASC -->
+		<antcall target="buildTASC" />
+		
+		<antcall target="postClean" />
+		
+		<!-- Build build TDC update -->
+		<antcall target="buildTDCUpdate" />
+
+	</target>
+	
+	
+	
+	<!-- **************************** TABE ******************************* -->	
+	<target name="buildTABE" description="Builds the TABE installer" >
+		<copy file="${project.icons.dir}/TABE-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TABE-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TABE-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
+		
+		<!-- load tabe properties file -->
+		<loadproperties srcfile="${project.installer.prop.dir}/tabe.properties"/>
+		
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="tabe" />
+			<param name="installer.version" value="${tdc_installer_version}" />
+			<param name="installer.primary.url" value="${tdc_installer_primary_url}" />
+		</antcall>
+	</target>
+
+	<!-- **************************** TASC ******************************* -->	
+	<target name="buildTASC" description="Builds the TASC installer" >
+		<copy file="${project.icons.dir}/TASC-32-32.gif" tofile="${project.icons.dir}/MHE-32-32.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TASC-16-16.gif" tofile="${project.icons.dir}/MHE-16-16.gif" overwrite="true"/>
+		<copy file="${project.icons.dir}/TASC-128x128.icns" tofile="${project.icons.dir}/MHE-128x128.icns" overwrite="true"/>
+
+		<!-- load tasc properties file -->
+		<loadproperties srcfile="${project.installer.prop.dir}/tasc.properties"/>
+		
+		<antcall target="buildNonThinClientInstaller">
+			<param name="installer.type" value="tasc" />
+			<param name="installer.version" value="${tdc_installer_version}" />
+			<param name="installer.primary.url" value="${tdc_installer_primary_url}" />
+		</antcall>
+	</target>
+	
+	<!-- ***************************** Internal tasks ****************************** -->
+	
+	<!-- **************************** buildTDCUpdate ******************************* -->	
+	<target name="buildTDCUpdate">
+		<delete file="${basedir}/../tdcupdate.tar"/>
+		<tar basedir="${basedir}/../" destfile="${basedir}/../tdcupdate.tar" >
+			<include name="tdcupdate/**/tdcConfig.enc"/>
+			<include name="tdcupdate/**/upgrade.txt"/>
+		</tar>
+	</target>
+	
+	
+	<!-- ************** buildNonThinClientInstaller *************************** -->	
+	<target name="buildNonThinClientInstaller" if="installer.type">
+		
+		<!-- Copy ${project.artifacts.etc.dir}/tdc_version.properties to installer etc directory -->
+		<copy file="${project.artifacts.etc.dir}/tdc_version.properties" tofile="${project.artifacts.etc.dir}/version.properties" overwrite="true" />
+		<!-- Update installer tdc_version.properties with correct version no -->
+		<replace file="${project.artifacts.etc.dir}/version.properties">
+		  <replacefilter token="tdc_version" value="${installer.version}"/>
+		</replace>
+		
+		<!-- Copy ${project.artifacts.webapp.classes.dir}/tdc_url.properties to project.artifacts.webapp.classes.dir/tdc.properties file -->
+		<copy file="${project.artifacts.webapp.classes.dir}/tdc_url.properties" tofile="${project.artifacts.webapp.classes.dir}/tdc.properties" overwrite="true" />
+		<!-- Update ${project.artifacts.webapp.classes.dir}/tdc.properties with correct primary url -->
+		<replace file="${project.artifacts.webapp.classes.dir}/tdc.properties">
+		  <replacefilter token="primary-url" value="${installer.primary.url}"/>		  
+		</replace>
+		
+		<!-- Copy the ${project.base.dir}/bootstrap-single.jar to ${project.artifacts.dir}/bootstrap.jar -->
+		<copy file="${project.base.dir}/bootstrap-single.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
+		
+		<!-- Copy project.installer.src to __tdc_${installer.type}.iap_xml -->
+		<property name="installer.src"  value="__tdc_${installer.type}.iap_xml" />
+		<copy file="${project.installer.src}" tofile="${installer.src}" overwrite="true" />
+	
+		
+		<buildinstaller
+			IAlocation="${project.installer.application.dir}"
+			IAProjectFile="${installer.src}"
+			AutoPopulateLabels="false"
+			BuildLinuxWithVM="false"
+			BuildLinuxWithoutVM="true"
+			BuildHPUXWithVM="false"
+			BuildHPUXWithoutVM="false"
+			BuildAIXWithVM="false"
+			BuildAIXWithoutVM="false"
+			BuildSolarisWithVM="false"
+			BuildSolarisWithoutVM="false"
+			BuildNamedUnixWithVM="false"
+			BuildNamedUnixWithoutVM="false"
+			BuildWindowsWithVM="false"
+			BuildWindowsWithoutVM="true"
+			BuildPureJava="false"
+			ProjectVersionMajor="${tdc_installer_major_version}"
+			ProjectVersionMinor="${tdc_installer_minor_version}"
+			ProjectVersionRevision="${tdc_installer_revision_version}"
+			BuildTimeVarPropfile="${project.installer.prop.dir}/${installer.type}.properties" />
+
+		<!-- Clean tdc properties from ${project.artifacts.webapp.classes.dir} -->
+		<delete file="${project.artifacts.webapp.classes.dir}/tdc.properties"/>
+		
+	</target>
+	
+	
+	<!-- ************** buildThinClientInstaller *************************** -->	
+	<target name="buildThinClientInstaller" if="installer.type">
+		
+		<!-- Copy ${project.artifacts.etc.dir}/tdc_version.properties to installer etc directory -->
+		<copy file="${project.artifacts.etc.dir}/tdc_version.properties" tofile="${project.artifacts.etc.dir}/version.properties" overwrite="true" />
+		<!-- Update installer tdc_version.properties with correct version no -->
+		<replace file="${project.artifacts.etc.dir}/version.properties">
+		  <replacefilter token="tdc_version" value="${installer.version}"/>
+		</replace>
+		
+		<!-- Copy ${project.artifacts.webapp.classes.dir}/tdc_url.properties to project.artifacts.webapp.classes.dir/tdc.properties file -->
+		<copy file="${project.artifacts.webapp.classes.dir}/tdc_url.properties" tofile="${project.artifacts.webapp.classes.dir}/tdc.properties" overwrite="true" />
+		<!-- Update ${project.artifacts.webapp.classes.dir}/tdc.properties with correct primary url -->
+		<replace file="${project.artifacts.webapp.classes.dir}/tdc.properties">
+		  <replacefilter token="primary-url" value="${installer.primary.url}"/>
+		</replace>
+	
+		<!-- Copy the ${project.base.dir}/bootstrap-multi.jar to ${project.artifacts.dir}/bootstrap.jar -->
+		<copy file="${project.base.dir}/bootstrap-multi.jar" tofile="${project.artifacts.dir}/bootstrap.jar" overwrite="true" />
+		
+		<!-- Copy project.installer.src to __tdc_${installer.type}.iap_xml -->
+		<property name="installer.src"  value="__tdc_${installer.type}.iap_xml" />
+		<copy file="${project.installer.src}" tofile="${installer.src}" overwrite="true" />
+		
+		<buildinstaller
+			IAlocation="${project.installer.application.dir}"
+			IAProjectFile="${installer.src}"
+			AutoPopulateLabels="false"
+			BuildLinuxWithVM="false"
+			BuildLinuxWithoutVM="false"
+			BuildHPUXWithVM="false"
+			BuildHPUXWithoutVM="false"
+			BuildAIXWithVM="false"
+			BuildAIXWithoutVM="false"
+			BuildSolarisWithVM="false"
+			BuildSolarisWithoutVM="false"
+			BuildNamedUnixWithVM="false"
+			BuildNamedUnixWithoutVM="false"
+			BuildWindowsWithVM="false"
+			BuildWindowsWithoutVM="true"
+			BuildMacOSX="false" 
+			BuildPureJava="false"
+			ProjectVersionMajor="${tdc_installer_major_version}"
+			ProjectVersionMinor="${tdc_installer_minor_version}"
+			ProjectVersionRevision="${tdc_installer_revision_version}"
+			ProjectVersionSubVersion="${tdc_installer_sub_version}"
+			BuildTimeVarPropfile="${project.installer.prop.dir}/${installer.type}.properties"/>
+		
+		<!-- Clean tdc properties from ${project.artifacts.webapp.classes.dir} -->
+		<delete file="${project.artifacts.webapp.classes.dir}/tdc.properties"/>
+		
+	</target>
+
+</project>
