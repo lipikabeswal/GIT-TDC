@@ -1,6 +1,6 @@
-buildlog.xml
-__*
-tdc_Build_Output
-tdclocales
-iabuild.properties
-temp.properties
+__tdc*
+__tdc_*locales*
+tdc_*locales*
+ia.credstore
+build*log*.xml
+dockerfile_Default*
