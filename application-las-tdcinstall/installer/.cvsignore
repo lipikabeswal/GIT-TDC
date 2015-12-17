@@ -4,3 +4,4 @@ tdc_*locales*
 ia.credstore
 build*log*.xml
 dockerfile_Default*
+temp.properties
