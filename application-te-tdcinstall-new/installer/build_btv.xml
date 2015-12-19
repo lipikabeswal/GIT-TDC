@@ -1,6 +1,7 @@
 <project name="application-te-tdcinstall InstallAnywhere Installer" default="usage" basedir="."> 
  
- 	<property name="project.installer.application.dir"       value="C:\Program Files (x86)\InstallAnywhere 2015" />
+	<property environment="env"/>
+	<property name="project.installer.application.dir"      value="${env.IAHOME}" />
 	<property name="project.installer.src"                   value="tdc_btv_2015.iap_xml" />
 	
 	<property name="project.base.dir"                        value="${basedir}" />
