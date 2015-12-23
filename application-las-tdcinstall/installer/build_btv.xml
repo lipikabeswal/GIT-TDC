@@ -10,7 +10,7 @@
 	<property name="project.artifacts.webapp.classes.dir"    value="${basedir}/artifacts/webapp/WEB-INF/classes" />
 
 	<property file="${project.installer.prop.dir}/build.properties"/>
-	<property name="project.installer.application.dir"      value="${INSTALLANYWHERE_HOME}" />
+	<property name="project.installer.application.dir"       value="${INSTALLANYWHERE_HOME}" />
 	<property name="project.installer.src"                   value="${TARGET_IA_CONFIG_GILE}" />
 	
 	<taskdef name="buildinstaller" 
