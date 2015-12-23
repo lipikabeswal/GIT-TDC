@@ -1,9 +1,6 @@
 <project name="application-las-tdcinstall InstallAnywhere Installer" default="usage" basedir="."> 
  
-	<property environment="env"/>
-	<property name="project.installer.application.dir"      value="${env.IAHOME}" />
-	<property name="project.installer.src"                   value="tdc_btv_2015.iap_xml" />
-	
+
 	<!--property name="project.installer.xsl.dir"            value="${basedir}/antxsl" /-->
 	<property name="project.installer.prop.dir"              value="${basedir}/antproperties" />
 	<property name="project.base.dir"                        value="${basedir}" />
@@ -12,6 +9,10 @@
 	<property name="project.artifacts.webapp.resources.dir"  value="${basedir}/artifacts/webapp/resources" />
 	<property name="project.artifacts.webapp.classes.dir"    value="${basedir}/artifacts/webapp/WEB-INF/classes" />
 
+	<property file="${project.installer.prop.dir}/build.properties"/>
+	<property name="project.installer.application.dir"      value="${INSTALLANYWHERE_HOME}" />
+	<property name="project.installer.src"                   value="${TARGET_IA_CONFIG_GILE}" />
+	
 	<taskdef name="buildinstaller" 
 			 classpath="${project.installer.application.dir}\resource\build\iaant.jar" 
 			 classname="com.zerog.ia.integration.ant.InstallAnywhereAntTask"/> 
@@ -75,7 +76,7 @@
 		
 		<antcall target="buildLasLink" />  
 		
-		<!--antcall target="postClean"/-->
+		<antcall target="postClean"/>
 		
 		<!-- 
 		Repeat build target  & postClean for other 		
