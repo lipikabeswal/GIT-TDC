@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This script was automatically generated using InstallAnywhere 2012 Enterprise with Cloud Pack, Build 4349
-     STATUS: Fully-Functional UNLICENSED Trial Edition
-     DATE:   Wed Dec 23 11:31:58 MST 2015 -->
-<InstallAnywhere_Deployment_Project increments="21030">
+<!-- This script was automatically generated using InstallAnywhere 2012 Enterprise, Build 4349
+     STATUS: Fully Functional LICENSED Edition
+     DATE:   Wed Dec 23 15:33:14 MST 2015 -->
+<InstallAnywhere_Deployment_Project increments="21045">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="14" minor="0" revision="0"/>
-		<editionID>49,52,46,48,32,69,110,116,101,114,112,114,105,115,101,32,119,105,116,104,32,67,108,111,117,100,32,80,97,99,107,32,66,117,105,108,100,32,52,51,52,57</editionID>
+		<editionID>49,52,46,48,32,69,110,116,101,114,112,114,105,115,101,32,66,117,105,108,100,32,52,51,52,57</editionID>
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
-		<buildID>3,13,71,77,97,99,32,79,83,32,88,44,32,49,48,46,49,48,46,53,44,32,120,56,54,95,54,52,59,32,74,97,118,97,32,49,46,54,46,48,95,54,53,44,32,65,112,112,108,101,32,73,110,99,46,44,32,104,116,116,112,58,47,47,119,119,119,46,97,112,112,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,77,97,99,82,111,109,97,110</buildID>
+		<buildID>3,13,71,87,105,110,100,111,119,115,32,55,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,55,46,48,44,32,79,114,97,99,108,101,32,67,111,114,112,111,114,97,116,105,111,110,44,32,104,116,116,112,58,47,47,106,97,118,97,46,111,114,97,99,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,51</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,80,-47,26,-96,-16,64,99,70,101,125,121,100,96,105,48,48,49,56,52,67,98,113,112,124,44,81,100,99,62,57,15,14,5,10,124,48,1,1,0,0</authorizationID>
+		<authorizationID>1,0,0,80,-41,-5,-128,16,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,13,15,121,32,1,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="910">
+	<installationObjects uniqueObjects="911">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="belongsToUninstallPhase">
 				<boolean>false</boolean>
@@ -55,7 +55,7 @@
 								<boolean>true</boolean>
 							</property>
 							<property name="sourcePath">
-								<string><![CDATA[$IA_PROJECT_DIR$/artifacts/]]></string>
+								<string><![CDATA[$IA_PROJECT_DIR$\artifacts\]]></string>
 							</property>
 							<property name="shouldUninstall">
 								<boolean>true</boolean>
@@ -116,7 +116,7 @@
 								<boolean>true</boolean>
 							</property>
 							<property name="sourcePath">
-								<string><![CDATA[$IA_PROJECT_DIR$/artifacts/etc]]></string>
+								<string><![CDATA[$IA_PROJECT_DIR$\artifacts\etc]]></string>
 							</property>
 							<property name="shouldUninstall">
 								<boolean>true</boolean>
@@ -128,7 +128,7 @@
 								<boolean>true</boolean>
 							</property>
 							<property name="destinationName">
-								<string><![CDATA[etc/]]></string>
+								<string><![CDATA[etc\]]></string>
 							</property>
 							<property name="createDirectory">
 								<boolean>true</boolean>
@@ -223,7 +223,7 @@
 								<boolean>false</boolean>
 							</property>
 							<property name="sourcePath">
-								<string><![CDATA[$IA_PROJECT_DIR$/artifacts/servletcontainer/jetty-5.1.11RC0/ext/]]></string>
+								<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer\jetty-5.1.11RC0\ext\]]></string>
 							</property>
 							<property name="shouldUninstall">
 								<boolean>true</boolean>
@@ -275,7 +275,7 @@
 								<boolean>false</boolean>
 							</property>
 							<property name="sourcePath">
-								<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/lib/]]></string>
+								<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\lib\]]></string>
 							</property>
 							<property name="shouldUninstall">
 								<boolean>true</boolean>
@@ -327,7 +327,7 @@
 								<boolean>false</boolean>
 							</property>
 							<property name="sourcePath">
-								<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/lib/]]></string>
+								<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\lib\]]></string>
 							</property>
 							<property name="shouldUninstall">
 								<boolean>true</boolean>
@@ -379,7 +379,7 @@
 								<boolean>false</boolean>
 							</property>
 							<property name="sourcePath">
-								<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/lib/]]></string>
+								<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\lib\]]></string>
 							</property>
 							<property name="shouldUninstall">
 								<boolean>true</boolean>
@@ -431,7 +431,7 @@
 								<boolean>true</boolean>
 							</property>
 							<property name="sourcePath">
-								<string><![CDATA[$IA_PROJECT_DIR$/artifacts/etc]]></string>
+								<string><![CDATA[$IA_PROJECT_DIR$\artifacts\etc]]></string>
 							</property>
 							<property name="shouldUninstall">
 								<boolean>true</boolean>
@@ -472,7 +472,7 @@
 										<boolean>true</boolean>
 									</property>
 									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$/artifacts/etc/]]></string>
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\etc\]]></string>
 									</property>
 									<property name="shouldUninstall">
 										<boolean>true</boolean>
@@ -513,7 +513,7 @@
 										<boolean>true</boolean>
 									</property>
 									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$/artifacts/etc/]]></string>
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\etc\]]></string>
 									</property>
 									<property name="shouldUninstall">
 										<boolean>true</boolean>
@@ -558,7 +558,7 @@
 								<boolean>false</boolean>
 							</property>
 							<property name="sourcePath">
-								<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/lib]]></string>
+								<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\lib]]></string>
 							</property>
 							<property name="shouldUninstall">
 								<boolean>true</boolean>
@@ -602,7 +602,7 @@
 										<boolean>false</boolean>
 									</property>
 									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/lib/]]></string>
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\lib\]]></string>
 									</property>
 									<property name="shouldUninstall">
 										<boolean>true</boolean>
@@ -652,7 +652,7 @@
 										<boolean>false</boolean>
 									</property>
 									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/lib/]]></string>
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\lib\]]></string>
 									</property>
 									<property name="shouldUninstall">
 										<boolean>true</boolean>
@@ -702,7 +702,7 @@
 										<boolean>false</boolean>
 									</property>
 									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/lib/]]></string>
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\lib\]]></string>
 									</property>
 									<property name="shouldUninstall">
 										<boolean>true</boolean>
@@ -752,7 +752,7 @@
 										<boolean>false</boolean>
 									</property>
 									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/lib/]]></string>
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\lib\]]></string>
 									</property>
 									<property name="shouldUninstall">
 										<boolean>true</boolean>
@@ -802,7 +802,7 @@
 										<boolean>false</boolean>
 									</property>
 									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/lib/]]></string>
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\lib\]]></string>
 									</property>
 									<property name="shouldUninstall">
 										<boolean>true</boolean>
@@ -852,7 +852,7 @@
 										<boolean>false</boolean>
 									</property>
 									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/lib/]]></string>
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\lib\]]></string>
 									</property>
 									<property name="shouldUninstall">
 										<boolean>true</boolean>
@@ -902,7 +902,7 @@
 										<boolean>false</boolean>
 									</property>
 									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/lib/]]></string>
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\lib\]]></string>
 									</property>
 									<property name="shouldUninstall">
 										<boolean>true</boolean>
@@ -952,7 +952,7 @@
 										<boolean>false</boolean>
 									</property>
 									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/lib/]]></string>
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\lib\]]></string>
 									</property>
 									<property name="shouldUninstall">
 										<boolean>true</boolean>
@@ -1006,7 +1006,7 @@
 								<boolean>true</boolean>
 							</property>
 							<property name="sourcePath">
-								<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF]]></string>
+								<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF]]></string>
 							</property>
 							<property name="shouldUninstall">
 								<boolean>true</boolean>
@@ -1057,7 +1057,7 @@
 										<boolean>true</boolean>
 									</property>
 									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/WEB-INF/classes]]></string>
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\WEB-INF\classes]]></string>
 									</property>
 									<property name="shouldUninstall">
 										<boolean>true</boolean>
@@ -1069,7 +1069,7 @@
 										<boolean>true</boolean>
 									</property>
 									<property name="destinationName">
-										<string><![CDATA[classes/]]></string>
+										<string><![CDATA[classes\]]></string>
 									</property>
 									<property name="createDirectory">
 										<boolean>true</boolean>
@@ -1185,7 +1185,7 @@
 								<boolean>true</boolean>
 							</property>
 							<property name="sourcePath">
-								<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp]]></string>
+								<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp]]></string>
 							</property>
 							<property name="shouldUninstall">
 								<boolean>true</boolean>
@@ -1227,7 +1227,7 @@
 										<boolean>false</boolean>
 									</property>
 									<property name="sourcePath">
-										<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/resources]]></string>
+										<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\resources]]></string>
 									</property>
 									<property name="shouldUninstall">
 										<boolean>true</boolean>
@@ -1285,7 +1285,7 @@
 												<boolean>false</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp/resources/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp\resources\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -1849,9 +1849,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a394f9d6867a">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="e472acc389b2">
 													<property name="propertyValue">
-														<string><![CDATA[TERRANOVA]]></string>
+														<string><![CDATA[@tdc_installer_type@]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_TYPE$]]></string>
@@ -1881,9 +1881,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a394f9d6867b">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="e472acc389b3">
 													<property name="propertyValue">
-														<string><![CDATA[false]]></string>
+														<string><![CDATA[@tdc_flag_vanilla@]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$VANILLA$]]></string>
@@ -1897,9 +1897,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="c02e67b28c29">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="e472acc289b4">
 													<property name="propertyValue">
-														<string><![CDATA[false]]></string>
+														<string><![CDATA[@tdc_flag_istep@]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$ISTEP$]]></string>
@@ -1913,9 +1913,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="679d1f759781">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="e472acc389b4">
 													<property name="propertyValue">
-														<string><![CDATA[false]]></string>
+														<string><![CDATA[@tdc_flag_tabe@]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$TABE$]]></string>
@@ -1929,9 +1929,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="679d7f0d9781">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="e472acc289b5">
 													<property name="propertyValue">
-														<string><![CDATA[false]]></string>
+														<string><![CDATA[@tdc_flag_tasc@]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$TASC$]]></string>
@@ -1945,9 +1945,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a56853878557">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="e472acc389b5">
 													<property name="propertyValue">
-														<string><![CDATA[false]]></string>
+														<string><![CDATA[@tdc_flag_tn@]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$TERRANOVA$]]></string>
@@ -1961,9 +1961,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a56853888557">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="e472acc289b6">
 													<property name="propertyValue">
-														<string><![CDATA[true]]></string>
+														<string><![CDATA[@tdc_flag_tng@]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$TNG$]]></string>
@@ -1977,9 +1977,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="7266cce59785">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="e472acc389b6">
 													<property name="propertyValue">
-														<string><![CDATA[false]]></string>
+														<string><![CDATA[@tdc_flag_ok@]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$OKLAHOMA$]]></string>
@@ -1993,9 +1993,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="7267f9239785">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="e472acc289b7">
 													<property name="propertyValue">
-														<string><![CDATA[false]]></string>
+														<string><![CDATA[@tdc_flag_wv@]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$WESTEST2$]]></string>
@@ -2009,9 +2009,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="8a66e5f8b1ca">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="e472acc389b7">
 													<property name="propertyValue">
-														<string><![CDATA[false]]></string>
+														<string><![CDATA[@tdc_flag_ga@]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$GEORGIA$]]></string>
@@ -2025,9 +2025,9 @@
 												</object>
 											</method>
 											<method name="addElement">
-												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="a56853888559">
+												<object class="com.zerog.ia.installer.util.EditMultipleVariablePropertyData" objectID="e472acc289b8">
 													<property name="propertyValue">
-														<string><![CDATA[16.0]]></string>
+														<string><![CDATA[@tdc_installer_version@]]></string>
 													</property>
 													<property name="propertyName">
 														<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
@@ -2544,7 +2544,7 @@
 								<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[15.1]]></string>
+								<string><![CDATA[@tdc_installer_version@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -2600,7 +2600,7 @@
 								<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[9.9]]></string>
+								<string><![CDATA[@tdc_installer_version@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -2656,7 +2656,7 @@
 								<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[18.0]]></string>
+								<string><![CDATA[@tdc_installer_version@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -2712,7 +2712,7 @@
 								<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[11.2]]></string>
+								<string><![CDATA[@tdc_installer_version@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -2768,7 +2768,7 @@
 								<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[19.0]]></string>
+								<string><![CDATA[@tdc_installer_version@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -2824,7 +2824,7 @@
 								<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[16.0]]></string>
+								<string><![CDATA[@tdc_installer_version@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -2880,7 +2880,7 @@
 								<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[10.0]]></string>
+								<string><![CDATA[@tdc_installer_version@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -2936,7 +2936,7 @@
 								<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[13.1]]></string>
+								<string><![CDATA[@tdc_installer_version@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -2992,7 +2992,7 @@
 								<string><![CDATA[$PRODUCT_VERSION_NUMBER$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[15.1]]></string>
+								<string><![CDATA[@tdc_installer_version@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -3067,7 +3067,7 @@
 								<string><![CDATA[$PRODUCT_NAME$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[TASC Online Assessment]]></string>
+								<string><![CDATA[@tdc_installer_product_name@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -3123,7 +3123,7 @@
 								<string><![CDATA[$PRODUCT_NAME$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[TABE Online Assessment]]></string>
+								<string><![CDATA[@tdc_installer_product_name@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -3179,7 +3179,7 @@
 								<string><![CDATA[$PRODUCT_NAME$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[ISTEP Online Assessment]]></string>
+								<string><![CDATA[@tdc_installer_product_name@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -3235,7 +3235,7 @@
 								<string><![CDATA[$PRODUCT_NAME$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[TerraNova 3 Online Assessment]]></string>
+								<string><![CDATA[@tdc_installer_product_name@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -3291,7 +3291,7 @@
 								<string><![CDATA[$PRODUCT_NAME$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[TerraNova Online Assessment]]></string>
+								<string><![CDATA[@tdc_installer_product_name@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -3347,7 +3347,7 @@
 								<string><![CDATA[$DESKTOP_NAME$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[TerraNova Online Assessment - ver 19.0]]></string>
+								<string><![CDATA[@tdc_installer_desktop_name@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -3403,7 +3403,7 @@
 								<string><![CDATA[$DESKTOP_NAME$]]></string>
 							</property>
 							<property name="value">
-								<string><![CDATA[TerraNova 3 Online Assessment - ver 16.0]]></string>
+								<string><![CDATA[@tdc_installer_desktop_name@]]></string>
 							</property>
 							<property name="passByValue">
 								<boolean>false</boolean>
@@ -4347,7 +4347,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 														<string><![CDATA[com.ctb.tdc.installer.rule.FloatComparisonRule]]></string>
 													</property>
 													<property name="resourcePath">
-														<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 													</property>
 													<property name="resourceName">
 														<string><![CDATA[tdcia.jar]]></string>
@@ -4673,7 +4673,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 														<string><![CDATA[com.ctb.tdc.installer.action.ExtractValueAction]]></string>
 													</property>
 													<property name="resourcePath">
-														<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 													</property>
 													<property name="resourceName">
 														<string><![CDATA[tdcia.jar]]></string>
@@ -4817,7 +4817,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.rule.IntegerComparisonRule]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -5148,7 +5148,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.rule.IntegerComparisonRule]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -5616,7 +5616,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.action.ExtractMatchedExpressionAction]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -5783,7 +5783,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.action.ExtractMatchedExpressionAction]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -5932,7 +5932,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.rule.ProcessorSpeedComparisonRule]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -6235,7 +6235,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 														<string><![CDATA[com.ctb.tdc.installer.action.ExtractMatchedExpressionAction]]></string>
 													</property>
 													<property name="resourcePath">
-														<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 													</property>
 													<property name="resourceName">
 														<string><![CDATA[tdcia.jar]]></string>
@@ -6450,7 +6450,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.rule.FloatComparisonRule]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -6781,7 +6781,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.rule.IntegerComparisonRule]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -7252,7 +7252,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 														<string><![CDATA[com.ctb.tdc.installer.action.ExtractValueAction]]></string>
 													</property>
 													<property name="resourcePath">
-														<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 													</property>
 													<property name="resourceName">
 														<string><![CDATA[tdcia.jar]]></string>
@@ -7396,7 +7396,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.rule.LongComparisonRule]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -7604,7 +7604,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 														<string><![CDATA[com.zerog.ia.customcode.util.fileutils.ExtractToFile]]></string>
 													</property>
 													<property name="resourcePath">
-														<string><![CDATA[$IA_HOME$/plugins]]></string>
+														<string><![CDATA[$IA_HOME$\plugins]]></string>
 													</property>
 													<property name="resourceName">
 														<string><![CDATA[extracttofilecustomcode.jar]]></string>
@@ -8093,7 +8093,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.rule.LongComparisonRule]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -8602,7 +8602,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 														<string><![CDATA[com.ctb.tdc.installer.action.ExtractMatchedExpressionAction]]></string>
 													</property>
 													<property name="resourcePath">
-														<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 													</property>
 													<property name="resourceName">
 														<string><![CDATA[tdcia.jar]]></string>
@@ -8746,7 +8746,7 @@ Please uninstall the previous copy before installing this one.]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.rule.MemoryComparisonRule]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -9276,7 +9276,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 														<string><![CDATA[com.ctb.tdc.installer.action.CheckFileExistsAction]]></string>
 													</property>
 													<property name="resourcePath">
-														<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 													</property>
 													<property name="resourceName">
 														<string><![CDATA[tdcia.jar]]></string>
@@ -9460,7 +9460,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.action.CheckFileExistsAction]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -10626,7 +10626,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 														<string><![CDATA[com.ctb.tdc.installer.action.ExtractMatchedExpressionAction]]></string>
 													</property>
 													<property name="resourcePath">
-														<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 													</property>
 													<property name="resourceName">
 														<string><![CDATA[tdcia.jar]]></string>
@@ -10770,7 +10770,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 																<string><![CDATA[com.ctb.tdc.installer.rule.IntegerComparisonRule]]></string>
 															</property>
 															<property name="resourcePath">
-																<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 															</property>
 															<property name="resourceName">
 																<string><![CDATA[tdcia.jar]]></string>
@@ -11147,7 +11147,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 												<string><![CDATA[com.ctb.tdc.installer.action.AppendToVariableAction]]></string>
 											</property>
 											<property name="resourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 											</property>
 											<property name="resourceName">
 												<string><![CDATA[tdcia.jar]]></string>
@@ -11721,7 +11721,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 												<string><![CDATA[com.ctb.tdc.installer.action.AppendToVariableAction]]></string>
 											</property>
 											<property name="resourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 											</property>
 											<property name="resourceName">
 												<string><![CDATA[tdcia.jar]]></string>
@@ -12553,7 +12553,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 												<string><![CDATA[com.ctb.tdc.installer.action.AppendToVariableAction]]></string>
 											</property>
 											<property name="resourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 											</property>
 											<property name="resourceName">
 												<string><![CDATA[tdcia.jar]]></string>
@@ -13127,7 +13127,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 												<string><![CDATA[com.ctb.tdc.installer.action.AppendToVariableAction]]></string>
 											</property>
 											<property name="resourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 											</property>
 											<property name="resourceName">
 												<string><![CDATA[tdcia.jar]]></string>
@@ -13522,7 +13522,7 @@ Adobe AIR EXITCODE =$EXECUTE_EXITCODE$]]></string>
 												<string><![CDATA[com.ctb.tdc.installer.action.AppendToVariableAction]]></string>
 											</property>
 											<property name="resourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 											</property>
 											<property name="resourceName">
 												<string><![CDATA[tdcia.jar]]></string>
@@ -14302,7 +14302,7 @@ If you do not know your District ID and School ID, contact your School or Distri
 												<string><![CDATA[com.ctb.tdc.installer.action.CheckDashAction]]></string>
 											</property>
 											<property name="resourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 											</property>
 											<property name="resourceName">
 												<string><![CDATA[tdcia.jar]]></string>
@@ -14467,7 +14467,7 @@ If you do not know your District ID and School ID, contact your School or Distri
 												<string><![CDATA[com.ctb.tdc.installer.action.CheckDashAction]]></string>
 											</property>
 											<property name="resourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 											</property>
 											<property name="resourceName">
 												<string><![CDATA[tdcia.jar]]></string>
@@ -14606,7 +14606,7 @@ If you do not know your District ID and School ID, contact your School or Distri
 												<string><![CDATA[com.ctb.tdc.installer.action.CheckUserInputAction]]></string>
 											</property>
 											<property name="resourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 											</property>
 											<property name="resourceName">
 												<string><![CDATA[tdcia.jar]]></string>
@@ -16376,7 +16376,7 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 												<string><![CDATA[com.ctb.tdc.installer.action.CreateOnlineSurveyAction]]></string>
 											</property>
 											<property name="resourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 											</property>
 											<property name="resourceName">
 												<string><![CDATA[tdcia.jar]]></string>
@@ -16486,7 +16486,7 @@ script EXECUTE_EXITCODE = $EXECUTE_EXITCODE$
 												<string><![CDATA[com.ctb.tdc.installer.action.CreateOnlineSurveyAction]]></string>
 											</property>
 											<property name="resourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\]]></string>
 											</property>
 											<property name="resourceName">
 												<string><![CDATA[tdcia.jar]]></string>
@@ -20358,7 +20358,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="e39dea21995d">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="e47aceb88894">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -20552,7 +20552,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[December 23, 2015 11:31:58 AM MST]]></string>
+						<string><![CDATA[December 23, 2015 3:33:14 PM MST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -20787,10 +20787,10 @@ The log is in $USER_INSTALL_DIR$]]></string>
 						<string><![CDATA[Install $PRODUCT_NAME$]]></string>
 					</property>
 					<property name="installerName">
-						<string><![CDATA[InstallOAS_TERRA]]></string>
+						<string><![CDATA[@tdc_installer_name@]]></string>
 					</property>
 					<property name="productName">
-						<string><![CDATA[TerraNova 3 Online Assessment]]></string>
+						<string><![CDATA[@tdc_installer_product_name@]]></string>
 					</property>
 					<property name="productID">
 						<object class="com.zerog.registry.UUID">
@@ -20808,10 +20808,10 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					<property name="productVersion">
 						<object class="com.zerog.ia.installer.util.Version" objectID="4812e6bc93b8">
 							<property name="major">
-								<int>11</int>
+								<int>0</int>
 							</property>
 							<property name="minor">
-								<int>2</int>
+								<int>0</int>
 							</property>
 							<property name="revision">
 								<int>0</int>
@@ -20838,7 +20838,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 						<string><![CDATA[http://www.ctb.com]]></string>
 					</property>
 					<property name="copyright">
-						<string><![CDATA[2014]]></string>
+						<string><![CDATA[2015]]></string>
 					</property>
 					<property name="license">
 						<string><![CDATA[Commercial]]></string>
@@ -23283,13 +23283,13 @@ and any path to a file to read from that file]]></string>
 																<string><![CDATA[32x32.gif]]></string>
 															</property>
 															<property name="smallIconPath">
-																<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 															</property>
 															<property name="largeIconPath">
-																<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 															</property>
 															<property name="macOSXIconPath">
-																<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+																<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 															</property>
 															<property name="macOSXIconName">
 																<string><![CDATA[mac.icns]]></string>
@@ -23328,13 +23328,13 @@ and any path to a file to read from that file]]></string>
 														<string><![CDATA[MHE-32-32.gif]]></string>
 													</property>
 													<property name="smallIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="largeIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconName">
 														<string><![CDATA[mac.icns]]></string>
@@ -23629,7 +23629,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/data]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\data]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -23641,7 +23641,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[data/]]></string>
+												<string><![CDATA[data\]]></string>
 											</property>
 											<property name="createDirectory">
 												<boolean>true</boolean>
@@ -23781,7 +23781,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/servletcontainer]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -23793,7 +23793,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[servletcontainer/]]></string>
+												<string><![CDATA[servletcontainer\]]></string>
 											</property>
 											<property name="createDirectory">
 												<boolean>true</boolean>
@@ -23895,7 +23895,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/webapp]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\webapp]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -23907,7 +23907,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[webapp/]]></string>
+												<string><![CDATA[webapp\]]></string>
 											</property>
 											<property name="createDirectory">
 												<boolean>true</boolean>
@@ -24039,7 +24039,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/utilities/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\utilities\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -24089,7 +24089,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/lockdownbrowser]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\lockdownbrowser]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -24101,7 +24101,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[lockdownbrowser/]]></string>
+												<string><![CDATA[lockdownbrowser\]]></string>
 											</property>
 											<property name="createDirectory">
 												<boolean>true</boolean>
@@ -24334,7 +24334,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/lockdownbrowser]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\lockdownbrowser]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -24346,7 +24346,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[lockdownbrowser/]]></string>
+												<string><![CDATA[lockdownbrowser\]]></string>
 											</property>
 											<property name="createDirectory">
 												<boolean>true</boolean>
@@ -25670,7 +25670,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/misc/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\misc\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -25839,7 +25839,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/misc/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\misc\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26017,7 +26017,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/misc]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\misc]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26063,7 +26063,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/servletcontainer/jetty-5.1.11RC0/ext]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer\jetty-5.1.11RC0\ext]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26112,7 +26112,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/misc/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\misc\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26215,7 +26215,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/misc/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\misc\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26288,7 +26288,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/data/objectbank/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\data\objectbank\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26329,7 +26329,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>false</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/data/audit/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\data\audit\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26370,7 +26370,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/data/audit]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\data\audit]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26414,7 +26414,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/data/objectbank]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\data\objectbank]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26469,7 +26469,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/lockdownbrowser]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\lockdownbrowser]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26481,7 +26481,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[lockdownbrowser/]]></string>
+												<string><![CDATA[lockdownbrowser\]]></string>
 											</property>
 											<property name="createDirectory">
 												<boolean>true</boolean>
@@ -26696,7 +26696,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26737,7 +26737,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/servletcontainer/jetty-5.1.11RC0/logs/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer\jetty-5.1.11RC0\logs\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26778,7 +26778,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/servletcontainer/jetty-5.1.11RC0/logs/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer\jetty-5.1.11RC0\logs\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>false</boolean>
@@ -26819,7 +26819,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/servletcontainer/jetty-5.1.11RC0/logs]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer\jetty-5.1.11RC0\logs]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26864,7 +26864,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/servletcontainer/jetty-5.1.11RC0]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer\jetty-5.1.11RC0]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26909,7 +26909,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/servletcontainer]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\servletcontainer]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26979,7 +26979,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/tuningutilitybrowser]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\tuningutilitybrowser]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -26991,7 +26991,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[tuningutilitybrowser/]]></string>
+												<string><![CDATA[tuningutilitybrowser\]]></string>
 											</property>
 											<property name="createDirectory">
 												<boolean>true</boolean>
@@ -27224,7 +27224,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/tuningutilitybrowser]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\tuningutilitybrowser]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -27236,7 +27236,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[tuningutilitybrowser/]]></string>
+												<string><![CDATA[tuningutilitybrowser\]]></string>
 											</property>
 											<property name="createDirectory">
 												<boolean>true</boolean>
@@ -27460,7 +27460,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/tuningutilitybrowser]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\tuningutilitybrowser]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -27472,7 +27472,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[tuningutilitybrowser/]]></string>
+												<string><![CDATA[tuningutilitybrowser\]]></string>
 											</property>
 											<property name="createDirectory">
 												<boolean>true</boolean>
@@ -28085,7 +28085,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -28135,7 +28135,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/data/databank]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\data\databank]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -28147,7 +28147,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="destinationName">
-												<string><![CDATA[databank/]]></string>
+												<string><![CDATA[databank\]]></string>
 											</property>
 											<property name="createDirectory">
 												<boolean>true</boolean>
@@ -28221,7 +28221,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -28262,7 +28262,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -28313,7 +28313,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/data]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\data]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -28555,19 +28555,6 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="6fa5a673b115">
-															<property name="propertyValue">
-																<string><![CDATA[33554432]]></string>
-															</property>
-															<property name="propertyName">
-																<string><![CDATA[lax.nl.java.option.java.heap.size.initial]]></string>
-															</property>
-															<property name="propertyComment">
-																<string><![CDATA[VM intial heap size]]></string>
-															</property>
-														</object>
-													</method>
-													<method name="addElement">
 														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e0e319d9b743">
 															<property name="propertyValue">
 																<string><![CDATA[com.ctb.tdc.bootstrap.Main]]></string>
@@ -28577,6 +28564,19 @@ it will search for ones in this list]]></string>
 															</property>
 															<property name="propertyComment">
 																<string><![CDATA[the class that contains the main method for the application]]></string>
+															</property>
+														</object>
+													</method>
+													<method name="addElement">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="6fa5a673b115">
+															<property name="propertyValue">
+																<string><![CDATA[33554432]]></string>
+															</property>
+															<property name="propertyName">
+																<string><![CDATA[lax.nl.java.option.java.heap.size.initial]]></string>
+															</property>
+															<property name="propertyComment">
+																<string><![CDATA[VM intial heap size]]></string>
 															</property>
 														</object>
 													</method>
@@ -28617,13 +28617,13 @@ and any path to a file to read from that file]]></string>
 														<string><![CDATA[MHE-32-32.gif]]></string>
 													</property>
 													<property name="smallIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="largeIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconName">
 														<string><![CDATA[MHE-128x128.icns]]></string>
@@ -28767,13 +28767,13 @@ and any path to a file to read from that file]]></string>
 														<string><![CDATA[MHE-32-32.gif]]></string>
 													</property>
 													<property name="smallIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="largeIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconName">
 														<string><![CDATA[mac.icns]]></string>
@@ -28858,13 +28858,13 @@ and any path to a file to read from that file]]></string>
 														<string><![CDATA[MHE-32-32.gif]]></string>
 													</property>
 													<property name="smallIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="largeIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconName">
 														<string><![CDATA[mac.icns]]></string>
@@ -29173,13 +29173,13 @@ and any path to a file to read from that file]]></string>
 														<string><![CDATA[MHE-32-32.gif]]></string>
 													</property>
 													<property name="smallIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="largeIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconName">
 														<string><![CDATA[MHE-128x128.icns]]></string>
@@ -29338,7 +29338,7 @@ and any path to a file to read from that file]]></string>
 														<boolean>true</boolean>
 													</property>
 													<property name="sourcePath">
-														<string><![CDATA[$IA_PROJECT_DIR$/artifacts/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\artifacts\]]></string>
 													</property>
 													<property name="shouldUninstall">
 														<boolean>true</boolean>
@@ -29372,13 +29372,13 @@ and any path to a file to read from that file]]></string>
 														<string><![CDATA[MHE-32-32.gif]]></string>
 													</property>
 													<property name="smallIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="largeIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconName">
 														<string><![CDATA[mac.icns]]></string>
@@ -29455,7 +29455,7 @@ and any path to a file to read from that file]]></string>
 												<boolean>true</boolean>
 											</property>
 											<property name="sourcePath">
-												<string><![CDATA[$IA_PROJECT_DIR$/artifacts/]]></string>
+												<string><![CDATA[$IA_PROJECT_DIR$\artifacts\]]></string>
 											</property>
 											<property name="shouldUninstall">
 												<boolean>true</boolean>
@@ -29505,13 +29505,13 @@ and any path to a file to read from that file]]></string>
 														<string><![CDATA[MHE-32-32.gif]]></string>
 													</property>
 													<property name="smallIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="largeIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconName">
 														<string><![CDATA[mac.icns]]></string>
@@ -29596,13 +29596,13 @@ and any path to a file to read from that file]]></string>
 														<string><![CDATA[MHE-32-32.gif]]></string>
 													</property>
 													<property name="smallIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="largeIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconPath">
-														<string><![CDATA[$IA_PROJECT_DIR$/icons/]]></string>
+														<string><![CDATA[$IA_PROJECT_DIR$\icons\]]></string>
 													</property>
 													<property name="macOSXIconName">
 														<string><![CDATA[mac.icns]]></string>
@@ -30975,6 +30975,29 @@ and any path to a file to read from that file]]></string>
 							<visualChildren>
 								<object refID="6fef168fb133"/>
 							</visualChildren>
+						</object>
+						<object class="com.zerog.ia.installer.GhostDirectory" objectID="e470eded8867">
+							<property name="belongsToUninstallPhase">
+								<boolean>false</boolean>
+							</property>
+							<property name="rollbackEnabledCancel">
+								<boolean>true</boolean>
+							</property>
+							<property name="rollbackEnabledError">
+								<boolean>true</boolean>
+							</property>
+							<property name="ruleExpression">
+								<string><![CDATA[]]></string>
+							</property>
+							<property name="destinationFolder">
+								<object refID="722382c188bd"/>
+							</property>
+							<property name="overrideUnixPermissions">
+								<boolean>false</boolean>
+							</property>
+							<property name="unixPermissions">
+								<string><![CDATA[775]]></string>
+							</property>
 						</object>
 					</visualChildren>
 				</object>
