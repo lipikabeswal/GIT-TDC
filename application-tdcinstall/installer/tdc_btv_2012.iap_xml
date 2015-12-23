@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2012 Enterprise with Cloud Pack, Build 4349
      STATUS: Fully-Functional UNLICENSED Trial Edition
-     DATE:   Wed Dec 23 11:18:59 MST 2015 -->
+     DATE:   Wed Dec 23 11:31:58 MST 2015 -->
 <InstallAnywhere_Deployment_Project increments="21030">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
@@ -10,7 +10,7 @@
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
 		<buildID>3,13,71,77,97,99,32,79,83,32,88,44,32,49,48,46,49,48,46,53,44,32,120,56,54,95,54,52,59,32,74,97,118,97,32,49,46,54,46,48,95,54,53,44,32,65,112,112,108,101,32,73,110,99,46,44,32,104,116,116,112,58,47,47,119,119,119,46,97,112,112,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,77,97,99,82,111,109,97,110</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,80,-47,26,-64,64,64,99,70,101,125,121,100,96,105,48,48,49,56,52,67,98,113,112,124,44,81,100,99,62,57,15,14,14,6,112,48,1,1,0,0</authorizationID>
+		<authorizationID>1,0,0,80,-47,26,-96,-16,64,99,70,101,125,121,100,96,105,48,48,49,56,52,67,98,113,112,124,44,81,100,99,62,57,15,14,5,10,124,48,1,1,0,0</authorizationID>
 	</essentialScriptInfo>
 	<installationObjects uniqueObjects="910">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
@@ -20358,7 +20358,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="e39205629969">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="e39dea21995d">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -20552,7 +20552,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[December 23, 2015 11:18:58 AM MST]]></string>
+						<string><![CDATA[December 23, 2015 11:31:58 AM MST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -20787,7 +20787,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 						<string><![CDATA[Install $PRODUCT_NAME$]]></string>
 					</property>
 					<property name="installerName">
-						<string><![CDATA[InstallOAS_TERRANOVA]]></string>
+						<string><![CDATA[InstallOAS_TERRA]]></string>
 					</property>
 					<property name="productName">
 						<string><![CDATA[TerraNova 3 Online Assessment]]></string>
