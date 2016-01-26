@@ -498,14 +498,9 @@ public class PersistenceServlet extends HttpServlet {
 			} else if (osName.indexOf("mac") >= 0) {
 				new File(userHome + macPath).mkdirs();
 				flashCookieTarget = new File(userHome + macPath	+ "//settings.sol");
-				if (flashCookieTarget.exists() && formType != null && formType.equalsIgnoreCase("true"))
-				{
-					boolean successMac = flashCookieTarget.delete();
-					//logger.info(flashCookieTarget.getAbsolutePath()+(successMac?" deleted ":" not deleted "));
-				}else{
+				//Fix for OAS-3896 - Removing Flash settings popup for all forms.
 					if (!flashCookieTarget.exists())
 						flashCookieTarget.createNewFile();
-				}
 			} else {
 				boolean successUnix = new File(userHome + unixPath).mkdirs();
 				flashCookieTarget = new File(userHome + unixPath
@@ -526,13 +521,15 @@ public class PersistenceServlet extends HttpServlet {
 				outFile = new FileOutputStream(flashCookieTarget);
 				byte[] buf = new byte[1024];
 				int len;
-				if ((!(osName.indexOf("mac") >= 0) && formType != null && formType.equalsIgnoreCase("true"))
-						|| (formType != null && formType.equalsIgnoreCase("false"))){
+				//Fix for OAS-3896 - Removing Flash settings popup for all forms.
+				
+				/*if ((!(osName.indexOf("mac") >= 0) && formType != null && formType.equalsIgnoreCase("true"))
+						|| (formType != null && formType.equalsIgnoreCase("false"))){ */
 					while ((len = in.read(buf)) > 0)
 					{
 						outFile.write(buf, 0, len);
 					}					
-				}
+				//}
 				
 			}catch (FileNotFoundException e) {
 				logger.info(flashCookieTarget.getAbsolutePath()+" not found");
