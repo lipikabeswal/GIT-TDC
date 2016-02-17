@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using InstallAnywhere 2015 Premier, Build 5123
      STATUS: Fully Functional LICENSED Edition
-     DATE:   Wed Dec 23 16:01:55 MST 2015 -->
-<InstallAnywhere_Deployment_Project increments="19915">
+     DATE:   Wed Feb 10 14:33:11 MST 2016 -->
+<InstallAnywhere_Deployment_Project increments="19898">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
 		<versionID major="17" minor="0" revision="0"/>
@@ -10,9 +10,9 @@
 		<scriptID>12,42,11,85,78,76,73,67,69,78,83,69,68</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,55,44,32,54,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,55,46,48,95,54,48,44,32,79,114,97,99,108,101,32,67,111,114,112,111,114,97,116,105,111,110,44,32,104,116,116,112,58,47,47,106,97,118,97,46,111,114,97,99,108,101,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,51</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,80,-41,31,-47,-112,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,9,0,-109,33,1,1,0,0</authorizationID>
+		<authorizationID>1,0,0,80,-57,31,33,32,80,127,118,101,93,105,116,96,121,48,48,49,56,52,67,98,113,112,112,37,82,101,96,63,55,-11,2,9,15,-102,45,2,1,0,0</authorizationID>
 	</essentialScriptInfo>
-	<installationObjects uniqueObjects="884">
+	<installationObjects uniqueObjects="883">
 		<object class="com.zerog.ia.installer.Installer" objectID="722460bc88f0">
 			<property name="belongsToUninstallPhase">
 				<boolean>false</boolean>
@@ -1749,7 +1749,7 @@ and any path to a file to read from that file]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="ruleExpression">
-								<string><![CDATA[CP912 && CIAV400]]></string>
+								<string><![CDATA[CP912]]></string>
 							</property>
 							<property name="unixPermissions">
 								<string><![CDATA[775]]></string>
@@ -1835,32 +1835,6 @@ and any path to a file to read from that file]]></string>
 									</property>
 									<property name="ruleId">
 										<string><![CDATA[CP912]]></string>
-									</property>
-								</object>
-								<object class="com.zerog.ia.installer.rules.CompareVariable" objectID="cac95511ba34">
-									<property name="belongsToUninstallPhase">
-										<boolean>false</boolean>
-									</property>
-									<property name="rollbackEnabledCancel">
-										<boolean>true</boolean>
-									</property>
-									<property name="rollbackEnabledError">
-										<boolean>true</boolean>
-									</property>
-									<property name="ruleExpression">
-										<string><![CDATA[]]></string>
-									</property>
-									<property name="operation">
-										<string><![CDATA[equals ignore case]]></string>
-									</property>
-									<property name="operandOne">
-										<string><![CDATA[@tdc_installer_type@]]></string>
-									</property>
-									<property name="operandTwo">
-										<string><![CDATA[TABE]]></string>
-									</property>
-									<property name="ruleId">
-										<string><![CDATA[CIAV400]]></string>
 									</property>
 								</object>
 							</rules>
@@ -19121,7 +19095,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 								<boolean>true</boolean>
 							</property>
 							<property name="credentialInformation">
-								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="e4950ff1ba64">
+								<object class="com.flexera.ia.vapp.datastructures.VMWareCredentialInformationImpl" objectID="e09b6eb0bca1">
 									<property name="hostName">
 										<string><![CDATA[]]></string>
 									</property>
@@ -19319,7 +19293,7 @@ The log is in $USER_INSTALL_DIR$]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.project.save.last.date]]></string>
-						<string><![CDATA[December 23, 2015 4:01:55 PM MST]]></string>
+						<string><![CDATA[February 10, 2016 2:33:11 PM MST]]></string>
 					</method>
 					<method name="put">
 						<string><![CDATA[com.zerog.ia.build.options.optimization.platform.cdrom]]></string>
@@ -27725,7 +27699,7 @@ it will search for ones in this list]]></string>
 														</object>
 													</method>
 													<method name="addElement">
-														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="4d59e8c7a08c">
+														<object class="com.zerog.ia.installer.util.LAXPropertyData" objectID="e09af299bc99">
 															<property name="propertyValue">
 																<string><![CDATA[$USER_INSTALL_DIR$$\$jre1.8.0_40$\$bin$\$javaw.exe]]></string>
 															</property>
@@ -27733,7 +27707,7 @@ it will search for ones in this list]]></string>
 																<string><![CDATA[lax.nl.current.vm]]></string>
 															</property>
 															<property name="propertyComment">
-																<string><![CDATA[Embeded JVM]]></string>
+																<string><![CDATA[Embedded JVM]]></string>
 															</property>
 														</object>
 													</method>
