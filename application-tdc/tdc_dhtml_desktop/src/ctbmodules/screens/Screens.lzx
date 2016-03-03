@@ -360,6 +360,15 @@
 
             show();
         </method>
+		
+		<!-- Added for OAS-2728 and OAS-3148 -->
+		<method name="showProdCheckError" args="e">
+			removeAllStates();
+            if ( !contents.les.isinited ) contents.les.completeInstantiation();
+            contents.les.setupProdCheckError(e);
+            contents.les.setAttribute('visible', true );
+            show();
+		</method>
 
          <method name="show">
          	gItemInterface.setAttribute('visible', false);

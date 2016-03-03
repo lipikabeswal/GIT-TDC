@@ -547,6 +547,7 @@
 		
 		<!-- Changes for Language Switch for Espanol Test -->
 		<attribute name="language" type="string" value="English"/>
+		<attribute name="isTASC" type="boolean" value="false"/>
 		
 		<!--
 			============================================================
@@ -640,6 +641,7 @@
 		<attribute name="isWritingPopupOpen" type="boolean" value="false" />
 		<!-- screen reader audio format-->
 		<attribute name="audioFormat" type="string" value="null" />
+		<attribute name="prodCheckErrCode" type="string" value="478"/>
 		<!--<attribute name="systemValue" type="string" value="null" />-->
 		
 		<!--  Cancels a drag operation inside a TE item -->
@@ -1245,6 +1247,18 @@
 		    		}
 		    		canvas.setAttribute("logoRsrc", logo);
 		    	}
+				// Change for OAS-2728 and OAS-3148	
+				if (this.productTypeVal.indexOf("TASC")>=0) {
+					this.setAttribute("isTASC", true);
+				}
+				if(this.productTypeVal.indexOf("TASC")>=0 && logo != null && logo.indexOf("logo.png")<0) {
+	    			gScreens.showProdCheckError(this.prodCheckErrCode);
+				}				
+				else if(this.productTypeVal.indexOf("TABE")>=0 && logo != null && logo.indexOf("logoTABETestlet.png")<0) {
+					console.log("Prod type TABE");
+    				gScreens.showProdCheckError(this.prodCheckErrCode);
+				}
+				else {
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');
 				//Debug.write("cmicore************** ",cmicore);
 	    		cmicore.setAttr('password', password);
@@ -1321,7 +1335,7 @@
 				dpspeed.setXPath("dslogin://login_response");
 				this.hasTTSspeed = dpspeed.data.hasAttr("tts_speed_value");
 				
-			
+			}
 		}
 			//Debug.write("loginResponse completed:",dslogin);
 		]]></method>
