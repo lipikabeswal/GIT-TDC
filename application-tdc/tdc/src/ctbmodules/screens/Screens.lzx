@@ -403,6 +403,21 @@
             show();
 
         </method>
+        
+        <!-- Added for OAS-2728 and OAS-3148 -->
+		<method name="showProdCheckError" args="e">
+            removeAllStates();
+
+            if ( !contents.les.isinited ) contents.les.completeInstantiation();
+
+            standingMan.apply();
+
+            contents.les.setupProdCheckError(e);
+
+            contents.les.setVisible( true );
+
+            show();
+		</method>
 
          <method name="show">
          	gRecordingPopup.hideAllRecorderPopups();

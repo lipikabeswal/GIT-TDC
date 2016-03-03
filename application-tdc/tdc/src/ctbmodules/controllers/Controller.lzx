@@ -530,6 +530,8 @@
 		<attribute name="stopTestCalled" type="boolean" value="false"/>
 		<attribute name="isLaslink" type="boolean" value="false"/>
 		<attribute name="logoutFromPause" type="boolean" value="false" />
+		<attribute name="isTABE" type="boolean" value="false"/>
+		<attribute name="isTN" type="boolean" value="false"/>
 		<!--
 			============================================================
 			Datapointers
@@ -590,6 +592,7 @@
         <attribute name="manipSelected"/> 	
 	    <attribute name="isWV" type="boolean" value="false"/>
 	   	<attribute name="recorderState" type="string" value=""/>
+	   	<attribute name="prodCheckErrCode" type="string" value="478"/>
 	    		 
 		<handler name="onheartbeatResult">
 			//Debug.write("onheartbeatResult..");
@@ -867,6 +870,10 @@
 				this.setAttribute('isWV', true);
 			}else if(productName == "LASLINKS" || productName == "laslinks") {
 				this.setAttribute('isLaslink',true);			
+			}else if(productName == "TABE" || productName == "tabe") {
+				this.setAttribute('isTABE',true);			
+			}else if(productName == "TERRANOVA" || productName == "terranova") {
+				this.setAttribute('isTN',true);			
 			}
 			versionNo = LzDataNode.stringToLzData(gController.productTypeVal).getAttr("version");
 			versionproductinfo.setAttribute("text",productName+" "+versionNo);
@@ -1312,6 +1319,13 @@
 				gTutorialManager.setAttribute('tutorialNode', dp.xpathQuery('login_response/tutorial'));
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
        			canvas.setAttribute("logoRsrc", logo);
+       			/*if((gController.isTN == true || gController.isTN == 'true') && logo != null && logo.indexOf("logoTN3.swf")<0) {
+	    			gScreens.showProdCheckError(this.prodCheckErrCode);
+				}*/				
+				if((gController.isTABE == true || gController.isTABE == 'true') && logo != null && logo.indexOf("logoTABE.swf")<0) {
+    				gScreens.showProdCheckError(this.prodCheckErrCode);
+				}
+				else {
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');
 				var isOK = dp.xpathQuery('login_response/@isOK');
 				gController.setAttribute('isOK',isOK);
@@ -1376,7 +1390,7 @@
 				var dpspeed = new LzDatapointer();
 				dpspeed.setXPath("dslogin://login_response");
 				this.hasTTSspeed = dpspeed.data.hasAttr("tts_speed_value");
-				
+				}
 			}
 		]]></method>
 
