@@ -1319,11 +1319,14 @@
 				gTutorialManager.setAttribute('tutorialNode', dp.xpathQuery('login_response/tutorial'));
 	    		var logo = dp.xpathQuery('login_response/branding/@tdclogo');
        			canvas.setAttribute("logoRsrc", logo);
-       			/*if((gController.isTN == true || gController.isTN == 'true') && logo != null && logo.indexOf("logoTN3.swf")<0) {
+       			if((gController.isTN == true || gController.isTN == 'true') && logo != null && logo.indexOf("logoTN3.swf")<0) {
 	    			gScreens.showProdCheckError(this.prodCheckErrCode);
-				}*/				
-				if((gController.isTABE == true || gController.isTABE == 'true') && logo != null && logo.indexOf("logoTABE.swf")<0) {
+				}			
+				else if((gController.isTABE == true || gController.isTABE == 'true') && logo != null && logo.indexOf("logoTABE.swf")<0) {
     				gScreens.showProdCheckError(this.prodCheckErrCode);
+				}
+				else if((gController.isLaslink == true || gController.isLaslink == 'true')&& logo != null && logo.indexOf("logoLASLINKS.swf")<0) {
+					gScreens.showProdCheckError(this.prodCheckErrCode);
 				}
 				else {
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');

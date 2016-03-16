@@ -13,14 +13,7 @@
 			message.setText(errorArray[1]);
 			description.setText(errorArray[2]);
 		</method>
-		<method name="setupProdCheckError" args="e" >
-			var errorArray = _getErrorArray(e);
-			header.setText(errorArray[0]);
-			message.setText(errorArray[1]);
-			if(gController.isTABE == true || gController.isTABE == 'true') {
-    			description.setText(errorArray[2]+ ' ' +(this.tabeProductName.text)+ '.');
-			}
-		</method>
+		
 		<method name="_getErrorArray" args="errorCode">
 			var txErrorHdr="";
 			var txErrorMsg1="";
@@ -39,7 +32,6 @@
 				case "475":
 				case "476":
 				case "477":
-				case "478":
 				case "500":
 				case "501":
 				case "560":
@@ -107,10 +99,6 @@
 				case "477":
 					result = 	"You cannot log into this test session because your locator subtest is not completed. See your proctor for help."
 					break;
-				
-				case "478":
-					result = 	"The credentials you are using to access the system are not currently licensed for this product. Please provide credentials that are configured for"
-					break;
 		
 				case "500":
 					result = 	"An internal server error has occurred. Contact your proctor."
@@ -136,8 +124,6 @@
 
 		<text name="description" multiline="true" x="${parent.x + 10}" y="80" width="520" 
 				font="Arial" align="left" fontsize="16" fgcolor="white" resize="true" />
-
-		<text name="tabeProductName" visible="false" multiline="true" align="left" fontsize="16" fgcolor="white" resize="true"><i>TABE Online</i></text>
 
         <view x="${ classroot.width - width - 10 }">
             <BackToLoginButton y="3" enabled="${ gScreens.allowclick }">
