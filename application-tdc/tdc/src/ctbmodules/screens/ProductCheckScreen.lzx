@@ -6,13 +6,13 @@
     <class name="ProductCheckScreen">
      
     <method name="setProductType" args="errorCode">
-    	var errMessage1 = "You have clicked on the icon for the";
-    	var errMessage2 = "test. Please exit and click on the icon for the test you wish to take.";
+    	var errMessage1 = "You have launched the";
+    	var errMessage2 = "product however your credentials are not authorized to take this test. Please exit and launch the test you wish to take.";
 		if(gController.isTABE == true || gController.isTABE == 'true') {
     			description.setText(errorCode + ' - ' + errMessage1+ ' ' +(this.tabeProductName.text)+ ' ' + errMessage2);
 			}
 			else if (gController.isTN == true || gController.isTN == 'true') {
-				description.setText(errorCode + ' - ' + errMessage1+ ' ' +(this.terranovaProductName.text)+ ' ' + errMessage2);
+				description.setText(errorCode + ' - ' + errMessage1+ ' ' +(this.terraNovaProductName.text)+ ' ' + errMessage2);
 			}
 			else if (gController.isLaslink == true || gController.isLaslink == 'true') {
 				description.setText(errorCode + ' - ' + errMessage1+ ' ' +(this.laslinksProductName.text)+ ' ' + errMessage2);
@@ -30,7 +30,7 @@
 				font="Arial" align="left" fontsize="16" fgcolor="white" resize="true" />
 				
 		<text name="tabeProductName" visible="false" multiline="true" align="left" fontsize="16" fgcolor="white" resize="true"><i>TABE Online</i></text>
-		<text name="terranovaProductName" visible="false" multiline="true" align="left" fontsize="16" fgcolor="white" resize="true"><i>Terranova</i></text>
+		<text name="terraNovaProductName" visible="false" multiline="true" align="left" fontsize="16" fgcolor="white" resize="true"><i>TerraNova</i></text>
 		<text name="laslinksProductName" visible="false" multiline="true" align="left" fontsize="16" fgcolor="white" resize="true"><i>LAS Links Form A / Form B / Español A</i></text>
 		
          <view x="${ classroot.width - width - 10 }">
@@ -38,8 +38,7 @@
                         enabled="${ gScreens.allowclick }"> 
             <handler name="onclick"><![CDATA[
             		gScreens.clicked();
-            		gController.exitPopups();
-					gController.terminate();
+					gController.goToGoodbyeScreen();
             ]]></handler>
        </ExitButton> 
         </view>
