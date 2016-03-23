@@ -17,6 +17,7 @@
     <include href="TimeOutScreen.lzx"/>
 
    <include href="OptOutScreen.lzx"/>
+   <include href="ProductCheckScreen.lzx"/>
  
     <include href="Frame.lzx"/>
 
@@ -81,6 +82,7 @@
  			if ( contents.ts.isinited ) contents.ts.setAttribute('visible', false );
             //prancingMan.remove();
             //standingMan.remove();
+            if ( contents.pcs.isinited ) contents.pcs.setAttribute('visible', false );
             
             //the following attributes need to be reset to default value before using them into any screen
             gScreens.setAttribute('y',200);
@@ -384,6 +386,19 @@
 	               	gController.restoreCurrentCursor();
 	        }
         </method>
+        
+        <!-- Added for OAS-4668 -->
+		<method name="showProdCheckError" args="e">
+            removeAllStates();
+
+            if ( !contents.pcs.isinited ) contents.pcs.completeInstantiation();
+
+            contents.pcs.setProductType(e);
+
+            contents.pcs.setAttribute('visible', true );
+
+            show();
+		</method>
 
          <method name="show">
          	if(gRecordingPopup._timer!=null){
@@ -443,7 +458,8 @@
                              initstage="defer"/>
             <TimeOutScreen name="ts" width="100%" height="100%"
                              initstage="defer"/>
-                             
+            <ProductCheckScreen name="pcs" width="100%" height="100%"
+                             initstage="defer"/>                             
         </view>
 	
         <!-- <state name="prancingMan" apply="false">

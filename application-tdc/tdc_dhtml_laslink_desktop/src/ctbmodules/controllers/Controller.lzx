@@ -566,6 +566,7 @@
 		<attribute name="goBackPressed" type="boolean" value="false"/>
 		<attribute name="recorderState" type="string" value=""/>
 		<attribute name="microphoneLevel" type="number" value="0" />
+		<attribute name="prodCheckErrCode" type="string" value="478"/>
 
 		<!--
 			============================================================
@@ -1391,6 +1392,10 @@
 		    		//}
 		    		canvas.setAttribute("logoRsrc", logo);
 		    	}
+		    	if(logo != null && logo.indexOf("logoLLO2ND.svg")<0) {
+	    			gScreens.showProdCheckError(this.prodCheckErrCode);
+				}
+				else {
 	    		var cmicore = dp.xpathQuery('login_response/testing_session_data/cmi.core');
 	    		cmicore.setAttr('password', password);
 	    		cmicore.setAttr('userid', userid);
@@ -1467,7 +1472,7 @@
 				dpspeed.setXPath("dslogin://login_response");
 				this.hasTTSspeed = dpspeed.data.hasAttr("tts_speed_value");
 				
-			
+			}
 		}
 			//Debug.write("loginResponse completed:",dslogin);
 		]]></method>
