@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library>
+
+    <include href="ExitButton.lzx"/>
+
+    <class name="ProductCheckScreen">
+     
+    <method name="setProductType" args="errorCode">
+    	var errMessage1 = "You have launched the";
+    	var errMessage2 = "product however your credentials are not authorized to take this test. Please exit and launch the test you wish to take.";
+    	if(gController.isTASC == true || gController.isTASC == 'true') {
+   			description.setAttribute('text', errorCode + ' - ' + errMessage1+ ' ' +(this.tascProductName.text)+ ' ' + errMessage2);
+		}
+		else if(gController.isTABE == true || gController.isTABE == 'true') {
+			description.setAttribute('text', errorCode + ' - ' + errMessage1+ ' ' +(this.tabeProductName.text)+ ' ' + errMessage2);
+		} 
+    </method>
+    
+    <simplelayout axis="y"/>
+		<text name="header" x="${parent.x + 10}" y="1" font="Arial" align="left" fontsize="24" width="520"
+				height="33" fgcolor="white">Login Error</text>
+
+		<text name="message" x="${parent.x + 10}" y="33" font="Arial" align="left" fontsize="16" 
+				multiline="true" height="50" width="520" fgcolor="white">Sorry: Your request could not be processed by our server due to the following error:</text>
+
+		<text name="description" multiline="true" x="${parent.x + 10}" y="80" width="520" 
+				font="Arial" align="left" fontsize="16" fgcolor="white" resize="true" />
+				
+		<text name="tabeProductName" visible="false" multiline="true" align="left" fontsize="16" fgcolor="white" resize="true"><i>TABE Formative Testlet</i></text>
+		<text name="tascProductName" visible="false" multiline="true" align="left" fontsize="16" fgcolor="white" resize="true"><i>TASC</i></text>
+		
+         <view x="${ classroot.width - width - 10 }">
+            <ExitButton x="${ parent.width - width - 15 }"
+                        enabled="${ gScreens.allowclick }"> 
+            <handler name="onclick"><![CDATA[
+            		gScreens.clicked();
+            		gController.goToGoodbyeScreen();
+            ]]></handler>
+       </ExitButton> 
+        </view>
+    </class>
+</library>
+    

@@ -11,17 +11,7 @@
 			message.setAttribute('text', errorArray[1]);
 			description.setAttribute('text', errorArray[2]);
 		</method>
-		<method name="setupProdCheckError" args="e" >
-			var errorArray = _getErrorArray(e);
-			header.setAttribute('text', errorArray[0]);
-			message.setAttribute('text', errorArray[1]);
-			if(gController.isTASC == true || gController.isTASC == 'true') {
-    			description.setAttribute('text', errorArray[2]+ ' ' +(this.tascProductName.text)+ '.');
-			}
-			else {
-				description.setAttribute('text', errorArray[2]+ ' ' +(this.tabeProductName.text)+ '.');
-			} 
-		</method>
+		
 		<method name="_getErrorArray" args="errorCode">
 			var txErrorHdr="";
 			var txErrorMsg1="";
@@ -40,7 +30,6 @@
 				case "475":
 				case "476":
 				case "477":
-				case "478":
 				case "500":
 				case "501":
 				case "560":
@@ -108,10 +97,6 @@
 				case "477":
 					result = 	"You cannot log into this test session because your locator subtest is not completed. See your proctor for help."
 					break;
-					
-				case "478":
-					result = 	"The credentials you are using to access the system are not currently licensed for this product. Please provide credentials that are configured for"
-					break;
 		
 				case "500":
 					result = 	"An internal server error has occurred. Contact your proctor."
@@ -137,9 +122,6 @@
 
 		<text name="description" multiline="true" x="${parent.x + 10}" width="520" height="66"
 				align="left" fontsize="16" fgcolor="white" resize="true" />
-		
-		<text name="tabeProductName" visible="false" multiline="true" align="left" fontsize="16" fgcolor="white" resize="true"><i>TABE Formative Testlet</i></text>
-		<text name="tascProductName" visible="false" multiline="true" align="left" fontsize="16" fgcolor="white" resize="true"><i>TASC</i></text>
 
         <view x="${ classroot.width - width - 10 }">
             <BackToLoginButton enabled="${ gScreens.allowclick }">

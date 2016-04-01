@@ -548,6 +548,7 @@
 		<!-- Changes for Language Switch for Espanol Test -->
 		<attribute name="language" type="string" value="English"/>
 		<attribute name="isTASC" type="boolean" value="false"/>
+		<attribute name="isTABE" type="boolean" value="false"/>
 		
 		<!--
 			============================================================
@@ -1250,6 +1251,9 @@
 				// Change for OAS-2728 and OAS-3148	
 				if (this.productTypeVal.indexOf("TASC")>=0) {
 					this.setAttribute("isTASC", true);
+				}
+				if (this.productTypeVal.indexOf("TABE")>=0) {
+					this.setAttribute("isTABE", true);
 				}
 				if(this.productTypeVal.indexOf("TASC")>=0 && logo != null && logo.indexOf("logo.png")<0) {
 	    			gScreens.showProdCheckError(this.prodCheckErrCode);

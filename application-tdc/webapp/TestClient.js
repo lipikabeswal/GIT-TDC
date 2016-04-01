@@ -58,7 +58,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__mq"]}},$lzc$class__mq.attributes)
 }}})($lzc$class__mq)
-};canvas=new $lzc$class__mq(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onkeydown","$mi","$mh","onmousedown","$mk","$mj","onbringBackFocus","$ml",null,"onfootnotedata","$mm",null,"onisMultiAudio","$mn",null,"oninit","$mo",null,"onfootnotetext","$mp",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2016-03-03T22:27:14Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+};canvas=new $lzc$class__mq(null,{$delegates:["ontexthistoryupdate","$md",null,"onnewtextvalue","$me",null,"onunlocktexthistory","$mf",null,"onfocus","$mg",null,"onkeydown","$mi","$mh","onmousedown","$mk","$mj","onbringBackFocus","$ml",null,"onfootnotedata","$mm",null,"onisMultiAudio","$mn",null,"oninit","$mo",null,"onfootnotetext","$mp",null],Copyrite:"CTB/McGraw-Hill Education",LASAssetPath:void 0,TEAssetPath:void 0,__LZproxied:"true",accessible:true,appbuilddate:"2016-03-31T18:53:41Z",basefontsize:12,bgcolor:6721972,bringBackFocus:void 0,copyriteColor:5406116,currentCursor:null,embedfonts:true,focusclass:null,focusobj:void 0,font:"Verdana,Vera,sans-serif",fontsize:11,fontstyle:"plain",footnotedata:void 0,footnotetext:null,frameLoaded:false,height:"100%",isMultiAudio:void 0,isPreviewer:false,loadItem:true,lpsbuild:"trunk@19872 (19872)",lpsbuilddate:"2012-11-15T20:16:44Z",lpsrelease:"Latest",lpsversion:"5.0.x",newtextvalue:"",proxied:false,readable:false,runtime:"dhtml",texthistoryupdate:"",unlocktexthistory:"",useDefaultEliminator:true,width:"100%",xscalefactor:null,yscalefactor:null});lz.colors.offwhite=15921906;lz.colors.gray10=1710618;lz.colors.gray20=3355443;lz.colors.gray30=5066061;lz.colors.gray40=6710886;lz.colors.gray50=8355711;lz.colors.gray60=10066329;lz.colors.gray70=11776947;lz.colors.gray80=13421772;lz.colors.gray90=15066597;lz.colors.iceblue1=3298963;lz.colors.iceblue2=5472718;lz.colors.iceblue3=12240085;lz.colors.iceblue4=14017779;lz.colors.iceblue5=15659509;lz.colors.palegreen1=4290113;lz.colors.palegreen2=11785139;lz.colors.palegreen3=12637341;lz.colors.palegreen4=13888170;lz.colors.palegreen5=15725032;lz.colors.gold1=9331721;lz.colors.gold2=13349195;lz.colors.gold3=15126388;lz.colors.gold4=16311446;lz.colors.sand1=13944481;lz.colors.sand2=14276546;lz.colors.sand3=15920859;lz.colors.sand4=15986401;lz.colors.ltpurple1=6575768;lz.colors.ltpurple2=12038353;lz.colors.ltpurple3=13353453;lz.colors.ltpurple4=15329264;lz.colors.grayblue=12501704;lz.colors.graygreen=12635328;lz.colors.graypurple=10460593;lz.colors.ltblue=14540287;lz.colors.ltgreen=14548957;lz.ClassAttributeTypes["basefocusview"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_basefocusview",["active",void 0,"$lzc$set_active",function($0){
 this.setActive($0)
 },"target",void 0,"$lzc$set_target",function($0){
@@ -31091,7 +31091,7 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2gt"]}},$lzc$class__m2gt.attributes)
 }}})($lzc$class__m2gt)
-};lz.ClassAttributeTypes["$lzc$class__m2gq"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{CHECK_PROD_TYPE_METHOD:"string",DEFAULT_TYPE:"string",DOWNLOAD_STATE:"string",FEEDBACK_STATE:"string",FINISH_LEV:"string",FINISH_SAVE_STATE:"string",FINISH_STATE:"string",INIT_LEV:"string",LOGIN_STATE:"string",MAX_CR_ID:"number",NONE_STATE:"string",OUT_OF_TIME_OPEN_STATE:"string",PAUSED_RESUME_STATE:"string",PAUSE_LEV:"string",PAUSE_STATE:"string",RESUME_LEV:"string",RestartTest:"boolean",SAVE_END_SUBTEST_STATE:"string",SAVE_LEV:"string",SAVE_LOAD_STATE:"string",SAVE_METHOD:"string",STOP_LEV:"string",SUBTEST_FINISH_STATE:"string",SUBTEST_STATE:"string",TERMINATED_LEV:"string",THEME_TYPE:"string",TIMEOUT_STATE:"string",TIMER_INTERVAL:"number",TUTORIAL_COMPLETE_STATE:"string",UPLOAD_AUDIT_FILE_STATE:"string",WRITE_TO_AUDIT_FILE_STATE:"string",accesscode:"string",allowRevisit:"boolean",alphabetString:"string",answerBgColor:"color",answerFontColor:"color",answerPanelLayout:"string",applyFlashFix:"boolean",audioFormat:"string",blockFileName:"boolean",calcFormulaCardResource:"string",catOver:"boolean",communicatorResponse:"string",currentCrId:"number",currentSubtestIndex:"number",doUnlockUI:"boolean",durationms:"number",durationmsforpause:"number",elapsedms:"number",elapsedmsforpause:"number",findAnswer:"boolean",firstSubtest:"boolean",focusOnGr:"boolean",focusOnScratchpad:"boolean",formulaCardResource:"string",fwdOnly:"boolean",gAnsweredCount:"number",gCurrentItemPos:"number",gPrevStimulusId:"number",gStimulusId:"number",hasDynamicRefCard:"boolean",hasFontAccommodation:"boolean",hasTNorFCATrefCard:"boolean",hasTTSspeed:"boolean",heartbeatResult:"string",iframeDragActive:"boolean",iframeid:"string",inQuestion:"boolean",isAnswerAreaDisabled:"boolean",isAnswerSet:"boolean",isEnlargeable:"boolean",isFinishTest:"boolean",isHandlerInactive:"boolean",isISTEP:"boolean",isLoginResponseHavingSeed:"boolean",isOneCalculatorOpen:"boolean",isPreviewer:"boolean",isRelogin:"boolean",isRevisitPopupOpen:"boolean",isSizer:"boolean",isStopButtonClicked:"boolean",isStopScreen:"boolean",isStopTest:"boolean",isTASC:"boolean",isTE:"boolean",isTI30CalculatorOpen:"boolean",isTI84CalculatorOpen:"boolean",isWaitPopupAfter60SecOpen:"boolean",isWaitPopupOpen:"boolean",isWritingPopupOpen:"boolean",isaudio:"boolean",iskeyEnabled:"boolean",istLength:"number",istRestartLength:"number",itemHasRationalNode:"boolean",language:"string",maxModBase:"number",modBase:"number",navigateConfirm:"boolean",newModBase:"number",nextItem:"number",password:"string",playIfAnswered:"boolean",prevItemId:"number",prodCheckErrCode:"string",productTypeVal:"string",qtimestamp:"number",qtimestampforpause:"number",questionBgColor:"color",questionFontColor:"color",recordingStopped:"boolean",relogin:"boolean",requestPending:"boolean",restartItemCount:"number",scratchpadOpen:"boolean",seed:"number",seedDigitSum:"number",sendCatSave:"boolean",showPleaseWaitOver:"boolean",skipCacheDestroy:"boolean",state:"string",subtestLength:"number",subtestTitle:"string",timeoutforpause:"boolean",timerInterval:"number",timing:"boolean",timingforpause:"boolean",trackTimer:"number",userid:"string",zoomClicked:"boolean"});{
+};lz.ClassAttributeTypes["$lzc$class__m2gq"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["node"],{CHECK_PROD_TYPE_METHOD:"string",DEFAULT_TYPE:"string",DOWNLOAD_STATE:"string",FEEDBACK_STATE:"string",FINISH_LEV:"string",FINISH_SAVE_STATE:"string",FINISH_STATE:"string",INIT_LEV:"string",LOGIN_STATE:"string",MAX_CR_ID:"number",NONE_STATE:"string",OUT_OF_TIME_OPEN_STATE:"string",PAUSED_RESUME_STATE:"string",PAUSE_LEV:"string",PAUSE_STATE:"string",RESUME_LEV:"string",RestartTest:"boolean",SAVE_END_SUBTEST_STATE:"string",SAVE_LEV:"string",SAVE_LOAD_STATE:"string",SAVE_METHOD:"string",STOP_LEV:"string",SUBTEST_FINISH_STATE:"string",SUBTEST_STATE:"string",TERMINATED_LEV:"string",THEME_TYPE:"string",TIMEOUT_STATE:"string",TIMER_INTERVAL:"number",TUTORIAL_COMPLETE_STATE:"string",UPLOAD_AUDIT_FILE_STATE:"string",WRITE_TO_AUDIT_FILE_STATE:"string",accesscode:"string",allowRevisit:"boolean",alphabetString:"string",answerBgColor:"color",answerFontColor:"color",answerPanelLayout:"string",applyFlashFix:"boolean",audioFormat:"string",blockFileName:"boolean",calcFormulaCardResource:"string",catOver:"boolean",communicatorResponse:"string",currentCrId:"number",currentSubtestIndex:"number",doUnlockUI:"boolean",durationms:"number",durationmsforpause:"number",elapsedms:"number",elapsedmsforpause:"number",findAnswer:"boolean",firstSubtest:"boolean",focusOnGr:"boolean",focusOnScratchpad:"boolean",formulaCardResource:"string",fwdOnly:"boolean",gAnsweredCount:"number",gCurrentItemPos:"number",gPrevStimulusId:"number",gStimulusId:"number",hasDynamicRefCard:"boolean",hasFontAccommodation:"boolean",hasTNorFCATrefCard:"boolean",hasTTSspeed:"boolean",heartbeatResult:"string",iframeDragActive:"boolean",iframeid:"string",inQuestion:"boolean",isAnswerAreaDisabled:"boolean",isAnswerSet:"boolean",isEnlargeable:"boolean",isFinishTest:"boolean",isHandlerInactive:"boolean",isISTEP:"boolean",isLoginResponseHavingSeed:"boolean",isOneCalculatorOpen:"boolean",isPreviewer:"boolean",isRelogin:"boolean",isRevisitPopupOpen:"boolean",isSizer:"boolean",isStopButtonClicked:"boolean",isStopScreen:"boolean",isStopTest:"boolean",isTABE:"boolean",isTASC:"boolean",isTE:"boolean",isTI30CalculatorOpen:"boolean",isTI84CalculatorOpen:"boolean",isWaitPopupAfter60SecOpen:"boolean",isWaitPopupOpen:"boolean",isWritingPopupOpen:"boolean",isaudio:"boolean",iskeyEnabled:"boolean",istLength:"number",istRestartLength:"number",itemHasRationalNode:"boolean",language:"string",maxModBase:"number",modBase:"number",navigateConfirm:"boolean",newModBase:"number",nextItem:"number",password:"string",playIfAnswered:"boolean",prevItemId:"number",prodCheckErrCode:"string",productTypeVal:"string",qtimestamp:"number",qtimestampforpause:"number",questionBgColor:"color",questionFontColor:"color",recordingStopped:"boolean",relogin:"boolean",requestPending:"boolean",restartItemCount:"number",scratchpadOpen:"boolean",seed:"number",seedDigitSum:"number",sendCatSave:"boolean",showPleaseWaitOver:"boolean",skipCacheDestroy:"boolean",state:"string",subtestLength:"number",subtestTitle:"string",timeoutforpause:"boolean",timerInterval:"number",timing:"boolean",timingforpause:"boolean",trackTimer:"number",userid:"string",zoomClicked:"boolean"});{
 Class.make("$lzc$class__m2gq",["$m2f7",function($0){
 this.setAttribute("dp",new (lz.datapointer)())
 },"dp",void 0,"$m2f8",function($0){
@@ -31180,7 +31180,7 @@ this.setAttribute("answeredDel",new (lz.Delegate)(this,"isAnsweredDelegate"))
 this.setAttribute("answerObj",new Array())
 },"answerObj",void 0,"productTypeVal",void 0,"isISTEP",void 0,"displayText",void 0,"$m2g0",function($0){
 this.setAttribute("lasAssetArray",new Array())
-},"lasAssetArray",void 0,"recordingStopped",void 0,"iskeyEnabled",void 0,"isAnswerSet",void 0,"findAnswer",void 0,"isEnlargeable",void 0,"manipButtonRef",void 0,"isStopButtonClicked",void 0,"isTI30CalculatorOpen",void 0,"isTI84CalculatorOpen",void 0,"isOneCalculatorOpen",void 0,"elapsedmsforpause",void 0,"durationmsforpause",void 0,"qtimestampforpause",void 0,"timingforpause",void 0,"isHandlerInactive",void 0,"timerInterval",void 0,"timeoutforpause",void 0,"trackTimer",void 0,"language",void 0,"isTASC",void 0,"dsform",void 0,"dplogin",void 0,"dpsubtest",void 0,"dpstimulus",void 0,"dprestart",void 0,"dpitem",void 0,"dpstudentdata",void 0,"dpdisplay",void 0,"dptemp",void 0,"dpsubtestdata",void 0,"fwdOnly",void 0,"$m2g4",function($0){
+},"lasAssetArray",void 0,"recordingStopped",void 0,"iskeyEnabled",void 0,"isAnswerSet",void 0,"findAnswer",void 0,"isEnlargeable",void 0,"manipButtonRef",void 0,"isStopButtonClicked",void 0,"isTI30CalculatorOpen",void 0,"isTI84CalculatorOpen",void 0,"isOneCalculatorOpen",void 0,"elapsedmsforpause",void 0,"durationmsforpause",void 0,"qtimestampforpause",void 0,"timingforpause",void 0,"isHandlerInactive",void 0,"timerInterval",void 0,"timeoutforpause",void 0,"trackTimer",void 0,"language",void 0,"isTASC",void 0,"isTABE",void 0,"dsform",void 0,"dplogin",void 0,"dpsubtest",void 0,"dpstimulus",void 0,"dprestart",void 0,"dpitem",void 0,"dpstudentdata",void 0,"dpdisplay",void 0,"dptemp",void 0,"dpsubtestdata",void 0,"fwdOnly",void 0,"$m2g4",function($0){
 this.dataBindAttribute("adaptive","dssubtest:/subtest/sco/@adaptive","expression")
 },"adaptive",void 0,"showPleaseWaitOver",void 0,"RestartTest",void 0,"skipCacheDestroy",void 0,"$m2g5",function($0){
 var $1=new Array();if($1!==this["stylesArr"]||!this.inited){
@@ -31410,6 +31410,8 @@ $3=$3.substring(0,$3.indexOf(".swf"));$3=$3+".png"
 };canvas.setAttribute("logoRsrc",$3)
 };if(this.productTypeVal.indexOf("TASC")>=0){
 this.setAttribute("isTASC",true)
+};if(this.productTypeVal.indexOf("TABE")>=0){
+this.setAttribute("isTABE",true)
 };if(this.productTypeVal.indexOf("TASC")>=0&&$3!=null&&$3.indexOf("logo.png")<0){
 gScreens.showProdCheckError(this.prodCheckErrCode)
 }else if(this.productTypeVal.indexOf("TABE")>=0&&$3!=null&&$3.indexOf("logoTABETestlet.png")<0){
@@ -33074,7 +33076,7 @@ $1=true;
 $0.id="gController";gController=$0
 }else if(gController===$0){
 gController=null;$0.id=null
-}},CHECK_PROD_TYPE_METHOD:"isProductCheck",DEFAULT_TYPE:"UN",DOWNLOAD_STATE:"download",FEEDBACK_STATE:"feedback",FINISH_LEV:"lms_finish",FINISH_SAVE_STATE:"finishSave",FINISH_STATE:"finish",INIT_LEV:"lms_initialize",LOGIN_STATE:"login",MAX_CR_ID:10000000000,NONE_STATE:"none",OUT_OF_TIME_OPEN_STATE:"outOfTimeOpen",PAUSED_RESUME_STATE:"pausedResume",PAUSE_LEV:"stu_pause",PAUSE_STATE:"pause",RESUME_LEV:"stu_resume",RestartTest:false,SAVE_END_SUBTEST_STATE:"saveEndSubtest",SAVE_LEV:"stu_save",SAVE_LOAD_STATE:"saveload",SAVE_METHOD:"savemethod",STOP_LEV:"stu_stop",SUBTEST_FINISH_STATE:"subtestFinish",SUBTEST_STATE:"subtest",TERMINATED_LEV:"terminated",THEME_TYPE:"NI",TIMEOUT_STATE:"timeout",TIMER_INTERVAL:500,TUTORIAL_COMPLETE_STATE:"tutorialComplete",UPLOAD_AUDIT_FILE_STATE:"uploadAuditFile",WARNING_MINUTE:3,WRITE_TO_AUDIT_FILE_STATE:"writeToAuditFile",abScore:0,accesscode:"null",accomstyles:void 0,adaptive:new LzOnceExpr("$m2g4",null),allowRevisit:true,alphabetString:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",answerArray:new LzOnceExpr("$m2fs",null),answerBgColor:16777136,answerFontColor:0,answerObj:new LzOnceExpr("$m2fz",null),answerPanelLayout:"vertical",answerdp:new LzOnceExpr("$m2f8",null),answeredDel:new LzOnceExpr("$m2fy",null),applyFlashFix:false,assignedRandomDistractorIndex:new LzOnceExpr("$m2fo",null),audible:new LzOnceExpr("$m2gh",null),audioArray:new LzOnceExpr("$m2ff",null),audioFields:new LzOnceExpr("$m2fc",null),audioFormat:"null",audioId:void 0,blockFileName:false,calcFormulaCardResource:"false",catOver:false,communicatorResponse:"null",crFields:new LzOnceExpr("$m2fb",null),currentCrId:10000000000,currentImageId:null,currentSubtestIndex:0,dNetworkLostPopup:new LzOnceExpr("$m2fp",null),dRestoreCursor:new LzOnceExpr("$m2g7",null),dcloseBrowser:new LzOnceExpr("$m2ge",null),displayText:false,distractorArrayFor3:new LzAlwaysExpr("$m2fg","$m2fh",null),distractorArrayFor4:new LzAlwaysExpr("$m2fi","$m2fj",null),distractorArrayFor5:new LzAlwaysExpr("$m2fk","$m2fl",null),doUnlockUI:true,dp:new LzOnceExpr("$m2f7",null),dpdisplay:void 0,dpitem:void 0,dplogin:void 0,dprestart:void 0,dpstimulus:void 0,dpstudentdata:void 0,dpsubtest:void 0,dpsubtestdata:void 0,dptemp:void 0,drelogin:new LzOnceExpr("$m2g9",null),dsendHeartbeat:new LzOnceExpr("$m2gl",null),dsform:void 0,dshowClient:new LzOnceExpr("$m2fu",null),dupdateTimeLeft:new LzOnceExpr("$m2gm",null),dupdateTimeLeftForPause:new LzOnceExpr("$m2go",null),durationms:0,durationmsforpause:0,elapsedms:0,elapsedmsforpause:0,findAnswer:true,firstSubtest:true,focusOnGr:false,focusOnScratchpad:false,formulaCardResource:"false",fwdOnly:false,gAnsweredCount:0,gCurrentItemPos:0,gPrevStimulusId:0,gStimulusId:0,hasDynamicRefCard:false,hasFontAccommodation:false,hasTNorFCATrefCard:false,hasTTSspeed:false,heartbeatResult:"null",htmlFields:new LzOnceExpr("$m2fx",null),id:"gController",idImageFieldTemp:new LzOnceExpr("$m2fe",null),idImageFields:new LzOnceExpr("$m2fd",null),iframeDragActive:false,iframeid:"NONE",imageData:new LzOnceExpr("$m2fw",null),imageLIArray:new LzOnceExpr("$m2fr",null),inQuestion:false,isAnswerAreaDisabled:false,isAnswerSet:false,isAudioPlaying:void 0,isEnlargeable:false,isFinishTest:false,isHandlerInactive:false,isISTEP:false,isLoginResponseHavingSeed:false,isOneCalculatorOpen:false,isPreviewer:new LzOnceExpr("$m2fa",null),isRelogin:false,isRevisitPopupOpen:false,isSizer:false,isStopButtonClicked:false,isStopScreen:false,isStopTest:true,isTASC:false,isTE:false,isTI30CalculatorOpen:false,isTI84CalculatorOpen:false,isWaitPopupAfter60SecOpen:false,isWaitPopupOpen:false,isWritingPopupOpen:false,isaudio:false,iskeyEnabled:true,istLength:0,istRestartLength:0,isuntimed:new LzOnceExpr("$m2gn",null),itemHasRationalNode:false,itemloaded:false,language:"English",largeCharacterDetector:new LzOnceExpr("$m2g8",null),lasAssetArray:new LzOnceExpr("$m2g0",null),lastPlayOrderId:void 0,loadNode:void 0,lsid:0,magnifierState:false,magnifierVisible:false,manipButtonRef:void 0,manipSelected:void 0,maskingAnswerDDState:false,maxModBase:51,modBase:24,musicId:new LzOnceExpr("$m2gi",null),musicSliderReff:void 0,navigateConfirm:false,newModBase:24,nextItem:0,objScore:null,password:"null",pausable:new LzOnceExpr("$m2gg",null),pending:new LzOnceExpr("$m2gj",null),playIfAnswered:false,prevItemId:0,prodCheckErrCode:"478",productTypeVal:"ISTEP",qtimestamp:0,qtimestampforpause:0,questionBgColor:16777215,questionFontColor:0,randomIndexArray:new LzAlwaysExpr("$m2fm","$m2fn",null),recorder:null,recorderField:new LzOnceExpr("$m2fq",null),recordingStopped:false,relogin:false,requestPending:false,restartItemCount:0,restartscid:0,runtimeready:false,scid:0,scratchpadOpen:false,seed:void 0,seedDigitSum:void 0,sem:0,sendCatSave:true,showMaskingAnswerPopUp:false,showPleaseWaitOver:false,skipCacheDestroy:false,state:new LzOnceExpr("$m2f9",null),stuLoginDetails:new LzOnceExpr("$m2fv",null),stylesArr:new LzAlwaysExpr("$m2g5","$m2g6",null),subtestLength:0,subtestTitle:"",tempAnsArray:new LzOnceExpr("$m2ft",null),testSessionData:null,textHistory:new LzOnceExpr("$m2ga",null),timeoutforpause:false,timerInterval:1200000,timing:false,timingforpause:false,totalNumberOfTests:null,trackDel:new LzOnceExpr("$m2gp",null),trackTimer:0,trackingcomponents:false,uisemaphore:1,userid:"null",youarehereset:false,zoomClicked:false},"class":$lzc$class__m2gq},11);lz.ClassAttributeTypes["LoginButton"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
+}},CHECK_PROD_TYPE_METHOD:"isProductCheck",DEFAULT_TYPE:"UN",DOWNLOAD_STATE:"download",FEEDBACK_STATE:"feedback",FINISH_LEV:"lms_finish",FINISH_SAVE_STATE:"finishSave",FINISH_STATE:"finish",INIT_LEV:"lms_initialize",LOGIN_STATE:"login",MAX_CR_ID:10000000000,NONE_STATE:"none",OUT_OF_TIME_OPEN_STATE:"outOfTimeOpen",PAUSED_RESUME_STATE:"pausedResume",PAUSE_LEV:"stu_pause",PAUSE_STATE:"pause",RESUME_LEV:"stu_resume",RestartTest:false,SAVE_END_SUBTEST_STATE:"saveEndSubtest",SAVE_LEV:"stu_save",SAVE_LOAD_STATE:"saveload",SAVE_METHOD:"savemethod",STOP_LEV:"stu_stop",SUBTEST_FINISH_STATE:"subtestFinish",SUBTEST_STATE:"subtest",TERMINATED_LEV:"terminated",THEME_TYPE:"NI",TIMEOUT_STATE:"timeout",TIMER_INTERVAL:500,TUTORIAL_COMPLETE_STATE:"tutorialComplete",UPLOAD_AUDIT_FILE_STATE:"uploadAuditFile",WARNING_MINUTE:3,WRITE_TO_AUDIT_FILE_STATE:"writeToAuditFile",abScore:0,accesscode:"null",accomstyles:void 0,adaptive:new LzOnceExpr("$m2g4",null),allowRevisit:true,alphabetString:"ABCDEFGHIJKLMNOPQRSTUVWXYZ",answerArray:new LzOnceExpr("$m2fs",null),answerBgColor:16777136,answerFontColor:0,answerObj:new LzOnceExpr("$m2fz",null),answerPanelLayout:"vertical",answerdp:new LzOnceExpr("$m2f8",null),answeredDel:new LzOnceExpr("$m2fy",null),applyFlashFix:false,assignedRandomDistractorIndex:new LzOnceExpr("$m2fo",null),audible:new LzOnceExpr("$m2gh",null),audioArray:new LzOnceExpr("$m2ff",null),audioFields:new LzOnceExpr("$m2fc",null),audioFormat:"null",audioId:void 0,blockFileName:false,calcFormulaCardResource:"false",catOver:false,communicatorResponse:"null",crFields:new LzOnceExpr("$m2fb",null),currentCrId:10000000000,currentImageId:null,currentSubtestIndex:0,dNetworkLostPopup:new LzOnceExpr("$m2fp",null),dRestoreCursor:new LzOnceExpr("$m2g7",null),dcloseBrowser:new LzOnceExpr("$m2ge",null),displayText:false,distractorArrayFor3:new LzAlwaysExpr("$m2fg","$m2fh",null),distractorArrayFor4:new LzAlwaysExpr("$m2fi","$m2fj",null),distractorArrayFor5:new LzAlwaysExpr("$m2fk","$m2fl",null),doUnlockUI:true,dp:new LzOnceExpr("$m2f7",null),dpdisplay:void 0,dpitem:void 0,dplogin:void 0,dprestart:void 0,dpstimulus:void 0,dpstudentdata:void 0,dpsubtest:void 0,dpsubtestdata:void 0,dptemp:void 0,drelogin:new LzOnceExpr("$m2g9",null),dsendHeartbeat:new LzOnceExpr("$m2gl",null),dsform:void 0,dshowClient:new LzOnceExpr("$m2fu",null),dupdateTimeLeft:new LzOnceExpr("$m2gm",null),dupdateTimeLeftForPause:new LzOnceExpr("$m2go",null),durationms:0,durationmsforpause:0,elapsedms:0,elapsedmsforpause:0,findAnswer:true,firstSubtest:true,focusOnGr:false,focusOnScratchpad:false,formulaCardResource:"false",fwdOnly:false,gAnsweredCount:0,gCurrentItemPos:0,gPrevStimulusId:0,gStimulusId:0,hasDynamicRefCard:false,hasFontAccommodation:false,hasTNorFCATrefCard:false,hasTTSspeed:false,heartbeatResult:"null",htmlFields:new LzOnceExpr("$m2fx",null),id:"gController",idImageFieldTemp:new LzOnceExpr("$m2fe",null),idImageFields:new LzOnceExpr("$m2fd",null),iframeDragActive:false,iframeid:"NONE",imageData:new LzOnceExpr("$m2fw",null),imageLIArray:new LzOnceExpr("$m2fr",null),inQuestion:false,isAnswerAreaDisabled:false,isAnswerSet:false,isAudioPlaying:void 0,isEnlargeable:false,isFinishTest:false,isHandlerInactive:false,isISTEP:false,isLoginResponseHavingSeed:false,isOneCalculatorOpen:false,isPreviewer:new LzOnceExpr("$m2fa",null),isRelogin:false,isRevisitPopupOpen:false,isSizer:false,isStopButtonClicked:false,isStopScreen:false,isStopTest:true,isTABE:false,isTASC:false,isTE:false,isTI30CalculatorOpen:false,isTI84CalculatorOpen:false,isWaitPopupAfter60SecOpen:false,isWaitPopupOpen:false,isWritingPopupOpen:false,isaudio:false,iskeyEnabled:true,istLength:0,istRestartLength:0,isuntimed:new LzOnceExpr("$m2gn",null),itemHasRationalNode:false,itemloaded:false,language:"English",largeCharacterDetector:new LzOnceExpr("$m2g8",null),lasAssetArray:new LzOnceExpr("$m2g0",null),lastPlayOrderId:void 0,loadNode:void 0,lsid:0,magnifierState:false,magnifierVisible:false,manipButtonRef:void 0,manipSelected:void 0,maskingAnswerDDState:false,maxModBase:51,modBase:24,musicId:new LzOnceExpr("$m2gi",null),musicSliderReff:void 0,navigateConfirm:false,newModBase:24,nextItem:0,objScore:null,password:"null",pausable:new LzOnceExpr("$m2gg",null),pending:new LzOnceExpr("$m2gj",null),playIfAnswered:false,prevItemId:0,prodCheckErrCode:"478",productTypeVal:"ISTEP",qtimestamp:0,qtimestampforpause:0,questionBgColor:16777215,questionFontColor:0,randomIndexArray:new LzAlwaysExpr("$m2fm","$m2fn",null),recorder:null,recorderField:new LzOnceExpr("$m2fq",null),recordingStopped:false,relogin:false,requestPending:false,restartItemCount:0,restartscid:0,runtimeready:false,scid:0,scratchpadOpen:false,seed:void 0,seedDigitSum:void 0,sem:0,sendCatSave:true,showMaskingAnswerPopUp:false,showPleaseWaitOver:false,skipCacheDestroy:false,state:new LzOnceExpr("$m2f9",null),stuLoginDetails:new LzOnceExpr("$m2fv",null),stylesArr:new LzAlwaysExpr("$m2g5","$m2g6",null),subtestLength:0,subtestTitle:"",tempAnsArray:new LzOnceExpr("$m2ft",null),testSessionData:null,textHistory:new LzOnceExpr("$m2ga",null),timeoutforpause:false,timerInterval:1200000,timing:false,timingforpause:false,totalNumberOfTests:null,trackDel:new LzOnceExpr("$m2gp",null),trackTimer:0,trackingcomponents:false,uisemaphore:1,userid:"null",youarehereset:false,zoomClicked:false},"class":$lzc$class__m2gq},11);lz.ClassAttributeTypes["LoginButton"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
 Class.make("$lzc$class_LoginButton",["$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
@@ -33629,12 +33631,7 @@ LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAt
 };lz.ClassAttributeTypes["LoginErrorScreen"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_LoginErrorScreen",["setupError",function($0){
 var $1=this._getErrorArray($0);this.header.setAttribute("text",$1[0]);this.message.setAttribute("text",$1[1]);this.description.setAttribute("text",$1[2])
-},"setupProdCheckError",function($0){
-var $1=this._getErrorArray($0);this.header.setAttribute("text",$1[0]);this.message.setAttribute("text",$1[1]);if(gController.isTASC==true||gController.isTASC=="true"){
-this.description.setAttribute("text",$1[2]+" "+this.tascProductName.text+".")
-}else{
-this.description.setAttribute("text",$1[2]+" "+this.tabeProductName.text+".")
-}},"_getErrorArray",function($0){
+},"_getErrorArray",function($0){
 var $1="";var $2="";var $3="";switch($0){
 case "400":
 case "450":
@@ -33648,7 +33645,6 @@ case "474":
 case "475":
 case "476":
 case "477":
-case "478":
 case "500":
 case "501":
 case "560":
@@ -33683,8 +33679,6 @@ case "476":
 $1="You cannot log into this test session because your answers have already been entered. See your proctor for help";break;
 case "477":
 $1="You cannot log into this test session because your locator subtest is not completed. See your proctor for help.";break;
-case "478":
-$1="The credentials you are using to access the system are not currently licensed for this product. Please provide credentials that are configured for";break;
 case "500":
 $1="An internal server error has occurred. Contact your proctor.";break;
 case "501":
@@ -33693,7 +33687,7 @@ case "560":
 $1="The test delivery system is very busy. Please try to log in again at a later time.";break;
 
 };return $1
-},"header",void 0,"message",void 0,"description",void 0,"tabeProductName",void 0,"tascProductName",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+},"header",void 0,"message",void 0,"description",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -33705,7 +33699,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["tagname","LoginErrorScreen","children",[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},$classrootdepth:1,axis:"y"},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:1,align:"left",fgcolor:16777215,fontsize:24,height:33,name:"header",width:520,x:new LzAlwaysExpr("$m2hs","$m2ht",null),y:1},"class":$lzc$class__m2i3},{attrs:{$classrootdepth:1,align:"left",fgcolor:16777215,fontsize:16,height:50,multiline:true,name:"message",width:520,x:new LzAlwaysExpr("$m2hu","$m2hv",null)},"class":$lzc$class__m2i4},{attrs:{$classrootdepth:1,align:"left",fgcolor:16777215,fontsize:16,height:66,multiline:true,name:"description",resize:true,width:520,x:new LzAlwaysExpr("$m2hw","$m2hx",null)},"class":$lzc$class__m2i5},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["tabeProductName"]},$classrootdepth:1,align:"left",fgcolor:16777215,fontsize:16,multiline:true,name:"tabeProductName",resize:true,text:"<i>TABE Formative Testlet</i>",visible:false},"class":LzText},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["tascProductName"]},$classrootdepth:1,align:"left",fgcolor:16777215,fontsize:16,multiline:true,name:"tascProductName",resize:true,text:"<i>TASC</i>",visible:false},"class":LzText},{attrs:{$classrootdepth:1,x:new LzAlwaysExpr("$m2hy","$m2hz",null)},"class":$lzc$class__m2i6}],"__LZCSSTagSelectors",["LoginErrorScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["tagname","LoginErrorScreen","children",[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},$classrootdepth:1,axis:"y"},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:1,align:"left",fgcolor:16777215,fontsize:24,height:33,name:"header",width:520,x:new LzAlwaysExpr("$m2hs","$m2ht",null),y:1},"class":$lzc$class__m2i3},{attrs:{$classrootdepth:1,align:"left",fgcolor:16777215,fontsize:16,height:50,multiline:true,name:"message",width:520,x:new LzAlwaysExpr("$m2hu","$m2hv",null)},"class":$lzc$class__m2i4},{attrs:{$classrootdepth:1,align:"left",fgcolor:16777215,fontsize:16,height:66,multiline:true,name:"description",resize:true,width:520,x:new LzAlwaysExpr("$m2hw","$m2hx",null)},"class":$lzc$class__m2i5},{attrs:{$classrootdepth:1,x:new LzAlwaysExpr("$m2hy","$m2hz",null)},"class":$lzc$class__m2i6}],"__LZCSSTagSelectors",["LoginErrorScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["LoginErrorScreen"]}},$lzc$class_LoginErrorScreen.attributes)
@@ -36723,6 +36717,187 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["TimeOutScreen"]},font:"CTB",uienabled:new LzOnceExpr("$m2q1",null)},$lzc$class_TimeOutScreen.attributes)
 }}})($lzc$class_TimeOutScreen)
+};lz.ClassAttributeTypes["$lzc$class__m2qf"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
+Class.make("$lzc$class__m2qf",["$m2q2",function($0){
+var $1=this.parent.x+10;if($1!==this["x"]||!this.inited){
+this.setAttribute("x",$1)
+}},"$m2q3",function(){
+try{
+return [this.parent,"x"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+switch(arguments.length){
+case 0:
+$0=null;
+case 1:
+$1=null;
+case 2:
+$2=null;
+case 3:
+$3=false;
+
+};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
+}],LzText,["displayName","<anonymous extends='text'>","__LZCSSTagSelectors",["text","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzText.attributes)]);(function($0){
+with($0)with($0.prototype){
+{
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2qf"]}},$lzc$class__m2qf.attributes)
+}}})($lzc$class__m2qf)
+};lz.ClassAttributeTypes["$lzc$class__m2qg"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
+Class.make("$lzc$class__m2qg",["$m2q4",function($0){
+var $1=this.parent.x+10;if($1!==this["x"]||!this.inited){
+this.setAttribute("x",$1)
+}},"$m2q5",function(){
+try{
+return [this.parent,"x"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+switch(arguments.length){
+case 0:
+$0=null;
+case 1:
+$1=null;
+case 2:
+$2=null;
+case 3:
+$3=false;
+
+};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
+}],LzText,["displayName","<anonymous extends='text'>","__LZCSSTagSelectors",["text","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzText.attributes)]);(function($0){
+with($0)with($0.prototype){
+{
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2qg"]}},$lzc$class__m2qg.attributes)
+}}})($lzc$class__m2qg)
+};lz.ClassAttributeTypes["$lzc$class__m2qh"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
+Class.make("$lzc$class__m2qh",["$m2q6",function($0){
+var $1=this.parent.x+10;if($1!==this["x"]||!this.inited){
+this.setAttribute("x",$1)
+}},"$m2q7",function(){
+try{
+return [this.parent,"x"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+switch(arguments.length){
+case 0:
+$0=null;
+case 1:
+$1=null;
+case 2:
+$2=null;
+case 3:
+$3=false;
+
+};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
+}],LzText,["displayName","<anonymous extends='text'>","__LZCSSTagSelectors",["text","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzText.attributes)]);(function($0){
+with($0)with($0.prototype){
+{
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2qh"]}},$lzc$class__m2qh.attributes)
+}}})($lzc$class__m2qh)
+};lz.ClassAttributeTypes["$lzc$class__m2qj"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["ExitButton"],{});{
+Class.make("$lzc$class__m2qj",["$m2qa",function($0){
+var $1=this.parent.width-this.width-15;if($1!==this["x"]||!this.inited){
+this.setAttribute("x",$1)
+}},"$m2qb",function(){
+try{
+return [this.parent,"width",this,"width"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}},"$m2qc",function($0){
+var $1=gScreens.allowclick;if($1!==this["enabled"]||!this.inited){
+this.setAttribute("enabled",$1)
+}},"$m2qd",function(){
+try{
+return [gScreens,"allowclick"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}},"$m2qe",function($0){
+gScreens.clicked();gController.goToGoodbyeScreen()
+},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+switch(arguments.length){
+case 0:
+$0=null;
+case 1:
+$1=null;
+case 2:
+$2=null;
+case 3:
+$3=false;
+
+};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
+}],$lzc$class_ExitButton,["displayName","<anonymous extends='ExitButton'>","__LZCSSTagSelectors",["ExitButton","basebutton","basecomponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_ExitButton.attributes)]);(function($0){
+with($0)with($0.prototype){
+{
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2qj"]}},$lzc$class__m2qj.attributes)
+}}})($lzc$class__m2qj)
+};lz.ClassAttributeTypes["$lzc$class__m2qi"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class__m2qi",["$m2q8",function($0){
+var $1=this.classroot.width-this.width-10;if($1!==this["x"]||!this.inited){
+this.setAttribute("x",$1)
+}},"$m2q9",function(){
+try{
+return [this.classroot,"width",this,"width"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+switch(arguments.length){
+case 0:
+$0=null;
+case 1:
+$1=null;
+case 2:
+$2=null;
+case 3:
+$3=false;
+
+};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,$delegates:["onclick","$m2qe",null],clickable:true,enabled:new LzAlwaysExpr("$m2qc","$m2qd",null),x:new LzAlwaysExpr("$m2qa","$m2qb",null)},"class":$lzc$class__m2qj}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+with($0)with($0.prototype){
+{
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2qi"]}},$lzc$class__m2qi.attributes)
+}}})($lzc$class__m2qi)
+};lz.ClassAttributeTypes["ProductCheckScreen"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class_ProductCheckScreen",["setProductType",function($0){
+var $1="You have launched the";var $2="product however your credentials are not authorized to take this test. Please exit and launch the test you wish to take.";if(gController.isTASC==true||gController.isTASC=="true"){
+this.description.setAttribute("text",$0+" - "+$1+" "+this.tascProductName.text+" "+$2)
+}else if(gController.isTABE==true||gController.isTABE=="true"){
+this.description.setAttribute("text",$0+" - "+$1+" "+this.tabeProductName.text+" "+$2)
+}},"header",void 0,"message",void 0,"description",void 0,"tabeProductName",void 0,"tascProductName",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+switch(arguments.length){
+case 0:
+$0=null;
+case 1:
+$1=null;
+case 2:
+$2=null;
+case 3:
+$3=false;
+
+};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
+}],LzView,["tagname","ProductCheckScreen","children",[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},$classrootdepth:1,axis:"y"},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:1,align:"left",fgcolor:16777215,font:"Arial",fontsize:24,height:33,name:"header",text:"Login Error",width:520,x:new LzAlwaysExpr("$m2q2","$m2q3",null),y:1},"class":$lzc$class__m2qf},{attrs:{$classrootdepth:1,align:"left",fgcolor:16777215,font:"Arial",fontsize:16,height:50,multiline:true,name:"message",text:"Sorry: Your request could not be processed by our server due to the following error:",width:520,x:new LzAlwaysExpr("$m2q4","$m2q5",null),y:33},"class":$lzc$class__m2qg},{attrs:{$classrootdepth:1,align:"left",fgcolor:16777215,font:"Arial",fontsize:16,multiline:true,name:"description",resize:true,width:520,x:new LzAlwaysExpr("$m2q6","$m2q7",null),y:80},"class":$lzc$class__m2qh},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["tabeProductName"]},$classrootdepth:1,align:"left",fgcolor:16777215,fontsize:16,multiline:true,name:"tabeProductName",resize:true,text:"<i>TABE Formative Testlet</i>",visible:false},"class":LzText},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["tascProductName"]},$classrootdepth:1,align:"left",fgcolor:16777215,fontsize:16,multiline:true,name:"tascProductName",resize:true,text:"<i>TASC</i>",visible:false},"class":LzText},{attrs:{$classrootdepth:1,x:new LzAlwaysExpr("$m2q8","$m2q9",null)},"class":$lzc$class__m2qi}],"__LZCSSTagSelectors",["ProductCheckScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+with($0)with($0.prototype){
+{
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["ProductCheckScreen"]}},$lzc$class_ProductCheckScreen.attributes)
+}}})($lzc$class_ProductCheckScreen)
 };lz.ClassAttributeTypes["Frame"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
 Class.make("$lzc$class_Frame",["middle",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -36741,11 +36916,11 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["Frame"]}},$lzc$class_Frame.attributes)
 }}})($lzc$class_Frame)
-};lz.ClassAttributeTypes["$lzc$class__m2rn"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["LoginScreen"],{});{
-Class.make("$lzc$class__m2rn",["$m2qa",function($0){
+};lz.ClassAttributeTypes["$lzc$class__m2s9"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["LoginScreen"],{});{
+Class.make("$lzc$class__m2s9",["$m2qs",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2qb",function(){
+}},"$m2qt",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -36753,10 +36928,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2qc",function($0){
+}},"$m2qu",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2qd",function(){
+}},"$m2qv",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -36779,13 +36954,13 @@ $3=false;
 }],$lzc$class_LoginScreen,["displayName","<anonymous extends='LoginScreen'>","children",LzNode.mergeChildren([],$lzc$class_LoginScreen["children"]),"__LZCSSTagSelectors",["LoginScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_LoginScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2rn"]}},$lzc$class__m2rn.attributes)
-}}})($lzc$class__m2rn)
-};lz.ClassAttributeTypes["$lzc$class__m2ro"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["LoginErrorScreen"],{});{
-Class.make("$lzc$class__m2ro",["$m2qe",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2s9"]}},$lzc$class__m2s9.attributes)
+}}})($lzc$class__m2s9)
+};lz.ClassAttributeTypes["$lzc$class__m2sa"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["LoginErrorScreen"],{});{
+Class.make("$lzc$class__m2sa",["$m2qw",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2qf",function(){
+}},"$m2qx",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -36793,10 +36968,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2qg",function($0){
+}},"$m2qy",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2qh",function(){
+}},"$m2qz",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -36819,13 +36994,13 @@ $3=false;
 }],$lzc$class_LoginErrorScreen,["displayName","<anonymous extends='LoginErrorScreen'>","children",LzNode.mergeChildren([],$lzc$class_LoginErrorScreen["children"]),"__LZCSSTagSelectors",["LoginErrorScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_LoginErrorScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2ro"]}},$lzc$class__m2ro.attributes)
-}}})($lzc$class__m2ro)
-};lz.ClassAttributeTypes["$lzc$class__m2rp"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["DownloadScreen"],{});{
-Class.make("$lzc$class__m2rp",["$m2qi",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sa"]}},$lzc$class__m2sa.attributes)
+}}})($lzc$class__m2sa)
+};lz.ClassAttributeTypes["$lzc$class__m2sb"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["DownloadScreen"],{});{
+Class.make("$lzc$class__m2sb",["$m2r0",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2qj",function(){
+}},"$m2r1",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -36833,10 +37008,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2qk",function($0){
+}},"$m2r2",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2ql",function(){
+}},"$m2r3",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -36859,13 +37034,13 @@ $3=false;
 }],$lzc$class_DownloadScreen,["displayName","<anonymous extends='DownloadScreen'>","children",LzNode.mergeChildren([],$lzc$class_DownloadScreen["children"]),"__LZCSSTagSelectors",["DownloadScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_DownloadScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2rp"]}},$lzc$class__m2rp.attributes)
-}}})($lzc$class__m2rp)
-};lz.ClassAttributeTypes["$lzc$class__m2rq"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["WelcomeScreen"],{});{
-Class.make("$lzc$class__m2rq",["$m2qm",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sb"]}},$lzc$class__m2sb.attributes)
+}}})($lzc$class__m2sb)
+};lz.ClassAttributeTypes["$lzc$class__m2sc"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["WelcomeScreen"],{});{
+Class.make("$lzc$class__m2sc",["$m2r4",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2qn",function(){
+}},"$m2r5",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -36873,10 +37048,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2qo",function($0){
+}},"$m2r6",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2qp",function(){
+}},"$m2r7",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -36899,13 +37074,13 @@ $3=false;
 }],$lzc$class_WelcomeScreen,["displayName","<anonymous extends='WelcomeScreen'>","children",LzNode.mergeChildren([],$lzc$class_WelcomeScreen["children"]),"__LZCSSTagSelectors",["WelcomeScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_WelcomeScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2rq"]}},$lzc$class__m2rq.attributes)
-}}})($lzc$class__m2rq)
-};lz.ClassAttributeTypes["$lzc$class__m2rr"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["PauseScreen"],{});{
-Class.make("$lzc$class__m2rr",["$m2qq",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sc"]}},$lzc$class__m2sc.attributes)
+}}})($lzc$class__m2sc)
+};lz.ClassAttributeTypes["$lzc$class__m2sd"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["PauseScreen"],{});{
+Class.make("$lzc$class__m2sd",["$m2r8",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2qr",function(){
+}},"$m2r9",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -36913,10 +37088,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2qs",function($0){
+}},"$m2ra",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2qt",function(){
+}},"$m2rb",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -36939,13 +37114,13 @@ $3=false;
 }],$lzc$class_PauseScreen,["displayName","<anonymous extends='PauseScreen'>","children",LzNode.mergeChildren([],$lzc$class_PauseScreen["children"]),"__LZCSSTagSelectors",["PauseScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_PauseScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2rr"]}},$lzc$class__m2rr.attributes)
-}}})($lzc$class__m2rr)
-};lz.ClassAttributeTypes["$lzc$class__m2rs"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["FeedbackScreen"],{});{
-Class.make("$lzc$class__m2rs",["$m2qu",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sd"]}},$lzc$class__m2sd.attributes)
+}}})($lzc$class__m2sd)
+};lz.ClassAttributeTypes["$lzc$class__m2se"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["FeedbackScreen"],{});{
+Class.make("$lzc$class__m2se",["$m2rc",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2qv",function(){
+}},"$m2rd",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -36953,10 +37128,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2qw",function($0){
+}},"$m2re",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2qx",function(){
+}},"$m2rf",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -36979,13 +37154,13 @@ $3=false;
 }],$lzc$class_FeedbackScreen,["displayName","<anonymous extends='FeedbackScreen'>","children",LzNode.mergeChildren([],$lzc$class_FeedbackScreen["children"]),"__LZCSSTagSelectors",["FeedbackScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_FeedbackScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2rs"]}},$lzc$class__m2rs.attributes)
-}}})($lzc$class__m2rs)
-};lz.ClassAttributeTypes["$lzc$class__m2rt"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["FinishScreen"],{});{
-Class.make("$lzc$class__m2rt",["$m2qy",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2se"]}},$lzc$class__m2se.attributes)
+}}})($lzc$class__m2se)
+};lz.ClassAttributeTypes["$lzc$class__m2sf"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["FinishScreen"],{});{
+Class.make("$lzc$class__m2sf",["$m2rg",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2qz",function(){
+}},"$m2rh",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -36993,10 +37168,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2r0",function($0){
+}},"$m2ri",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2r1",function(){
+}},"$m2rj",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -37019,13 +37194,13 @@ $3=false;
 }],$lzc$class_FinishScreen,["displayName","<anonymous extends='FinishScreen'>","children",LzNode.mergeChildren([],$lzc$class_FinishScreen["children"]),"__LZCSSTagSelectors",["FinishScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_FinishScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2rt"]}},$lzc$class__m2rt.attributes)
-}}})($lzc$class__m2rt)
-};lz.ClassAttributeTypes["$lzc$class__m2ru"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["ErrorScreen"],{});{
-Class.make("$lzc$class__m2ru",["$m2r2",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sf"]}},$lzc$class__m2sf.attributes)
+}}})($lzc$class__m2sf)
+};lz.ClassAttributeTypes["$lzc$class__m2sg"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["ErrorScreen"],{});{
+Class.make("$lzc$class__m2sg",["$m2rk",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2r3",function(){
+}},"$m2rl",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -37033,10 +37208,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2r4",function($0){
+}},"$m2rm",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2r5",function(){
+}},"$m2rn",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -37059,13 +37234,13 @@ $3=false;
 }],$lzc$class_ErrorScreen,["displayName","<anonymous extends='ErrorScreen'>","children",LzNode.mergeChildren([],$lzc$class_ErrorScreen["children"]),"__LZCSSTagSelectors",["ErrorScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_ErrorScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2ru"]}},$lzc$class__m2ru.attributes)
-}}})($lzc$class__m2ru)
-};lz.ClassAttributeTypes["$lzc$class__m2rv"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["OutOfTimeScreen"],{});{
-Class.make("$lzc$class__m2rv",["$m2r6",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sg"]}},$lzc$class__m2sg.attributes)
+}}})($lzc$class__m2sg)
+};lz.ClassAttributeTypes["$lzc$class__m2sh"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["OutOfTimeScreen"],{});{
+Class.make("$lzc$class__m2sh",["$m2ro",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2r7",function(){
+}},"$m2rp",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -37073,10 +37248,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2r8",function($0){
+}},"$m2rq",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2r9",function(){
+}},"$m2rr",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -37099,13 +37274,13 @@ $3=false;
 }],$lzc$class_OutOfTimeScreen,["displayName","<anonymous extends='OutOfTimeScreen'>","children",LzNode.mergeChildren([],$lzc$class_OutOfTimeScreen["children"]),"__LZCSSTagSelectors",["OutOfTimeScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_OutOfTimeScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2rv"]}},$lzc$class__m2rv.attributes)
-}}})($lzc$class__m2rv)
-};lz.ClassAttributeTypes["$lzc$class__m2rw"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["GoodbyeScreen"],{});{
-Class.make("$lzc$class__m2rw",["$m2ra",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sh"]}},$lzc$class__m2sh.attributes)
+}}})($lzc$class__m2sh)
+};lz.ClassAttributeTypes["$lzc$class__m2si"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["GoodbyeScreen"],{});{
+Class.make("$lzc$class__m2si",["$m2rs",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2rb",function(){
+}},"$m2rt",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -37113,10 +37288,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2rc",function($0){
+}},"$m2ru",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2rd",function(){
+}},"$m2rv",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -37139,13 +37314,13 @@ $3=false;
 }],$lzc$class_GoodbyeScreen,["displayName","<anonymous extends='GoodbyeScreen'>","children",LzNode.mergeChildren([],$lzc$class_GoodbyeScreen["children"]),"__LZCSSTagSelectors",["GoodbyeScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_GoodbyeScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2rw"]}},$lzc$class__m2rw.attributes)
-}}})($lzc$class__m2rw)
-};lz.ClassAttributeTypes["$lzc$class__m2rx"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["OptOutScreen"],{});{
-Class.make("$lzc$class__m2rx",["$m2re",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2si"]}},$lzc$class__m2si.attributes)
+}}})($lzc$class__m2si)
+};lz.ClassAttributeTypes["$lzc$class__m2sj"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["OptOutScreen"],{});{
+Class.make("$lzc$class__m2sj",["$m2rw",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2rf",function(){
+}},"$m2rx",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -37153,10 +37328,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2rg",function($0){
+}},"$m2ry",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2rh",function(){
+}},"$m2rz",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -37179,13 +37354,13 @@ $3=false;
 }],$lzc$class_OptOutScreen,["displayName","<anonymous extends='OptOutScreen'>","children",LzNode.mergeChildren([],$lzc$class_OptOutScreen["children"]),"__LZCSSTagSelectors",["OptOutScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_OptOutScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2rx"]}},$lzc$class__m2rx.attributes)
-}}})($lzc$class__m2rx)
-};lz.ClassAttributeTypes["$lzc$class__m2ry"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["TimeOutScreen"],{});{
-Class.make("$lzc$class__m2ry",["$m2ri",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sj"]}},$lzc$class__m2sj.attributes)
+}}})($lzc$class__m2sj)
+};lz.ClassAttributeTypes["$lzc$class__m2sk"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["TimeOutScreen"],{});{
+Class.make("$lzc$class__m2sk",["$m2s0",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2rj",function(){
+}},"$m2s1",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -37193,10 +37368,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2rk",function($0){
+}},"$m2s2",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2rl",function(){
+}},"$m2s3",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -37219,54 +37394,32 @@ $3=false;
 }],$lzc$class_TimeOutScreen,["displayName","<anonymous extends='TimeOutScreen'>","children",LzNode.mergeChildren([],$lzc$class_TimeOutScreen["children"]),"__LZCSSTagSelectors",["TimeOutScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_TimeOutScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2ry"]}},$lzc$class__m2ry.attributes)
-}}})($lzc$class__m2ry)
-};lz.ClassAttributeTypes["$lzc$class__m2rm"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
-Class.make("$lzc$class__m2rm",["$m2q2",function($0){
-var $1=this.classroot.middle.x+15;if($1!==this["x"]||!this.inited){
-this.setAttribute("x",$1)
-}},"$m2q3",function(){
-try{
-return [this.classroot.middle,"x"]
-}
-catch($lzsc$e){
-if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
-lz.$lzsc$thrownError=$lzsc$e
-};throw $lzsc$e
-}},"$m2q4",function($0){
-var $1=this.classroot.middle.y+15;if($1!==this["y"]||!this.inited){
-this.setAttribute("y",$1)
-}},"$m2q5",function(){
-try{
-return [this.classroot.middle,"y"]
-}
-catch($lzsc$e){
-if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
-lz.$lzsc$thrownError=$lzsc$e
-};throw $lzsc$e
-}},"$m2q6",function($0){
-var $1=this.classroot.middle.width-20;if($1!==this["width"]||!this.inited){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sk"]}},$lzc$class__m2sk.attributes)
+}}})($lzc$class__m2sk)
+};lz.ClassAttributeTypes["$lzc$class__m2sl"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["ProductCheckScreen"],{});{
+Class.make("$lzc$class__m2sl",["$m2s4",function($0){
+var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2q7",function(){
+}},"$m2s5",function(){
 try{
-return [this.classroot.middle,"width"]
+return [this.immediateparent,"width"]
 }
 catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2q8",function($0){
-var $1=this.classroot.middle.height;if($1!==this["height"]||!this.inited){
+}},"$m2s6",function($0){
+var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2q9",function(){
+}},"$m2s7",function(){
 try{
-return [this.classroot.middle,"height"]
+return [this.immediateparent,"height"]
 }
 catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"ls",void 0,"les",void 0,"ds",void 0,"ws",void 0,"ps",void 0,"fbs",void 0,"fs",void 0,"es",void 0,"os",void 0,"gs",void 0,"oos",void 0,"ts",void 0,"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+}},"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
 case 0:
 $0=null;
@@ -37278,11 +37431,73 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2qc","$m2qd",null),initstage:"immediate",name:"ls",width:new LzAlwaysExpr("$m2qa","$m2qb",null)},"class":$lzc$class__m2rn},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2qg","$m2qh",null),initstage:"defer",name:"les",width:new LzAlwaysExpr("$m2qe","$m2qf",null)},"class":$lzc$class__m2ro},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2qk","$m2ql",null),initstage:"defer",name:"ds",width:new LzAlwaysExpr("$m2qi","$m2qj",null)},"class":$lzc$class__m2rp},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2qo","$m2qp",null),initstage:"defer",name:"ws",width:new LzAlwaysExpr("$m2qm","$m2qn",null)},"class":$lzc$class__m2rq},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2qs","$m2qt",null),initstage:"defer",name:"ps",width:new LzAlwaysExpr("$m2qq","$m2qr",null)},"class":$lzc$class__m2rr},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2qw","$m2qx",null),initstage:"defer",name:"fbs",width:new LzAlwaysExpr("$m2qu","$m2qv",null)},"class":$lzc$class__m2rs},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2r0","$m2r1",null),initstage:"defer",name:"fs",width:new LzAlwaysExpr("$m2qy","$m2qz",null)},"class":$lzc$class__m2rt},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2r4","$m2r5",null),initstage:"defer",name:"es",width:new LzAlwaysExpr("$m2r2","$m2r3",null)},"class":$lzc$class__m2ru},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2r8","$m2r9",null),initstage:"defer",name:"os",width:new LzAlwaysExpr("$m2r6","$m2r7",null)},"class":$lzc$class__m2rv},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2rc","$m2rd",null),initstage:"defer",name:"gs",width:new LzAlwaysExpr("$m2ra","$m2rb",null)},"class":$lzc$class__m2rw},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2rg","$m2rh",null),initstage:"defer",name:"oos",width:new LzAlwaysExpr("$m2re","$m2rf",null)},"class":$lzc$class__m2rx},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2rk","$m2rl",null),initstage:"defer",name:"ts",width:new LzAlwaysExpr("$m2ri","$m2rj",null)},"class":$lzc$class__m2ry}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],$lzc$class_ProductCheckScreen,["displayName","<anonymous extends='ProductCheckScreen'>","children",LzNode.mergeChildren([],$lzc$class_ProductCheckScreen["children"]),"__LZCSSTagSelectors",["ProductCheckScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_ProductCheckScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2rm"]}},$lzc$class__m2rm.attributes)
-}}})($lzc$class__m2rm)
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sl"]}},$lzc$class__m2sl.attributes)
+}}})($lzc$class__m2sl)
+};lz.ClassAttributeTypes["$lzc$class__m2s8"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class__m2s8",["$m2qk",function($0){
+var $1=this.classroot.middle.x+15;if($1!==this["x"]||!this.inited){
+this.setAttribute("x",$1)
+}},"$m2ql",function(){
+try{
+return [this.classroot.middle,"x"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}},"$m2qm",function($0){
+var $1=this.classroot.middle.y+15;if($1!==this["y"]||!this.inited){
+this.setAttribute("y",$1)
+}},"$m2qn",function(){
+try{
+return [this.classroot.middle,"y"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}},"$m2qo",function($0){
+var $1=this.classroot.middle.width-20;if($1!==this["width"]||!this.inited){
+this.setAttribute("width",$1)
+}},"$m2qp",function(){
+try{
+return [this.classroot.middle,"width"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}},"$m2qq",function($0){
+var $1=this.classroot.middle.height;if($1!==this["height"]||!this.inited){
+this.setAttribute("height",$1)
+}},"$m2qr",function(){
+try{
+return [this.classroot.middle,"height"]
+}
+catch($lzsc$e){
+if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
+lz.$lzsc$thrownError=$lzsc$e
+};throw $lzsc$e
+}},"ls",void 0,"les",void 0,"ds",void 0,"ws",void 0,"ps",void 0,"fbs",void 0,"fs",void 0,"es",void 0,"os",void 0,"gs",void 0,"oos",void 0,"ts",void 0,"pcs",void 0,"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
+switch(arguments.length){
+case 0:
+$0=null;
+case 1:
+$1=null;
+case 2:
+$2=null;
+case 3:
+$3=false;
+
+};(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2qu","$m2qv",null),initstage:"immediate",name:"ls",width:new LzAlwaysExpr("$m2qs","$m2qt",null)},"class":$lzc$class__m2s9},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2qy","$m2qz",null),initstage:"defer",name:"les",width:new LzAlwaysExpr("$m2qw","$m2qx",null)},"class":$lzc$class__m2sa},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2r2","$m2r3",null),initstage:"defer",name:"ds",width:new LzAlwaysExpr("$m2r0","$m2r1",null)},"class":$lzc$class__m2sb},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2r6","$m2r7",null),initstage:"defer",name:"ws",width:new LzAlwaysExpr("$m2r4","$m2r5",null)},"class":$lzc$class__m2sc},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2ra","$m2rb",null),initstage:"defer",name:"ps",width:new LzAlwaysExpr("$m2r8","$m2r9",null)},"class":$lzc$class__m2sd},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2re","$m2rf",null),initstage:"defer",name:"fbs",width:new LzAlwaysExpr("$m2rc","$m2rd",null)},"class":$lzc$class__m2se},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2ri","$m2rj",null),initstage:"defer",name:"fs",width:new LzAlwaysExpr("$m2rg","$m2rh",null)},"class":$lzc$class__m2sf},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2rm","$m2rn",null),initstage:"defer",name:"es",width:new LzAlwaysExpr("$m2rk","$m2rl",null)},"class":$lzc$class__m2sg},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2rq","$m2rr",null),initstage:"defer",name:"os",width:new LzAlwaysExpr("$m2ro","$m2rp",null)},"class":$lzc$class__m2sh},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2ru","$m2rv",null),initstage:"defer",name:"gs",width:new LzAlwaysExpr("$m2rs","$m2rt",null)},"class":$lzc$class__m2si},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2ry","$m2rz",null),initstage:"defer",name:"oos",width:new LzAlwaysExpr("$m2rw","$m2rx",null)},"class":$lzc$class__m2sj},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2s2","$m2s3",null),initstage:"defer",name:"ts",width:new LzAlwaysExpr("$m2s0","$m2s1",null)},"class":$lzc$class__m2sk},{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2s6","$m2s7",null),initstage:"defer",name:"pcs",width:new LzAlwaysExpr("$m2s4","$m2s5",null)},"class":$lzc$class__m2sl}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+with($0)with($0.prototype){
+{
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2s8"]}},$lzc$class__m2s8.attributes)
+}}})($lzc$class__m2s8)
 };lz.ClassAttributeTypes["Screens"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["Frame"],{});{
 Class.make("$lzc$class_Screens",["onFeedbackScreen",void 0,"allowclick",void 0,"isOnFeedbackScreen",function(){
 return this.onFeedbackScreen
@@ -37301,7 +37516,7 @@ return this.contents.os.isinited&&this.contents.os.visible
 },"removeAllStates",function(){
 this.setAttribute("allowclick",true);if(this.contents.ls.isinited)this.contents.ls.setAttribute("visible",false);if(this.contents.les.isinited)this.contents.les.setAttribute("visible",false);if(this.contents.ds.isinited)this.contents.ds.setAttribute("visible",false);if(this.contents.es.isinited)this.contents.es.setAttribute("visible",false);if(this.contents.fs.isinited)this.contents.fs.setAttribute("visible",false);if(this.contents.fbs.isinited)this.contents.fbs.setAttribute("visible",false);if(this.contents.ps.isinited)this.contents.ps.setAttribute("visible",false);if(this.contents.os.isinited)this.contents.os.setAttribute("visible",false);if(this.contents.ws.isinited)this.contents.ws.setAttribute("visible",false);if(this.contents.gs.isinited)this.contents.gs.setAttribute("visible",false);if(this.contents.oos.isinited)this.contents.oos.setAttribute("visible",false);if(gSecurityScreen.secContents.iss.isinited){
 gSecurityScreen.secContents.iss.setAttribute("visible",false)
-};if(this.contents.ts.isinited)this.contents.ts.setAttribute("visible",false)
+};if(this.contents.ts.isinited)this.contents.ts.setAttribute("visible",false);if(this.contents.pcs.isinited)this.contents.pcs.setAttribute("visible",false)
 },"showDownload",function($0){
 this.removeAllStates();if(!this.contents.ds.isinited)this.contents.ds.completeInstantiation();this.contents.ds.setTotalSubtests($0);this.contents.ds.setAttribute("visible",true);this.show()
 },"incrementSubtestDownload",function($0,$1){
@@ -37369,7 +37584,7 @@ this.removeAllStates();if(!this.contents.oos.isinited)this.contents.oos.complete
 },"showTimeoutForInactivity",function(){
 this.removeAllStates();if(!this.contents.ts.isinited)this.contents.ts.completeInstantiation();this.contents.ts.setAttribute("visible",true);this.show()
 },"showProdCheckError",function($0){
-this.removeAllStates();if(!this.contents.les.isinited)this.contents.les.completeInstantiation();this.contents.les.setupProdCheckError($0);this.contents.les.setAttribute("visible",true);this.show()
+this.removeAllStates();if(!this.contents.pcs.isinited)this.contents.pcs.completeInstantiation();this.contents.pcs.setProductType($0);this.contents.pcs.setAttribute("visible",true);this.show()
 },"show",function(){
 gItemInterface.setAttribute("visible",false);gTutorial.setAttribute("visible",false);gSecurityScreen.setAttribute("visible",false);this.setAttribute("visible",true);lz.ModeManager.release(gSecurityScreen);gScreens.bringToFront();var $0=lz.ModeManager.hasMode(this);Debug.write("show ",$0);if(!$0){
 lz.ModeManager.makeModal(this)
@@ -37387,25 +37602,25 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_Frame,["tagname","Screens","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,ds:void 0,es:void 0,fbs:void 0,fs:void 0,gs:void 0,height:new LzAlwaysExpr("$m2q8","$m2q9",null),les:void 0,ls:void 0,name:"contents",oos:void 0,options:{ignorelayout:true},os:void 0,ps:void 0,ts:void 0,width:new LzAlwaysExpr("$m2q6","$m2q7",null),ws:void 0,x:new LzAlwaysExpr("$m2q2","$m2q3",null),y:new LzAlwaysExpr("$m2q4","$m2q5",null)},"class":$lzc$class__m2rm}],$lzc$class_Frame["children"]),"__LZCSSTagSelectors",["Screens","Frame","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_Frame.attributes)]);(function($0){
+}],$lzc$class_Frame,["tagname","Screens","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,ds:void 0,es:void 0,fbs:void 0,fs:void 0,gs:void 0,height:new LzAlwaysExpr("$m2qq","$m2qr",null),les:void 0,ls:void 0,name:"contents",oos:void 0,options:{ignorelayout:true},os:void 0,pcs:void 0,ps:void 0,ts:void 0,width:new LzAlwaysExpr("$m2qo","$m2qp",null),ws:void 0,x:new LzAlwaysExpr("$m2qk","$m2ql",null),y:new LzAlwaysExpr("$m2qm","$m2qn",null)},"class":$lzc$class__m2s8}],$lzc$class_Frame["children"]),"__LZCSSTagSelectors",["Screens","Frame","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_Frame.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["Screens"]},allowclick:false,onFeedbackScreen:false},$lzc$class_Screens.attributes)
 }}})($lzc$class_Screens)
 };lz.ClassAttributeTypes["Tutorial"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{LAST_SCREEN_DURATION:"number"});{
-Class.make("$lzc$class_Tutorial",["$m2rz",function($0){
+Class.make("$lzc$class_Tutorial",["$m2sm",function($0){
 this.showError()
-},"$m2s0",function($0){
+},"$m2sn",function($0){
 this.showTimeout()
-},"$m2s1",function($0){
+},"$m2so",function($0){
 this.setAttribute("dEndTutorial",new (lz.Delegate)(this,"endTutorial"))
 },"dEndTutorial",void 0,"LAST_SCREEN_DURATION",void 0,"endTutorial",function(){
 lz.Timer.removeTimer(this.dEndTutorial);gTutorialManager.endTutorial()
 },"setTutorial",function($0){
 this.setSource("resources/tutorials/"+$0)
-},"$m2s2",function($0){
+},"$m2sp",function($0){
 gScreens.hide();this.setAttribute("visible",true)
-},"$m2s3",function($0){
+},"$m2sq",function($0){
 lz.Timer.addTimer(this.dEndTutorial,this.LAST_SCREEN_DURATION)
 },"showError",function(){
 gCommunicator.checkShowError(gXmlHelper.getContentErrorXml())
@@ -37426,10 +37641,10 @@ $3=false;
 }],LzView,["tagname","Tutorial","__LZCSSTagSelectors",["Tutorial","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["Tutorial"]},$delegates:["onerror","$m2rz",null,"ontimeout","$m2s0",null,"onload","$m2s2",null,"onlastframe","$m2s3",null],LAST_SCREEN_DURATION:3000,dEndTutorial:new LzOnceExpr("$m2s1",null),play:true},$lzc$class_Tutorial.attributes)
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["Tutorial"]},$delegates:["onerror","$m2sm",null,"ontimeout","$m2sn",null,"onload","$m2sp",null,"onlastframe","$m2sq",null],LAST_SCREEN_DURATION:3000,dEndTutorial:new LzOnceExpr("$m2so",null),play:true},$lzc$class_Tutorial.attributes)
 }}})($lzc$class_Tutorial)
-};lz.ClassAttributeTypes["$lzc$class__m2s7"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
-Class.make("$lzc$class__m2s7",["$m2s4",function($0){
+};lz.ClassAttributeTypes["$lzc$class__m2su"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
+Class.make("$lzc$class__m2su",["$m2sr",function($0){
 var $1=this.getDisplayObject();$1.setAttribute("style","font-family: CTB; font-size: 24px; line-height: 29px; pointer-events: none; width: auto; height: 29px;")
 },"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -37446,10 +37661,10 @@ $3=false;
 }],LzText,["displayName","<anonymous extends='text'>","__LZCSSTagSelectors",["text","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzText.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2s7"]}},$lzc$class__m2s7.attributes)
-}}})($lzc$class__m2s7)
-};lz.ClassAttributeTypes["$lzc$class__m2s9"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["ContinueButton"],{});{
-Class.make("$lzc$class__m2s9",["docontinue",function(){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2su"]}},$lzc$class__m2su.attributes)
+}}})($lzc$class__m2su)
+};lz.ClassAttributeTypes["$lzc$class__m2sw"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["ContinueButton"],{});{
+Class.make("$lzc$class__m2sw",["docontinue",function(){
 gController.inContinueToDownload()
 },"$classrootdepth",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -37466,13 +37681,13 @@ $3=false;
 }],$lzc$class_ContinueButton,["displayName","<anonymous extends='ContinueButton'>","__LZCSSTagSelectors",["ContinueButton","basebutton","basecomponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_ContinueButton.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2s9"]}},$lzc$class__m2s9.attributes)
-}}})($lzc$class__m2s9)
-};lz.ClassAttributeTypes["$lzc$class__m2s8"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
-Class.make("$lzc$class__m2s8",["$m2s5",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sw"]}},$lzc$class__m2sw.attributes)
+}}})($lzc$class__m2sw)
+};lz.ClassAttributeTypes["$lzc$class__m2sv"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class__m2sv",["$m2ss",function($0){
 var $1=this.classroot.width-this.width-20;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}},"$m2s6",function(){
+}},"$m2st",function(){
 try{
 return [this.classroot,"width",this,"width"]
 }
@@ -37492,11 +37707,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,$delegates:["onclick","docontinue",null],clickable:true,y:3},"class":$lzc$class__m2s9}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,$delegates:["onclick","docontinue",null],clickable:true,y:3},"class":$lzc$class__m2sw}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2s8"]}},$lzc$class__m2s8.attributes)
-}}})($lzc$class__m2s8)
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sv"]}},$lzc$class__m2sv.attributes)
+}}})($lzc$class__m2sv)
 };lz.ClassAttributeTypes["InSecurityScreen"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{font:"string"});{
 Class.make("$lzc$class_InSecurityScreen",["secInfo",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -37510,7 +37725,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["tagname","InSecurityScreen","children",[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},$classrootdepth:1,axis:"y",spacing:0},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:1,$delegates:["oninit","$m2s4",null],fgcolor:16777215,fontsize:24,resize:true,text:"TEST SECURITY"},"class":$lzc$class__m2s7},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["secInfo"]},$classrootdepth:1,bgcolor:16777215,blank:void 0,height:165,name:"secInfo",secNotes:void 0,secNotes1:void 0,secNotes2:void 0,stretches:"height",width:550,x:5},children:[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},$classrootdepth:2,axis:"y",spacing:5},"class":$lzc$class_simplelayout},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["blank"]},$classrootdepth:2,fontsize:18,height:3,name:"blank",x:5},"class":LzText},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["secNotes"]},$classrootdepth:2,fontsize:13,multiline:true,name:"secNotes",text:"1. Material presented by this software may not be retained, reproduced, or distributed, by any persons, by any means, or under any circumstances.",width:530,x:5},"class":LzText},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["secNotes1"]},$classrootdepth:2,fontsize:13,multiline:true,name:"secNotes1",text:"2. It is not permissible to photograph, keep, copy, share, or discuss any of the questions on this test.",width:530,x:5},"class":LzText},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["secNotes2"]},$classrootdepth:2,fontsize:13,multiline:true,name:"secNotes2",text:"3. Cell phones are not permitted in the testing classroom or lab; and all personal electronic devices must be turned off.",width:530,x:5},"class":LzText}],"class":LzView},{attrs:{$classrootdepth:1,x:new LzAlwaysExpr("$m2s5","$m2s6",null)},"class":$lzc$class__m2s8}],"__LZCSSTagSelectors",["InSecurityScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["tagname","InSecurityScreen","children",[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},$classrootdepth:1,axis:"y",spacing:0},"class":$lzc$class_simplelayout},{attrs:{$classrootdepth:1,$delegates:["oninit","$m2sr",null],fgcolor:16777215,fontsize:24,resize:true,text:"TEST SECURITY"},"class":$lzc$class__m2su},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["secInfo"]},$classrootdepth:1,bgcolor:16777215,blank:void 0,height:165,name:"secInfo",secNotes:void 0,secNotes1:void 0,secNotes2:void 0,stretches:"height",width:550,x:5},children:[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},$classrootdepth:2,axis:"y",spacing:5},"class":$lzc$class_simplelayout},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["blank"]},$classrootdepth:2,fontsize:18,height:3,name:"blank",x:5},"class":LzText},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["secNotes"]},$classrootdepth:2,fontsize:13,multiline:true,name:"secNotes",text:"1. Material presented by this software may not be retained, reproduced, or distributed, by any persons, by any means, or under any circumstances.",width:530,x:5},"class":LzText},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["secNotes1"]},$classrootdepth:2,fontsize:13,multiline:true,name:"secNotes1",text:"2. It is not permissible to photograph, keep, copy, share, or discuss any of the questions on this test.",width:530,x:5},"class":LzText},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["secNotes2"]},$classrootdepth:2,fontsize:13,multiline:true,name:"secNotes2",text:"3. Cell phones are not permitted in the testing classroom or lab; and all personal electronic devices must be turned off.",width:530,x:5},"class":LzText}],"class":LzView},{attrs:{$classrootdepth:1,x:new LzAlwaysExpr("$m2ss","$m2st",null)},"class":$lzc$class__m2sv}],"__LZCSSTagSelectors",["InSecurityScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["InSecurityScreen"]},font:"CTB"},$lzc$class_InSecurityScreen.attributes)
@@ -37533,11 +37748,11 @@ with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["SecurityFrame"]}},$lzc$class_SecurityFrame.attributes)
 }}})($lzc$class_SecurityFrame)
-};lz.ClassAttributeTypes["$lzc$class__m2sn"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["InSecurityScreen"],{});{
-Class.make("$lzc$class__m2sn",["$m2si",function($0){
+};lz.ClassAttributeTypes["$lzc$class__m2ta"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["InSecurityScreen"],{});{
+Class.make("$lzc$class__m2ta",["$m2t5",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2sj",function(){
+}},"$m2t6",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -37545,10 +37760,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2sk",function($0){
+}},"$m2t7",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2sl",function(){
+}},"$m2t8",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -37571,13 +37786,13 @@ $3=false;
 }],$lzc$class_InSecurityScreen,["displayName","<anonymous extends='InSecurityScreen'>","children",LzNode.mergeChildren([],$lzc$class_InSecurityScreen["children"]),"__LZCSSTagSelectors",["InSecurityScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_InSecurityScreen.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sn"]}},$lzc$class__m2sn.attributes)
-}}})($lzc$class__m2sn)
-};lz.ClassAttributeTypes["$lzc$class__m2sm"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
-Class.make("$lzc$class__m2sm",["$m2sa",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2ta"]}},$lzc$class__m2ta.attributes)
+}}})($lzc$class__m2ta)
+};lz.ClassAttributeTypes["$lzc$class__m2t9"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class__m2t9",["$m2sx",function($0){
 var $1=this.classroot.middle.x+15;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}},"$m2sb",function(){
+}},"$m2sy",function(){
 try{
 return [this.classroot.middle,"x"]
 }
@@ -37585,10 +37800,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2sc",function($0){
+}},"$m2sz",function($0){
 var $1=this.classroot.middle.y+15;if($1!==this["y"]||!this.inited){
 this.setAttribute("y",$1)
-}},"$m2sd",function(){
+}},"$m2t0",function(){
 try{
 return [this.classroot.middle,"y"]
 }
@@ -37596,10 +37811,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2se",function($0){
+}},"$m2t1",function($0){
 var $1=this.classroot.middle.width-20;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2sf",function(){
+}},"$m2t2",function(){
 try{
 return [this.classroot.middle,"width"]
 }
@@ -37607,10 +37822,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2sg",function($0){
+}},"$m2t3",function($0){
 var $1=this.classroot.middle.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2sh",function(){
+}},"$m2t4",function(){
 try{
 return [this.classroot.middle,"height"]
 }
@@ -37630,11 +37845,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2sk","$m2sl",null),initstage:"defer",name:"iss",width:new LzAlwaysExpr("$m2si","$m2sj",null)},"class":$lzc$class__m2sn}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$classrootdepth:2,height:new LzAlwaysExpr("$m2t7","$m2t8",null),initstage:"defer",name:"iss",width:new LzAlwaysExpr("$m2t5","$m2t6",null)},"class":$lzc$class__m2ta}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2sm"]}},$lzc$class__m2sm.attributes)
-}}})($lzc$class__m2sm)
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2t9"]}},$lzc$class__m2t9.attributes)
+}}})($lzc$class__m2t9)
 };lz.ClassAttributeTypes["SecurityScreen"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["SecurityFrame"],{});{
 Class.make("$lzc$class_SecurityScreen",["showIndianaSecurityScreen",function(){
 gScreens.removeAllStates();if(!this.secContents.iss.isinited)this.secContents.iss.completeInstantiation();this.secContents.iss.setAttribute("visible",true);this.show()
@@ -37653,13 +37868,13 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_SecurityFrame,["tagname","SecurityScreen","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,height:new LzAlwaysExpr("$m2sg","$m2sh",null),iss:void 0,name:"secContents",options:{ignorelayout:true},width:new LzAlwaysExpr("$m2se","$m2sf",null),x:new LzAlwaysExpr("$m2sa","$m2sb",null),y:new LzAlwaysExpr("$m2sc","$m2sd",null)},"class":$lzc$class__m2sm}],$lzc$class_SecurityFrame["children"]),"__LZCSSTagSelectors",["SecurityScreen","SecurityFrame","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_SecurityFrame.attributes)]);(function($0){
+}],$lzc$class_SecurityFrame,["tagname","SecurityScreen","children",LzNode.mergeChildren([{attrs:{$classrootdepth:1,height:new LzAlwaysExpr("$m2t3","$m2t4",null),iss:void 0,name:"secContents",options:{ignorelayout:true},width:new LzAlwaysExpr("$m2t1","$m2t2",null),x:new LzAlwaysExpr("$m2sx","$m2sy",null),y:new LzAlwaysExpr("$m2sz","$m2t0",null)},"class":$lzc$class__m2t9}],$lzc$class_SecurityFrame["children"]),"__LZCSSTagSelectors",["SecurityScreen","SecurityFrame","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_SecurityFrame.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
 LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["SecurityScreen"]}},$lzc$class_SecurityScreen.attributes)
 }}})($lzc$class_SecurityScreen)
 };lz.ClassAttributeTypes["PauseTimerScreen"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
-Class.make("$lzc$class_PauseTimerScreen",["$m2so",function($0){
+Class.make("$lzc$class_PauseTimerScreen",["$m2tb",function($0){
 this.dataBindAttribute("uienabled","dsdisplay:/display/@enabled","expression")
 },"uienabled",void 0,"pauseText",void 0,"thetime",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -37676,12 +37891,12 @@ $3=false;
 }],LzView,["tagname","PauseTimerScreen","children",[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["pauseText"]},$classrootdepth:1,fgcolor:16777215,font:"Arial",fontsize:20,multiline:true,name:"pauseText",text:"Your Test has been paused. When the timer reaches 00:00, your test session will end. To return to your test, enter the password and click the &quot;Login&quot; button below.",visible:true,width:800,y:10},"class":LzText},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["thetime"]},$classrootdepth:1,datapath:"dsdisplay:/display/@timeleftforpause",fgcolor:16777215,fontsize:45,name:"thetime",width:800,x:340,y:80},"class":LzText}],"__LZCSSTagSelectors",["PauseTimerScreen","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["PauseTimerScreen"]},bgcolor:6721972,font:"CTB",fontsize:12,uienabled:new LzOnceExpr("$m2so",null)},$lzc$class_PauseTimerScreen.attributes)
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["PauseTimerScreen"]},bgcolor:6721972,font:"CTB",fontsize:12,uienabled:new LzOnceExpr("$m2tb",null)},$lzc$class_PauseTimerScreen.attributes)
 }}})($lzc$class_PauseTimerScreen)
 };lz.ClassAttributeTypes["myclass"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{curState:"string",curTxt:"string"});{
-Class.make("$lzc$class_myclass",["$m2sp",function($0){
+Class.make("$lzc$class_myclass",["$m2tc",function($0){
 this.choice(this)
-},"$m2sq",function($0){
+},"$m2td",function($0){
 this.setup(this)
 },"curState",void 0,"curTxt",void 0,"mytext",void 0,"setup",function($0){
 var $1=$0.name;$1=$1.substring(6,7);Debug.write("myclass....name",$1);if($1==0){
@@ -37714,9 +37929,9 @@ this.setAttribute("curState","Show");this.mytext.setAttribute("x",1);gMaskingAns
 this.setAttribute("curState","Hide");this.mytext.setAttribute("x",5);gMaskingAnswer.setAttribute("withState",true);this.setTextVal()
 }else if(this.curState=="Show All"){
 gMaskingAnswer.setAttribute("withState",false);Debug.write("gManipulativeBar.globals.maskingAnswer",gManipulativeBar.globals.maskingAnswer);gMaskingAnswer.setUpPopUp()
-}},"$m2sr",function($0){
+}},"$m2te",function($0){
 lz.Cursor.showHandCursor(true);this.setAttribute("frame",2)
-},"$m2ss",function($0){
+},"$m2tf",function($0){
 lz.Cursor.showHandCursor(false);this.setAttribute("frame",1)
 },"setTextVal",function(){
 if(this.curTxt=="Show All"){
@@ -37738,7 +37953,7 @@ $3=false;
 }],LzView,["tagname","myclass","children",[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["mytext"]},$classrootdepth:1,fontsize:10,fontstyle:"bold",name:"mytext",valign:"middle",x:5},"class":LzText}],"__LZCSSTagSelectors",["myclass","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["myclass"]},$delegates:["onclick","$m2sp",null,"oninit","$m2sq",null,"onmouseover","$m2sr",null,"onmouseout","$m2ss",null],clickable:true,width:65},$lzc$class_myclass.attributes)
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["myclass"]},$delegates:["onclick","$m2tc",null,"oninit","$m2td",null,"onmouseover","$m2te",null,"onmouseout","$m2tf",null],clickable:true,width:65},$lzc$class_myclass.attributes)
 }}})($lzc$class_myclass)
 };canvas.LzInstantiateView({"class":lz.script,attrs:{script:function(){}}},1);canvas.LzInstantiateView({"class":lz.script,attrs:{script:function(){}}},1);canvas.LzInstantiateView({"class":lz.script,attrs:{script:function(){
 printBigString=void 0;printBigString=function($0){
@@ -37758,11 +37973,11 @@ $0=$0.substr(1,$0.length)
 };while($0.substr($0.length-1,$0.length)==" "||$0.substr($0.length-1,$0.length)=="\n"){
 $0=$0.substr(0,$0.length-1)
 };return $0
-}}}},1);lz.ClassAttributeTypes["$lzc$class__m2vx"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
-Class.make("$lzc$class__m2vx",["$m2tb",function($0){
+}}}},1);lz.ClassAttributeTypes["$lzc$class__m2wk"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
+Class.make("$lzc$class__m2wk",["$m2ty",function($0){
 var $1=canvas.copyriteColor;if($1!==this["fgcolor"]||!this.inited){
 this.setAttribute("fgcolor",$1)
-}},"$m2tc",function(){
+}},"$m2tz",function(){
 try{
 return [canvas,"copyriteColor"]
 }
@@ -37770,10 +37985,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2td",function($0){
+}},"$m2u0",function($0){
 var $1=canvas.Copyrite;if($1!==this["text"]||!this.inited){
 this.setAttribute("text",$1)
-}},"$m2te",function(){
+}},"$m2u1",function(){
 try{
 return [canvas,"Copyrite"]
 }
@@ -37781,7 +37996,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2tf",function($0){
+}},"$m2u2",function($0){
 var $1=this.getDisplayObject();$1.setAttribute("style","width: auto; font-family: CTB; font-size: 12px")
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -37798,13 +38013,13 @@ $3=false;
 }],LzText,["displayName","<anonymous extends='text'>","__LZCSSTagSelectors",["text","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzText.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2vx"]}},$lzc$class__m2vx.attributes)
-}}})($lzc$class__m2vx)
-};lz.ClassAttributeTypes["$lzc$class__m2vy"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
-Class.make("$lzc$class__m2vy",["$m2tg",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wk"]}},$lzc$class__m2wk.attributes)
+}}})($lzc$class__m2wk)
+};lz.ClassAttributeTypes["$lzc$class__m2wl"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
+Class.make("$lzc$class__m2wl",["$m2u3",function($0){
 var $1=this.immediateparent.width-this.width;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}},"$m2th",function(){
+}},"$m2u4",function(){
 try{
 return [this.immediateparent,"width",this,"width"]
 }
@@ -37812,10 +38027,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2ti",function($0){
+}},"$m2u5",function($0){
 var $1=canvas.copyriteColor;if($1!==this["fgcolor"]||!this.inited){
 this.setAttribute("fgcolor",$1)
-}},"$m2tj",function(){
+}},"$m2u6",function(){
 try{
 return [canvas,"copyriteColor"]
 }
@@ -37823,10 +38038,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2tk",function($0){
+}},"$m2u7",function($0){
 var $1=this.immediateparent.width*0.15;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2tl",function(){
+}},"$m2u8",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -37834,7 +38049,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2tm",function($0){
+}},"$m2u9",function($0){
 var $1=this.getDisplayObject();var $2=this.immediateparent.height-5;this.setAttribute("y",$2);$1.setAttribute("style","width: auto; font-family: CTB;")
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -37851,10 +38066,10 @@ $3=false;
 }],LzText,["displayName","<anonymous extends='text'>","__LZCSSTagSelectors",["text","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzText.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2vy"]}},$lzc$class__m2vy.attributes)
-}}})($lzc$class__m2vy)
-};lz.ClassAttributeTypes["$lzc$class__m2vw"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["Screens"],{});{
-Class.make("$lzc$class__m2vw",["$m2ta",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wl"]}},$lzc$class__m2wl.attributes)
+}}})($lzc$class__m2wl)
+};lz.ClassAttributeTypes["$lzc$class__m2wj"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["Screens"],{});{
+Class.make("$lzc$class__m2wj",["$m2tx",function($0){
 var $1=this.getDisplayObject();$1.setAttribute("id","loginScreenId")
 },"copyWriteText",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -37868,7 +38083,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],$lzc$class_Screens,["displayName","<anonymous extends='Screens'>","children",LzNode.mergeChildren([{attrs:{$delegates:["oninit","$m2tf",null],fgcolor:new LzAlwaysExpr("$m2tb","$m2tc",null),font:"CTB",fontsize:12,name:"copyWriteText",text:new LzAlwaysExpr("$m2td","$m2te",null),y:230},"class":$lzc$class__m2vx},{attrs:{$delegates:["ontext","$m2tm",null],$lzc$bind_id:function($0,$1){
+}],$lzc$class_Screens,["displayName","<anonymous extends='Screens'>","children",LzNode.mergeChildren([{attrs:{$delegates:["oninit","$m2u2",null],fgcolor:new LzAlwaysExpr("$m2ty","$m2tz",null),font:"CTB",fontsize:12,name:"copyWriteText",text:new LzAlwaysExpr("$m2u0","$m2u1",null),y:230},"class":$lzc$class__m2wk},{attrs:{$delegates:["ontext","$m2u9",null],$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -37877,16 +38092,16 @@ $1=true;
 $0.id="versionproductinfo";versionproductinfo=$0
 }else if(versionproductinfo===$0){
 versionproductinfo=null;$0.id=null
-}},fgcolor:new LzAlwaysExpr("$m2ti","$m2tj",null),fontsize:12,id:"versionproductinfo",text:" ",width:new LzAlwaysExpr("$m2tk","$m2tl",null),x:new LzAlwaysExpr("$m2tg","$m2th",null)},"class":$lzc$class__m2vy}],$lzc$class_Screens["children"]),"__LZCSSTagSelectors",["Screens","Frame","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_Screens.attributes)]);(function($0){
+}},fgcolor:new LzAlwaysExpr("$m2u5","$m2u6",null),fontsize:12,id:"versionproductinfo",text:" ",width:new LzAlwaysExpr("$m2u7","$m2u8",null),x:new LzAlwaysExpr("$m2u3","$m2u4",null)},"class":$lzc$class__m2wl}],$lzc$class_Screens["children"]),"__LZCSSTagSelectors",["Screens","Frame","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_Screens.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2vw"]}},$lzc$class__m2vw.attributes)
-}}})($lzc$class__m2vw)
-};lz.ClassAttributeTypes["$lzc$class__m2vz"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
-Class.make("$lzc$class__m2vz",["$m2tn",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wj"]}},$lzc$class__m2wj.attributes)
+}}})($lzc$class__m2wj)
+};lz.ClassAttributeTypes["$lzc$class__m2wm"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
+Class.make("$lzc$class__m2wm",["$m2ua",function($0){
 var $1=canvas.copyriteColor;if($1!==this["fgcolor"]||!this.inited){
 this.setAttribute("fgcolor",$1)
-}},"$m2to",function(){
+}},"$m2ub",function(){
 try{
 return [canvas,"copyriteColor"]
 }
@@ -37894,10 +38109,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2tp",function($0){
+}},"$m2uc",function($0){
 var $1=canvas.Copyrite;if($1!==this["text"]||!this.inited){
 this.setAttribute("text",$1)
-}},"$m2tq",function(){
+}},"$m2ud",function(){
 try{
 return [canvas,"Copyrite"]
 }
@@ -37905,7 +38120,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2tr",function($0){
+}},"$m2ue",function($0){
 var $1=this.getDisplayObject();$1.setAttribute("style","width: auto; font-family: CTB; font-size: 12px")
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -37922,13 +38137,13 @@ $3=false;
 }],LzText,["displayName","<anonymous extends='text'>","__LZCSSTagSelectors",["text","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzText.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2vz"]}},$lzc$class__m2vz.attributes)
-}}})($lzc$class__m2vz)
-};lz.ClassAttributeTypes["$lzc$class__m2w1"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["drawview"],{});{
-Class.make("$lzc$class__m2w1",["$m2tx",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wm"]}},$lzc$class__m2wm.attributes)
+}}})($lzc$class__m2wm)
+};lz.ClassAttributeTypes["$lzc$class__m2wo"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["drawview"],{});{
+Class.make("$lzc$class__m2wo",["$m2uk",function($0){
 var $1=this.parent.popupWidth;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2ty",function(){
+}},"$m2ul",function(){
 try{
 return [this.parent,"popupWidth"]
 }
@@ -37936,10 +38151,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2tz",function($0){
+}},"$m2um",function($0){
 var $1=this.parent.popupHeight;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2u0",function(){
+}},"$m2un",function(){
 try{
 return [this.parent,"popupHeight"]
 }
@@ -37972,10 +38187,10 @@ $3=false;
 }],$lzc$class_drawview,["displayName","<anonymous extends='drawview'>","__LZCSSTagSelectors",["drawview","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_drawview.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2w1"]}},$lzc$class__m2w1.attributes)
-}}})($lzc$class__m2w1)
-};lz.ClassAttributeTypes["$lzc$class__m2w3"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
-Class.make("$lzc$class__m2w3",["$m2u5",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wo"]}},$lzc$class__m2wo.attributes)
+}}})($lzc$class__m2wo)
+};lz.ClassAttributeTypes["$lzc$class__m2wq"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
+Class.make("$lzc$class__m2wq",["$m2us",function($0){
 gController.setNavigation(1,this.parent.parent.navigateFrom);gController.unlockUI()
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -37992,10 +38207,10 @@ $3=false;
 }],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","__LZCSSTagSelectors",["basebutton","basecomponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2w3"]}},$lzc$class__m2w3.attributes)
-}}})($lzc$class__m2w3)
-};lz.ClassAttributeTypes["$lzc$class__m2w4"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
-Class.make("$lzc$class__m2w4",["$m2u6",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wq"]}},$lzc$class__m2wq.attributes)
+}}})($lzc$class__m2wq)
+};lz.ClassAttributeTypes["$lzc$class__m2wr"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
+Class.make("$lzc$class__m2wr",["$m2ut",function($0){
 gController.setAttribute("isAnswerAreaDisabled",false);gController.setNavigation(0,this.parent.parent.navigateFrom)
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -38012,13 +38227,13 @@ $3=false;
 }],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","__LZCSSTagSelectors",["basebutton","basecomponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2w4"]}},$lzc$class__m2w4.attributes)
-}}})($lzc$class__m2w4)
-};lz.ClassAttributeTypes["$lzc$class__m2w2"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
-Class.make("$lzc$class__m2w2",["$m2u1",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wr"]}},$lzc$class__m2wr.attributes)
+}}})($lzc$class__m2wr)
+};lz.ClassAttributeTypes["$lzc$class__m2wp"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class__m2wp",["$m2uo",function($0){
 var $1=this.parent.windowbg.width-10;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2u2",function(){
+}},"$m2up",function(){
 try{
 return [this.parent.windowbg,"width"]
 }
@@ -38026,10 +38241,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2u3",function($0){
+}},"$m2uq",function($0){
 var $1=this.parent.windowbg.height-10;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2u4",function(){
+}},"$m2ur",function(){
 try{
 return [this.parent.windowbg,"height"]
 }
@@ -38049,16 +38264,16 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["revisitFalse"]},align:"center",fgcolor:0,font:"CTB",fontsize:15,multiline:true,name:"revisitFalse",text:"Warning! Once you leave this page, you cannot come back. Do you want to Go On?",width:265,y:20},"class":LzText},{attrs:{$delegates:["onclick","$m2u5",null],clickable:true,height:25,name:"okButton",resource:"popupOk",stretches:"both",width:120,x:30,y:110},"class":$lzc$class__m2w3},{attrs:{$delegates:["onclick","$m2u6",null],clickable:true,height:25,name:"cancelButton",resource:"popupCancel",stretches:"both",width:102,x:178,y:110},"class":$lzc$class__m2w4}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["revisitFalse"]},align:"center",fgcolor:0,font:"CTB",fontsize:15,multiline:true,name:"revisitFalse",text:"Warning! Once you leave this page, you cannot come back. Do you want to Go On?",width:265,y:20},"class":LzText},{attrs:{$delegates:["onclick","$m2us",null],clickable:true,height:25,name:"okButton",resource:"popupOk",stretches:"both",width:120,x:30,y:110},"class":$lzc$class__m2wq},{attrs:{$delegates:["onclick","$m2ut",null],clickable:true,height:25,name:"cancelButton",resource:"popupCancel",stretches:"both",width:102,x:178,y:110},"class":$lzc$class__m2wr}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2w2"]}},$lzc$class__m2w2.attributes)
-}}})($lzc$class__m2w2)
-};lz.ClassAttributeTypes["$lzc$class__m2w0"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{bg:"color",fg:"color",popupHeight:"number",popupWidth:"number"});{
-Class.make("$lzc$class__m2w0",["$m2ts",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wp"]}},$lzc$class__m2wp.attributes)
+}}})($lzc$class__m2wp)
+};lz.ClassAttributeTypes["$lzc$class__m2wn"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{bg:"color",fg:"color",popupHeight:"number",popupWidth:"number"});{
+Class.make("$lzc$class__m2wn",["$m2uf",function($0){
 var $1=canvas.xscalefactor;if($1!==this["xscale"]||!this.inited){
 this.setAttribute("xscale",$1)
-}},"$m2tt",function(){
+}},"$m2ug",function(){
 try{
 return [canvas,"xscalefactor"]
 }
@@ -38066,10 +38281,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2tu",function($0){
+}},"$m2uh",function($0){
 var $1=canvas.yscalefactor;if($1!==this["yscale"]||!this.inited){
 this.setAttribute("yscale",$1)
-}},"$m2tv",function(){
+}},"$m2ui",function(){
 try{
 return [canvas,"yscalefactor"]
 }
@@ -38077,7 +38292,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"popupHeight",void 0,"popupWidth",void 0,"bg",void 0,"fg",void 0,"navigateFrom",void 0,"$m2tw",function($0){
+}},"popupHeight",void 0,"popupWidth",void 0,"bg",void 0,"fg",void 0,"navigateFrom",void 0,"$m2uj",function($0){
 this.setup(null,null,null)
 },"setup",function($0,$1,$2){
 if($1!=null&&$1.length>0){
@@ -38106,16 +38321,16 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{height:new LzAlwaysExpr("$m2tz","$m2u0",null),name:"windowbg",width:new LzAlwaysExpr("$m2tx","$m2ty",null)},"class":$lzc$class__m2w1},{attrs:{bgcolor:12632256,cancelButton:void 0,height:new LzAlwaysExpr("$m2u3","$m2u4",null),name:"contents",okButton:void 0,revisitFalse:void 0,width:new LzAlwaysExpr("$m2u1","$m2u2",null),x:5,y:5},"class":$lzc$class__m2w2}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{height:new LzAlwaysExpr("$m2um","$m2un",null),name:"windowbg",width:new LzAlwaysExpr("$m2uk","$m2ul",null)},"class":$lzc$class__m2wo},{attrs:{bgcolor:12632256,cancelButton:void 0,height:new LzAlwaysExpr("$m2uq","$m2ur",null),name:"contents",okButton:void 0,revisitFalse:void 0,width:new LzAlwaysExpr("$m2uo","$m2up",null),x:5,y:5},"class":$lzc$class__m2wp}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2w0"]}},$lzc$class__m2w0.attributes)
-}}})($lzc$class__m2w0)
-};lz.ClassAttributeTypes["$lzc$class__m2w6"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["drawview"],{});{
-Class.make("$lzc$class__m2w6",["$m2u8",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wn"]}},$lzc$class__m2wn.attributes)
+}}})($lzc$class__m2wn)
+};lz.ClassAttributeTypes["$lzc$class__m2wt"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["drawview"],{});{
+Class.make("$lzc$class__m2wt",["$m2uv",function($0){
 var $1=this.parent.popupWidth;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2u9",function(){
+}},"$m2uw",function(){
 try{
 return [this.parent,"popupWidth"]
 }
@@ -38123,10 +38338,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2ua",function($0){
+}},"$m2ux",function($0){
 var $1=this.parent.popupHeight;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2ub",function(){
+}},"$m2uy",function(){
 try{
 return [this.parent,"popupHeight"]
 }
@@ -38159,10 +38374,10 @@ $3=false;
 }],$lzc$class_drawview,["displayName","<anonymous extends='drawview'>","__LZCSSTagSelectors",["drawview","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_drawview.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2w6"]}},$lzc$class__m2w6.attributes)
-}}})($lzc$class__m2w6)
-};lz.ClassAttributeTypes["$lzc$class__m2w9"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["animator"],{});{
-Class.make("$lzc$class__m2w9",["$m2uk",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wt"]}},$lzc$class__m2wt.attributes)
+}}})($lzc$class__m2wt)
+};lz.ClassAttributeTypes["$lzc$class__m2ww"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["animator"],{});{
+Class.make("$lzc$class__m2ww",["$m2v7",function($0){
 this.setAttribute("x",50);if(gPleaseWaitPopup.visible==true){
 this.doStart()
 }},"$lzsc$initialize",function($0,$1,$2,$3){
@@ -38180,13 +38395,13 @@ $3=false;
 }],LzAnimator,["displayName","<anonymous extends='animator'>","__LZCSSTagSelectors",["animator","animatorgroup","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzAnimator.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2w9"]}},$lzc$class__m2w9.attributes)
-}}})($lzc$class__m2w9)
-};lz.ClassAttributeTypes["$lzc$class__m2w8"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
-Class.make("$lzc$class__m2w8",["$m2ug",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2ww"]}},$lzc$class__m2ww.attributes)
+}}})($lzc$class__m2ww)
+};lz.ClassAttributeTypes["$lzc$class__m2wv"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class__m2wv",["$m2v3",function($0){
 var $1=this.parent.Bar.x;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}},"$m2uh",function(){
+}},"$m2v4",function(){
 try{
 return [this.parent.Bar,"x"]
 }
@@ -38194,10 +38409,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2ui",function($0){
+}},"$m2v5",function($0){
 var $1=this.parent.Bar.y;if($1!==this["y"]||!this.inited){
 this.setAttribute("y",$1)
-}},"$m2uj",function(){
+}},"$m2v6",function(){
 try{
 return [this.parent.Bar,"y"]
 }
@@ -38217,13 +38432,13 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$delegates:["onstop","$m2uk",null],attribute:"x",duration:3000,from:50,motion:"linear",name:"barAnimator",repeat:9,start:false,to:136},"class":$lzc$class__m2w9}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$delegates:["onstop","$m2v7",null],attribute:"x",duration:3000,from:50,motion:"linear",name:"barAnimator",repeat:9,start:false,to:136},"class":$lzc$class__m2ww}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2w8"]}},$lzc$class__m2w8.attributes)
-}}})($lzc$class__m2w8)
-};lz.ClassAttributeTypes["$lzc$class__m2wa"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
-Class.make("$lzc$class__m2wa",["$m2ul",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wv"]}},$lzc$class__m2wv.attributes)
+}}})($lzc$class__m2wv)
+};lz.ClassAttributeTypes["$lzc$class__m2wx"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
+Class.make("$lzc$class__m2wx",["$m2v8",function($0){
 gController.setAttribute("timeoutforpause",false);gController.setState("none");gController.exitPopups();gController.terminate();gPleaseWaitPopup.resetControls()
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -38240,13 +38455,13 @@ $3=false;
 }],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","__LZCSSTagSelectors",["basebutton","basecomponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wa"]}},$lzc$class__m2wa.attributes)
-}}})($lzc$class__m2wa)
-};lz.ClassAttributeTypes["$lzc$class__m2w7"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
-Class.make("$lzc$class__m2w7",["$m2uc",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wx"]}},$lzc$class__m2wx.attributes)
+}}})($lzc$class__m2wx)
+};lz.ClassAttributeTypes["$lzc$class__m2wu"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class__m2wu",["$m2uz",function($0){
 var $1=this.parent.windowbg.width-12;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2ud",function(){
+}},"$m2v0",function(){
 try{
 return [this.parent.windowbg,"width"]
 }
@@ -38254,10 +38469,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2ue",function($0){
+}},"$m2v1",function($0){
 var $1=this.parent.windowbg.height-12;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2uf",function(){
+}},"$m2v2",function(){
 try{
 return [this.parent.windowbg,"height"]
 }
@@ -38277,13 +38492,13 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["pleaseWait"]},name:"pleaseWait",pleaseWaitHeading:void 0,visible:true},children:[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["pleaseWaitHeading"]},fgcolor:1919126,font:"CTB",fontsize:15,multiline:true,name:"pleaseWaitHeading",text:"Please Wait ......",width:200,x:40,y:90},"class":LzText}],"class":LzView},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["networkLost"]},Bar:void 0,Globe:void 0,align:"center",computer:void 0,height:55,inBar:void 0,name:"networkLost",width:250,y:12},children:[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["computer"]},height:55,name:"computer",resource:"system_btn",stretches:"both",width:45,x:6,y:10},"class":LzView},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["Bar"]},height:5,name:"Bar",resource:"simple_bar_btn",width:14,x:50,y:38},"class":LzView},{attrs:{barAnimator:void 0,height:5,name:"inBar",resource:"bar_btn",width:4,x:new LzAlwaysExpr("$m2ug","$m2uh",null),y:new LzAlwaysExpr("$m2ui","$m2uj",null)},"class":$lzc$class__m2w8},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["Globe"]},height:55,name:"Globe",resource:"globe_btn",stretches:"both",width:45,x:157,y:10},"class":LzView}],"class":LzView},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["retryingPopupMessage"]},name:"retryingPopupMessage",quitMessage:void 0,visible:false},children:[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["quitMessage"]},fgcolor:0,font:"CTB",fontsize:9,multiline:true,name:"quitMessage",text:"This computer is having trouble with the test.<br/>Please raise your hand for a teacher or proctor to help you.<br/>You may finish the test on a different computer.",width:290,x:20,y:78},"class":LzText}],"class":LzView},{attrs:{$delegates:["onclick","$m2ul",null],clickable:true,enabled:false,height:32,name:"exitButton",resource:"exit_button_rsc",stretches:"both",width:62,x:220,y:120},"class":$lzc$class__m2wa}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["pleaseWait"]},name:"pleaseWait",pleaseWaitHeading:void 0,visible:true},children:[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["pleaseWaitHeading"]},fgcolor:1919126,font:"CTB",fontsize:15,multiline:true,name:"pleaseWaitHeading",text:"Please Wait ......",width:200,x:40,y:90},"class":LzText}],"class":LzView},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["networkLost"]},Bar:void 0,Globe:void 0,align:"center",computer:void 0,height:55,inBar:void 0,name:"networkLost",width:250,y:12},children:[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["computer"]},height:55,name:"computer",resource:"system_btn",stretches:"both",width:45,x:6,y:10},"class":LzView},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["Bar"]},height:5,name:"Bar",resource:"simple_bar_btn",width:14,x:50,y:38},"class":LzView},{attrs:{barAnimator:void 0,height:5,name:"inBar",resource:"bar_btn",width:4,x:new LzAlwaysExpr("$m2v3","$m2v4",null),y:new LzAlwaysExpr("$m2v5","$m2v6",null)},"class":$lzc$class__m2wv},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["Globe"]},height:55,name:"Globe",resource:"globe_btn",stretches:"both",width:45,x:157,y:10},"class":LzView}],"class":LzView},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["retryingPopupMessage"]},name:"retryingPopupMessage",quitMessage:void 0,visible:false},children:[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["quitMessage"]},fgcolor:0,font:"CTB",fontsize:9,multiline:true,name:"quitMessage",text:"This computer is having trouble with the test.<br/>Please raise your hand for a teacher or proctor to help you.<br/>You may finish the test on a different computer.",width:290,x:20,y:78},"class":LzText}],"class":LzView},{attrs:{$delegates:["onclick","$m2v8",null],clickable:true,enabled:false,height:32,name:"exitButton",resource:"exit_button_rsc",stretches:"both",width:62,x:220,y:120},"class":$lzc$class__m2wx}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2w7"]}},$lzc$class__m2w7.attributes)
-}}})($lzc$class__m2w7)
-};lz.ClassAttributeTypes["$lzc$class__m2w5"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{bg:"color",exitButtonStatus:"boolean",fg:"color",manipRef:"object",popupHeight:"number",popupWidth:"number"});{
-Class.make("$lzc$class__m2w5",["popupHeight",void 0,"popupWidth",void 0,"bg",void 0,"fg",void 0,"navigateFrom",void 0,"exitButtonStatus",void 0,"manipRef",void 0,"$m2u7",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wu"]}},$lzc$class__m2wu.attributes)
+}}})($lzc$class__m2wu)
+};lz.ClassAttributeTypes["$lzc$class__m2ws"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{bg:"color",exitButtonStatus:"boolean",fg:"color",manipRef:"object",popupHeight:"number",popupWidth:"number"});{
+Class.make("$lzc$class__m2ws",["popupHeight",void 0,"popupWidth",void 0,"bg",void 0,"fg",void 0,"navigateFrom",void 0,"exitButtonStatus",void 0,"manipRef",void 0,"$m2uu",function($0){
 this.setup("","","")
 },"setup",function($0,$1,$2){
 if($1!=null&&$1.length>0){
@@ -38320,16 +38535,16 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{height:new LzAlwaysExpr("$m2ua","$m2ub",null),name:"windowbg",width:new LzAlwaysExpr("$m2u8","$m2u9",null)},"class":$lzc$class__m2w6},{attrs:{bgcolor:12632256,exitButton:void 0,height:new LzAlwaysExpr("$m2ue","$m2uf",null),name:"contents",networkLost:void 0,pleaseWait:void 0,retryingPopupMessage:void 0,width:new LzAlwaysExpr("$m2uc","$m2ud",null),x:6,y:6},"class":$lzc$class__m2w7}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{height:new LzAlwaysExpr("$m2ux","$m2uy",null),name:"windowbg",width:new LzAlwaysExpr("$m2uv","$m2uw",null)},"class":$lzc$class__m2wt},{attrs:{bgcolor:12632256,exitButton:void 0,height:new LzAlwaysExpr("$m2v1","$m2v2",null),name:"contents",networkLost:void 0,pleaseWait:void 0,retryingPopupMessage:void 0,width:new LzAlwaysExpr("$m2uz","$m2v0",null),x:6,y:6},"class":$lzc$class__m2wu}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2w5"]}},$lzc$class__m2w5.attributes)
-}}})($lzc$class__m2w5)
-};lz.ClassAttributeTypes["$lzc$class__m2wc"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["drawview"],{});{
-Class.make("$lzc$class__m2wc",["$m2uu",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2ws"]}},$lzc$class__m2ws.attributes)
+}}})($lzc$class__m2ws)
+};lz.ClassAttributeTypes["$lzc$class__m2wz"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["drawview"],{});{
+Class.make("$lzc$class__m2wz",["$m2vh",function($0){
 var $1=this.parent.popupWidth;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2uv",function(){
+}},"$m2vi",function(){
 try{
 return [this.parent,"popupWidth"]
 }
@@ -38337,10 +38552,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2uw",function($0){
+}},"$m2vj",function($0){
 var $1=this.parent.popupHeight;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2ux",function(){
+}},"$m2vk",function(){
 try{
 return [this.parent,"popupHeight"]
 }
@@ -38373,15 +38588,15 @@ $3=false;
 }],$lzc$class_drawview,["displayName","<anonymous extends='drawview'>","children",[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["anm_outer"]},attribute:"height",duration:1000,from:0,motion:"linear",name:"anm_outer",start:false,to:50},"class":LzAnimator}],"__LZCSSTagSelectors",["drawview","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_drawview.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wc"]}},$lzc$class__m2wc.attributes)
-}}})($lzc$class__m2wc)
-};lz.ClassAttributeTypes["$lzc$class__m2we"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
-Class.make("$lzc$class__m2we",["$m2v2",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wz"]}},$lzc$class__m2wz.attributes)
+}}})($lzc$class__m2wz)
+};lz.ClassAttributeTypes["$lzc$class__m2x1"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
+Class.make("$lzc$class__m2x1",["$m2vp",function($0){
 if(gMusicPlayer.playStarted==false){
 gMusicPlayer.play();gMusicPlayer.setAttribute("playStarted",true);this.parent.playButton.setAttribute("visible",false);this.parent.stopButton.setAttribute("visible",true)
-}},"$m2v3",function($0){
+}},"$m2vq",function($0){
 lz.Cursor.showHandCursor(true)
-},"$m2v4",function($0){
+},"$m2vr",function($0){
 lz.Cursor.showHandCursor(false)
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -38398,15 +38613,15 @@ $3=false;
 }],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","__LZCSSTagSelectors",["basebutton","basecomponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2we"]}},$lzc$class__m2we.attributes)
-}}})($lzc$class__m2we)
-};lz.ClassAttributeTypes["$lzc$class__m2wf"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
-Class.make("$lzc$class__m2wf",["$m2v5",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2x1"]}},$lzc$class__m2x1.attributes)
+}}})($lzc$class__m2x1)
+};lz.ClassAttributeTypes["$lzc$class__m2x2"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["basebutton"],{});{
+Class.make("$lzc$class__m2x2",["$m2vs",function($0){
 if(gMusicPlayer.playStarted==true){
 gMusicPlayer.stop();this.setAttribute("stopCalled",true);gMusicPlayer.setAttribute("playStarted",false);this.parent.stopButton.setAttribute("visible",false);this.parent.playButton.setAttribute("visible",true)
-}},"$m2v6",function($0){
+}},"$m2vt",function($0){
 lz.Cursor.showHandCursor(true)
-},"$m2v7",function($0){
+},"$m2vu",function($0){
 lz.Cursor.showHandCursor(false)
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -38423,10 +38638,10 @@ $3=false;
 }],$lzc$class_basebutton,["displayName","<anonymous extends='basebutton'>","__LZCSSTagSelectors",["basebutton","basecomponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_basebutton.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wf"]}},$lzc$class__m2wf.attributes)
-}}})($lzc$class__m2wf)
-};lz.ClassAttributeTypes["$lzc$class__m2wg"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
-Class.make("$lzc$class__m2wg",["$m2v8",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2x2"]}},$lzc$class__m2x2.attributes)
+}}})($lzc$class__m2x2)
+};lz.ClassAttributeTypes["$lzc$class__m2x3"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
+Class.make("$lzc$class__m2x3",["$m2vv",function($0){
 var $1=this.getDisplayObject();$1.setAttribute("style","font-size: 7px; width: auto; height: 15px;")
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -38443,13 +38658,13 @@ $3=false;
 }],LzText,["displayName","<anonymous extends='text'>","__LZCSSTagSelectors",["text","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzText.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wg"]}},$lzc$class__m2wg.attributes)
-}}})($lzc$class__m2wg)
-};lz.ClassAttributeTypes["$lzc$class__m2wh"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["slider"],{});{
-Class.make("$lzc$class__m2wh",["$m2v9",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2x3"]}},$lzc$class__m2x3.attributes)
+}}})($lzc$class__m2x3)
+};lz.ClassAttributeTypes["$lzc$class__m2x4"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["slider"],{});{
+Class.make("$lzc$class__m2x4",["$m2vw",function($0){
 if(gMusicPlayer!=null&&canvas.capabilities.audio){
 gMusicPlayer.setVolume(this.value)
-}},"$m2va",function($0){
+}},"$m2vx",function($0){
 this.subviews[0].subviews[2].subviews[3].setAttribute("visible",false);this.registerThumb(this.track.thumb)
 },"registerThumb",function($0){
 if(typeof this.delOver=="undefined"){
@@ -38476,13 +38691,13 @@ $3=false;
 }],$lzc$class_slider,["displayName","<anonymous extends='slider'>","children",LzNode.mergeChildren([],$lzc$class_slider["children"]),"__LZCSSTagSelectors",["slider","baseslider","basevaluecomponent","basecomponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_slider.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wh"]}},$lzc$class__m2wh.attributes)
-}}})($lzc$class__m2wh)
-};lz.ClassAttributeTypes["$lzc$class__m2wd"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
-Class.make("$lzc$class__m2wd",["$m2uy",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2x4"]}},$lzc$class__m2x4.attributes)
+}}})($lzc$class__m2x4)
+};lz.ClassAttributeTypes["$lzc$class__m2x0"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class__m2x0",["$m2vl",function($0){
 var $1=this.parent.windowbg.width-5;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2uz",function(){
+}},"$m2vm",function(){
 try{
 return [this.parent.windowbg,"width"]
 }
@@ -38490,10 +38705,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2v0",function($0){
+}},"$m2vn",function($0){
 var $1=this.parent.windowbg.height-5;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2v1",function(){
+}},"$m2vo",function(){
 try{
 return [this.parent.windowbg,"height"]
 }
@@ -38513,16 +38728,16 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["playerContainer"]},name:"playerContainer",playButton:void 0,stopButton:void 0,x:5,y:5},children:[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},axis:"x",spacing:10},"class":$lzc$class_simplelayout},{attrs:{$delegates:["onclick","$m2v2",null,"onmouseover","$m2v3",null,"onmouseout","$m2v4",null],clickable:true,height:23,name:"playButton",resource:"music_play_btn",stretches:"both",visible:false,width:23},"class":$lzc$class__m2we},{attrs:{$delegates:["onclick","$m2v5",null,"onmouseover","$m2v6",null,"onmouseout","$m2v7",null],clickable:true,height:23,name:"stopButton",resource:"music_stop_btn",stretches:"both",visible:true,width:23},"class":$lzc$class__m2wf},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["view"]},height:44,valign:"middle",volumeText:void 0},children:[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},axis:"y"},"class":$lzc$class_simplelayout},{attrs:{$delegates:["oninit","$m2v8",null],align:"center",fontsize:7,fontstyle:"bold",height:15,name:"volumeText",resize:true,text:"Volume"},"class":$lzc$class__m2wg},{attrs:{$delegates:["onvalue","$m2v9",null,"oninit","$m2va",null],keystep:1,maxvalue:100,minvalue:0,showfill:true,showrange:false,showvalue:false,thumbheight:12,thumbwidth:16,value:50,width:80},"class":$lzc$class__m2wh}],"class":LzView}],"class":LzView}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["playerContainer"]},name:"playerContainer",playButton:void 0,stopButton:void 0,x:5,y:5},children:[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},axis:"x",spacing:10},"class":$lzc$class_simplelayout},{attrs:{$delegates:["onclick","$m2vp",null,"onmouseover","$m2vq",null,"onmouseout","$m2vr",null],clickable:true,height:23,name:"playButton",resource:"music_play_btn",stretches:"both",visible:false,width:23},"class":$lzc$class__m2x1},{attrs:{$delegates:["onclick","$m2vs",null,"onmouseover","$m2vt",null,"onmouseout","$m2vu",null],clickable:true,height:23,name:"stopButton",resource:"music_stop_btn",stretches:"both",visible:true,width:23},"class":$lzc$class__m2x2},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["view"]},height:44,valign:"middle",volumeText:void 0},children:[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},axis:"y"},"class":$lzc$class_simplelayout},{attrs:{$delegates:["oninit","$m2vv",null],align:"center",fontsize:7,fontstyle:"bold",height:15,name:"volumeText",resize:true,text:"Volume"},"class":$lzc$class__m2x3},{attrs:{$delegates:["onvalue","$m2vw",null,"oninit","$m2vx",null],keystep:1,maxvalue:100,minvalue:0,showfill:true,showrange:false,showvalue:false,thumbheight:12,thumbwidth:16,value:50,width:80},"class":$lzc$class__m2x4}],"class":LzView}],"class":LzView}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wd"]}},$lzc$class__m2wd.attributes)
-}}})($lzc$class__m2wd)
-};lz.ClassAttributeTypes["$lzc$class__m2wb"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{alreadyCalled:"boolean",autoPlay:"boolean",bg:"color",fg:"color",playButton:"string",playStarted:"boolean",popupHeight:"number",popupWidth:"number",stopButton:"string",stopCalled:"boolean"});{
-Class.make("$lzc$class__m2wb",["$m2um",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2x0"]}},$lzc$class__m2x0.attributes)
+}}})($lzc$class__m2x0)
+};lz.ClassAttributeTypes["$lzc$class__m2wy"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{alreadyCalled:"boolean",autoPlay:"boolean",bg:"color",fg:"color",playButton:"string",playStarted:"boolean",popupHeight:"number",popupWidth:"number",stopButton:"string",stopCalled:"boolean"});{
+Class.make("$lzc$class__m2wy",["$m2v9",function($0){
 var $1=gMusicButton.parent.y+gMusicButton.height-3;if($1!==this["y"]||!this.inited){
 this.setAttribute("y",$1)
-}},"$m2un",function(){
+}},"$m2va",function(){
 try{
 return [gMusicButton.parent,"y",gMusicButton,"height"]
 }
@@ -38530,10 +38745,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2uo",function($0){
+}},"$m2vb",function($0){
 var $1=gMusicButton.parent.parent.x-gMusicButton.width-gMusicButton.width/2;if($1!==this["x"]||!this.inited){
 this.setAttribute("x",$1)
-}},"$m2up",function(){
+}},"$m2vc",function(){
 try{
 return [gMusicButton.parent.parent,"x",gMusicButton,"width"]
 }
@@ -38541,9 +38756,9 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"popupHeight",void 0,"popupWidth",void 0,"bg",void 0,"fg",void 0,"playStarted",void 0,"stopCalled",void 0,"autoPlay",void 0,"alreadyCalled",void 0,"playButton",void 0,"stopButton",void 0,"$m2uq",function($0){
+}},"popupHeight",void 0,"popupWidth",void 0,"bg",void 0,"fg",void 0,"playStarted",void 0,"stopCalled",void 0,"autoPlay",void 0,"alreadyCalled",void 0,"playButton",void 0,"stopButton",void 0,"$m2vd",function($0){
 this.setup("","","")
-},"$m2ur",function($0){
+},"$m2ve",function($0){
 if(canvas.capabilities.audio){
 this.setVolume(50)
 }},"setup",function($0,$1,$2){
@@ -38566,9 +38781,9 @@ if(this.visible==false){
 this.show()
 }else if(this.visible==true){
 this.hide()
-}},"$m2us",function($0){
+}},"$m2vf",function($0){
 this.playStarted=true
-},"$m2ut",function($0){
+},"$m2vg",function($0){
 if(this.playStarted==true){
 gMusicPlayer.setAttribute("frame",1);gMusicPlayer.play()
 }},"windowbg",void 0,"contents",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
@@ -38583,13 +38798,13 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{anm_outer:void 0,height:new LzAlwaysExpr("$m2uw","$m2ux",null),name:"windowbg",width:new LzAlwaysExpr("$m2uu","$m2uv",null)},"class":$lzc$class__m2wc},{attrs:{bgcolor:14935011,height:new LzAlwaysExpr("$m2v0","$m2v1",null),name:"contents",playerContainer:void 0,width:new LzAlwaysExpr("$m2uy","$m2uz",null),x:5,y:5},"class":$lzc$class__m2wd}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{anm_outer:void 0,height:new LzAlwaysExpr("$m2vj","$m2vk",null),name:"windowbg",width:new LzAlwaysExpr("$m2vh","$m2vi",null)},"class":$lzc$class__m2wz},{attrs:{bgcolor:14935011,height:new LzAlwaysExpr("$m2vn","$m2vo",null),name:"contents",playerContainer:void 0,width:new LzAlwaysExpr("$m2vl","$m2vm",null),x:5,y:5},"class":$lzc$class__m2x0}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wb"]}},$lzc$class__m2wb.attributes)
-}}})($lzc$class__m2wb)
-};lz.ClassAttributeTypes["$lzc$class__m2wj"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
-Class.make("$lzc$class__m2wj",["mylayout",void 0,"clearOut",function(){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wy"]}},$lzc$class__m2wy.attributes)
+}}})($lzc$class__m2wy)
+};lz.ClassAttributeTypes["$lzc$class__m2x6"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class__m2x6",["mylayout",void 0,"clearOut",function(){
 for(var $0 in gMaskingAnswer.windowbg.maskingAnswerArea.subviews){
 gMaskingAnswer.windowbg.maskingAnswerArea.subviews[$0].destroy()
 };gMaskingAnswer.windowbg.maskingAnswerArea.subviews=[]
@@ -38608,20 +38823,20 @@ $3=false;
 }],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["mylayout"]},axis:"y",name:"mylayout",spacing:2},"class":$lzc$class_simplelayout}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wj"]}},$lzc$class__m2wj.attributes)
-}}})($lzc$class__m2wj)
-};lz.ClassAttributeTypes["$lzc$class__m2wi"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{bg:"color",choicelen:"number",fg:"color",lastxpos:"number",lastypos:"number",withState:"boolean"});{
-Class.make("$lzc$class__m2wi",["$m2vb",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2x6"]}},$lzc$class__m2x6.attributes)
+}}})($lzc$class__m2x6)
+};lz.ClassAttributeTypes["$lzc$class__m2x5"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{bg:"color",choicelen:"number",fg:"color",lastxpos:"number",lastypos:"number",withState:"boolean"});{
+Class.make("$lzc$class__m2x5",["$m2vy",function($0){
 this.dataBindAttribute("stereotype","@stereotype","expression")
-},"stereotype",void 0,"bg",void 0,"fg",void 0,"lastxpos",void 0,"lastypos",void 0,"isEnabled",void 0,"$m2vc",function($0){
+},"stereotype",void 0,"bg",void 0,"fg",void 0,"lastxpos",void 0,"lastypos",void 0,"isEnabled",void 0,"$m2vz",function($0){
 this.setAttribute("dp",new (lz.datapointer)())
-},"dp",void 0,"choicelen",void 0,"withState",void 0,"$m2vd",function($0){
+},"dp",void 0,"choicelen",void 0,"withState",void 0,"$m2w0",function($0){
 Debug.write("masking answer iondata")
-},"$m2ve",function($0){
+},"$m2w1",function($0){
 Debug.write("onvisible....",this.visible)
-},"$m2vf",function($0){
+},"$m2w2",function($0){
 Debug.write("onvisible....",this.visible)
-},"$m2vg",function($0){
+},"$m2w3",function($0){
 Debug.write("onvisible....",this.visible)
 },"windowbg",void 0,"setUpPopUp",function(){
 var $0=[];var $1=[];this.setAttribute("x",gManipulativeBar.globals.maskingAnswer.x);this.setAttribute("y",gManipulativeBar.globals.maskingAnswer.y+gManipulativeBar.globals.maskingAnswer.height+50);this.choicelen=gController.returnNumberOfOptions();this.createChoices()
@@ -38648,16 +38863,16 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["windowbg"]},maskingAnswerArea:void 0,name:"windowbg",width:65},children:[{attrs:{bgcolor:12638699,mylayout:void 0,name:"maskingAnswerArea",resource:"magnifierBlank",width:65,x:0,y:2},"class":$lzc$class__m2wj}],"class":LzView}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["windowbg"]},maskingAnswerArea:void 0,name:"windowbg",width:65},children:[{attrs:{bgcolor:12638699,mylayout:void 0,name:"maskingAnswerArea",resource:"magnifierBlank",width:65,x:0,y:2},"class":$lzc$class__m2x6}],"class":LzView}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wi"]}},$lzc$class__m2wi.attributes)
-}}})($lzc$class__m2wi)
-};lz.ClassAttributeTypes["$lzc$class__m2wk"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
-Class.make("$lzc$class__m2wk",["$m2vh",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2x5"]}},$lzc$class__m2x5.attributes)
+}}})($lzc$class__m2x5)
+};lz.ClassAttributeTypes["$lzc$class__m2x7"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
+Class.make("$lzc$class__m2x7",["$m2w4",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2vi",function(){
+}},"$m2w5",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -38680,13 +38895,13 @@ $3=false;
 }],LzText,["displayName","<anonymous extends='text'>","__LZCSSTagSelectors",["text","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzText.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wk"]}},$lzc$class__m2wk.attributes)
-}}})($lzc$class__m2wk)
-};lz.ClassAttributeTypes["$lzc$class__m2wl"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
-Class.make("$lzc$class__m2wl",["$m2vj",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2x7"]}},$lzc$class__m2x7.attributes)
+}}})($lzc$class__m2x7)
+};lz.ClassAttributeTypes["$lzc$class__m2x8"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
+Class.make("$lzc$class__m2x8",["$m2w6",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2vk",function(){
+}},"$m2w7",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -38709,14 +38924,14 @@ $3=false;
 }],LzText,["displayName","<anonymous extends='text'>","__LZCSSTagSelectors",["text","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzText.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wl"]}},$lzc$class__m2wl.attributes)
-}}})($lzc$class__m2wl)
-};lz.ClassAttributeTypes["$lzc$class__m2wm"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["OkButton"],{});{
-Class.make("$lzc$class__m2wm",["$m2vl",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2x8"]}},$lzc$class__m2x8.attributes)
+}}})($lzc$class__m2x8)
+};lz.ClassAttributeTypes["$lzc$class__m2x9"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["OkButton"],{});{
+Class.make("$lzc$class__m2x9",["$m2w8",function($0){
 gController.closeWritingDialog();lz.Cursor.showHandCursor(false)
-},"$m2vm",function($0){
+},"$m2w9",function($0){
 lz.Cursor.showHandCursor(true)
-},"$m2vn",function($0){
+},"$m2wa",function($0){
 lz.Cursor.showHandCursor(false)
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -38733,13 +38948,13 @@ $3=false;
 }],$lzc$class_OkButton,["displayName","<anonymous extends='OkButton'>","__LZCSSTagSelectors",["OkButton","basebutton","basecomponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_OkButton.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wm"]}},$lzc$class__m2wm.attributes)
-}}})($lzc$class__m2wm)
-};lz.ClassAttributeTypes["$lzc$class__m2vv"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
-Class.make("$lzc$class__m2vv",["$m2t1",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2x9"]}},$lzc$class__m2x9.attributes)
+}}})($lzc$class__m2x9)
+};lz.ClassAttributeTypes["$lzc$class__m2wi"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class__m2wi",["$m2to",function($0){
 var $1=canvas.width/canvas.height<1.33?this.width*600/800:canvas.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2t2",function(){
+}},"$m2tp",function(){
 try{
 return [canvas,"width",canvas,"height",this,"width"]
 }
@@ -38747,10 +38962,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2t3",function($0){
+}},"$m2tq",function($0){
 var $1=canvas.width/canvas.height<1.33?canvas.width:this.height*800/600;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2t4",function(){
+}},"$m2tr",function(){
 try{
 return [canvas,"width",canvas,"height",this,"height"]
 }
@@ -38758,10 +38973,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2t5",function($0){
+}},"$m2ts",function($0){
 var $1=this.height/600;if($1!==this["xscale"]||!this.inited){
 this.setAttribute("xscale",$1)
-}},"$m2t6",function(){
+}},"$m2tt",function(){
 try{
 return [this,"height"]
 }
@@ -38769,10 +38984,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2t7",function($0){
+}},"$m2tu",function($0){
 var $1=this.height/600;if($1!==this["yscale"]||!this.inited){
 this.setAttribute("yscale",$1)
-}},"$m2t8",function(){
+}},"$m2tv",function(){
 try{
 return [this,"height"]
 }
@@ -38780,7 +38995,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2t9",function($0){
+}},"$m2tw",function($0){
 canvas.setScale()
 },"gView",void 0,"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -38803,7 +39018,7 @@ $1=true;
 $0.id="gItemInterface";gItemInterface=$0
 }else if(gItemInterface===$0){
 gItemInterface=null;$0.id=null
-}},height:600,id:"gItemInterface",name:"gItemInterface",visible:false,width:800},"class":$lzc$class_ItemInterface},{attrs:{$delegates:["oninit","$m2ta",null],$lzc$bind_id:function($0,$1){
+}},height:600,id:"gItemInterface",name:"gItemInterface",visible:false,width:800},"class":$lzc$class_ItemInterface},{attrs:{$delegates:["oninit","$m2tx",null],$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -38812,7 +39027,7 @@ $1=true;
 $0.id="gScreens";gScreens=$0
 }else if(gScreens===$0){
 gScreens=null;$0.id=null
-}},copyWriteText:void 0,height:200,id:"gScreens",visible:false,width:600,x:100,y:200},"class":$lzc$class__m2vw},{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["SecurityScreen"]},$lzc$bind_id:function($0,$1){
+}},copyWriteText:void 0,height:200,id:"gScreens",visible:false,width:600,x:100,y:200},"class":$lzc$class__m2wj},{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["SecurityScreen"]},$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -38821,7 +39036,7 @@ $1=true;
 $0.id="gSecurityScreen";gSecurityScreen=$0
 }else if(gSecurityScreen===$0){
 gSecurityScreen=null;$0.id=null
-}},copyWriteText:void 0,height:300,id:"gSecurityScreen",visible:false,width:600,x:100,y:100},children:[{attrs:{$delegates:["oninit","$m2tr",null],fgcolor:new LzAlwaysExpr("$m2tn","$m2to",null),name:"copyWriteText",text:new LzAlwaysExpr("$m2tp","$m2tq",null),y:300},"class":$lzc$class__m2vz}],"class":$lzc$class_SecurityScreen},{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["Tutorial"]},$lzc$bind_id:function($0,$1){
+}},copyWriteText:void 0,height:300,id:"gSecurityScreen",visible:false,width:600,x:100,y:100},children:[{attrs:{$delegates:["oninit","$m2ue",null],fgcolor:new LzAlwaysExpr("$m2ua","$m2ub",null),name:"copyWriteText",text:new LzAlwaysExpr("$m2uc","$m2ud",null),y:300},"class":$lzc$class__m2wm}],"class":$lzc$class_SecurityScreen},{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["Tutorial"]},$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -38839,7 +39054,7 @@ $1=true;
 $0.id="gPauseTimerScreen";gPauseTimerScreen=$0
 }else if(gPauseTimerScreen===$0){
 gPauseTimerScreen=null;$0.id=null
-}},height:200,id:"gPauseTimerScreen",name:"gPauseTimerScreen",visible:false,width:800},"class":$lzc$class_PauseTimerScreen},{attrs:{$delegates:["oninit","$m2tw",null],$lzc$bind_id:function($0,$1){
+}},height:200,id:"gPauseTimerScreen",name:"gPauseTimerScreen",visible:false,width:800},"class":$lzc$class_PauseTimerScreen},{attrs:{$delegates:["oninit","$m2uj",null],$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -38848,7 +39063,7 @@ $1=true;
 $0.id="gRevisitFalsePopup";gRevisitFalsePopup=$0
 }else if(gRevisitFalsePopup===$0){
 gRevisitFalsePopup=null;$0.id=null
-}},align:"center",bg:16777215,clickable:false,contents:void 0,fg:14737632,id:"gRevisitFalsePopup",navigateFrom:void 0,popupHeight:157,popupWidth:320,showhandcursor:false,valign:"middle",visible:false,windowbg:void 0,xscale:new LzAlwaysExpr("$m2ts","$m2tt",null),yscale:new LzAlwaysExpr("$m2tu","$m2tv",null)},"class":$lzc$class__m2w0},{attrs:{$delegates:["oninit","$m2u7",null],$lzc$bind_id:function($0,$1){
+}},align:"center",bg:16777215,clickable:false,contents:void 0,fg:14737632,id:"gRevisitFalsePopup",navigateFrom:void 0,popupHeight:157,popupWidth:320,showhandcursor:false,valign:"middle",visible:false,windowbg:void 0,xscale:new LzAlwaysExpr("$m2uf","$m2ug",null),yscale:new LzAlwaysExpr("$m2uh","$m2ui",null)},"class":$lzc$class__m2wn},{attrs:{$delegates:["oninit","$m2uu",null],$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -38857,7 +39072,7 @@ $1=true;
 $0.id="gPleaseWaitPopup";gPleaseWaitPopup=$0
 }else if(gPleaseWaitPopup===$0){
 gPleaseWaitPopup=null;$0.id=null
-}},align:"center",bg:16777215,clickable:false,contents:void 0,exitButtonStatus:false,fg:14737632,id:"gPleaseWaitPopup",manipRef:void 0,navigateFrom:void 0,popupHeight:185,popupWidth:330,showhandcursor:false,valign:"middle",visible:false,windowbg:void 0},"class":$lzc$class__m2w5},{attrs:{$delegates:["oninit","$m2uq",null,"onload","$m2ur",null,"onplay","$m2us",null,"onlastframe","$m2ut",null],$lzc$bind_id:function($0,$1){
+}},align:"center",bg:16777215,clickable:false,contents:void 0,exitButtonStatus:false,fg:14737632,id:"gPleaseWaitPopup",manipRef:void 0,navigateFrom:void 0,popupHeight:185,popupWidth:330,showhandcursor:false,valign:"middle",visible:false,windowbg:void 0},"class":$lzc$class__m2ws},{attrs:{$delegates:["oninit","$m2vd",null,"onload","$m2ve",null,"onplay","$m2vf",null,"onlastframe","$m2vg",null],$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -38866,7 +39081,7 @@ $1=true;
 $0.id="gMusicPlayer";gMusicPlayer=$0
 }else if(gMusicPlayer===$0){
 gMusicPlayer=null;$0.id=null
-}},alreadyCalled:false,autoPlay:false,bg:14079702,clickable:false,contents:void 0,fg:14935011,id:"gMusicPlayer",playButton:void 0,playStarted:false,popupHeight:40,popupWidth:130,showhandcursor:false,stopButton:void 0,stopCalled:true,visible:false,windowbg:void 0,x:new LzAlwaysExpr("$m2uo","$m2up",null),y:new LzAlwaysExpr("$m2um","$m2un",null)},"class":$lzc$class__m2wb},{attrs:{$delegates:["ondata","$m2vd",null,"onvisible","$m2ve",null,"onmousedown","$m2vf",null,"onmouseup","$m2vg",null],$lzc$bind_id:function($0,$1){
+}},alreadyCalled:false,autoPlay:false,bg:14079702,clickable:false,contents:void 0,fg:14935011,id:"gMusicPlayer",playButton:void 0,playStarted:false,popupHeight:40,popupWidth:130,showhandcursor:false,stopButton:void 0,stopCalled:true,visible:false,windowbg:void 0,x:new LzAlwaysExpr("$m2vb","$m2vc",null),y:new LzAlwaysExpr("$m2v9","$m2va",null)},"class":$lzc$class__m2wy},{attrs:{$delegates:["ondata","$m2w0",null,"onvisible","$m2w1",null,"onmousedown","$m2w2",null,"onmouseup","$m2w3",null],$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -38875,7 +39090,7 @@ $1=true;
 $0.id="gMaskingAnswer";gMaskingAnswer=$0
 }else if(gMaskingAnswer===$0){
 gMaskingAnswer=null;$0.id=null
-}},bg:16777215,choicelen:0,clickable:true,dp:new LzOnceExpr("$m2vc",null),fg:16777215,height:80,id:"gMaskingAnswer",isEnabled:false,lastxpos:0,lastypos:0,name:"maskingAnswer",stereotype:new LzOnceExpr("$m2vb",null),visible:false,width:70,windowbg:void 0,withState:false},"class":$lzc$class__m2wi},{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["writingDialog"]},$lzc$bind_id:function($0,$1){
+}},bg:16777215,choicelen:0,clickable:true,dp:new LzOnceExpr("$m2vz",null),fg:16777215,height:80,id:"gMaskingAnswer",isEnabled:false,lastxpos:0,lastypos:0,name:"maskingAnswer",stereotype:new LzOnceExpr("$m2vy",null),visible:false,width:70,windowbg:void 0,withState:false},"class":$lzc$class__m2x5},{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["writingDialog"]},$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -38884,16 +39099,16 @@ $1=true;
 $0.id="writingDialog";writingDialog=$0
 }else if(writingDialog===$0){
 writingDialog=null;$0.id=null
-}},align:"center",allowdrag:false,bgcolor:6721972,englishText:void 0,height:220,id:"writingDialog",name:"writingDialog",showhandcursor:false,spanishText:void 0,title:" ",valign:"middle",visible:false,width:400},children:[{attrs:{fgcolor:16777215,font:"CTB",fontsize:15,multiline:true,name:"englishText",text:"There are 60 minutes remaining in the Writing test. The last question in the test is an essay question. You should allow 45 minutes for the essay question. If you have not yet begun to respond to the essay, you should begin within the next 15 minutes in order to allow sufficient time to complete it.",visible:false,width:new LzAlwaysExpr("$m2vh","$m2vi",null)},"class":$lzc$class__m2wk},{attrs:{fgcolor:16777215,font:"CTB",fontsize:15,multiline:true,name:"spanishText",text:"Quedan 60 minutos para terminar el examen de escritura. La \xFAltima pregunta del examen es un ensayo. Debes dejar 45 minutos para redactar el ensayo. Si no has comenzado a redactar el ensayo, debes comenzar dentro de los pr\xF3ximos 15 minutos con el fin de tener suficiente tiempo para completarlo.",visible:false,width:new LzAlwaysExpr("$m2vj","$m2vk",null)},"class":$lzc$class__m2wl},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["view"]},align:"center",layout:{axis:"x",spacing:20},valign:"middle"},children:[{attrs:{$delegates:["onclick","$m2vl",null,"onmouseover","$m2vm",null,"onmouseout","$m2vn",null],clickable:true},"class":$lzc$class__m2wm}],"class":LzView},{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},spacing:5},"class":$lzc$class_simplelayout}],"class":$lzc$class_modaldialog}],"class":LzView}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}},align:"center",allowdrag:false,bgcolor:6721972,englishText:void 0,height:220,id:"writingDialog",name:"writingDialog",showhandcursor:false,spanishText:void 0,title:" ",valign:"middle",visible:false,width:400},children:[{attrs:{fgcolor:16777215,font:"CTB",fontsize:15,multiline:true,name:"englishText",text:"There are 60 minutes remaining in the Writing test. The last question in the test is an essay question. You should allow 45 minutes for the essay question. If you have not yet begun to respond to the essay, you should begin within the next 15 minutes in order to allow sufficient time to complete it.",visible:false,width:new LzAlwaysExpr("$m2w4","$m2w5",null)},"class":$lzc$class__m2x7},{attrs:{fgcolor:16777215,font:"CTB",fontsize:15,multiline:true,name:"spanishText",text:"Quedan 60 minutos para terminar el examen de escritura. La \xFAltima pregunta del examen es un ensayo. Debes dejar 45 minutos para redactar el ensayo. Si no has comenzado a redactar el ensayo, debes comenzar dentro de los pr\xF3ximos 15 minutos con el fin de tener suficiente tiempo para completarlo.",visible:false,width:new LzAlwaysExpr("$m2w6","$m2w7",null)},"class":$lzc$class__m2x8},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["view"]},align:"center",layout:{axis:"x",spacing:20},valign:"middle"},children:[{attrs:{$delegates:["onclick","$m2w8",null,"onmouseover","$m2w9",null,"onmouseout","$m2wa",null],clickable:true},"class":$lzc$class__m2x9}],"class":LzView},{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},spacing:5},"class":$lzc$class_simplelayout}],"class":$lzc$class_modaldialog}],"class":LzView}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2vv"]}},$lzc$class__m2vv.attributes)
-}}})($lzc$class__m2vv)
-};lz.ClassAttributeTypes["$lzc$class__m2wn"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
-Class.make("$lzc$class__m2wn",["$m2vo",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wi"]}},$lzc$class__m2wi.attributes)
+}}})($lzc$class__m2wi)
+};lz.ClassAttributeTypes["$lzc$class__m2xa"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["text"],{});{
+Class.make("$lzc$class__m2xa",["$m2wb",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2vp",function(){
+}},"$m2wc",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -38916,13 +39131,13 @@ $3=false;
 }],LzText,["displayName","<anonymous extends='text'>","__LZCSSTagSelectors",["text","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzText.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wn"]}},$lzc$class__m2wn.attributes)
-}}})($lzc$class__m2wn)
-};lz.ClassAttributeTypes["$lzc$class__m2wo"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["OkButton"],{});{
-Class.make("$lzc$class__m2wo",["$m2vq",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2xa"]}},$lzc$class__m2xa.attributes)
+}}})($lzc$class__m2xa)
+};lz.ClassAttributeTypes["$lzc$class__m2xb"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["OkButton"],{});{
+Class.make("$lzc$class__m2xb",["$m2wd",function($0){
 var $1=gScreens.allowclick;if($1!==this["enabled"]||!this.inited){
 this.setAttribute("enabled",$1)
-}},"$m2vr",function(){
+}},"$m2we",function(){
 try{
 return [gScreens,"allowclick"]
 }
@@ -38930,7 +39145,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2vs",function($0){
+}},"$m2wf",function($0){
 gController.setAttribute("timeoutforpause",false);gScreens.clicked();gController.testTimedout()
 },"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -38947,13 +39162,13 @@ $3=false;
 }],$lzc$class_OkButton,["displayName","<anonymous extends='OkButton'>","__LZCSSTagSelectors",["OkButton","basebutton","basecomponent","view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash($lzc$class_OkButton.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wo"]}},$lzc$class__m2wo.attributes)
-}}})($lzc$class__m2wo)
-};lz.ClassAttributeTypes["$lzc$class__m2vu"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
-Class.make("$lzc$class__m2vu",["$m2sx",function($0){
+LzNode.mergeAttributes({$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2xb"]}},$lzc$class__m2xb.attributes)
+}}})($lzc$class__m2xb)
+};lz.ClassAttributeTypes["$lzc$class__m2wh"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class__m2wh",["$m2tk",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2sy",function(){
+}},"$m2tl",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -38961,10 +39176,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2sz",function($0){
+}},"$m2tm",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2t0",function(){
+}},"$m2tn",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -38984,7 +39199,7 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$delegates:["onxscale","$m2t9",null],align:"center",gView:void 0,height:new LzAlwaysExpr("$m2t1","$m2t2",null),name:"scalingView",valign:"middle",width:new LzAlwaysExpr("$m2t3","$m2t4",null),xscale:new LzAlwaysExpr("$m2t5","$m2t6",null),yscale:new LzAlwaysExpr("$m2t7","$m2t8",null)},"class":$lzc$class__m2vv},{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["timeoutDialog"]},$lzc$bind_id:function($0,$1){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$delegates:["onxscale","$m2tw",null],align:"center",gView:void 0,height:new LzAlwaysExpr("$m2to","$m2tp",null),name:"scalingView",valign:"middle",width:new LzAlwaysExpr("$m2tq","$m2tr",null),xscale:new LzAlwaysExpr("$m2ts","$m2tt",null),yscale:new LzAlwaysExpr("$m2tu","$m2tv",null)},"class":$lzc$class__m2wi},{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["timeoutDialog"]},$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -38993,16 +39208,16 @@ $1=true;
 $0.id="timeoutDialog";timeoutDialog=$0
 }else if(timeoutDialog===$0){
 timeoutDialog=null;$0.id=null
-}},bgcolor:6721972,height:160,id:"timeoutDialog",name:"timeoutDialog",pauseTimerMsg:void 0,title:" ",visible:false,width:400,x:470,y:20},children:[{attrs:{fgcolor:16777215,font:"CTB",fontsize:15,multiline:true,name:"pauseTimerMsg",text:"Your test has been Paused for more than the 20-minute time limit and has now ended. Click OK to close the session.",visible:false,width:new LzAlwaysExpr("$m2vo","$m2vp",null)},"class":$lzc$class__m2wn},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["view"]},align:"center",layout:{axis:"x",spacing:20},valign:"middle"},children:[{attrs:{$delegates:["onclick","$m2vs",null],clickable:true,enabled:new LzAlwaysExpr("$m2vq","$m2vr",null)},"class":$lzc$class__m2wo}],"class":LzView},{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},spacing:5},"class":$lzc$class_simplelayout}],"class":$lzc$class_modaldialog}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}},bgcolor:6721972,height:160,id:"timeoutDialog",name:"timeoutDialog",pauseTimerMsg:void 0,title:" ",visible:false,width:400,x:470,y:20},children:[{attrs:{fgcolor:16777215,font:"CTB",fontsize:15,multiline:true,name:"pauseTimerMsg",text:"Your test has been Paused for more than the 20-minute time limit and has now ended. Click OK to close the session.",visible:false,width:new LzAlwaysExpr("$m2wb","$m2wc",null)},"class":$lzc$class__m2xa},{attrs:{$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["view"]},align:"center",layout:{axis:"x",spacing:20},valign:"middle"},children:[{attrs:{$delegates:["onclick","$m2wf",null],clickable:true,enabled:new LzAlwaysExpr("$m2wd","$m2we",null)},"class":$lzc$class__m2xb}],"class":LzView},{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["simplelayout"]},spacing:5},"class":$lzc$class_simplelayout}],"class":$lzc$class_modaldialog}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2vu"]}},$lzc$class__m2vu.attributes)
-}}})($lzc$class__m2vu)
-};lz.ClassAttributeTypes["$lzc$class__m2vt"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
-Class.make("$lzc$class__m2vt",["$m2st",function($0){
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wh"]}},$lzc$class__m2wh.attributes)
+}}})($lzc$class__m2wh)
+};lz.ClassAttributeTypes["$lzc$class__m2wg"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{});{
+Class.make("$lzc$class__m2wg",["$m2tg",function($0){
 var $1=this.immediateparent.width;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2su",function(){
+}},"$m2th",function(){
 try{
 return [this.immediateparent,"width"]
 }
@@ -39010,10 +39225,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2sv",function($0){
+}},"$m2ti",function($0){
 var $1=this.immediateparent.height;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2sw",function(){
+}},"$m2tj",function(){
 try{
 return [this.immediateparent,"height"]
 }
@@ -39033,11 +39248,11 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{height:new LzAlwaysExpr("$m2sz","$m2t0",null),name:"mainView",scalingView:void 0,timeoutDialog:void 0,width:new LzAlwaysExpr("$m2sx","$m2sy",null)},"class":$lzc$class__m2vu}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{height:new LzAlwaysExpr("$m2tm","$m2tn",null),name:"mainView",scalingView:void 0,timeoutDialog:void 0,width:new LzAlwaysExpr("$m2tk","$m2tl",null)},"class":$lzc$class__m2wh}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2vt"]}},$lzc$class__m2vt.attributes)
-}}})($lzc$class__m2vt)
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wg"]}},$lzc$class__m2wg.attributes)
+}}})($lzc$class__m2wg)
 };canvas.LzInstantiateView({attrs:{$lzc$bind_name:function($0,$1){
 switch(arguments.length){
 case 1:
@@ -39047,13 +39262,13 @@ $1=true;
 titleView=$0
 }else if(titleView===$0){
 titleView=null
-}},height:new LzAlwaysExpr("$m2sv","$m2sw",null),mainView:void 0,name:"titleView",width:new LzAlwaysExpr("$m2st","$m2su",null)},"class":$lzc$class__m2vt},784);lz.ClassAttributeTypes["$lzc$class__m2wx"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{bg:"color",fg:"color",lastxpos:"number",lastypos:"number",magnifierOpen:"boolean"});{
-Class.make("$lzc$class__m2wx",["$m2wp",function($0){
+}},height:new LzAlwaysExpr("$m2ti","$m2tj",null),mainView:void 0,name:"titleView",width:new LzAlwaysExpr("$m2tg","$m2th",null)},"class":$lzc$class__m2wg},784);lz.ClassAttributeTypes["$lzc$class__m2xk"]=LzNode.mergeAttributeTypes(lz.ClassAttributeTypes["view"],{bg:"color",fg:"color",lastxpos:"number",lastypos:"number",magnifierOpen:"boolean"});{
+Class.make("$lzc$class__m2xk",["$m2xc",function($0){
 this.setAttribute("x",canvas.width/2-this.width/2)
-},"$m2wq",function($0){
+},"$m2xd",function($0){
 var $1=canvas.width/4;if($1!==this["width"]||!this.inited){
 this.setAttribute("width",$1)
-}},"$m2wr",function(){
+}},"$m2xe",function(){
 try{
 return [canvas,"width"]
 }
@@ -39061,10 +39276,10 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"$m2ws",function($0){
+}},"$m2xf",function($0){
 var $1=canvas.height/8;if($1!==this["height"]||!this.inited){
 this.setAttribute("height",$1)
-}},"$m2wt",function(){
+}},"$m2xg",function(){
 try{
 return [canvas,"height"]
 }
@@ -39072,7 +39287,7 @@ catch($lzsc$e){
 if(Error["$lzsc$isa"]?Error.$lzsc$isa($lzsc$e):$lzsc$e instanceof Error){
 lz.$lzsc$thrownError=$lzsc$e
 };throw $lzsc$e
-}},"dragger",void 0,"bg",void 0,"fg",void 0,"$m2ww",function($0){
+}},"dragger",void 0,"bg",void 0,"fg",void 0,"$m2xj",function($0){
 this.setAttribute("trackDel",new (lz.Delegate)(this,"magnify"))
 },"trackDel",void 0,"lastxpos",void 0,"lastypos",void 0,"isEnabled",void 0,"magnifierOpen",void 0,"setUpGlass",function(){},"hideGlass",function(){},"showGlass",function($0){},"magnify",function(){},"mouseMove",function(){},"$lzsc$initialize",function($0,$1,$2,$3){
 switch(arguments.length){
@@ -39086,15 +39301,15 @@ case 3:
 $3=false;
 
 };(arguments.callee["$superclass"]&&arguments.callee.$superclass.prototype["$lzsc$initialize"]||this.nextMethod(arguments.callee,"$lzsc$initialize")).call(this,$0,$1,$2,$3)
-}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["dragger"]},$m2wu:function($0){
+}],LzView,["displayName","<anonymous extends='view'>","children",[{attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["dragger"]},$m2xh:function($0){
 this.setAttribute("drag_max_x",canvas.width-this.width)
-},$m2wv:function($0){
+},$m2xi:function($0){
 this.setAttribute("drag_max_y",canvas.height-this.height)
-},drag_axis:"both",drag_max_x:new LzOnceExpr("$m2wu",null),drag_max_y:new LzOnceExpr("$m2wv",null),drag_min_x:0,drag_min_y:0,name:"dragger"},"class":$lzc$class_dragstate}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
+},drag_axis:"both",drag_max_x:new LzOnceExpr("$m2xh",null),drag_max_y:new LzOnceExpr("$m2xi",null),drag_min_x:0,drag_min_y:0,name:"dragger"},"class":$lzc$class_dragstate}],"__LZCSSTagSelectors",["view","node","$lfc$LzEventable","Instance"],"attributes",new LzInheritedHash(LzView.attributes)]);(function($0){
 with($0)with($0.prototype){
 {
-LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2wx"]}},$lzc$class__m2wx.attributes)
-}}})($lzc$class__m2wx)
+LzNode.mergeAttributes({$CSSDescriptor:{},$attributeDescriptor:{types:lz.ClassAttributeTypes["$lzc$class__m2xk"]}},$lzc$class__m2xk.attributes)
+}}})($lzc$class__m2xk)
 };canvas.LzInstantiateView({attrs:{$lzc$bind_id:function($0,$1){
 switch(arguments.length){
 case 1:
@@ -39113,7 +39328,7 @@ $1=true;
 magnifyingGlass=$0
 }else if(magnifyingGlass===$0){
 magnifyingGlass=null
-}},bg:8421504,dragger:void 0,fg:8421504,height:new LzAlwaysExpr("$m2ws","$m2wt",null),id:"gMagnifyingGlass",isEnabled:false,lastxpos:0,lastypos:0,magnifierOpen:true,name:"magnifyingGlass",trackDel:new LzOnceExpr("$m2ww",null),valign:"middle",visible:false,width:new LzAlwaysExpr("$m2wq","$m2wr",null),x:new LzOnceExpr("$m2wp",null)},"class":$lzc$class__m2wx},2);canvas.LzInstantiateView({attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["gDragRotateResizer"]},$lzc$bind_name:function($0,$1){
+}},bg:8421504,dragger:void 0,fg:8421504,height:new LzAlwaysExpr("$m2xf","$m2xg",null),id:"gMagnifyingGlass",isEnabled:false,lastxpos:0,lastypos:0,magnifierOpen:true,name:"magnifyingGlass",trackDel:new LzOnceExpr("$m2xj",null),valign:"middle",visible:false,width:new LzAlwaysExpr("$m2xd","$m2xe",null),x:new LzOnceExpr("$m2xc",null)},"class":$lzc$class__m2xk},2);canvas.LzInstantiateView({attrs:{$attributeDescriptor:{types:lz.ClassAttributeTypes["gDragRotateResizer"]},$lzc$bind_name:function($0,$1){
 switch(arguments.length){
 case 1:
 $1=true;
@@ -39122,4 +39337,4 @@ $1=true;
 gDragRotateResizer=$0
 }else if(gDragRotateResizer===$0){
 gDragRotateResizer=null
-}},name:"gDragRotateResizer"},"class":$lzc$class_ControlView},1);lz["basefocusview"]=$lzc$class_basefocusview;lz["focusoverlay"]=$lzc$class_focusoverlay;lz["_componentmanager"]=$lzc$class__componentmanager;lz["style"]=$lzc$class_style;lz["statictext"]=$lzc$class_statictext;lz["basecomponent"]=$lzc$class_basecomponent;lz["basebutton"]=$lzc$class_basebutton;lz["basebuttonrepeater"]=$lzc$class_basebuttonrepeater;lz["basevaluecomponent"]=$lzc$class_basevaluecomponent;lz["baseformitem"]=$lzc$class_baseformitem;lz["_newinternalinputtext"]=$lzc$class__newinternalinputtext;lz["baseedittext"]=$lzc$class_baseedittext;lz["selectionmanager"]=$lzc$class_selectionmanager;lz["listselector"]=$lzc$class_listselector;lz["dataselectionmanager"]=$lzc$class_dataselectionmanager;lz["datalistselector"]=$lzc$class_datalistselector;lz["baselist"]=$lzc$class_baselist;lz["baselistitem"]=$lzc$class_baselistitem;lz["basescrollbar"]=$lzc$class_basescrollbar;lz["basescrollthumb"]=$lzc$class_basescrollthumb;lz["basescrollarrow"]=$lzc$class_basescrollarrow;lz["basescrolltrack"]=$lzc$class_basescrolltrack;lz["swatchview"]=$lzc$class_swatchview;lz["button"]=$lzc$class_button;lz["dragstate"]=$lzc$class_dragstate;lz["baseslider"]=$lzc$class_baseslider;lz["baseslidertrack"]=$lzc$class_baseslidertrack;lz["basesliderthumb"]=$lzc$class_basesliderthumb;lz["resizestate"]=$lzc$class_resizestate;lz["resizestatemin"]=$lzc$class_resizestatemin;lz["basewindow"]=$lzc$class_basewindow;lz["multistatebutton"]=$lzc$class_multistatebutton;lz["layout"]=LzLayout;lz["stableborderlayout"]=$lzc$class_stableborderlayout;lz["resizeview_x"]=$lzc$class_resizeview_x;lz["resizeview_y"]=$lzc$class_resizeview_y;lz["html"]=$lzc$class_html;lz["bidi"]=$lzc$class_bidi;lz["_internalinputtext"]=$lzc$class__internalinputtext;lz["edittext"]=$lzc$class_edittext;lz["hscrollbar"]=$lzc$class_hscrollbar;lz["windowpanel"]=$lzc$class_windowpanel;lz["simplelayout"]=$lzc$class_simplelayout;lz["resizelayout"]=$lzc$class_resizelayout;lz["modaldialog"]=$lzc$class_modaldialog;lz["scrollbar"]=$lzc$class_scrollbar;lz["sliderthumb"]=$lzc$class_sliderthumb;lz["slidertrack"]=$lzc$class_slidertrack;lz["slider"]=$lzc$class_slider;lz["basetrackgroup"]=$lzc$class_basetrackgroup;lz["vscrollbar"]=$lzc$class_vscrollbar;lz["list"]=$lzc$class_list;lz["basefloatinglist"]=$lzc$class_basefloatinglist;lz["tooltip"]=$lzc$class_tooltip;lz["wrappinglayout"]=$lzc$class_wrappinglayout;lz["AbsoluteLayout"]=$lzc$class_AbsoluteLayout;lz["DynamicSimplelayout"]=$lzc$class_DynamicSimplelayout;lz["AnswerSelectionButton"]=$lzc$class_AnswerSelectionButton;lz["EnlargeButton"]=$lzc$class_EnlargeButton;lz["ctb_edittext"]=$lzc$class_ctb_edittext;lz["input_box"]=$lzc$class_input_box;lz["GridButton"]=$lzc$class_GridButton;lz["GridResponseCol"]=$lzc$class_GridResponseCol;lz["GridResponse"]=$lzc$class_GridResponse;lz["text_box"]=$lzc$class_text_box;lz["ComponentCache"]=$lzc$class_ComponentCache;lz["CachableComponent"]=$lzc$class_CachableComponent;lz["ResizeDrawview"]=$lzc$class_ResizeDrawview;lz["Highlight"]=$lzc$class_Highlight;lz["BaseCachablePanel"]=$lzc$class_BaseCachablePanel;lz["CachablePanel"]=$lzc$class_CachablePanel;lz["CachableAnswerAreaPanel"]=$lzc$class_CachableAnswerAreaPanel;lz["CachableAnswerAreaAbsolutePanel"]=$lzc$class_CachableAnswerAreaAbsolutePanel;lz["CachableAnswerChoice"]=$lzc$class_CachableAnswerChoice;lz["CachableSelector"]=$lzc$class_CachableSelector;lz["html5mediaview"]=$lzc$class_html5mediaview;lz["html5audioview"]=$lzc$class_html5audioview;lz["html5videoview"]=$lzc$class_html5videoview;lz["CachableInputTextField"]=$lzc$class_CachableInputTextField;lz["inlinewrappinglayout"]=$lzc$class_inlinewrappinglayout;lz["UnclippedText"]=$lzc$class_UnclippedText;lz["CachableTextField"]=$lzc$class_CachableTextField;lz["CachableImage"]=$lzc$class_CachableImage;lz["CachableScrollingText"]=$lzc$class_CachableScrollingText;lz["CachableScrollingTextPanel"]=$lzc$class_CachableScrollingTextPanel;lz["PanelTab"]=$lzc$class_PanelTab;lz["CachableTabsPanel"]=$lzc$class_CachableTabsPanel;lz["CachableTab"]=$lzc$class_CachableTab;lz["CachableTable"]=$lzc$class_CachableTable;lz["CachableTableCell"]=$lzc$class_CachableTableCell;lz["CachableSingleLineAnswer"]=$lzc$class_CachableSingleLineAnswer;lz["scrolledittext_CrItem"]=$lzc$class_scrolledittext_CrItem;lz["EnableDisableButton"]=$lzc$class_EnableDisableButton;lz["CachableMultiLineAnswer"]=$lzc$class_CachableMultiLineAnswer;lz["CachableRecorder"]=$lzc$class_CachableRecorder;lz["CachableGriddedResponsePanel"]=$lzc$class_CachableGriddedResponsePanel;lz["CachableGriddedResponse"]=$lzc$class_CachableGriddedResponse;lz["htmlnew"]=$lzc$class_htmlnew;lz["CachableHtmlWidget"]=$lzc$class_CachableHtmlWidget;lz["CachableAsset"]=$lzc$class_CachableAsset;lz["Question"]=$lzc$class_Question;lz["TestControls"]=$lzc$class_TestControls;lz["QuestionBarButton"]=$lzc$class_QuestionBarButton;lz["QuestionBar"]=$lzc$class_QuestionBar;lz["TimeStatus"]=$lzc$class_TimeStatus;lz["BaseManipulative"]=$lzc$class_BaseManipulative;lz["MovementLimiter"]=$lzc$class_MovementLimiter;lz["MouseBehavior"]=$lzc$class_MouseBehavior;lz["ControlHandle"]=$lzc$class_ControlHandle;lz["Protractor"]=$lzc$class_Protractor;lz["BaseRuler"]=$lzc$class_BaseRuler;lz["MaskingManipulative"]=$lzc$class_MaskingManipulative;lz["DragMixin"]=$lzc$class_DragMixin;lz["MaskingRuler"]=$lzc$class_MaskingRuler;lz["CachableRefCard"]=$lzc$class_CachableRefCard;lz["CachableCalcRefCard"]=$lzc$class_CachableCalcRefCard;lz["calcBaseButton"]=$lzc$class_calcBaseButton;lz["calcButton"]=$lzc$class_calcButton;lz["sciFuncCalcButton"]=$lzc$class_sciFuncCalcButton;lz["backspaceCalcButton"]=$lzc$class_backspaceCalcButton;lz["equalsCalcButton"]=$lzc$class_equalsCalcButton;lz["calculatorBaseButton"]=$lzc$class_calculatorBaseButton;lz["multiFaceCalculatorBaseButton"]=$lzc$class_multiFaceCalculatorBaseButton;lz["operatorCalculatorButton"]=$lzc$class_operatorCalculatorButton;lz["standardCalculatorButton"]=$lzc$class_standardCalculatorButton;lz["doubleCalculatorButton"]=$lzc$class_doubleCalculatorButton;lz["tripleCalculatorButton"]=$lzc$class_tripleCalculatorButton;lz["equalCalculatorButton"]=$lzc$class_equalCalculatorButton;lz["backspaceCalculatorButton"]=$lzc$class_backspaceCalculatorButton;lz["sciFunctCalculatorButton"]=$lzc$class_sciFunctCalculatorButton;lz["newNormalButton"]=$lzc$class_newNormalButton;lz["newBlackButton"]=$lzc$class_newBlackButton;lz["calculatorBase"]=$lzc$class_calculatorBase;lz["standardCalculator"]=$lzc$class_standardCalculator;lz["scientificCalculator"]=$lzc$class_scientificCalculator;lz["RefCard"]=$lzc$class_RefCard;lz["scrolledittextnew"]=$lzc$class_scrolledittextnew;lz["ResizeMixin"]=$lzc$class_ResizeMixin;lz["ScratchpadBaseWindow"]=$lzc$class_ScratchpadBaseWindow;lz["ScratchpadWindowPanel"]=$lzc$class_ScratchpadWindowPanel;lz["alert"]=$lzc$class_alert;lz["ScratchpadWindow"]=$lzc$class_ScratchpadWindow;lz["Scratchpad"]=$lzc$class_Scratchpad;lz["Manipulatives"]=$lzc$class_Manipulatives;lz["ManipulativeButton"]=$lzc$class_ManipulativeButton;lz["vol_sliderthumb"]=$lzc$class_vol_sliderthumb;lz["vol_slidertrack"]=$lzc$class_vol_slidertrack;lz["volume_slider"]=$lzc$class_volume_slider;lz["ScratchpadButton"]=$lzc$class_ScratchpadButton;lz["radiogroup_new"]=$lzc$class_radiogroup_new;lz["radiobutton"]=$lzc$class_radiobutton;lz["ManipulativeBar"]=$lzc$class_ManipulativeBar;lz["Tooltip"]=$lzc$class_Tooltip;lz["Orientation"]=$lzc$class_Orientation;lz["Point"]=$lzc$class_Point;lz["DragRotateResize"]=$lzc$class_DragRotateResize;lz["ControlView"]=$lzc$class_ControlView;lz["ItemInterface"]=$lzc$class_ItemInterface;lz["GoodbyeScreen"]=$lzc$class_GoodbyeScreen;lz["Sarsystem"]=$lzc$class_Sarsystem;lz["LargeCharacterDetector"]=$lzc$class_LargeCharacterDetector;lz["TextFieldHistory"]=$lzc$class_TextFieldHistory;lz["LoginButton"]=$lzc$class_LoginButton;lz["CancelButton"]=$lzc$class_CancelButton;lz["LoginFields"]=$lzc$class_LoginFields;lz["LoginScreen"]=$lzc$class_LoginScreen;lz["BackToLoginButton"]=$lzc$class_BackToLoginButton;lz["LoginErrorScreen"]=$lzc$class_LoginErrorScreen;lz["DownloadScreen"]=$lzc$class_DownloadScreen;lz["ContinueButton"]=$lzc$class_ContinueButton;lz["StartButton"]=$lzc$class_StartButton;lz["StopButton"]=$lzc$class_StopButton;lz["WelcomeScreen"]=$lzc$class_WelcomeScreen;lz["ComeBackLaterButton"]=$lzc$class_ComeBackLaterButton;lz["PauseScreen"]=$lzc$class_PauseScreen;lz["YesFinishedButton"]=$lzc$class_YesFinishedButton;lz["NoGoBackToTestButton"]=$lzc$class_NoGoBackToTestButton;lz["FinishScreen"]=$lzc$class_FinishScreen;lz["BackButton"]=$lzc$class_BackButton;lz["NextButton"]=$lzc$class_NextButton;lz["FeedbackScreen"]=$lzc$class_FeedbackScreen;lz["ExitButton"]=$lzc$class_ExitButton;lz["ErrorScreen"]=$lzc$class_ErrorScreen;lz["OkButton"]=$lzc$class_OkButton;lz["OutOfTimeScreen"]=$lzc$class_OutOfTimeScreen;lz["YesShowTheDemoAgainButton"]=$lzc$class_YesShowTheDemoAgainButton;lz["NoTakeMeStraightToTheTestButton"]=$lzc$class_NoTakeMeStraightToTheTestButton;lz["OptOutScreen"]=$lzc$class_OptOutScreen;lz["TimeOutScreen"]=$lzc$class_TimeOutScreen;lz["Frame"]=$lzc$class_Frame;lz["Screens"]=$lzc$class_Screens;lz["Tutorial"]=$lzc$class_Tutorial;lz["InSecurityScreen"]=$lzc$class_InSecurityScreen;lz["SecurityFrame"]=$lzc$class_SecurityFrame;lz["SecurityScreen"]=$lzc$class_SecurityScreen;lz["PauseTimerScreen"]=$lzc$class_PauseTimerScreen;lz["myclass"]=$lzc$class_myclass;canvas.initDone();
+}},name:"gDragRotateResizer"},"class":$lzc$class_ControlView},1);lz["basefocusview"]=$lzc$class_basefocusview;lz["focusoverlay"]=$lzc$class_focusoverlay;lz["_componentmanager"]=$lzc$class__componentmanager;lz["style"]=$lzc$class_style;lz["statictext"]=$lzc$class_statictext;lz["basecomponent"]=$lzc$class_basecomponent;lz["basebutton"]=$lzc$class_basebutton;lz["basebuttonrepeater"]=$lzc$class_basebuttonrepeater;lz["basevaluecomponent"]=$lzc$class_basevaluecomponent;lz["baseformitem"]=$lzc$class_baseformitem;lz["_newinternalinputtext"]=$lzc$class__newinternalinputtext;lz["baseedittext"]=$lzc$class_baseedittext;lz["selectionmanager"]=$lzc$class_selectionmanager;lz["listselector"]=$lzc$class_listselector;lz["dataselectionmanager"]=$lzc$class_dataselectionmanager;lz["datalistselector"]=$lzc$class_datalistselector;lz["baselist"]=$lzc$class_baselist;lz["baselistitem"]=$lzc$class_baselistitem;lz["basescrollbar"]=$lzc$class_basescrollbar;lz["basescrollthumb"]=$lzc$class_basescrollthumb;lz["basescrollarrow"]=$lzc$class_basescrollarrow;lz["basescrolltrack"]=$lzc$class_basescrolltrack;lz["swatchview"]=$lzc$class_swatchview;lz["button"]=$lzc$class_button;lz["dragstate"]=$lzc$class_dragstate;lz["baseslider"]=$lzc$class_baseslider;lz["baseslidertrack"]=$lzc$class_baseslidertrack;lz["basesliderthumb"]=$lzc$class_basesliderthumb;lz["resizestate"]=$lzc$class_resizestate;lz["resizestatemin"]=$lzc$class_resizestatemin;lz["basewindow"]=$lzc$class_basewindow;lz["multistatebutton"]=$lzc$class_multistatebutton;lz["layout"]=LzLayout;lz["stableborderlayout"]=$lzc$class_stableborderlayout;lz["resizeview_x"]=$lzc$class_resizeview_x;lz["resizeview_y"]=$lzc$class_resizeview_y;lz["html"]=$lzc$class_html;lz["bidi"]=$lzc$class_bidi;lz["_internalinputtext"]=$lzc$class__internalinputtext;lz["edittext"]=$lzc$class_edittext;lz["hscrollbar"]=$lzc$class_hscrollbar;lz["windowpanel"]=$lzc$class_windowpanel;lz["simplelayout"]=$lzc$class_simplelayout;lz["resizelayout"]=$lzc$class_resizelayout;lz["modaldialog"]=$lzc$class_modaldialog;lz["scrollbar"]=$lzc$class_scrollbar;lz["sliderthumb"]=$lzc$class_sliderthumb;lz["slidertrack"]=$lzc$class_slidertrack;lz["slider"]=$lzc$class_slider;lz["basetrackgroup"]=$lzc$class_basetrackgroup;lz["vscrollbar"]=$lzc$class_vscrollbar;lz["list"]=$lzc$class_list;lz["basefloatinglist"]=$lzc$class_basefloatinglist;lz["tooltip"]=$lzc$class_tooltip;lz["wrappinglayout"]=$lzc$class_wrappinglayout;lz["AbsoluteLayout"]=$lzc$class_AbsoluteLayout;lz["DynamicSimplelayout"]=$lzc$class_DynamicSimplelayout;lz["AnswerSelectionButton"]=$lzc$class_AnswerSelectionButton;lz["EnlargeButton"]=$lzc$class_EnlargeButton;lz["ctb_edittext"]=$lzc$class_ctb_edittext;lz["input_box"]=$lzc$class_input_box;lz["GridButton"]=$lzc$class_GridButton;lz["GridResponseCol"]=$lzc$class_GridResponseCol;lz["GridResponse"]=$lzc$class_GridResponse;lz["text_box"]=$lzc$class_text_box;lz["ComponentCache"]=$lzc$class_ComponentCache;lz["CachableComponent"]=$lzc$class_CachableComponent;lz["ResizeDrawview"]=$lzc$class_ResizeDrawview;lz["Highlight"]=$lzc$class_Highlight;lz["BaseCachablePanel"]=$lzc$class_BaseCachablePanel;lz["CachablePanel"]=$lzc$class_CachablePanel;lz["CachableAnswerAreaPanel"]=$lzc$class_CachableAnswerAreaPanel;lz["CachableAnswerAreaAbsolutePanel"]=$lzc$class_CachableAnswerAreaAbsolutePanel;lz["CachableAnswerChoice"]=$lzc$class_CachableAnswerChoice;lz["CachableSelector"]=$lzc$class_CachableSelector;lz["html5mediaview"]=$lzc$class_html5mediaview;lz["html5audioview"]=$lzc$class_html5audioview;lz["html5videoview"]=$lzc$class_html5videoview;lz["CachableInputTextField"]=$lzc$class_CachableInputTextField;lz["inlinewrappinglayout"]=$lzc$class_inlinewrappinglayout;lz["UnclippedText"]=$lzc$class_UnclippedText;lz["CachableTextField"]=$lzc$class_CachableTextField;lz["CachableImage"]=$lzc$class_CachableImage;lz["CachableScrollingText"]=$lzc$class_CachableScrollingText;lz["CachableScrollingTextPanel"]=$lzc$class_CachableScrollingTextPanel;lz["PanelTab"]=$lzc$class_PanelTab;lz["CachableTabsPanel"]=$lzc$class_CachableTabsPanel;lz["CachableTab"]=$lzc$class_CachableTab;lz["CachableTable"]=$lzc$class_CachableTable;lz["CachableTableCell"]=$lzc$class_CachableTableCell;lz["CachableSingleLineAnswer"]=$lzc$class_CachableSingleLineAnswer;lz["scrolledittext_CrItem"]=$lzc$class_scrolledittext_CrItem;lz["EnableDisableButton"]=$lzc$class_EnableDisableButton;lz["CachableMultiLineAnswer"]=$lzc$class_CachableMultiLineAnswer;lz["CachableRecorder"]=$lzc$class_CachableRecorder;lz["CachableGriddedResponsePanel"]=$lzc$class_CachableGriddedResponsePanel;lz["CachableGriddedResponse"]=$lzc$class_CachableGriddedResponse;lz["htmlnew"]=$lzc$class_htmlnew;lz["CachableHtmlWidget"]=$lzc$class_CachableHtmlWidget;lz["CachableAsset"]=$lzc$class_CachableAsset;lz["Question"]=$lzc$class_Question;lz["TestControls"]=$lzc$class_TestControls;lz["QuestionBarButton"]=$lzc$class_QuestionBarButton;lz["QuestionBar"]=$lzc$class_QuestionBar;lz["TimeStatus"]=$lzc$class_TimeStatus;lz["BaseManipulative"]=$lzc$class_BaseManipulative;lz["MovementLimiter"]=$lzc$class_MovementLimiter;lz["MouseBehavior"]=$lzc$class_MouseBehavior;lz["ControlHandle"]=$lzc$class_ControlHandle;lz["Protractor"]=$lzc$class_Protractor;lz["BaseRuler"]=$lzc$class_BaseRuler;lz["MaskingManipulative"]=$lzc$class_MaskingManipulative;lz["DragMixin"]=$lzc$class_DragMixin;lz["MaskingRuler"]=$lzc$class_MaskingRuler;lz["CachableRefCard"]=$lzc$class_CachableRefCard;lz["CachableCalcRefCard"]=$lzc$class_CachableCalcRefCard;lz["calcBaseButton"]=$lzc$class_calcBaseButton;lz["calcButton"]=$lzc$class_calcButton;lz["sciFuncCalcButton"]=$lzc$class_sciFuncCalcButton;lz["backspaceCalcButton"]=$lzc$class_backspaceCalcButton;lz["equalsCalcButton"]=$lzc$class_equalsCalcButton;lz["calculatorBaseButton"]=$lzc$class_calculatorBaseButton;lz["multiFaceCalculatorBaseButton"]=$lzc$class_multiFaceCalculatorBaseButton;lz["operatorCalculatorButton"]=$lzc$class_operatorCalculatorButton;lz["standardCalculatorButton"]=$lzc$class_standardCalculatorButton;lz["doubleCalculatorButton"]=$lzc$class_doubleCalculatorButton;lz["tripleCalculatorButton"]=$lzc$class_tripleCalculatorButton;lz["equalCalculatorButton"]=$lzc$class_equalCalculatorButton;lz["backspaceCalculatorButton"]=$lzc$class_backspaceCalculatorButton;lz["sciFunctCalculatorButton"]=$lzc$class_sciFunctCalculatorButton;lz["newNormalButton"]=$lzc$class_newNormalButton;lz["newBlackButton"]=$lzc$class_newBlackButton;lz["calculatorBase"]=$lzc$class_calculatorBase;lz["standardCalculator"]=$lzc$class_standardCalculator;lz["scientificCalculator"]=$lzc$class_scientificCalculator;lz["RefCard"]=$lzc$class_RefCard;lz["scrolledittextnew"]=$lzc$class_scrolledittextnew;lz["ResizeMixin"]=$lzc$class_ResizeMixin;lz["ScratchpadBaseWindow"]=$lzc$class_ScratchpadBaseWindow;lz["ScratchpadWindowPanel"]=$lzc$class_ScratchpadWindowPanel;lz["alert"]=$lzc$class_alert;lz["ScratchpadWindow"]=$lzc$class_ScratchpadWindow;lz["Scratchpad"]=$lzc$class_Scratchpad;lz["Manipulatives"]=$lzc$class_Manipulatives;lz["ManipulativeButton"]=$lzc$class_ManipulativeButton;lz["vol_sliderthumb"]=$lzc$class_vol_sliderthumb;lz["vol_slidertrack"]=$lzc$class_vol_slidertrack;lz["volume_slider"]=$lzc$class_volume_slider;lz["ScratchpadButton"]=$lzc$class_ScratchpadButton;lz["radiogroup_new"]=$lzc$class_radiogroup_new;lz["radiobutton"]=$lzc$class_radiobutton;lz["ManipulativeBar"]=$lzc$class_ManipulativeBar;lz["Tooltip"]=$lzc$class_Tooltip;lz["Orientation"]=$lzc$class_Orientation;lz["Point"]=$lzc$class_Point;lz["DragRotateResize"]=$lzc$class_DragRotateResize;lz["ControlView"]=$lzc$class_ControlView;lz["ItemInterface"]=$lzc$class_ItemInterface;lz["GoodbyeScreen"]=$lzc$class_GoodbyeScreen;lz["Sarsystem"]=$lzc$class_Sarsystem;lz["LargeCharacterDetector"]=$lzc$class_LargeCharacterDetector;lz["TextFieldHistory"]=$lzc$class_TextFieldHistory;lz["LoginButton"]=$lzc$class_LoginButton;lz["CancelButton"]=$lzc$class_CancelButton;lz["LoginFields"]=$lzc$class_LoginFields;lz["LoginScreen"]=$lzc$class_LoginScreen;lz["BackToLoginButton"]=$lzc$class_BackToLoginButton;lz["LoginErrorScreen"]=$lzc$class_LoginErrorScreen;lz["DownloadScreen"]=$lzc$class_DownloadScreen;lz["ContinueButton"]=$lzc$class_ContinueButton;lz["StartButton"]=$lzc$class_StartButton;lz["StopButton"]=$lzc$class_StopButton;lz["WelcomeScreen"]=$lzc$class_WelcomeScreen;lz["ComeBackLaterButton"]=$lzc$class_ComeBackLaterButton;lz["PauseScreen"]=$lzc$class_PauseScreen;lz["YesFinishedButton"]=$lzc$class_YesFinishedButton;lz["NoGoBackToTestButton"]=$lzc$class_NoGoBackToTestButton;lz["FinishScreen"]=$lzc$class_FinishScreen;lz["BackButton"]=$lzc$class_BackButton;lz["NextButton"]=$lzc$class_NextButton;lz["FeedbackScreen"]=$lzc$class_FeedbackScreen;lz["ExitButton"]=$lzc$class_ExitButton;lz["ErrorScreen"]=$lzc$class_ErrorScreen;lz["OkButton"]=$lzc$class_OkButton;lz["OutOfTimeScreen"]=$lzc$class_OutOfTimeScreen;lz["YesShowTheDemoAgainButton"]=$lzc$class_YesShowTheDemoAgainButton;lz["NoTakeMeStraightToTheTestButton"]=$lzc$class_NoTakeMeStraightToTheTestButton;lz["OptOutScreen"]=$lzc$class_OptOutScreen;lz["TimeOutScreen"]=$lzc$class_TimeOutScreen;lz["ProductCheckScreen"]=$lzc$class_ProductCheckScreen;lz["Frame"]=$lzc$class_Frame;lz["Screens"]=$lzc$class_Screens;lz["Tutorial"]=$lzc$class_Tutorial;lz["InSecurityScreen"]=$lzc$class_InSecurityScreen;lz["SecurityFrame"]=$lzc$class_SecurityFrame;lz["SecurityScreen"]=$lzc$class_SecurityScreen;lz["PauseTimerScreen"]=$lzc$class_PauseTimerScreen;lz["myclass"]=$lzc$class_myclass;canvas.initDone();
